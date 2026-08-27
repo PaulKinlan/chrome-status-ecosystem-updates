@@ -83,6 +83,12 @@ export function generateWeeklyMarkdown(reportData) {
     md += `- **Momentum:** **${a.momentumLevel}** (Activity Score: ${a.momentumScore})\n`;
     md += `- **Consensus:** **${a.consensus}**\n`;
     md += `- **Developer Sentiment:** **${a.sentiment}**\n`;
+    if (a.isGroundedWithGoogleSearch) {
+      md += `- **Google Search Grounding:** Enabled via Gemini\n`;
+    }
+    if (a.groundedQueries && a.groundedQueries.length > 0) {
+      md += `- **Search Queries:** ${a.groundedQueries.map(q => `\`"${q}"\``).join(', ')}\n`;
+    }
     md += `- **Analysis:** ${a.executiveSummary}\n\n`;
 
     if (a.takeaways && a.takeaways.length > 0) {

@@ -93,7 +93,7 @@ export async function gatherEcosystemData(feature) {
   // Execute external searches
   const webQuery = `"${feature.name}" API`;
   const [rawWebResults, rawHnResults, standardsResults, rawNpmResults, wptResult] = await Promise.all([
-    searchWeb(webQuery).catch(() => []),
+    searchWeb(webQuery, { feature }).catch(() => []),
     searchHackerNews(feature.name).catch(() => []),
     searchStandardsPositions(feature).catch(() => []),
     searchNpmEcosystem(feature).catch(() => []),

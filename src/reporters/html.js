@@ -673,6 +673,7 @@ export function generateDashboardHtml(reportData) {
                 <span class="badge \${momentumBadgeClass}">\${a.momentumLevel} Momentum</span>
                 <span class="badge \${consensusBadgeClass}">\${a.consensus}</span>
                 \${polyfillBadge}
+                \${a.isGroundedWithGoogleSearch ? '<span class="badge badge-primary" title="Grounded with live Google Search via Gemini">🌐 Google Search Grounded</span>' : ''}
               </div>
             </div>
 
@@ -680,6 +681,11 @@ export function generateDashboardHtml(reportData) {
 
             <div class="analysis-callout">
               <strong>💡 Takeaway:</strong> \${escapeHtml(a.executiveSummary)}
+              \${a.groundedQueries && a.groundedQueries.length ? \`
+                <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.45rem;">
+                  🔍 <strong>Google Search Grounding:</strong> \${a.groundedQueries.map(q => \`<em>"\${escapeHtml(q)}"</em>\`).join(', ')}
+                </div>
+              \` : ''}
             </div>
 
             <!-- Clickable Interactive Vendor Tiles -->

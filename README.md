@@ -120,14 +120,14 @@ cp .env.example .env
 | `FEATURE_STATUSES` | Filter by status: `enabled,origin-trial,flagged,deprecated` | all |
 | `MAX_FEATURES` | Cap number of features processed per run | (unlimited) |
 | `GITHUB_TOKEN` | GitHub Personal Access Token (boosts API limit from 60 to 5000/hr) | *(optional)* |
-| `SEARCH_PROVIDER` | Web search provider: `auto`, `tavily`, `google`, `brave`, `serper` | `auto` |
-| `TAVILY_API_KEY` | Tavily Search API key (recommended for web search) | *(optional)* |
+| `SEARCH_PROVIDER` | Web search provider: `auto`, `gemini`, `tavily`, `google`, `brave`, `serper` | `auto` |
+| `GEMINI_API_KEY` | Google Gemini API key (enables native Google Search Grounding & synthesis) | *(optional)* |
+| `TAVILY_API_KEY` | Tavily Search API key (alternative web search) | *(optional)* |
 | `GOOGLE_SEARCH_API_KEY` | Google Custom Search API Key | *(optional)* |
 | `GOOGLE_SEARCH_CX` | Google Custom Search Engine ID | *(optional)* |
 | `BRAVE_SEARCH_API_KEY` | Brave Search API key | *(optional)* |
 | `SERPER_API_KEY` | Serper.dev Google Search API key | *(optional)* |
-| `GEMINI_API_KEY` | Google Gemini API key for AI synthesis | *(optional)* |
-| `OPENAI_API_KEY` | OpenAI API key for AI synthesis | *(optional)* |
+| `OPENAI_API_KEY` | OpenAI API key (alternative AI synthesis) | *(optional)* |
 | `REPORTS_DIR` | Directory where reports are saved | `./reports` |
 | `PORT` | Local preview server port | `3000` |
 
