@@ -21,15 +21,16 @@ Many Javascript cryptography libraries fall back to WebCrypto when it is availab
 
 ## Ecosystem Status
 
-- **Momentum:** Moderate (60 points)
+- **Momentum:** High (90 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Cautiously Optimistic
-- **Executive Take:** Algorithm Updates in WebCrypto is currently Enabled by default in Chrome 154. Ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
+- **Sentiment:** Neutral
+- **Executive Take:** Algorithm Updates in WebCrypto is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and neutral developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
-- Firefox and Safari have not yet finalized positions. Use defensive feature detection (guarding with `if ("..." in window)`).
-- Community polyfill / package is available on npm for cross-browser progressive enhancement.
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Standards Activity (WebKit): Latest discussion from @twiss: "Hi :wave: Apologies for the late response, I was OOO until now.  And, thanks for the standards position!  Regarding Argon2: I think it would be reason..."
+- Standards Activity (Mozilla): Latest discussion from @martinthomson: "We generally view this neutrally.  The cryptographic primitives in this set are broadly good, though we have little cause to implement some of those i..."
+- Community package available: [webcrypto-shim](https://www.npmjs.com/package/webcrypto-shim) (v0.1.7) for progressive enhancement.
 
 ## Standards Positions
 
@@ -38,7 +39,10 @@ Many Javascript cryptography libraries fall back to WebCrypto when it is availab
 
 ## Packages & Polyfills
 
+- [webcrypto-shim](https://www.npmjs.com/package/webcrypto-shim) `v0.1.7` — Web Cryptography API shim for legacy browsers
+- [webcrypto-core](https://www.npmjs.com/package/webcrypto-core) `v1.9.2` — Common layer to be used by crypto libraries based on WebCrypto API for input validation.
 - [@peculiar/webcrypto](https://www.npmjs.com/package/@peculiar/webcrypto) `v1.7.1` — A WebCrypto Polyfill for NodeJS
+- [iron-webcrypto](https://www.npmjs.com/package/iron-webcrypto) `v2.0.0` — a cryptographic utility for sealing-unsealing a JSON object using symmetric key encryption with message integrity verification
 
 ## Useful Links
 

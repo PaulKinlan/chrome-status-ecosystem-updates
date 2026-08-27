@@ -1,4 +1,5 @@
 import { config } from '../config.js';
+import { fetchGitHubIssueComments, parseGitHubIssueUrl } from './content-fetcher.js';
 
 function getGitHubHeaders() {
   const headers = {
@@ -12,20 +13,10 @@ function getGitHubHeaders() {
 }
 
 /**
- * Parses GitHub issue URL into owner, repo, and issue number
- */
-function parseIssueUrl(url) {
-  if (!url) return null;
-  const match = url.match(/github\.com\/([^/]+)\/([^/]+)\/issues\/(\d+)/);
-  if (!match) return null;
-  return { owner: match[1], repo: match[2], issueNumber: match[3] };
-}
-
-/**
- * Fetches direct details of a known standards position issue
+ * Fetches direct details of a known standards position issue, including comment highlights
  */
 async function fetchDirectIssue(issueUrl, vendorName) {
-  const parsed = parseIssueUrl(issueUrl);
+  const parsed = parseGitHubIssueUrl(issueUrl);
   if (!parsed) return null;
 
   try {
@@ -35,6 +26,12 @@ async function fetchDirectIssue(issueUrl, vendorName) {
 
     const data = await res.json();
     const labels = (data.labels || []).map(l => (typeof l === 'string' ? l : l.name));
+
+    // Also fetch comments on the issue to understand true engineer stance
+    const comments = await fetchGitHubIssueComments(issueUrl);
+    const commentSummary = comments.length > 0
+      ? `Latest discussion from @${comments[comments.length - 1].author}: "${comments[comments.length - 1].body.slice(0, 150)}..."`
+      : null;
 
     return {
       source: `${vendorName} Standards Position`,
@@ -48,6 +45,8 @@ async function fetchDirectIssue(issueUrl, vendorName) {
       createdAt: data.created_at,
       updatedAt: data.updated_at,
       snippet: (data.body || '').slice(0, 300).replace(/\r?\n/g, ' '),
+      comments,
+      commentSummary,
     };
   } catch {
     return null;
@@ -67,9 +66,15 @@ async function searchRepoIssues(repo, query, vendorName) {
     const data = await res.json();
     const items = data.items || [];
 
-    return items.map(item => {
+    const results = [];
+    for (const item of items) {
       const labels = (item.labels || []).map(l => (typeof l === 'string' ? l : l.name));
-      return {
+      const comments = await fetchGitHubIssueComments(item.html_url);
+      const commentSummary = comments.length > 0
+        ? `Latest discussion from @${comments[comments.length - 1].author}: "${comments[comments.length - 1].body.slice(0, 150)}..."`
+        : null;
+
+      results.push({
         source: `${vendorName} Standards Position`,
         type: 'standards',
         vendor: vendorName,
@@ -81,8 +86,11 @@ async function searchRepoIssues(repo, query, vendorName) {
         createdAt: item.created_at,
         updatedAt: item.updated_at,
         snippet: (item.body || '').slice(0, 300).replace(/\r?\n/g, ' '),
-      };
-    });
+        comments,
+        commentSummary,
+      });
+    }
+    return results;
   } catch {
     return [];
   }

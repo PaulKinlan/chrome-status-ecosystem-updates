@@ -1,3 +1,5 @@
+import { fetchNpmPackageDetails } from './content-fetcher.js';
+
 /**
  * NPM Registry search client to detect community polyfills, packages, and typings
  */
@@ -30,29 +32,37 @@ export async function searchNpmEcosystem(feature) {
         const pkg = obj.package;
         if (!pkg || seenPackages.has(pkg.name)) continue;
 
-        // Check relevance
-        const nameMatch = pkg.name.toLowerCase().includes(q.toLowerCase().replace(/\s+/g, '-'));
-        const descMatch = (pkg.description || '').toLowerCase().includes(q.toLowerCase());
-        const isPolyfill = pkg.name.includes('polyfill') || (pkg.description || '').toLowerCase().includes('polyfill');
+        // Fetch rich package metadata to inspect README and keywords
+        const details = await fetchNpmPackageDetails(pkg.name);
+        const readme = details?.readmeSnippet || '';
+        const desc = pkg.description || '';
+        const fullDesc = `${desc} ${readme}`.toLowerCase();
 
-        if (nameMatch || descMatch || isPolyfill) {
-          seenPackages.add(pkg.name);
-          results.push({
-            source: 'NPM Registry',
-            type: 'package',
-            name: pkg.name,
-            version: pkg.version,
-            description: pkg.description || '',
-            url: pkg.links?.npm || `https://www.npmjs.com/package/${pkg.name}`,
-            isPolyfill,
-            publishedAt: pkg.date,
-          });
-        }
+        // Check if package is explicitly a polyfill, shim, or TypeScript definitions
+        const isPolyfill = pkg.name.includes('polyfill') ||
+          fullDesc.includes('polyfill') ||
+          fullDesc.includes('shim') ||
+          pkg.name.startsWith('@types/');
+
+        seenPackages.add(pkg.name);
+        results.push({
+          source: 'NPM Registry',
+          type: 'package',
+          name: pkg.name,
+          version: pkg.version,
+          description: pkg.description || '',
+          url: pkg.links?.npm || `https://www.npmjs.com/package/${pkg.name}`,
+          isPolyfill,
+          publishedAt: pkg.date,
+          readmeSnippet: readme,
+          homepage: details?.homepage || null,
+          repository: details?.repository || null,
+        });
       }
     } catch {
       // Continue to next query
     }
   }
 
-  return results.slice(0, 5);
+  return results.slice(0, 8);
 }

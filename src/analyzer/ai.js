@@ -1,37 +1,57 @@
 import { config } from '../config.js';
 
 /**
- * AI-assisted ecosystem synthesis using Google Gemini or OpenAI
+ * AI-assisted ecosystem synthesis using Google Gemini or OpenAI,
+ * deeply informed by verified linked resources, standards comments, and explainers.
  */
 export async function synthesizeWithAI(feature, ecosystemData, heuristicAnalysis) {
   if (!config.geminiApiKey && !config.openaiApiKey) {
     return null;
   }
 
+  // Format standards comments
+  const standardsSummary = (ecosystemData.standards || []).map(s => {
+    let text = `${s.vendor}: "${s.title}" [State: ${s.state}, Labels: ${(s.labels || []).join(', ')}]`;
+    if (s.commentSummary) {
+      text += ` (${s.commentSummary})`;
+    }
+    return text;
+  }).join('\n- ');
+
+  // Format explainer snippets
+  const explainers = (ecosystemData.resources || [])
+    .filter(r => r.type === 'explainer' && r.snippet)
+    .map(r => `"${r.title}": ${r.snippet}`)
+    .join('\n- ');
+
   const prompt = `You are a Senior Web Standards and Developer Relations analyst.
-Analyze the following Web Platform feature and recent ecosystem findings, then provide a concise synthesis.
+Analyze the following Web Platform feature and verified ecosystem findings (including comments from browser engine issue trackers), then provide a concise, rigorous synthesis.
 
 Feature Name: ${feature.name}
 Milestone / Status: Chrome ${feature.milestone || ''} (${feature.category})
 Summary: ${feature.summary}
 Motivation: ${feature.motivation || 'N/A'}
 Spec Link: ${feature.specUrl || 'N/A'}
-Firefox Signal: ${feature.browsers?.firefox?.view || 'Unknown'}
-Safari Signal: ${feature.browsers?.safari?.view || 'Unknown'}
 
-Ecosystem Findings:
-- Community Discussions: ${ecosystemData.discussions.map(d => `"${d.title}" (${d.points} pts, ${d.commentsCount} comments)`).join('; ') || 'None found'}
-- Standards Positions: ${ecosystemData.standards.map(s => `${s.vendor}: ${s.title} [State: ${s.state}, Labels: ${(s.labels || []).join(', ')}]`).join('; ') || 'None found'}
-- NPM Packages: ${ecosystemData.packages.map(p => `${p.name} (v${p.version})`).join(', ') || 'None found'}
-- Web Articles/Docs: ${ecosystemData.articles.map(a => `"${a.title}" on ${a.domain || a.source}`).join('; ') || 'None found'}
+Inspected Linked Standards Discussions:
+- ${standardsSummary || 'No formal standards issues found'}
+
+Explainer & Documentation Excerpts:
+- ${explainers || 'No explainer text excerpted'}
+
+Verified Community Discussions (Hacker News):
+- ${ecosystemData.discussions.map(d => `"${d.title}" (${d.points} pts, ${d.commentsCount} comments)`).join('\n- ') || 'No verified discussions found'}
+
+Verified Polyfills / NPM Packages:
+- ${ecosystemData.packages.map(p => `${p.name} (v${p.version}) - ${p.description}`).join('\n- ') || 'No polyfills found'}
 
 Return valid JSON with exactly these keys:
 {
-  "executiveSummary": "2-3 crisp sentences on where this API stands in the ecosystem and developer perception",
-  "communityPulse": "1-2 sentences summarizing developer sentiment and main discussions or controversies",
-  "browserAlignmentSummary": "1-2 sentences summarizing Safari/Firefox/W3C alignment",
-  "developerActionableAdvice": "1-2 sentences on what developers or web teams should do today regarding this feature",
-  "sentiment": "Positive" | "Cautious" | "Mixed" | "Opposed" | "Neutral"
+  "executiveSummary": "2-3 crisp sentences on where this API stands in the ecosystem, developer perception, and current engine consensus",
+  "communityPulse": "1-2 sentences summarizing developer sentiment and discussions",
+  "browserAlignmentSummary": "1-2 sentences summarizing Safari/WebKit and Firefox/Gecko engineers' comments and current posture",
+  "developerActionableAdvice": "1-2 sentences on what web development teams should do today regarding this feature (progressive enhancement, wait, test in flags, etc.)",
+  "sentiment": "Positive" | "Cautiously Optimistic" | "Mixed / Skeptical" | "Opposed" | "Neutral"
 }`;
 
   if (config.geminiApiKey) {
@@ -72,7 +92,7 @@ Return valid JSON with exactly these keys:
         body: JSON.stringify({
           model: 'gpt-4o-mini',
           messages: [
-            { role: 'system', content: 'You are a web platform ecosystem analyst. Respond with JSON.' },
+            { role: 'system', content: 'You are a web standards analyst. Respond with JSON.' },
             { role: 'user', content: prompt },
           ],
           response_format: { type: 'json_object' },

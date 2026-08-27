@@ -1,11 +1,12 @@
 /**
  * Heuristic Ecosystem Analyzer
- * Evaluates ecosystem momentum, browser consensus, community engagement, and developer readiness.
+ * Evaluates ecosystem momentum, browser consensus, community engagement, and developer readiness
+ * based strictly on verified ecosystem findings and inspected linked resources.
  */
 export function analyzeEcosystemData(feature, ecosystemData) {
-  const { metrics, discussions, standards, packages, articles, resources } = ecosystemData;
+  const { metrics, discussions, standards, packages, articles, resources, verifiedPolyfill } = ecosystemData;
 
-  // 1. Calculate Momentum Score & Level
+  // 1. Calculate Momentum Score based on verified signals
   let momentumScore = 0;
   momentumScore += (metrics.hnPoints || 0) * 1.5;
   momentumScore += (metrics.hnComments || 0) * 2;
@@ -24,7 +25,7 @@ export function analyzeEcosystemData(feature, ecosystemData) {
     momentumLevel = 'Emerging';
   }
 
-  // 2. Evaluate Browser Alignment & Consensus
+  // 2. Evaluate Browser Alignment & Consensus from standards positions and comments
   const ffSignal = (feature.browsers?.firefox?.view || 'No signal').toLowerCase();
   const safariSignal = (feature.browsers?.safari?.view || 'No signal').toLowerCase();
 
@@ -33,9 +34,9 @@ export function analyzeEcosystemData(feature, ecosystemData) {
   const isSafariPositive = safariSignal.includes('support') || safariSignal.includes('positive');
   const isSafariNegative = safariSignal.includes('oppose') || safariSignal.includes('negative');
 
-  // Check standards position labels from GitHub issues
+  // Check standards position labels and comment highlights from GitHub issues
   const allLabels = standards.flatMap(s => s.labels || []).map(l => l.toLowerCase());
-  const hasSecurityConcerns = allLabels.some(l => l.includes('security') || l.includes('privacy') || l.includes('fingerprint'));
+  const hasSecurityConcerns = allLabels.some(l => l.includes('security') || l.includes('privacy') || l.includes('fingerprint') || l.includes('concerns'));
   const hasOpposeLabel = allLabels.some(l => l.includes('oppose') || l.includes('negative'));
 
   let consensus = 'Pending Signals';
@@ -49,7 +50,7 @@ export function analyzeEcosystemData(feature, ecosystemData) {
     consensus = 'Chromium-Led';
   }
 
-  // 3. Developer Readiness & Sentiment
+  // 3. Developer Sentiment
   let sentiment = 'Neutral';
   if (isFfNegative || isSafariNegative || hasOpposeLabel) {
     sentiment = 'Mixed / Skeptical';
@@ -59,34 +60,42 @@ export function analyzeEcosystemData(feature, ecosystemData) {
     sentiment = 'Cautiously Optimistic';
   }
 
-  // 4. Generate Key Insights & Recommendations
+  // 4. Generate Key Insights & Recommendations informed by linked resources
   const takeaways = [];
 
   if (feature.statusType === 'enabled') {
-    takeaways.push(`Shipping enabled by default in Chrome ${feature.milestone || ''}. Developers can begin adopting in production with appropriate feature detection.`);
+    takeaways.push(`Shipping enabled by default in Chrome ${feature.milestone || ''}. Developers can begin adopting in production with progressive feature detection.`);
   } else if (feature.statusType === 'origin-trial') {
-    takeaways.push(`In active Origin Trial. Teams are testing API ergonomics and providing feedback before wide general availability.`);
+    takeaways.push(`In active Origin Trial in Chrome ${feature.milestone || ''}. Validate API ergonomics in staging/pilot environments before general availability.`);
   } else if (feature.statusType === 'deprecated') {
-    takeaways.push(`Marked for deprecation in Chrome ${feature.milestone || ''}. Audit codebases and migrate to modern alternatives.`);
+    takeaways.push(`Marked for deprecation in Chrome ${feature.milestone || ''}. Audit codebases and migrate to modern standard alternatives.`);
   }
 
-  if (consensus === 'Chromium-Led') {
-    takeaways.push('Firefox and Safari have not yet finalized positions. Use defensive feature detection (guarding with `if ("..." in window)`).');
+  // Incorporate standards issue comments if inspected
+  const standardsWithComments = standards.filter(s => s.commentSummary);
+  if (standardsWithComments.length > 0) {
+    for (const std of standardsWithComments.slice(0, 2)) {
+      takeaways.push(`Standards Activity (${std.vendor}): ${std.commentSummary}`);
+    }
+  } else if (consensus === 'Chromium-Led') {
+    takeaways.push('Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.');
   } else if (consensus === 'Contested / Concerns Raised') {
     takeaways.push('Non-Chromium browser vendors have raised architectural, security, or privacy considerations in standards position trackers.');
   } else if (consensus === 'Multi-Engine Consensus') {
     takeaways.push('Strong multi-vendor alignment across Chromium, Gecko, and WebKit indicating high likelihood of eventual web baseline.');
   }
 
-  if (metrics.hasPolyfill) {
-    takeaways.push('Community polyfill / package is available on npm for cross-browser progressive enhancement.');
+  // Polyfill status from verified NPM packages
+  if (verifiedPolyfill) {
+    takeaways.push(`Community package available: [${verifiedPolyfill.name}](${verifiedPolyfill.url}) (v${verifiedPolyfill.version}) for progressive enhancement.`);
   } else {
-    takeaways.push('No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.');
+    takeaways.push('No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.');
   }
 
+  // Verified discussions
   if (discussions.length > 0) {
     const topDiscussion = discussions[0];
-    takeaways.push(`Active developer discussion on Hacker News: "${topDiscussion.title}" (${topDiscussion.points} points, ${topDiscussion.commentsCount} comments).`);
+    takeaways.push(`Verified community discussion on Hacker News: "${topDiscussion.title}" (${topDiscussion.points} points, ${topDiscussion.commentsCount} comments).`);
   }
 
   return {
@@ -96,6 +105,7 @@ export function analyzeEcosystemData(feature, ecosystemData) {
     sentiment,
     hasSecurityConcerns,
     takeaways,
-    executiveSummary: `${feature.name} is currently ${feature.category} in Chrome ${feature.milestone || ''}. Ecosystem momentum is ${momentumLevel} with ${consensus} standards alignment and ${sentiment.toLowerCase()} developer pulse.`,
+    verifiedPolyfill,
+    executiveSummary: `${feature.name} is currently ${feature.category} in Chrome ${feature.milestone || ''}. Verified ecosystem momentum is ${momentumLevel} with ${consensus} standards alignment and ${sentiment.toLowerCase()} developer pulse.`,
   };
 }

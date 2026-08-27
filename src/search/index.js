@@ -3,6 +3,8 @@ import { searchStandardsPositions } from './standards.js';
 import { searchNpmEcosystem } from './npm.js';
 import { searchWpt } from './wpt.js';
 import { searchWeb, extractDomain } from './web.js';
+import { fetchExplainerSummary } from './content-fetcher.js';
+import { filterRelevantItems } from './verifier.js';
 
 /**
  * Normalizes and strips tracking parameters from URLs for deduplication
@@ -21,15 +23,13 @@ function cleanUrl(rawUrl) {
 }
 
 /**
- * Searches the web and developer ecosystem for activity around an API/feature
+ * Searches the web and developer ecosystem for activity around an API/feature,
+ * deeply inspecting linked resources and strictly verifying relevance.
  */
 export async function gatherEcosystemData(feature) {
   const seenUrls = new Set();
-  const articles = [];
-  const discussions = [];
-  const standards = [];
-  const packages = [];
   const resources = [];
+  const candidateArticles = [];
 
   // Register feature's own spec & explainer links
   if (feature.specUrl) {
@@ -48,12 +48,15 @@ export async function gatherEcosystemData(feature) {
     const cleaned = cleanUrl(expUrl);
     if (!seenUrls.has(cleaned)) {
       seenUrls.add(cleaned);
+      // Fetch explainer content snippet
+      const explainerSnippet = await fetchExplainerSummary(expUrl);
       resources.push({
         source: 'Explainer',
         type: 'explainer',
         title: `${feature.name} Explainer`,
         url: expUrl,
         domain: extractDomain(expUrl),
+        snippet: explainerSnippet || '',
       });
     }
   }
@@ -62,12 +65,13 @@ export async function gatherEcosystemData(feature) {
     const cleaned = cleanUrl(docUrl);
     if (!seenUrls.has(cleaned)) {
       seenUrls.add(cleaned);
-      articles.push({
+      candidateArticles.push({
         source: 'Documentation',
         type: 'article',
         title: `${feature.name} Documentation`,
         url: docUrl,
         domain: extractDomain(docUrl),
+        isOfficialDoc: true,
       });
     }
   }
@@ -86,9 +90,9 @@ export async function gatherEcosystemData(feature) {
     }
   }
 
-  // 1. Web Search
+  // Execute external searches
   const webQuery = `"${feature.name}" API`;
-  const [webResults, hnResults, standardsResults, npmResults, wptResult] = await Promise.all([
+  const [rawWebResults, rawHnResults, standardsResults, rawNpmResults, wptResult] = await Promise.all([
     searchWeb(webQuery).catch(() => []),
     searchHackerNews(feature.name).catch(() => []),
     searchStandardsPositions(feature).catch(() => []),
@@ -96,62 +100,50 @@ export async function gatherEcosystemData(feature) {
     searchWpt(feature).catch(() => null),
   ]);
 
-  // Aggregate Web results
-  for (const item of webResults) {
+  // Merge web search candidates
+  for (const item of rawWebResults) {
     const cleaned = cleanUrl(item.url);
     if (!seenUrls.has(cleaned)) {
       seenUrls.add(cleaned);
-      articles.push(item);
+      candidateArticles.push(item);
     }
   }
 
-  // Aggregate Hacker News results
-  for (const item of hnResults) {
-    const cleaned = cleanUrl(item.discussionUrl);
-    if (!seenUrls.has(cleaned)) {
-      seenUrls.add(cleaned);
-      discussions.push(item);
-    }
-  }
+  // STRICT RELEVANCE VERIFICATION
+  // Filter out false positives (e.g. Unicode symbol tools for CSS symbols(), or OpenAPI tools for Web Install API)
+  const [verifiedDiscussions, verifiedArticles, verifiedPackages] = await Promise.all([
+    filterRelevantItems(feature, rawHnResults),
+    filterRelevantItems(feature, candidateArticles),
+    filterRelevantItems(feature, rawNpmResults),
+  ]);
 
-  // Aggregate Standards Positions
-  for (const item of standardsResults) {
-    const cleaned = cleanUrl(item.url);
-    if (!seenUrls.has(cleaned)) {
-      seenUrls.add(cleaned);
-      standards.push(item);
-    }
-  }
+  // Standards positions from WebKit/Mozilla/TAG issues (already queried with feature name and direct URLs)
+  const standards = standardsResults;
 
-  // Aggregate NPM Packages
-  for (const item of npmResults) {
-    const cleaned = cleanUrl(item.url);
-    if (!seenUrls.has(cleaned)) {
-      seenUrls.add(cleaned);
-      packages.push(item);
-    }
-  }
+  // Identify true polyfills
+  const verifiedPolyfill = verifiedPackages.find(p => p.isPolyfill) || null;
+  const hasPolyfill = !!verifiedPolyfill;
 
-  // Metrics rollup
-  const totalHnPoints = discussions.reduce((acc, d) => acc + (d.points || 0), 0);
-  const totalHnComments = discussions.reduce((acc, d) => acc + (d.commentsCount || 0), 0);
-  const hasPolyfill = packages.some(p => p.isPolyfill);
+  // Metrics rollup based ONLY on verified findings
+  const totalHnPoints = verifiedDiscussions.reduce((acc, d) => acc + (d.points || 0), 0);
+  const totalHnComments = verifiedDiscussions.reduce((acc, d) => acc + (d.commentsCount || 0), 0);
 
   return {
     featureId: feature.id,
     featureName: feature.name,
     gatheredAt: new Date().toISOString(),
-    articles,
-    discussions,
+    articles: verifiedArticles,
+    discussions: verifiedDiscussions,
     standards,
-    packages,
+    packages: verifiedPackages,
     resources,
     wpt: wptResult,
+    verifiedPolyfill,
     metrics: {
-      totalArticles: articles.length,
-      totalDiscussions: discussions.length,
+      totalArticles: verifiedArticles.length,
+      totalDiscussions: verifiedDiscussions.length,
       totalStandardsPositions: standards.length,
-      totalPackages: packages.length,
+      totalPackages: verifiedPackages.length,
       hnPoints: totalHnPoints,
       hnComments: totalHnComments,
       hasPolyfill,

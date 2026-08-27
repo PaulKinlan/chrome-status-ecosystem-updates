@@ -15,40 +15,58 @@ export function generateDashboardHtml(reportData) {
   <meta name="description" content="Weekly Web Platform & API Ecosystem Intelligence Report">
   <style>
     :root {
-      --bg: #0d1117;
-      --surface: #161b22;
-      --surface-hover: #1f242c;
-      --border: #30363d;
-      --text: #c9d1d9;
-      --text-bright: #f0f6fc;
-      --text-muted: #8b949e;
-      --primary: #58a6ff;
-      --primary-hover: #79b8ff;
-      --success: #3fb950;
-      --warning: #d29922;
-      --danger: #f85149;
-      --purple: #bc8cff;
-      --card-radius: 12px;
+      --bg: #090d13;
+      --bg-subtle: #0f141c;
+      --surface: #151b26;
+      --surface-hover: #1c2433;
+      --surface-active: #232d3f;
+      --border: #283344;
+      --border-focus: #3d82e6;
+      --text: #cbd5e1;
+      --text-bright: #f8fafc;
+      --text-muted: #8190a6;
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.15);
+      --success: #34d399;
+      --success-glow: rgba(52, 211, 153, 0.15);
+      --warning: #fbbf24;
+      --warning-glow: rgba(251, 191, 36, 0.15);
+      --danger: #f87171;
+      --danger-glow: rgba(248, 113, 113, 0.15);
+      --purple: #c084fc;
+      --purple-glow: rgba(192, 132, 252, 0.15);
+      --card-radius: 14px;
       --pill-radius: 999px;
-      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, -apple-system, sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
     }
 
     @media (prefers-color-scheme: light) {
       :root {
-        --bg: #f6f8fa;
+        --bg: #f8fafc;
+        --bg-subtle: #f1f5f9;
         --surface: #ffffff;
-        --surface-hover: #f3f4f6;
-        --border: #d0d7de;
-        --text: #24292f;
-        --text-bright: #0969da;
-        --text-muted: #57606a;
-        --primary: #0969da;
-        --primary-hover: #0550ae;
-        --success: #1a7f37;
-        --warning: #9a6700;
-        --danger: #cf222e;
-        --purple: #8250df;
+        --surface-hover: #f8fafc;
+        --surface-active: #f1f5f9;
+        --border: #e2e8f0;
+        --border-focus: #0284c7;
+        --text: #334155;
+        --text-bright: #0f172a;
+        --text-muted: #64748b;
+        --primary: #0284c7;
+        --primary-glow: rgba(2, 132, 199, 0.1);
+        --success: #059669;
+        --success-glow: rgba(5, 150, 105, 0.1);
+        --warning: #d97706;
+        --warning-glow: rgba(217, 119, 6, 0.1);
+        --danger: #dc2626;
+        --danger-glow: rgba(220, 38, 38, 0.1);
+        --purple: #9333ea;
+        --purple-glow: rgba(147, 51, 234, 0.1);
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
       }
     }
 
@@ -58,77 +76,92 @@ export function generateDashboardHtml(reportData) {
       color: var(--text);
       font-family: var(--font-sans);
       line-height: 1.6;
-      padding-bottom: 80px;
+      padding-bottom: 90px;
+      -webkit-font-smoothing: antialiased;
     }
 
-    a { color: var(--primary); text-decoration: none; }
+    a { color: var(--primary); text-decoration: none; transition: color 0.15s ease; }
     a:hover { text-decoration: underline; }
 
     header {
-      background-color: var(--surface);
+      background: linear-gradient(180deg, var(--bg-subtle) 0%, var(--surface) 100%);
       border-bottom: 1px solid var(--border);
-      padding: 2rem 1.5rem;
+      padding: 2.25rem 1.5rem;
       margin-bottom: 2rem;
     }
 
     .header-container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
+      gap: 1.25rem;
     }
 
     .title-area h1 {
       color: var(--text-bright);
-      font-size: 1.8rem;
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.65rem;
     }
 
     .title-area p {
       color: var(--text-muted);
       font-size: 0.95rem;
-      margin-top: 0.25rem;
+      margin-top: 0.35rem;
     }
 
     .header-badges {
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
+      align-items: center;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      padding: 0.25rem 0.65rem;
+      gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
       border-radius: var(--pill-radius);
       font-size: 0.8rem;
       font-weight: 600;
       border: 1px solid var(--border);
       background: var(--surface);
       color: var(--text);
+      transition: all 0.15s ease;
     }
 
-    .badge-primary { background: rgba(88, 166, 255, 0.15); color: var(--primary); border-color: rgba(88, 166, 255, 0.3); }
-    .badge-success { background: rgba(63, 185, 80, 0.15); color: var(--success); border-color: rgba(63, 185, 80, 0.3); }
-    .badge-warning { background: rgba(210, 153, 34, 0.15); color: var(--warning); border-color: rgba(210, 153, 34, 0.3); }
-    .badge-danger { background: rgba(248, 81, 73, 0.15); color: var(--danger); border-color: rgba(248, 81, 73, 0.3); }
-    .badge-purple { background: rgba(188, 140, 255, 0.15); color: var(--purple); border-color: rgba(188, 140, 255, 0.3); }
+    .badge-link {
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .badge-link:hover {
+      text-decoration: none;
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+    }
+
+    .badge-primary { background: var(--primary-glow); color: var(--primary); border-color: rgba(56, 189, 248, 0.3); }
+    .badge-success { background: var(--success-glow); color: var(--success); border-color: rgba(52, 211, 153, 0.3); }
+    .badge-warning { background: var(--warning-glow); color: var(--warning); border-color: rgba(251, 191, 36, 0.3); }
+    .badge-danger  { background: var(--danger-glow);  color: var(--danger);  border-color: rgba(248, 113, 113, 0.3); }
+    .badge-purple  { background: var(--purple-glow);  color: var(--purple);  border-color: rgba(192, 132, 252, 0.3); }
 
     .main-container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
       padding: 0 1.5rem;
     }
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1rem;
       margin-bottom: 2rem;
     }
@@ -137,36 +170,42 @@ export function generateDashboardHtml(reportData) {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--card-radius);
-      padding: 1.25rem;
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow-sm);
     }
 
     .stat-card .num {
-      font-size: 2rem;
-      font-weight: 700;
+      font-size: 2.2rem;
+      font-weight: 800;
       color: var(--text-bright);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
     }
 
     .stat-card .label {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      margin-top: 0.35rem;
     }
 
     .controls-bar {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--card-radius);
-      padding: 1rem;
+      padding: 1.25rem;
       margin-bottom: 2rem;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
     }
 
     .search-row {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
 
     .search-input {
@@ -174,10 +213,11 @@ export function generateDashboardHtml(reportData) {
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 0.65rem 1rem;
+      padding: 0.75rem 1.1rem;
       color: var(--text-bright);
       font-size: 0.95rem;
       outline: none;
+      transition: border-color 0.15s ease;
     }
 
     .search-input:focus {
@@ -193,49 +233,56 @@ export function generateDashboardHtml(reportData) {
 
     .filter-label {
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-muted);
       margin-right: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .filter-btn {
-      background: transparent;
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: var(--pill-radius);
-      padding: 0.25rem 0.75rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      padding: 0.3rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text);
       cursor: pointer;
       transition: all 0.15s ease;
     }
 
     .filter-btn:hover {
       background: var(--surface-hover);
-      color: var(--text);
+      color: var(--text-bright);
+      border-color: var(--text-muted);
     }
 
     .filter-btn.active {
       background: var(--primary);
-      color: #ffffff;
+      color: #090d13;
+      font-weight: 700;
       border-color: var(--primary);
     }
 
     .feature-list {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1.5rem;
     }
 
     .feature-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--card-radius);
-      padding: 1.5rem;
-      transition: border-color 0.15s ease;
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .feature-card:hover {
-      border-color: var(--primary);
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: var(--shadow-md);
     }
 
     .feature-header {
@@ -243,111 +290,198 @@ export function generateDashboardHtml(reportData) {
       justify-content: space-between;
       align-items: flex-start;
       gap: 1rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.85rem;
       flex-wrap: wrap;
     }
 
     .feature-title {
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       color: var(--text-bright);
       font-weight: 700;
+      letter-spacing: -0.01em;
     }
 
     .feature-badges {
       display: flex;
-      gap: 0.4rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
     }
 
     .feature-summary {
       color: var(--text);
       font-size: 0.95rem;
-      margin-bottom: 1rem;
+      line-height: 1.65;
+      margin-bottom: 1.15rem;
     }
 
     .analysis-callout {
       background: var(--bg);
       border-left: 3px solid var(--primary);
-      padding: 0.85rem 1rem;
-      border-radius: 4px;
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
+      padding: 0.9rem 1.1rem;
+      border-radius: 6px;
+      margin-bottom: 1.25rem;
+      font-size: 0.92rem;
+      color: var(--text);
     }
 
-    .vendors-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
-
-    .vendor-box {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.5rem 0.75rem;
-      font-size: 0.85rem;
-    }
-
-    .vendor-box .name {
-      font-weight: 600;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-    }
-
-    .vendor-box .val {
-      font-weight: 600;
+    .analysis-callout strong {
       color: var(--text-bright);
     }
 
-    .details-toggle {
+    /* Interactive Clickable Vendor Tiles */
+    .vendors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .vendor-tile {
+      display: block;
       background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text);
-      padding: 0.4rem 0.85rem;
-      font-size: 0.85rem;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: inherit;
+      text-decoration: none;
+      transition: all 0.15s ease;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
     }
 
-    .details-toggle:hover {
+    .vendor-tile:hover {
       background: var(--surface-hover);
+      border-color: var(--primary);
+      text-decoration: none;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
     }
 
-    .feature-details {
-      display: none;
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--border);
+    .vendor-tile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+
+    .vendor-tile .name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .vendor-tile .external-arrow {
+      font-size: 0.75rem;
+      color: var(--primary);
+    }
+
+    .vendor-tile .val {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-bright);
+    }
+
+    .vendor-tile .subtext {
+      font-size: 0.75rem;
+      color: var(--primary);
+      margin-top: 0.15rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Accordion / Details Expander Overhaul */
+    .expander-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 1.2rem;
+      color: var(--text-bright);
       font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: left;
     }
 
-    .feature-details.open {
+    .expander-trigger:hover {
+      background: var(--surface-hover);
+      border-color: var(--text-muted);
+    }
+
+    .expander-left {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .expander-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--pill-radius);
+      padding: 0.15rem 0.55rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .expander-chevron {
+      font-size: 1.1rem;
+      transition: transform 0.2s ease;
+      color: var(--primary);
+    }
+
+    .expander-trigger.active .expander-chevron {
+      transform: rotate(180deg);
+    }
+
+    .expander-body {
+      display: none;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .expander-body.open {
       display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .section-title {
       font-size: 0.95rem;
       font-weight: 700;
       color: var(--text-bright);
-      margin: 0.75rem 0 0.4rem;
+      margin: 1.25rem 0 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
+    .section-title:first-child { margin-top: 0; }
 
     .links-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.5rem;
     }
 
     .links-list li {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       gap: 0.5rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
     }
 
     .tag-pill {
@@ -355,8 +489,21 @@ export function generateDashboardHtml(reportData) {
       font-size: 0.75rem;
       background: var(--bg);
       border: 1px solid var(--border);
-      padding: 0.15rem 0.4rem;
+      padding: 0.15rem 0.45rem;
       border-radius: 4px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .comment-quote {
+      background: var(--bg);
+      border-left: 2px solid var(--border);
+      padding: 0.4rem 0.75rem;
+      margin: 0.25rem 0 0.5rem 1.25rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      border-radius: 0 4px 4px 0;
+      font-style: italic;
     }
 
     .empty-state {
@@ -371,13 +518,13 @@ export function generateDashboardHtml(reportData) {
     <div class="header-container">
       <div class="title-area">
         <h1>🌐 Chrome Ecosystem Updates</h1>
-        <p>Weekly web intelligence on what's shipping, developer sentiment, and standards alignment</p>
+        <p>Weekly web intelligence on shipping APIs, cross-browser consensus, developer sentiment, and polyfills</p>
       </div>
       <div class="header-badges">
-        <span class="badge badge-primary">Report Week: ${weekString}</span>
+        <span class="badge badge-primary">Week: ${weekString}</span>
         <span class="badge">Chrome ${milestones.join(', ')}</span>
-        <a href="feed.xml" class="badge badge-warning" title="Subscribe via RSS">📡 RSS Feed</a>
-        <a href="latest.json" class="badge" target="_blank">📄 JSON</a>
+        <a href="feed.xml" class="badge badge-warning badge-link" title="Subscribe via RSS">📡 RSS Feed</a>
+        <a href="latest.json" class="badge badge-link" target="_blank">📄 JSON API</a>
       </div>
     </div>
   </header>
@@ -454,17 +601,9 @@ export function generateDashboardHtml(reportData) {
         const f = item.feature;
         const a = item.analysis;
 
-        // Status match
-        if (currentStatus !== 'all' && f.statusType !== currentStatus) {
-          return false;
-        }
+        if (currentStatus !== 'all' && f.statusType !== currentStatus) return false;
+        if (currentMomentum !== 'all' && a.momentumLevel !== currentMomentum) return false;
 
-        // Momentum match
-        if (currentMomentum !== 'all' && a.momentumLevel !== currentMomentum) {
-          return false;
-        }
-
-        // Search match
         if (currentSearch) {
           const q = currentSearch.toLowerCase();
           const matchName = f.name.toLowerCase().includes(q);
@@ -497,6 +636,32 @@ export function generateDashboardHtml(reportData) {
           : a.consensus.includes('Contested') ? 'badge-danger'
           : 'badge-warning';
 
+        // Vendor direct URLs
+        const chromeUrl = f.bugUrl || f.chromeStatusUrl;
+        const ffStd = (eco.standards || []).find(s => s.vendor === 'Mozilla');
+        const firefoxUrl = f.browsers?.firefox?.url || ffStd?.url || \`https://github.com/mozilla/standards-positions/issues?q=\${encodeURIComponent(f.name)}\`;
+        
+        const safariStd = (eco.standards || []).find(s => s.vendor === 'WebKit');
+        const safariUrl = f.browsers?.safari?.url || safariStd?.url || \`https://github.com/WebKit/standards-positions/issues?q=\${encodeURIComponent(f.name)}\`;
+
+        // Top discussion URL for HN buzz tile
+        const topHnDiscussion = (eco.discussions && eco.discussions.length > 0) ? eco.discussions[0] : null;
+        const hnUrl = topHnDiscussion ? (topHnDiscussion.discussionUrl || topHnDiscussion.url) : \`https://hn.algolia.com/?q=\${encodeURIComponent(f.name)}\`;
+
+        // Clickable polyfill badge
+        const polyfill = eco.verifiedPolyfill;
+        const polyfillBadge = polyfill ? \`
+          <a href="\${polyfill.url}" target="_blank" rel="noopener" class="badge badge-purple badge-link" title="Open \${escapeHtml(polyfill.name)} on NPM">
+            📦 Polyfill: \${escapeHtml(polyfill.name)} ↗
+          </a>
+        \` : '';
+
+        // Counts for expander pill counters
+        const stdCount = (eco.standards || []).length;
+        const discCount = (eco.discussions || []).length;
+        const artCount = (eco.articles || []).length;
+        const pkgCount = (eco.packages || []).length;
+
         return \`
           <article class="feature-card" id="card-\${f.id}">
             <div class="feature-header">
@@ -507,7 +672,7 @@ export function generateDashboardHtml(reportData) {
                 <span class="badge">Chrome \${f.milestone || ''}</span>
                 <span class="badge \${momentumBadgeClass}">\${a.momentumLevel} Momentum</span>
                 <span class="badge \${consensusBadgeClass}">\${a.consensus}</span>
-                \${eco.metrics.hasPolyfill ? '<span class="badge badge-purple">Polyfill Available</span>' : ''}
+                \${polyfillBadge}
               </div>
             </div>
 
@@ -517,79 +682,122 @@ export function generateDashboardHtml(reportData) {
               <strong>💡 Takeaway:</strong> \${escapeHtml(a.executiveSummary)}
             </div>
 
+            <!-- Clickable Interactive Vendor Tiles -->
             <div class="vendors-grid">
-              <div class="vendor-box">
-                <div class="name">Chromium</div>
+              <a href="\${chromeUrl}" target="_blank" rel="noopener" class="vendor-tile" title="View Chromium Bug / Status">
+                <div class="vendor-tile-header">
+                  <span class="name">Chromium</span>
+                  <span class="external-arrow">↗</span>
+                </div>
                 <div class="val">\${f.browsers?.chrome?.status || 'Active'}</div>
-              </div>
-              <div class="vendor-box">
-                <div class="name">Firefox</div>
+                <div class="subtext">Tracking Bug & CLs</div>
+              </a>
+
+              <a href="\${firefoxUrl}" target="_blank" rel="noopener" class="vendor-tile" title="View Mozilla Standards Position Issue">
+                <div class="vendor-tile-header">
+                  <span class="name">Firefox</span>
+                  <span class="external-arrow">↗</span>
+                </div>
                 <div class="val">\${f.browsers?.firefox?.view || 'No signal'}</div>
-              </div>
-              <div class="vendor-box">
-                <div class="name">Safari</div>
+                <div class="subtext">\${ffStd ? 'Standards Issue #' + (ffStd.url.split('/').pop()) : 'Search Position'}</div>
+              </a>
+
+              <a href="\${safariUrl}" target="_blank" rel="noopener" class="vendor-tile" title="View WebKit Standards Position Issue">
+                <div class="vendor-tile-header">
+                  <span class="name">Safari</span>
+                  <span class="external-arrow">↗</span>
+                </div>
                 <div class="val">\${f.browsers?.safari?.view || 'No signal'}</div>
-              </div>
-              <div class="vendor-box">
-                <div class="name">HN Buzz</div>
+                <div class="subtext">\${safariStd ? 'Standards Issue #' + (safariStd.url.split('/').pop()) : 'Search Position'}</div>
+              </a>
+
+              <a href="\${hnUrl}" target="_blank" rel="noopener" class="vendor-tile" title="View Hacker News Developer Discussions">
+                <div class="vendor-tile-header">
+                  <span class="name">HN Buzz</span>
+                  <span class="external-arrow">↗</span>
+                </div>
                 <div class="val">\${eco.metrics.hnPoints || 0} pts (\${eco.metrics.hnComments || 0} msgs)</div>
-              </div>
+                <div class="subtext">\${topHnDiscussion ? 'View Top Discussion' : 'Search Algolia'}</div>
+              </a>
             </div>
 
-            <button class="details-toggle" onclick="toggleDetails('\${f.id}')">
-              <span>View Ecosystem Findings & Details</span> ▾
+            <!-- Overhauled Accordion Expander (No longer looks like a select box!) -->
+            <button type="button" class="expander-trigger" id="btn-exp-\${f.id}" onclick="toggleDetails('\${f.id}')">
+              <div class="expander-left">
+                <span>🔍 Ecosystem Evidence & Inspected Resources</span>
+                <span class="expander-pill">🏛️ \${stdCount} standards</span>
+                <span class="expander-pill">💬 \${discCount} discussions</span>
+                \${polyfill ? '<span class="expander-pill" style="color: var(--purple);">📦 1 polyfill</span>' : ''}
+              </div>
+              <span class="expander-chevron" id="chev-\${f.id}">⌄</span>
             </button>
 
-            <div class="feature-details" id="details-\${f.id}">
+            <div class="expander-body" id="details-\${f.id}">
               \${a.takeaways && a.takeaways.length ? \`
-                <div class="section-title">Key Recommendations:</div>
-                <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                <div class="section-title">💡 Key Recommendations & Analysis:</div>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1.25rem;">
                   \${a.takeaways.map(t => \`<li>\${escapeHtml(t)}</li>\`).join('')}
                 </ul>
               \` : ''}
 
-              \${eco.discussions && eco.discussions.length ? \`
-                <div class="section-title">Community Discussions:</div>
-                <ul class="links-list" style="margin-bottom: 1rem;">
-                  \${eco.discussions.slice(0, 5).map(d => \`
-                    <li>💬 <a href="\${d.discussionUrl || d.url}" target="_blank" rel="noopener">\${escapeHtml(d.title)}</a> <span class="tag-pill">\${d.points} pts / \${d.commentsCount} comments</span></li>
-                  \`).join('')}
+              \${polyfill ? \`
+                <div class="section-title">📦 Verified NPM Polyfill / Package:</div>
+                <ul class="links-list" style="margin-bottom: 1.25rem;">
+                  <li>
+                    📦 <a href="\${polyfill.url}" target="_blank" rel="noopener"><strong>\${escapeHtml(polyfill.name)}</strong></a>
+                    <span class="tag-pill">v\${polyfill.version}</span>
+                    <span>— \${escapeHtml(polyfill.description)}</span>
+                  </li>
                 </ul>
               \` : ''}
 
               \${eco.standards && eco.standards.length ? \`
-                <div class="section-title">Standards Positions & Issues:</div>
-                <ul class="links-list" style="margin-bottom: 1rem;">
+                <div class="section-title">🏛️ Standards Positions & Inspected Issues:</div>
+                <ul class="links-list" style="margin-bottom: 1.25rem;">
                   \${eco.standards.map(s => \`
-                    <li>🏛️ <strong>\${s.vendor}:</strong> <a href="\${s.url}" target="_blank" rel="noopener">\${escapeHtml(s.title)}</a> <span class="tag-pill">[\${s.state}]</span></li>
+                    <li>
+                      <div>
+                        🏛️ <strong>\${s.vendor}:</strong>
+                        <a href="\${s.url}" target="_blank" rel="noopener">\${escapeHtml(s.title)}</a>
+                        <span class="tag-pill">[\${s.state}]</span>
+                        \${(s.labels || []).map(l => \`<span class="tag-pill">\${escapeHtml(l)}</span>\`).join(' ')}
+                        \${s.commentSummary ? \`<div class="comment-quote">\${escapeHtml(s.commentSummary)}</div>\` : ''}
+                      </div>
+                    </li>
                   \`).join('')}
                 </ul>
               \` : ''}
 
-              \${eco.packages && eco.packages.length ? \`
-                <div class="section-title">NPM Packages & Polyfills:</div>
-                <ul class="links-list" style="margin-bottom: 1rem;">
-                  \${eco.packages.map(p => \`
-                    <li>📦 <a href="\${p.url}" target="_blank" rel="noopener">\${escapeHtml(p.name)}</a> <span class="tag-pill">v\${p.version}</span> - \${escapeHtml(p.description)}</li>
+              \${eco.discussions && eco.discussions.length ? \`
+                <div class="section-title">💬 Verified Community Discussions:</div>
+                <ul class="links-list" style="margin-bottom: 1.25rem;">
+                  \${eco.discussions.slice(0, 5).map(d => \`
+                    <li>
+                      💬 <a href="\${d.discussionUrl || d.url}" target="_blank" rel="noopener">\${escapeHtml(d.title)}</a>
+                      <span class="tag-pill">\${d.points} pts / \${d.commentsCount} comments</span>
+                    </li>
                   \`).join('')}
                 </ul>
               \` : ''}
 
               \${eco.articles && eco.articles.length ? \`
-                <div class="section-title">Articles & Guides:</div>
-                <ul class="links-list" style="margin-bottom: 1rem;">
+                <div class="section-title">📰 Articles & Documentation:</div>
+                <ul class="links-list" style="margin-bottom: 1.25rem;">
                   \${eco.articles.slice(0, 5).map(art => \`
-                    <li>📰 <a href="\${art.url}" target="_blank" rel="noopener">\${escapeHtml(art.title)}</a> \${art.domain ? \`<span class="tag-pill">\${art.domain}</span>\` : ''}</li>
+                    <li>
+                      📰 <a href="\${art.url}" target="_blank" rel="noopener">\${escapeHtml(art.title)}</a>
+                      \${art.domain ? \`<span class="tag-pill">\${art.domain}</span>\` : ''}
+                    </li>
                   \`).join('')}
                 </ul>
               \` : ''}
 
-              <div class="section-title">Reference Links:</div>
+              <div class="section-title">🔗 Official Platform References:</div>
               <ul class="links-list">
-                <li>🔗 <a href="\${f.chromeStatusUrl}" target="_blank">ChromeStatus (#\${f.id})</a></li>
-                <li>⚡ <a href="\${f.chromeStatusLiteUrl}" target="_blank">ChromeStatusLite</a></li>
-                \${f.specUrl ? \`<li>📜 <a href="\${f.specUrl}" target="_blank">Specification</a></li>\` : ''}
-                \${f.bugUrl ? \`<li>🐛 <a href="\${f.bugUrl}" target="_blank">Chromium Bug</a></li>\` : ''}
+                <li>🔗 <a href="\${f.chromeStatusUrl}" target="_blank">ChromeStatus (#\${f.id}) ↗</a></li>
+                <li>⚡ <a href="\${f.chromeStatusLiteUrl}" target="_blank">ChromeStatusLite ↗</a></li>
+                \${f.specUrl ? \`<li>📜 <a href="\${f.specUrl}" target="_blank">Specification Standard ↗</a></li>\` : ''}
+                \${f.bugUrl ? \`<li>🐛 <a href="\${f.bugUrl}" target="_blank">Chromium Bug Tracker ↗</a></li>\` : ''}
               </ul>
             </div>
           </article>
@@ -599,7 +807,9 @@ export function generateDashboardHtml(reportData) {
 
     function toggleDetails(id) {
       const el = document.getElementById('details-' + id);
+      const btn = document.getElementById('btn-exp-' + id);
       if (el) el.classList.toggle('open');
+      if (btn) btn.classList.toggle('active');
     }
 
     function escapeHtml(str) {
@@ -611,7 +821,6 @@ export function generateDashboardHtml(reportData) {
         .replace(/"/g, '&quot;');
     }
 
-    // Set up filter buttons
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const type = btn.dataset.filterType;

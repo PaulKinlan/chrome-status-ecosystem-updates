@@ -1,3 +1,5 @@
+import { fetchHackerNewsItemDetails } from './content-fetcher.js';
+
 /**
  * Hacker News Algolia Search API client (Free, public, no authentication required)
  */
@@ -27,6 +29,10 @@ export async function searchHackerNews(query, options = {}) {
       const points = hit.points || 0;
       if (points < minPoints && hits.length > 3) continue;
 
+      // Fetch top comments to inspect actual developer discussion content
+      const itemDetails = await fetchHackerNewsItemDetails(hit.objectID);
+      const topComments = itemDetails?.topComments || [];
+
       results.push({
         source: 'Hacker News',
         type: 'discussion',
@@ -36,10 +42,11 @@ export async function searchHackerNews(query, options = {}) {
         points: hit.points || 0,
         commentsCount: hit.num_comments || 0,
         publishedAt: hit.created_at,
-        snippet: hit.story_text ? hit.story_text.slice(0, 200) : '',
+        snippet: hit.story_text ? hit.story_text.slice(0, 300) : (topComments[0] || ''),
+        topComments,
       });
     }
-  } catch (err) {
+  } catch {
     // Graceful degradation on network timeout
   }
 

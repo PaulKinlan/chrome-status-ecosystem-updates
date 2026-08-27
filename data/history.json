@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-08-27T17:36:25.041Z",
+  "lastRun": "2026-08-27T21:43:31.557Z",
   "lastWeekString": "2026-W35",
   "features": {
     "5080055102439424": {
@@ -7,12 +7,16 @@
       "name": "Add options bag to WebSocket constructor",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T17:36:19.664Z",
+      "lastSeen": "2026-08-27T21:43:21.110Z",
       "knownUrls": [
         "https://github.com/WebKit/standards-positions/issues/708",
-        "https://github.com/mozilla/standards-positions/issues/1444"
+        "https://github.com/mozilla/standards-positions/issues/1444",
+        "https://www.npmjs.com/package/isomorphic-ws",
+        "https://www.npmjs.com/package/@httptoolkit/websocket-stream",
+        "https://www.npmjs.com/package/ws",
+        "https://www.npmjs.com/package/jest-websocket-mock"
       ],
-      "lastMomentumLevel": "Emerging",
+      "lastMomentumLevel": "Moderate",
       "lastConsensus": "Chromium-Led"
     },
     "5201832664629248": {
@@ -20,7 +24,7 @@
       "name": "Additional Windowing Controls",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T17:36:21.217Z",
+      "lastSeen": "2026-08-27T21:43:25.385Z",
       "knownUrls": [
         "https://github.com/mozilla/standards-positions/issues/542",
         "https://github.com/WebKit/standards-positions/issues/117",
@@ -34,13 +38,16 @@
       "name": "Algorithm Updates in WebCrypto",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T17:36:22.496Z",
+      "lastSeen": "2026-08-27T21:43:26.911Z",
       "knownUrls": [
         "https://github.com/WebKit/standards-positions/issues/641",
         "https://github.com/mozilla/standards-positions/issues/1282",
-        "https://www.npmjs.com/package/@peculiar/webcrypto"
+        "https://www.npmjs.com/package/webcrypto-shim",
+        "https://www.npmjs.com/package/webcrypto-core",
+        "https://www.npmjs.com/package/@peculiar/webcrypto",
+        "https://www.npmjs.com/package/iron-webcrypto"
       ],
-      "lastMomentumLevel": "Moderate",
+      "lastMomentumLevel": "High",
       "lastConsensus": "Chromium-Led"
     },
     "6210300985606144": {
@@ -48,11 +55,15 @@
       "name": "CORS enforcement for Background Fetch",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T17:36:23.891Z",
+      "lastSeen": "2026-08-27T21:43:29.192Z",
       "knownUrls": [
-        "https://www.npmjs.com/package/whatwg-fetch"
+        "https://www.npmjs.com/package/whatwg-fetch",
+        "https://www.npmjs.com/package/cors",
+        "https://www.npmjs.com/package/react-native-background-fetch",
+        "https://www.npmjs.com/package/@ardatan/sync-fetch",
+        "https://www.npmjs.com/package/expo-background-fetch"
       ],
-      "lastMomentumLevel": "Emerging",
+      "lastMomentumLevel": "Moderate",
       "lastConsensus": "Chromium-Led"
     },
     "5146996093616128": {
@@ -60,20 +71,273 @@
       "name": "CSS Symbols()",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T17:36:25.029Z",
+      "lastSeen": "2026-08-27T21:43:31.533Z",
       "knownUrls": [
-        "https://github.com/nikumu/lambda-css",
-        "https://news.ycombinator.com/item?id=15395388",
-        "https://fontgenerator.design/symbols",
-        "https://github.com/yapstudios/sfsym",
-        "https://news.ycombinator.com/item?id=29136096",
-        "https://fossil.wanderinghorse.net/r/cssminc/doc/ckout/README.md",
-        "https://github.com/ayarse/popkorn",
-        "https://symbol.so/",
         "https://github.com/WebKit/standards-positions/issues/714"
+      ],
+      "lastMomentumLevel": "Emerging",
+      "lastConsensus": "Partial Multi-Engine Interest"
+    },
+    "5178263526834176": {
+      "id": 5178263526834176,
+      "name": "CSS text-decoration-inset",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:25.308Z",
+      "knownUrls": [],
+      "lastMomentumLevel": "Quiet",
+      "lastConsensus": "Chromium-Led"
+    },
+    "4832783806627840": {
+      "id": 4832783806627840,
+      "name": "CSS4 text-decoration-skip-spaces",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:26.736Z",
+      "knownUrls": [],
+      "lastMomentumLevel": "Emerging",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5114591051907072": {
+      "id": 5114591051907072,
+      "name": "Expose CSSStyleValue hierarchy to Worker contexts",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:28.342Z",
+      "knownUrls": [],
+      "lastMomentumLevel": "Quiet",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5158507786665984": {
+      "id": 5158507786665984,
+      "name": "Fetch API: Forward reason from AbortController to fetch Response",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:29.704Z",
+      "knownUrls": [
+        "https://github.com/WebKit/standards-positions/issues/711"
+      ],
+      "lastMomentumLevel": "Emerging",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5145402365050880": {
+      "id": 5145402365050880,
+      "name": "FontFace width attribute and font-width descriptor",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:31.142Z",
+      "knownUrls": [],
+      "lastMomentumLevel": "Quiet",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5205192866922496": {
+      "id": 5205192866922496,
+      "name": "Iterator Includes",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:32.534Z",
+      "knownUrls": [
+        "https://github.com/beached/daw_json_link",
+        "https://github.com/DmitriBogdanov/UTL/blob/master/docs/module_parallel.md",
+        "https://news.ycombinator.com/item?id=45253734",
+        "https://tanelpoder.com/posts/xstack-passive-linux-stack-sampler-ebpf/",
+        "https://news.ycombinator.com/item?id=44574599",
+        "https://news.ycombinator.com/item?id=47318235",
+        "https://www.npmjs.com/package/es-iterator-helpers"
       ],
       "lastMomentumLevel": "High",
       "lastConsensus": "Chromium-Led"
+    },
+    "6225598451154944": {
+      "id": 6225598451154944,
+      "name": "Local Network Access restrictions for Background Fetch",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:34.172Z",
+      "knownUrls": [
+        "https://github.com/WebKit/standards-positions/issues/520",
+        "https://github.com/mozilla/standards-positions/issues/1260",
+        "https://www.npmjs.com/package/react-native-fetch-api"
+      ],
+      "lastMomentumLevel": "Moderate",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5068277495758848": {
+      "id": 5068277495758848,
+      "name": "Media element pseudo-classes",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:35.483Z",
+      "knownUrls": [
+        "https://github.com/vectordxy/stayedcss"
+      ],
+      "lastMomentumLevel": "Quiet",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5054329641893888": {
+      "id": 5054329641893888,
+      "name": "Renewed HTML insertion&streaming methods",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:36.626Z",
+      "knownUrls": [
+        "https://github.com/WebKit/standards-positions/issues/629",
+        "https://github.com/mozilla/standards-positions/issues/1370"
+      ],
+      "lastMomentumLevel": "Emerging",
+      "lastConsensus": "Partial Multi-Engine Interest"
+    },
+    "5108373464547328": {
+      "id": 5108373464547328,
+      "name": "Responsively-sized <iframe>",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:38.363Z",
+      "knownUrls": [
+        "https://github.com/WebKit/standards-positions/issues/653",
+        "https://github.com/mozilla/standards-positions/issues/1394"
+      ],
+      "lastMomentumLevel": "Emerging",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5126146013396992": {
+      "id": 5126146013396992,
+      "name": "Secure Payment Confirmation: Locale Validation",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:39.859Z",
+      "knownUrls": [
+        "https://github.com/WebKit/standards-positions/issues/30",
+        "https://github.com/mozilla/standards-positions/issues/570"
+      ],
+      "lastMomentumLevel": "Emerging",
+      "lastConsensus": "Chromium-Led"
+    },
+    "4779920606756864": {
+      "id": 4779920606756864,
+      "name": "Support targetAddressSpace option for WebSockets",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:41.290Z",
+      "knownUrls": [
+        "https://github.com/mozilla/standards-positions/issues/1444"
+      ],
+      "lastMomentumLevel": "Emerging",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5183481574850560": {
+      "id": 5183481574850560,
+      "name": "Web Install API",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:42.899Z",
+      "knownUrls": [
+        "https://docs.google.com/document/d/12nSXJLm8mW0gWZ_yjlXfrV8r9gwJliVt4WVa-209-KA/edit?tab=t.0",
+        "https://blogs.windows.com/msedgedev/2025/11/24/the-web-install-api-is-ready-for-testing/",
+        "https://chromewebstore.google.com/detail/api-factory-openapi-viewe/aebljphchgphilencbophhmbmblomhci",
+        "https://news.ycombinator.com/item?id=48543969",
+        "https://www.apimatic.io/product/context-plugins",
+        "https://github.com/apisec-inc/mcp-audit",
+        "https://github.com/maloyan/manim-web",
+        "https://www.rtrvr.ai/blog/web-bench-results",
+        "https://github.com/zhijiewong/openharness",
+        "https://github.com/WebKit/standards-positions/issues/463",
+        "https://github.com/mozilla/standards-positions/issues/1179",
+        "https://www.npmjs.com/package/@hasna/connectors"
+      ],
+      "lastMomentumLevel": "High",
+      "lastConsensus": "Contested / Concerns Raised"
+    },
+    "5152834368700416": {
+      "id": 5152834368700416,
+      "name": "Web app HTML install element",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:44.011Z",
+      "knownUrls": [
+        "https://docs.google.com/document/d/1rGvLhD4SR8Y9M1wVmqgyesPNkbZGU7HOqlttjEFJ5Vo/edit?tab=t.tmx19oox759l#heading=h.j3tt49hqiuck",
+        "https://developer.chrome.com/blog/install-element-ot",
+        "https://fui-rs-demo.effindom.dev/",
+        "https://github.com/marimo-team/marimo",
+        "https://alpha.lisagui.com/",
+        "https://github.com/WebKit/standards-positions/issues/463",
+        "https://github.com/mozilla/standards-positions/issues/1179"
+      ],
+      "lastMomentumLevel": "High",
+      "lastConsensus": "Contested / Concerns Raised"
+    },
+    "5663304168112128": {
+      "id": 5663304168112128,
+      "name": "WebGPU: WGSL Fragment Depth",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:45.276Z",
+      "knownUrls": [],
+      "lastMomentumLevel": "Quiet",
+      "lastConsensus": "Partial Multi-Engine Interest"
+    },
+    "5194104408506368": {
+      "id": 5194104408506368,
+      "name": "WebTransport headers and responseHeaders",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:46.949Z",
+      "knownUrls": [],
+      "lastMomentumLevel": "Quiet",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5075144470036480": {
+      "id": 5075144470036480,
+      "name": "Window Shape API",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T21:34:48.372Z",
+      "knownUrls": [
+        "https://docs.google.com/document/d/1zPr1QgS-bXsJE7nrO44zx9RBopR4gHuvHxfcqxsX5Ag/edit?tab=t.0#heading=h.pcgro84kqnh3",
+        "https://news.ycombinator.com/item?id=47249213",
+        "https://news.ycombinator.com/item?id=47249061",
+        "https://github.com/simstudioai/sim",
+        "https://github.com/Frikallo/axiom",
+        "https://github.com/letsseal/letsseal",
+        "https://gist.github.com/tosh/6e91a9dbf08dd630c535e7345ac7f0b5",
+        "https://github.com/P-R-I-S-M-PROJECT/P.R.I.S.M",
+        "https://www.inspectioncredit.com",
+        "https://github.com/mozilla/standards-positions/issues/542"
+      ],
+      "lastMomentumLevel": "High",
+      "lastConsensus": "Chromium-Led"
+    },
+    "6210457816924160": {
+      "id": 6210457816924160,
+      "name": "Private Verification Tokens",
+      "milestone": 154,
+      "status": "Origin trial",
+      "lastSeen": "2026-08-27T21:34:49.711Z",
+      "knownUrls": [
+        "https://github.com/explainers-by-googlers/private-verification-tokens",
+        "https://www.neowin.net/news/cloudflare-announces-private-access-tokens---verification-without-captchas/",
+        "https://news.ycombinator.com/item?id=47096131",
+        "https://news.ycombinator.com/item?id=8962378",
+        "https://news.ycombinator.com/item?id=43996555",
+        "https://github.com/highlight/highlight/tree/main/backend/embeddings",
+        "https://emailusd.net"
+      ],
+      "lastMomentumLevel": "High",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5172464636133376": {
+      "id": 5172464636133376,
+      "name": "Support for specialized WebHID devices on Android",
+      "milestone": 154,
+      "status": "In developer trial (Behind a flag)",
+      "lastSeen": "2026-08-27T21:34:51.329Z",
+      "knownUrls": [
+        "https://web.dev/hid/",
+        "https://web.dev/hid-examples/",
+        "https://github.com/mozilla/standards-positions/issues/459"
+      ],
+      "lastMomentumLevel": "Moderate",
+      "lastConsensus": "Contested / Concerns Raised"
     }
   }
 }

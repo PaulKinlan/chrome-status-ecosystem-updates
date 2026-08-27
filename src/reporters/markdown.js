@@ -123,6 +123,9 @@ export function generateWeeklyMarkdown(reportData) {
       for (const std of eco.standards) {
         const labelsStr = (std.labels || []).length > 0 ? `\`${std.labels.join('`, `')}\`` : '';
         md += `- **${std.vendor}:** [${std.title}](${std.url}) [${std.state}] ${labelsStr}\n`;
+        if (std.commentSummary) {
+          md += `  > *${std.commentSummary}*\n`;
+        }
       }
       md += `\n`;
     }
@@ -131,7 +134,7 @@ export function generateWeeklyMarkdown(reportData) {
     if (eco.packages && eco.packages.length > 0) {
       md += `#### 📦 Polyfills & NPM Ecosystem\n\n`;
       for (const pkg of eco.packages) {
-        const polyBadge = pkg.isPolyfill ? ' *(Polyfill)*' : '';
+        const polyBadge = pkg.isPolyfill ? ' *(Verified Polyfill)*' : '';
         md += `- [${pkg.name}](https://www.npmjs.com/package/${pkg.name}) \`v${pkg.version}\`${polyBadge} — ${pkg.description}\n`;
       }
       md += `\n`;
