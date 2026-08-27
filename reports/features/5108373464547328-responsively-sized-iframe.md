@@ -13,20 +13,20 @@ render the iframe content so that it looks seamless with the parent frame and av
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (30 points)
+- **Momentum:** Emerging (20 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Neutral
-- **Executive Take:** Responsively-sized <iframe> is currently Enabled by default in Chrome 154. Ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
+- **Executive Take:** Responsively-sized <iframe> is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
-- Firefox and Safari have not yet finalized positions. Use defensive feature detection (guarding with `if ("..." in window)`).
-- No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
-## Standards Positions
+## Articles & Documentation
 
-- **WebKit:** [Responsively-sized iframes](https://github.com/WebKit/standards-positions/issues/653) [open]
-- **Mozilla:** [Responsively-sized iframes](https://github.com/mozilla/standards-positions/issues/1394) [open]
+- [Responsively-sized <iframe>](https://chromestatus.com/feature/5108373464547328)
+- [Responsively-sized <iframe> · Issue #4036 · web-platform-dx/web-features](https://github.com/web-platform-dx/web-features/issues/4036)
 
 ## Useful Links
 

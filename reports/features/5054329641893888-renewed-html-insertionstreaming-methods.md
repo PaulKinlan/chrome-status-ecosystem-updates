@@ -25,16 +25,17 @@ This change replaces those with a coherent set of methods and arguments, that us
 - **Momentum:** Emerging (30 points)
 - **Standards Alignment:** Partial Multi-Engine Interest
 - **Sentiment:** Neutral
-- **Executive Take:** Renewed HTML insertion&streaming methods is currently Enabled by default in Chrome 154. Ecosystem momentum is Emerging with Partial Multi-Engine Interest standards alignment and neutral developer pulse.
+- **Executive Take:** Renewed HTML insertion&streaming methods is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Partial Multi-Engine Interest standards alignment and neutral developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
-- No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
-## Standards Positions
+## Articles & Documentation
 
-- **WebKit:** [HTML streaming & revamped DOM parsing](https://github.com/WebKit/standards-positions/issues/629) [open]
-- **Mozilla:** [HTML streaming & revamped DOM parsing](https://github.com/mozilla/standards-positions/issues/1370) [closed]
+- [[blink-dev] Intent to Ship: Renewed HTML insertion&streaming methods](http://www.mail-archive.com/blink-dev@chromium.org/msg16984.html)
+- [RE: [blink-dev] Re: Intent to Ship: Renewed HTML insertion&streaming methods](http://www.mail-archive.com/blink-dev@chromium.org/msg17049.html)
+- [[blink-dev] Re: Intent to Ship: Renewed HTML insertion&streaming methods](http://www.mail-archive.com/blink-dev@chromium.org/msg17004.html)
 
 ## Useful Links
 

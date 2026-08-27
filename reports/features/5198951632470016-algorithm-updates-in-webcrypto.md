@@ -21,21 +21,15 @@ Many Javascript cryptography libraries fall back to WebCrypto when it is availab
 
 ## Ecosystem Status
 
-- **Momentum:** High (90 points)
+- **Momentum:** High (100 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Neutral
-- **Executive Take:** Algorithm Updates in WebCrypto is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and neutral developer pulse.
+- **Sentiment:** Positive / High Interest
+- **Executive Take:** Algorithm Updates in WebCrypto is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
 
 ### Recommendations
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @twiss: "Hi :wave: Apologies for the late response, I was OOO until now.  And, thanks for the standards position!  Regarding Argon2: I think it would be reason..."
-- Standards Activity (Mozilla): Latest discussion from @martinthomson: "We generally view this neutrally.  The cryptographic primitives in this set are broadly good, though we have little cause to implement some of those i..."
+- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - Community package available: [webcrypto-shim](https://www.npmjs.com/package/webcrypto-shim) (v0.1.7) for progressive enhancement.
-
-## Standards Positions
-
-- **WebKit:** [Modern Algorithms in WebCrypto](https://github.com/WebKit/standards-positions/issues/641) [closed]
-- **Mozilla:** [Request for Mozilla Position on Modern Algorithms in WebCrypto](https://github.com/mozilla/standards-positions/issues/1282) [closed]
 
 ## Packages & Polyfills
 
@@ -43,6 +37,13 @@ Many Javascript cryptography libraries fall back to WebCrypto when it is availab
 - [webcrypto-core](https://www.npmjs.com/package/webcrypto-core) `v1.9.2` — Common layer to be used by crypto libraries based on WebCrypto API for input validation.
 - [@peculiar/webcrypto](https://www.npmjs.com/package/@peculiar/webcrypto) `v1.7.1` — A WebCrypto Polyfill for NodeJS
 - [iron-webcrypto](https://www.npmjs.com/package/iron-webcrypto) `v2.0.0` — a cryptographic utility for sealing-unsealing a JSON object using symmetric key encryption with message integrity verification
+
+## Articles & Documentation
+
+- [Intent to Prototype: Algorithm Updates in WebCrypto](https://groups.google.com/a/chromium.org/g/blink-dev/c/KluNhawvzgM/m/moAiFVVRBgAJ)
+- [[blink-dev] Ready for Developer Testing: Algorithm Updates in WebCrypto](http://www.mail-archive.com/blink-dev@chromium.org/msg16678.html)
+- [[blink-dev] Intent to Experiment: Algorithm Updates in WebCrypto](http://www.mail-archive.com/blink-dev@chromium.org/msg16785.html)
+- [Algorithm Updates in WebCrypto](https://chromestatus.com/feature/5198951632470016)
 
 ## Useful Links
 

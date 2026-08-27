@@ -14,33 +14,28 @@ A web install element democratizes application distribution and allows developer
 
 ## Ecosystem Status
 
-- **Momentum:** High (2092 points)
+- **Momentum:** High (136 points)
 - **Standards Alignment:** Contested / Concerns Raised
 - **Sentiment:** Mixed / Skeptical
-- **Executive Take:** Web app HTML install element is currently Enabled by default in Chrome 154. Ecosystem momentum is High with Contested / Concerns Raised standards alignment and mixed / skeptical developer pulse.
+- **Executive Take:** Web app HTML install element is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Contested / Concerns Raised standards alignment and mixed / skeptical developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser vendors have raised architectural, security, or privacy considerations in standards position trackers.
-- No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.
-- Active developer discussion on Hacker News: "Install web apps with the new HTML install element" (32 points, 14 comments).
-
-## Standards Positions
-
-- **WebKit:** [Web Install API](https://github.com/WebKit/standards-positions/issues/463) [closed]
-- **Mozilla:** [Web Install capability](https://github.com/mozilla/standards-positions/issues/1179) [open]
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+- Verified community discussion on Hacker News: "Install web apps with the new HTML install element" (32 points, 14 comments).
 
 ## Community Discussions
 
 - [Install web apps with the new HTML install element](https://news.ycombinator.com/item?id=48360474) (32 pts, 14 comments)
 - [Install web apps with the new HTML install element](https://news.ycombinator.com/item?id=48125969) (3 pts, 0 comments)
-- [Show HN: Replacing HTML/CSS/JS with Rust](https://news.ycombinator.com/item?id=49256765) (3 pts, 5 comments)
-- [Show HN: Marimo – an open-source reactive notebook for Python](https://news.ycombinator.com/item?id=38971966) (448 pts, 106 comments)
-- [Show HN: I wrote a "web OS" based on the Apple Lisa's UI, with 1-bit graphics](https://news.ycombinator.com/item?id=44482965) (516 pts, 142 comments)
 
 ## Articles & Documentation
 
 - [Web app HTML install element Documentation](https://docs.google.com/document/d/1rGvLhD4SR8Y9M1wVmqgyesPNkbZGU7HOqlttjEFJ5Vo/edit?tab=t.tmx19oox759l#heading=h.j3tt49hqiuck)
+- [El nuevo HTML install: instala PWAs sin JavaScript](https://azirgo.com/blog/html-install-element-pwa/)
+- [[blink-dev] Intent to Experiment: Web app HTML install element](http://www.mail-archive.com/blink-dev@chromium.org/msg16195.html)
+- [[blink-dev] Re: Intent to Experiment: Web app HTML install element](http://www.mail-archive.com/blink-dev@chromium.org/msg16233.html)
 
 ## Useful Links
 

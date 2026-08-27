@@ -21,12 +21,12 @@ Finally, applications often need to negotiate capabilities, such as supported vi
 - **Momentum:** Quiet (0 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Neutral
-- **Executive Take:** WebTransport headers and responseHeaders is currently Enabled by default in Chrome 154. Ecosystem momentum is Quiet with Chromium-Led standards alignment and neutral developer pulse.
+- **Executive Take:** WebTransport headers and responseHeaders is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Quiet with Chromium-Led standards alignment and neutral developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
-- Firefox and Safari have not yet finalized positions. Use defensive feature detection (guarding with `if ("..." in window)`).
-- No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 ## Useful Links
 

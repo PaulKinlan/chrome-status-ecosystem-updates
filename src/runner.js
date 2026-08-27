@@ -17,25 +17,33 @@ import { writeMarkdownReports, getIsoWeekString } from './reporters/markdown.js'
 import { writeDashboardHtml } from './reporters/html.js';
 import { writeJsonReports } from './reporters/json.js';
 import { writeRssFeed } from './reporters/rss.js';
+import { logger } from './logger.js';
 
 export async function runEcosystemReport(options = {}) {
-  const log = options.onProgress || console.log;
+  logger.setVerbose(options.verbose);
   const targetInput = options.milestone || config.targetMilestones;
   const maxFeatures = options.limit !== undefined ? options.limit : config.maxFeatures;
   const allowedStatuses = options.statusTypes || config.featureStatuses;
 
-  log('🎯 Resolving Chrome release milestones...');
-  const milestones = await resolveTargetMilestones(targetInput);
-  log(`📌 Target milestones: Chrome ${milestones.join(', ')}`);
+  logger.header('ChromeStatus Ecosystem Updates Crawler');
 
-  log('📂 Loading historical snapshot...');
+  logger.info('Resolving Chrome release milestones...');
+  const milestones = await resolveTargetMilestones(targetInput);
+  logger.info(`Target milestones: Chrome ${milestones.join(', ')}`);
+
+  const geminiSearchActive = !!config.geminiApiKey;
+  logger.info(`Web Search Provider: ${geminiSearchActive ? 'Gemini (Google Search Grounding)' : config.searchProvider}`);
+  logger.info(`AI Synthesis: ${config.geminiApiKey ? 'Google Gemini (gemini-2.5-flash with live search grounding)' : config.openaiApiKey ? 'OpenAI (gpt-4o-mini)' : 'Heuristic Engine (Rule-based)'}`);
+  logger.info(`GitHub API: ${config.githubToken ? 'Authenticated token (5,000 req/hr)' : 'Public access (60 req/hr)'}`);
+
+  logger.info('Loading historical snapshot for delta computation...');
   const history = await loadHistory();
   const updatedHistoryFeatures = { ...(history.features || {}) };
 
   const rawFeatureList = [];
 
   for (const ms of milestones) {
-    log(`🌐 Fetching features for Chrome ${ms}...`);
+    logger.info(`Fetching features for Chrome ${ms} from chromestatus.com...`);
     const featuresByType = await fetchMilestoneFeatures(ms);
 
     for (const [categoryLabel, items] of Object.entries(featuresByType)) {
@@ -68,7 +76,7 @@ export async function runEcosystemReport(options = {}) {
   if (options.featureId) {
     targetEntries = targetEntries.filter(e => String(e.normalized.id) === String(options.featureId));
     if (targetEntries.length === 0) {
-      log(`🔎 Fetching single feature #${options.featureId} directly...`);
+      logger.info(`Fetching single feature #${options.featureId} directly...`);
       const directRaw = await fetchFeatureDetails(options.featureId);
       const normalized = normalizeFeature(directRaw, directRaw.milestone || milestones[0], directRaw.category);
       targetEntries.push({ raw: directRaw, milestone: normalized.milestone, categoryLabel: normalized.category, normalized });
@@ -80,7 +88,7 @@ export async function runEcosystemReport(options = {}) {
     targetEntries = targetEntries.slice(0, maxFeatures);
   }
 
-  log(`📊 Processing ${targetEntries.length} features across ecosystem sources...`);
+  logger.info(`Starting investigation on ${targetEntries.length} Web Platform features...\n`);
 
   const processedFeatures = [];
   let index = 0;
@@ -88,7 +96,7 @@ export async function runEcosystemReport(options = {}) {
   for (const entry of targetEntries) {
     index++;
     const f = entry.normalized;
-    log(`[${index}/${targetEntries.length}] 🔎 Investigating: "${f.name}" (ID: ${f.id})...`);
+    logger.step(index, targetEntries.length, f.name, f.id, `Chrome ${f.milestone}, ${f.category}`);
 
     // Fetch deep details if not already complete
     let detailedFeature = f;
@@ -102,8 +110,14 @@ export async function runEcosystemReport(options = {}) {
     // 1. Gather ecosystem data (HN, standards positions, npm, wpt, web search)
     const ecosystemData = await gatherEcosystemData(detailedFeature);
 
-    // 2. Run analysis (heuristic + optional AI synthesis)
+    // 2. Run analysis (heuristic + optional AI synthesis with search grounding)
+    logger.substep('Analysis & Synthesis', config.geminiApiKey ? 'Gemini 2.5 Flash with Google Search Grounding' : 'Heuristic Engine');
     const analysis = await analyzeFeature(detailedFeature, ecosystemData);
+
+    logger.debug(`Momentum: ${analysis.momentumLevel} (score: ${analysis.momentumScore}) | Consensus: ${analysis.consensus} | Sentiment: ${analysis.sentiment}`);
+    if (analysis.groundedQueries && analysis.groundedQueries.length > 0) {
+      logger.debug(`Live Search Queries: ${analysis.groundedQueries.map(q => '"' + q + '"').join(', ')}`);
+    }
 
     // 3. Compute week-over-week deltas
     const prevHistory = history.features?.[detailedFeature.id];
@@ -139,27 +153,35 @@ export async function runEcosystemReport(options = {}) {
     generatedAt: new Date().toISOString(),
     milestones,
     featuresCount: processedFeatures.length,
+    telemetry: {
+      searchProvider: geminiSearchActive ? 'Gemini (Google Search Grounding)' : config.searchProvider,
+      aiProvider: config.geminiApiKey ? 'Google Gemini 2.5 Flash' : config.openaiApiKey ? 'OpenAI gpt-4o-mini' : 'Heuristic Engine',
+      isGeminiSearchGrounded: geminiSearchActive,
+      hasGithubToken: !!config.githubToken,
+      featuresCount: processedFeatures.length,
+    },
     features: processedFeatures,
   };
 
-  log('📝 Generating reports...');
+  logger.info('\nGenerating reports (Markdown, HTML dashboard, JSON, RSS)...');
   const mdResult = await writeMarkdownReports(reportData);
   const htmlPath = await writeDashboardHtml(reportData);
   const jsonResult = await writeJsonReports(reportData);
   const rssPath = await writeRssFeed(reportData);
 
-  log('💾 Saving updated ecosystem history...');
+  logger.info('Saving updated ecosystem history snapshot...');
   await saveHistory({
     lastRun: new Date().toISOString(),
     lastWeekString: weekString,
+    telemetry: reportData.telemetry,
     features: updatedHistoryFeatures,
   });
 
-  log(`\n🎉 Report generation complete!`);
-  log(`📄 Weekly Markdown: ${mdResult.weeklyFilePath}`);
-  log(`🌐 HTML Dashboard:  ${htmlPath}`);
-  log(`📊 JSON Export:     ${jsonResult.weeklyPath}`);
-  log(`📡 RSS Feed:        ${rssPath}\n`);
+  logger.success('Ecosystem crawl and report generation completed!');
+  console.log(`\n  📄 Weekly Markdown: ${mdResult.weeklyFilePath}`);
+  console.log(`  🌐 HTML Dashboard:  ${htmlPath}`);
+  console.log(`  📊 JSON Export:     ${jsonResult.weeklyPath}`);
+  console.log(`  📡 RSS Feed:        ${rssPath}\n`);
 
   return {
     reportData,

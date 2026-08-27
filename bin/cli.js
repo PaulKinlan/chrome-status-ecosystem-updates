@@ -29,9 +29,10 @@ Options for 'run':
   --status, -s         Comma-separated status filters (enabled,origin-trial,flagged,deprecated)
   --serve              Start preview server after report generation
   --port, -p           Port for preview server (default: 3000)
+  --verbose, -v        Enable detailed logging of search queries, API calls & verifications
 
 Examples:
-  node bin/cli.js run --milestone 154 --limit 5
+  node bin/cli.js run --milestone 154 --limit 5 --verbose
   node bin/cli.js run --serve
   node bin/cli.js inspect 5183481574850560
   node bin/cli.js channels
@@ -143,6 +144,7 @@ async function main() {
       status: { type: 'string', short: 's' },
       serve: { type: 'boolean', default: false },
       port: { type: 'string', short: 'p', default: String(config.port) },
+      verbose: { type: 'boolean', short: 'v', default: false },
     },
     strict: false,
   });
@@ -151,12 +153,14 @@ async function main() {
   const limit = values.limit ? parseInt(values.limit, 10) : config.maxFeatures;
   const featureId = values.feature || null;
   const statusTypes = values.status ? values.status.split(',').map(s => s.trim().toLowerCase()) : config.featureStatuses;
+  const verbose = values.verbose || false;
 
   const result = await runEcosystemReport({
     milestone,
     limit,
     featureId,
     statusTypes,
+    verbose,
   });
 
   if (values.serve) {

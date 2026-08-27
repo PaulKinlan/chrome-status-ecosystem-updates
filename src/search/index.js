@@ -5,6 +5,8 @@ import { searchWpt } from './wpt.js';
 import { searchWeb, extractDomain } from './web.js';
 import { fetchExplainerSummary } from './content-fetcher.js';
 import { filterRelevantItems } from './verifier.js';
+import { logger } from '../logger.js';
+import { config } from '../config.js';
 
 /**
  * Normalizes and strips tracking parameters from URLs for deduplication
@@ -90,14 +92,35 @@ export async function gatherEcosystemData(feature) {
     }
   }
 
+  logger.substep('Inspecting ChromeStatus links', `Spec: ${feature.specUrl ? '✔' : '○'} | Explainers: ${(feature.explainerUrls || []).length} | Docs: ${(feature.docUrls || []).length} | Demos: ${(feature.sampleUrls || []).length}`);
+
   // Execute external searches
   const webQuery = `"${feature.name}" API`;
+  logger.substep('Running ecosystem searches', `Web: ${config.searchProvider} | HN | Standards | NPM | WPT`);
+  logger.debug(`Web search query: ${webQuery}`);
+  logger.debug(`Hacker News query: "${feature.name}"`);
+
   const [rawWebResults, rawHnResults, standardsResults, rawNpmResults, wptResult] = await Promise.all([
-    searchWeb(webQuery, { feature }).catch(() => []),
-    searchHackerNews(feature.name).catch(() => []),
-    searchStandardsPositions(feature).catch(() => []),
-    searchNpmEcosystem(feature).catch(() => []),
-    searchWpt(feature).catch(() => null),
+    searchWeb(webQuery, { feature }).catch(err => {
+      logger.debug(`Web search error: ${err.message}`);
+      return [];
+    }),
+    searchHackerNews(feature.name).catch(err => {
+      logger.debug(`HN search error: ${err.message}`);
+      return [];
+    }),
+    searchStandardsPositions(feature).catch(err => {
+      logger.debug(`Standards search error: ${err.message}`);
+      return [];
+    }),
+    searchNpmEcosystem(feature).catch(err => {
+      logger.debug(`NPM search error: ${err.message}`);
+      return [];
+    }),
+    searchWpt(feature).catch(err => {
+      logger.debug(`WPT search error: ${err.message}`);
+      return null;
+    }),
   ]);
 
   // Merge web search candidates
@@ -110,7 +133,7 @@ export async function gatherEcosystemData(feature) {
   }
 
   // STRICT RELEVANCE VERIFICATION
-  // Filter out false positives (e.g. Unicode symbol tools for CSS symbols(), or OpenAPI tools for Web Install API)
+  logger.substep('Relevance Verification', `Testing ${rawHnResults.length} HN threads, ${candidateArticles.length} articles, ${rawNpmResults.length} npm packages`);
   const [verifiedDiscussions, verifiedArticles, verifiedPackages] = await Promise.all([
     filterRelevantItems(feature, rawHnResults),
     filterRelevantItems(feature, candidateArticles),
@@ -124,9 +147,32 @@ export async function gatherEcosystemData(feature) {
   const verifiedPolyfill = verifiedPackages.find(p => p.isPolyfill) || null;
   const hasPolyfill = !!verifiedPolyfill;
 
+  // Log verification audit summary
+  logger.audit('Standards Positions', standards.length, standards.length, `${standards.map(s => s.vendor).join(', ') || 'none'}`);
+  logger.audit('Hacker News Threads', verifiedDiscussions.length, rawHnResults.length, verifiedDiscussions.length < rawHnResults.length ? `filtered ${rawHnResults.length - verifiedDiscussions.length} false-positives` : '');
+  logger.audit('NPM Packages', verifiedPackages.length, rawNpmResults.length, verifiedPolyfill ? `polyfill: ${verifiedPolyfill.name}` : 'no polyfill');
+  logger.audit('Articles & Docs', verifiedArticles.length, candidateArticles.length);
+
   // Metrics rollup based ONLY on verified findings
   const totalHnPoints = verifiedDiscussions.reduce((acc, d) => acc + (d.points || 0), 0);
   const totalHnComments = verifiedDiscussions.reduce((acc, d) => acc + (d.commentsCount || 0), 0);
+
+  const auditTrail = {
+    searchesExecuted: [
+      { type: 'web', provider: config.searchProvider, query: webQuery, rawFound: rawWebResults.length, verified: verifiedArticles.length },
+      { type: 'hackernews', query: feature.name, rawFound: rawHnResults.length, verified: verifiedDiscussions.length },
+      { type: 'standards', count: standards.length, vendors: standards.map(s => s.vendor) },
+      { type: 'npm', rawFound: rawNpmResults.length, verified: verifiedPackages.length, polyfillFound: hasPolyfill },
+      { type: 'wpt', testCount: wptResult?.testCount || 0 },
+    ],
+    contentInspected: {
+      hasSpec: !!feature.specUrl,
+      explainerCount: (feature.explainerUrls || []).length,
+      docCount: (feature.docUrls || []).length,
+      sampleCount: (feature.sampleUrls || []).length,
+      standardsCommentsRead: standards.reduce((acc, s) => acc + (s.comments?.length || 0), 0),
+    },
+  };
 
   return {
     featureId: feature.id,
@@ -139,6 +185,7 @@ export async function gatherEcosystemData(feature) {
     resources,
     wpt: wptResult,
     verifiedPolyfill,
+    auditTrail,
     metrics: {
       totalArticles: verifiedArticles.length,
       totalDiscussions: verifiedDiscussions.length,

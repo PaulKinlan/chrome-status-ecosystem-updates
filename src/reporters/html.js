@@ -523,6 +523,8 @@ export function generateDashboardHtml(reportData) {
       <div class="header-badges">
         <span class="badge badge-primary">Week: ${weekString}</span>
         <span class="badge">Chrome ${milestones.join(', ')}</span>
+        ${reportData.telemetry?.searchProvider ? `<span class="badge" title="Web Search Engine">🔎 ${reportData.telemetry.searchProvider}</span>` : ''}
+        ${reportData.telemetry?.aiProvider ? `<span class="badge" title="AI Analysis Engine">🤖 ${reportData.telemetry.aiProvider}</span>` : ''}
         <a href="feed.xml" class="badge badge-warning badge-link" title="Subscribe via RSS">📡 RSS Feed</a>
         <a href="latest.json" class="badge badge-link" target="_blank">📄 JSON API</a>
       </div>
@@ -796,6 +798,25 @@ export function generateDashboardHtml(reportData) {
                     </li>
                   \`).join('')}
                 </ul>
+              \` : ''}
+
+              \${eco.auditTrail ? \`
+                <div class="section-title">🔍 Investigation Audit Trail:</div>
+                <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.85rem 1rem; margin-bottom: 1.25rem; font-size: 0.85rem;">
+                  <div style="margin-bottom: 0.4rem;"><strong>Searches Executed:</strong></div>
+                  <ul style="list-style: none; margin-left: 0.5rem; margin-bottom: 0.65rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.25rem;">
+                    \${(eco.auditTrail.searchesExecuted || []).map(s => \`
+                      <li>• <strong style="color: var(--text);">\${escapeHtml((s.type || '').toUpperCase())}:</strong> \${s.provider ? '(' + escapeHtml(s.provider) + ') ' : ''}\${s.query ? '<em>"' + escapeHtml(s.query) + '"</em>' : ''} — found \${s.rawFound || s.count || 0} candidate(s), verified \${s.verified !== undefined ? s.verified : s.count || 0}</li>
+                    \`).join('')}
+                  </ul>
+                  <div><strong>Content Inspected:</strong></div>
+                  <div style="color: var(--text-muted); margin-left: 0.5rem; margin-top: 0.2rem;">
+                    Spec verified: \${eco.auditTrail.contentInspected?.hasSpec ? '✔ Yes' : '○ None'} |
+                    Explainers read: \${eco.auditTrail.contentInspected?.explainerCount || 0} |
+                    Standards comments read: \${eco.auditTrail.contentInspected?.standardsCommentsRead || 0} |
+                    Docs indexed: \${eco.auditTrail.contentInspected?.docCount || 0}
+                  </div>
+                </div>
               \` : ''}
 
               <div class="section-title">🔗 Official Platform References:</div>

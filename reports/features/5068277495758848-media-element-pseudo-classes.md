@@ -16,20 +16,24 @@ There is no expectation that custom media controls can be implemented entirely w
 
 ## Ecosystem Status
 
-- **Momentum:** Quiet (2 points)
+- **Momentum:** Moderate (60 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Neutral
-- **Executive Take:** Media element pseudo-classes is currently Enabled by default in Chrome 154. Ecosystem momentum is Quiet with Chromium-Led standards alignment and neutral developer pulse.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** Media element pseudo-classes is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
-- Firefox and Safari have not yet finalized positions. Use defensive feature detection (guarding with `if ("..." in window)`).
-- No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.
-- Active developer discussion on Hacker News: "Show HN: StayedCSS – A CSS Library for Next.js App Router" (1 points, 0 comments).
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
-## Community Discussions
+## Articles & Documentation
 
-- [Show HN: StayedCSS – A CSS Library for Next.js App Router](https://news.ycombinator.com/item?id=42429112) (1 pts, 0 comments)
+- [[blink-dev] Intent to Ship: Media element pseudo-classes](http://www.mail-archive.com/blink-dev@chromium.org/msg16504.html)
+- [Media element pseudo-classes · Issue #1003 · web-platform-tests/interop](https://github.com/web-platform-tests/interop/issues/1003)
+- [Re: [blink-dev] Re: Intent to Ship: Media element pseudo-classes](http://www.mail-archive.com/blink-dev@chromium.org/msg16508.html)
+- [[blink-dev] Re: Intent to Ship: Media element pseudo-classes](http://www.mail-archive.com/blink-dev@chromium.org/msg16505.html)
+- [[blink-dev] Intent to Prototype: Media element pseudo-classes](http://www.mail-archive.com/blink-dev@chromium.org/msg15214.html)
+- [Media element pseudo-classes · Issue #166 · web-platform-dx/developer-signals](https://github.com/web-platform-dx/developer-signals/issues/166)
 
 ## Useful Links
 

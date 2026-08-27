@@ -12,15 +12,21 @@ CSS Font Loading and CSS Fonts 4 define width as the primary FontFace descriptor
 
 ## Ecosystem Status
 
-- **Momentum:** Quiet (0 points)
+- **Momentum:** Emerging (30 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Neutral
-- **Executive Take:** FontFace width attribute and font-width descriptor is currently Enabled by default in Chrome 154. Ecosystem momentum is Quiet with Chromium-Led standards alignment and neutral developer pulse.
+- **Executive Take:** FontFace width attribute and font-width descriptor is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
-- Firefox and Safari have not yet finalized positions. Use defensive feature detection (guarding with `if ("..." in window)`).
-- No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+
+## Articles & Documentation
+
+- [[blink-dev] Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17165.html)
+- [[blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17196.html)
+- [Re: [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17223.html)
 
 ## Useful Links
 

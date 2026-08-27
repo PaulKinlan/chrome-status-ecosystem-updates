@@ -18,19 +18,27 @@ Firefox at least is compliant here but chromium/Edge/Safari are not. This featur
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (15 points)
+- **Momentum:** High (80 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Neutral
-- **Executive Take:** Fetch API: Forward reason from AbortController to fetch Response is currently Enabled by default in Chrome 154. Ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
+- **Sentiment:** Positive / High Interest
+- **Executive Take:** Fetch API: Forward reason from AbortController to fetch Response is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
-- Firefox and Safari have not yet finalized positions. Use defensive feature detection (guarding with `if ("..." in window)`).
-- No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- Community package available: [abortcontroller-polyfill](https://www.npmjs.com/package/abortcontroller-polyfill) (v1.7.8) for progressive enhancement.
 
-## Standards Positions
+## Packages & Polyfills
 
-- **WebKit:** [Fetch API: Forward abort reason to Response](https://github.com/WebKit/standards-positions/issues/711) [closed]
+- [abortcontroller-polyfill](https://www.npmjs.com/package/abortcontroller-polyfill) `v1.7.8` — Polyfill/ponyfill for the AbortController DOM API + optional patching of fetch (stub that calls catch, doesn't actually abort request).
+- [@remix-run/web-fetch](https://www.npmjs.com/package/@remix-run/web-fetch) `v4.4.2` — Web API compatible fetch implementation
+- [node-fetch-native](https://www.npmjs.com/package/node-fetch-native) `v1.6.7` — better fetch for Node.js. Works on any JavaScript runtime!
+- [node-fetch](https://www.npmjs.com/package/node-fetch) `v3.3.2` — A light-weight module that brings Fetch API to node.js
+
+## Articles & Documentation
+
+- [[blink-dev] Re: Intent to Ship: Fetch API: Forward reason from AbortController to fetch Response](http://www.mail-archive.com/blink-dev@chromium.org/msg17191.html)
+- [Re: [blink-dev] Re: Intent to Ship: Fetch API: Forward reason from AbortController to fetch Response](http://www.mail-archive.com/blink-dev@chromium.org/msg17242.html)
 
 ## Useful Links
 

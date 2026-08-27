@@ -27,7 +27,11 @@ export function generateWeeklyMarkdown(reportData) {
   const newActivityCount = features.reduce((acc, f) => acc + (f.delta?.newArticlesCount || 0) + (f.delta?.newDiscussionsCount || 0), 0);
 
   let md = `# 🌐 Chrome Web Platform Ecosystem Report — ${weekString}\n\n`;
-  md += `> **Generated on:** ${date} | **Target Milestones:** Chrome ${milestones.join(', ')}\n\n`;
+  md += `> **Generated on:** ${date} | **Target Milestones:** Chrome ${milestones.join(', ')}\n`;
+  if (reportData.telemetry) {
+    md += `> **Search Engine:** ${reportData.telemetry.searchProvider} | **Analysis Model:** ${reportData.telemetry.aiProvider}\n`;
+  }
+  md += `\n`;
 
   // Executive Summary Cards
   md += `## 📊 Executive Snapshot\n\n`;
@@ -169,6 +173,14 @@ export function generateWeeklyMarkdown(reportData) {
     if (eco.wpt?.url) {
       md += `#### 🧪 Web Platform Tests (WPT)\n\n`;
       md += `- View cross-browser test results on [wpt.fyi](${eco.wpt.url}) (${eco.wpt.testCount} tests listed)\n\n`;
+    }
+
+    // Investigation Audit Trail
+    if (eco.auditTrail) {
+      md += `#### 🔍 Investigation Audit Trail\n\n`;
+      const searchSummaries = (eco.auditTrail.searchesExecuted || []).map(s => `\`${s.type}\` (${s.verified !== undefined ? `${s.verified} verified` : `${s.count || 0} found`})`);
+      md += `- **Searches Run:** ${searchSummaries.join(' · ')}\n`;
+      md += `- **Content Inspected:** Spec: ${eco.auditTrail.contentInspected.hasSpec ? '✔' : '○'} · Explainers: ${eco.auditTrail.contentInspected.explainerCount} · Standards Comments Read: ${eco.auditTrail.contentInspected.standardsCommentsRead}\n\n`;
     }
 
     md += `---\n\n`;

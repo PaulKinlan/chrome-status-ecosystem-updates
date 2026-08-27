@@ -16,20 +16,15 @@ There is a demand for extensibility of options on the WebSocket constructor, to 
 
 ## Ecosystem Status
 
-- **Momentum:** Moderate (70 points)
+- **Momentum:** Moderate (40 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Cautiously Optimistic
 - **Executive Take:** Add options bag to WebSocket constructor is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
 
 ### Recommendations
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."
+- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-## Standards Positions
-
-- **WebKit:** [Supporting options bag in WebSocket constructor](https://github.com/WebKit/standards-positions/issues/708) [open]
-- **Mozilla:** [Supporting options bag in WebSocket constructor](https://github.com/mozilla/standards-positions/issues/1444) [open]
 
 ## Packages & Polyfills
 

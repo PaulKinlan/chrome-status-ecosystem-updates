@@ -18,18 +18,14 @@ This feature can be controlled by the following enterprise policies:
 
 ## Ecosystem Status
 
-- **Momentum:** Moderate (35 points)
+- **Momentum:** Emerging (20 points)
 - **Standards Alignment:** Contested / Concerns Raised
 - **Sentiment:** Mixed / Skeptical
-- **Executive Take:** Support for specialized WebHID devices on Android is currently In developer trial (Behind a flag) in Chrome 154. Ecosystem momentum is Moderate with Contested / Concerns Raised standards alignment and mixed / skeptical developer pulse.
+- **Executive Take:** Support for specialized WebHID devices on Android is currently In developer trial (Behind a flag) in Chrome 154. Verified ecosystem momentum is Emerging with Contested / Concerns Raised standards alignment and mixed / skeptical developer pulse.
 
 ### Recommendations
 - Non-Chromium browser vendors have raised architectural, security, or privacy considerations in standards position trackers.
-- No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.
-
-## Standards Positions
-
-- **Mozilla:** [WebHID (Human Interface Device) API](https://github.com/mozilla/standards-positions/issues/459) [closed]
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 ## Articles & Documentation
 

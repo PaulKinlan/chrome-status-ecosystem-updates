@@ -18,20 +18,25 @@ By returning an error when none of the language tags provided match Secure Payme
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (30 points)
+- **Momentum:** Moderate (40 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Neutral
-- **Executive Take:** Secure Payment Confirmation: Locale Validation is currently Enabled by default in Chrome 154. Ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** Secure Payment Confirmation: Locale Validation is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
-- Firefox and Safari have not yet finalized positions. Use defensive feature detection (guarding with `if ("..." in window)`).
-- No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
-## Standards Positions
+## Packages & Polyfills
 
-- **WebKit:** [Secure Payment Confirmation (SPC)](https://github.com/WebKit/standards-positions/issues/30) [open]
-- **Mozilla:** [Secure Payment Confirmation](https://github.com/mozilla/standards-positions/issues/570) [open]
+- [os-locale](https://www.npmjs.com/package/os-locale) `v8.0.0` — Get the system locale
+- [@generaltranslation/format](https://www.npmjs.com/package/@generaltranslation/format) `v0.1.8` — Locale and formatting utilities for General Translation
+- [@lingo.dev/_locales](https://www.npmjs.com/package/@lingo.dev/_locales) `v0.3.4` — Lingo.dev locales
+
+## Articles & Documentation
+
+- [[blink-dev] Intent to Prototype: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17162.html)
 
 ## Useful Links
 

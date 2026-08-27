@@ -21,24 +21,26 @@ This fixes a security issue where Background Fetch unintentionally bypasses secu
 
 ## Ecosystem Status
 
-- **Momentum:** Moderate (60 points)
+- **Momentum:** Moderate (70 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Cautiously Optimistic
-- **Executive Take:** Local Network Access restrictions for Background Fetch is currently Enabled by default in Chrome 154. Ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
+- **Executive Take:** Local Network Access restrictions for Background Fetch is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
-- Firefox and Safari have not yet finalized positions. Use defensive feature detection (guarding with `if ("..." in window)`).
-- Community polyfill / package is available on npm for cross-browser progressive enhancement.
-
-## Standards Positions
-
-- **WebKit:** [Request for Position: Local Network Access](https://github.com/WebKit/standards-positions/issues/520) [open]
-- **Mozilla:** [Local Network Access](https://github.com/mozilla/standards-positions/issues/1260) [open]
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- Community package available: [react-native-fetch-api](https://www.npmjs.com/package/react-native-fetch-api) (v3.0.0) for progressive enhancement.
 
 ## Packages & Polyfills
 
+- [is-network-error](https://www.npmjs.com/package/is-network-error) `v1.3.2` — Check if a value is a Fetch network error
 - [react-native-fetch-api](https://www.npmjs.com/package/react-native-fetch-api) `v3.0.0` — A fetch API polyfill for React Native with text streaming support.
+
+## Articles & Documentation
+
+- [[blink-dev] Re: Intent to Ship: Local Network Access restrictions for Background Fetch](http://www.mail-archive.com/blink-dev@chromium.org/msg17193.html)
+- [[blink-dev] Intent to Ship: Local Network Access restrictions for Background Fetch](http://www.mail-archive.com/blink-dev@chromium.org/msg17180.html)
+- [Re: [blink-dev] Re: Intent to Ship: Local Network Access restrictions for Background Fetch](http://www.mail-archive.com/blink-dev@chromium.org/msg17209.html)
 
 ## Useful Links
 

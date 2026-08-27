@@ -25,15 +25,20 @@ CL: https://chromium-review.googlesource.com/c/chromium/src/+/7748204
 
 ## Ecosystem Status
 
-- **Momentum:** Quiet (0 points)
+- **Momentum:** Emerging (20 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Neutral
-- **Executive Take:** CSS text-decoration-inset is currently Enabled by default in Chrome 154. Ecosystem momentum is Quiet with Chromium-Led standards alignment and neutral developer pulse.
+- **Executive Take:** CSS text-decoration-inset is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
-- Firefox and Safari have not yet finalized positions. Use defensive feature detection (guarding with `if ("..." in window)`).
-- No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+
+## Articles & Documentation
+
+- [[blink-dev] Intent to Ship: CSS text-decoration-inset](http://www.mail-archive.com/blink-dev@chromium.org/msg17255.html)
+- [Re: [blink-dev] Intent to Ship: CSS text-decoration-inset](http://www.mail-archive.com/blink-dev@chromium.org/msg17259.html)
 
 ## Useful Links
 

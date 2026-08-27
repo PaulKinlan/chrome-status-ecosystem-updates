@@ -12,15 +12,22 @@ Currently there is no web standard way to control whether text decorations (unde
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (15 points)
+- **Momentum:** Moderate (55 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Neutral
-- **Executive Take:** CSS4 text-decoration-skip-spaces is currently Enabled by default in Chrome 154. Ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** CSS4 text-decoration-skip-spaces is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
-- Firefox and Safari have not yet finalized positions. Use defensive feature detection (guarding with `if ("..." in window)`).
-- No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+
+## Articles & Documentation
+
+- [[blink-dev] Re: Intent to Ship: CSS4 text-decoration-skip-spaces](http://www.mail-archive.com/blink-dev@chromium.org/msg17159.html)
+- [[blink-dev] Intent to Ship: CSS4 text-decoration-skip-spaces](http://www.mail-archive.com/blink-dev@chromium.org/msg17140.html)
+- [CSS4 text-decoration-skip-spaces](https://chromestatus.com/feature/4832783806627840)
+- [Re: [blink-dev] Re: Intent to Ship: CSS4 text-decoration-skip-spaces](http://www.mail-archive.com/blink-dev@chromium.org/msg17311.html)
 
 ## Useful Links
 

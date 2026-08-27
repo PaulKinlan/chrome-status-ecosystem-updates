@@ -16,14 +16,20 @@ The introduction of a new depth_mode built-in parameter for the @builtin(frag_de
 
 ## Ecosystem Status
 
-- **Momentum:** Quiet (0 points)
+- **Momentum:** Emerging (30 points)
 - **Standards Alignment:** Partial Multi-Engine Interest
 - **Sentiment:** Neutral
-- **Executive Take:** WebGPU: WGSL Fragment Depth is currently Enabled by default in Chrome 154. Ecosystem momentum is Quiet with Partial Multi-Engine Interest standards alignment and neutral developer pulse.
+- **Executive Take:** WebGPU: WGSL Fragment Depth is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Partial Multi-Engine Interest standards alignment and neutral developer pulse.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with appropriate feature detection.
-- No direct polyfill detected yet; progressive enhancement fallback required for non-supporting browsers.
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+
+## Articles & Documentation
+
+- [[blink-dev] Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17263.html)
+- [[blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17276.html)
+- [Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17300.html)
 
 ## Useful Links
 

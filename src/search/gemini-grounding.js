@@ -1,5 +1,6 @@
 import { config } from '../config.js';
 import { extractDomain } from './web.js';
+import { logger } from '../logger.js';
 
 /**
  * Extracts and parses JSON from model output text,
@@ -85,6 +86,10 @@ export async function callGeminiWithSearchGrounding(prompt, options = {}) {
       const webSearchQueries = groundingMeta.webSearchQueries || [];
       const groundingChunks = groundingMeta.groundingChunks || [];
 
+      if (webSearchQueries.length > 0) {
+        logger.debug(`Google Search Grounding executed queries: ${webSearchQueries.map(q => '"' + q + '"').join(', ')}`);
+      }
+
       // Extract grounded web sources from Google Search
       const groundedArticles = [];
       const seenUris = new Set();
@@ -104,6 +109,10 @@ export async function callGeminiWithSearchGrounding(prompt, options = {}) {
             snippet: text.slice(0, 250),
           });
         }
+      }
+
+      if (groundedArticles.length > 0) {
+        logger.debug(`Google Search Grounding discovered ${groundedArticles.length} live web sources: ${groundedArticles.map(a => a.domain).filter(Boolean).join(', ')}`);
       }
 
       const parsedJson = extractJsonFromText(text);
