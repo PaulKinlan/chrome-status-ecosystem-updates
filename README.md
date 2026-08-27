@@ -25,7 +25,7 @@ For every feature across target Chrome milestones (or individual features), the 
 
 4. **📚 Articles, Tutorials & Documentation:**
    - Searches the web for articles, blog posts, and guides from `web.dev`, `developer.chrome.com`, `MDN`, `Smashing Magazine`, `CSS-Tricks`, and developer blogs.
-   - Supports pluggable search providers (**Tavily AI Search**, **Google Custom Search**, **Brave Search**, **Serper**, or built-in free web & feed sources).
+   - Supports pluggable search providers (**Google Gemini Live Search Grounding**, **Brave Search**, **Google Custom Search**, or built-in free web & feed sources).
 
 5. **🧪 Web Platform Tests (WPT) & Demos:**
    - Links to **wpt.fyi** test pass rates and indexes official explainer docs, specifications, and interactive demos.
@@ -120,13 +120,13 @@ cp .env.example .env
 | `FEATURE_STATUSES` | Filter by status: `enabled,origin-trial,flagged,deprecated` | all |
 | `MAX_FEATURES` | Cap number of features processed per run | (unlimited) |
 | `GITHUB_TOKEN` | GitHub Personal Access Token (boosts API limit from 60 to 5000/hr) | *(optional)* |
-| `SEARCH_PROVIDER` | Web search provider: `auto`, `gemini`, `tavily`, `google`, `brave`, `serper` | `auto` |
+| `SEARCH_PROVIDER` | Web search provider: `auto`, `gemini`, `brave`, `google`, `ecosystem-only` | `auto` |
 | `GEMINI_API_KEY` | Google Gemini API key (enables native Google Search Grounding & synthesis) | *(optional)* |
-| `TAVILY_API_KEY` | Tavily Search API key (alternative web search) | *(optional)* |
+| `GEMINI_MODEL` | Gemini model version (defaults to `gemini-3.7-flash`) | `gemini-3.7-flash` |
+| `BRAVE_SEARCH_API_KEY` | Brave Search API key (independent web index) | *(optional)* |
 | `GOOGLE_SEARCH_API_KEY` | Google Custom Search API Key | *(optional)* |
 | `GOOGLE_SEARCH_CX` | Google Custom Search Engine ID | *(optional)* |
-| `BRAVE_SEARCH_API_KEY` | Brave Search API key | *(optional)* |
-| `SERPER_API_KEY` | Serper.dev Google Search API key | *(optional)* |
+| `TWITTER_BEARER_TOKEN` | Twitter / X Bearer Token (Twitter API v2 app-only search) | *(optional)* |
 | `OPENAI_API_KEY` | OpenAI API key (alternative AI synthesis) | *(optional)* |
 | `REPORTS_DIR` | Directory where reports are saved | `./reports` |
 | `PORT` | Local preview server port | `3000` |
@@ -163,10 +163,15 @@ chrome-status-ecosystem-updates/
 │   ├── search/
 │   │   ├── index.js            # Unified search coordinator & deduplicator
 │   │   ├── hackernews.js       # Hacker News Algolia discussion search
-│   │   ├── standards.js        # WebKit & Mozilla standards-positions GitHub search
+│   │   ├── standards.js        # WebKit, Mozilla & W3C TAG standards positions
+│   │   ├── bugzilla.js         # Mozilla & WebKit Bugzilla trackers
+│   │   ├── baseline.js         # baseline.dev & webstatus.dev interoperability
+│   │   ├── mdn.js              # MDN Web Docs search
+│   │   ├── twitter.js          # Twitter / X developer discussion search
 │   │   ├── npm.js              # NPM registry search for polyfills & packages
 │   │   ├── wpt.js              # Web Platform Tests status
-│   │   └── web.js              # Pluggable Web search (Tavily, Google, Brave, Serper)
+│   │   ├── verifier.js         # LLM & NLP semantic relevance verifier
+│   │   └── web.js              # Multi-engine web search (Gemini Grounded, Brave, Google)
 │   ├── analyzer/
 │   │   ├── index.js            # Analyzer coordinator
 │   │   ├── heuristic.js        # Rule-based momentum, consensus & sentiment scoring

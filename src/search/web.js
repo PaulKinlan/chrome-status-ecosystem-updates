@@ -124,76 +124,6 @@ async function searchGoogle(query, options = {}) {
 }
 
 /**
- * Searches the web using Tavily AI Search
- */
-async function searchTavily(query, options = {}) {
-  if (!config.tavilyApiKey) return [];
-  try {
-    const res = await fetch('https://api.tavily.com/search', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        api_key: config.tavilyApiKey,
-        query,
-        search_depth: 'advanced',
-        include_answer: false,
-        max_results: options.limit || 8,
-      }),
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return (data.results || []).map(r => ({
-      source: 'Tavily Search',
-      type: 'article',
-      title: r.title,
-      url: r.url,
-      snippet: r.content || '',
-      publishedAt: r.published_date || null,
-      domain: extractDomain(r.url),
-    }));
-  } catch (err) {
-    logger.debug(`Tavily search error: ${err.message}`);
-    return [];
-  }
-}
-
-/**
- * Searches the web using Serper.dev
- */
-async function searchSerper(query, options = {}) {
-  if (!config.serperApiKey) return [];
-  try {
-    const res = await fetch('https://google.serper.dev/search', {
-      method: 'POST',
-      headers: {
-        'X-API-KEY': config.serperApiKey,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        q: query,
-        num: options.limit || 8,
-      }),
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return (data.organic || []).map(r => ({
-      source: 'Google (via Serper)',
-      type: 'article',
-      title: r.title,
-      url: r.link,
-      snippet: r.snippet || '',
-      publishedAt: r.date || null,
-      domain: extractDomain(r.link),
-    }));
-  } catch (err) {
-    logger.debug(`Serper search error: ${err.message}`);
-    return [];
-  }
-}
-
-/**
  * Determines all active search providers based on configuration and available API keys.
  * Maximizes breadth by enabling all configured search engines concurrently.
  */
@@ -214,12 +144,6 @@ export function getActiveSearchProviders() {
   }
   if (config.googleSearchApiKey && config.googleSearchCx) {
     providers.push('google');
-  }
-  if (config.tavilyApiKey) {
-    providers.push('tavily');
-  }
-  if (config.serperApiKey) {
-    providers.push('serper');
   }
 
   return providers;
@@ -246,10 +170,6 @@ export async function searchWeb(query, options = {}) {
         return searchBrave(query, options).then(items => ({ provider, items }));
       case 'google':
         return searchGoogle(query, options).then(items => ({ provider, items }));
-      case 'tavily':
-        return searchTavily(query, options).then(items => ({ provider, items }));
-      case 'serper':
-        return searchSerper(query, options).then(items => ({ provider, items }));
       default:
         return Promise.resolve({ provider, items: [] });
     }

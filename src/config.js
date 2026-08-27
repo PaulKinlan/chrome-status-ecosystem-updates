@@ -50,22 +50,19 @@ export const config = {
   // Max features to process (empty or 0 = all)
   maxFeatures: process.env.MAX_FEATURES ? parseInt(process.env.MAX_FEATURES, 10) : null,
 
-  // Search provider: auto, tavily, google, brave, serper, or ecosystem-only
+  // Search provider: auto, gemini, brave, google, or ecosystem-only
   searchProvider: process.env.SEARCH_PROVIDER || 'auto',
 
   // Search API keys
-  tavilyApiKey: process.env.TAVILY_API_KEY || '',
   googleSearchApiKey: process.env.GOOGLE_SEARCH_API_KEY || '',
   googleSearchCx: process.env.GOOGLE_SEARCH_CX || '',
   braveSearchApiKey: process.env.BRAVE_SEARCH_API_KEY || '',
-  serperApiKey: process.env.SERPER_API_KEY || '',
 
   // GitHub token for GitHub search API rate limits (optional)
   githubToken: process.env.GITHUB_TOKEN || '',
 
-  // Twitter / X developer search (optional)
+  // Twitter / X developer search via Bearer Token (optional)
   twitterBearerToken: process.env.TWITTER_BEARER_TOKEN || process.env.X_BEARER_TOKEN || '',
-  twitterApiKey: process.env.TWITTER_API_KEY || process.env.X_API_KEY || '',
 
   // AI synthesis
   aiProvider: process.env.AI_PROVIDER || 'gemini',

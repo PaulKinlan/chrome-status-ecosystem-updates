@@ -5,10 +5,10 @@ const cache = new Map();
 
 /**
  * Searches Twitter / X for developer feedback, announcements, and sentiment
- * when TWITTER_BEARER_TOKEN or TWITTER_API_KEY is configured.
+ * when TWITTER_BEARER_TOKEN is configured.
  */
 export async function searchTwitter(feature) {
-  const token = config.twitterBearerToken || config.twitterApiKey;
+  const token = config.twitterBearerToken;
   if (!token) return [];
 
   const query = `"${feature.name}" -is:retweet lang:en`;
