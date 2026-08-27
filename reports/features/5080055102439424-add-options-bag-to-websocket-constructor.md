@@ -23,19 +23,24 @@ There is a demand for extensibility of options on the WebSocket constructor, to 
 
 ### Recommendations
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- Standards Activity (WebKit): Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+
+## Standards Positions
+
+- **WebKit:** [Supporting options bag in WebSocket constructor](https://github.com/WebKit/standards-positions/issues/708) [open]
+- **Mozilla:** [Supporting options bag in WebSocket constructor](https://github.com/mozilla/standards-positions/issues/1444) [open]
 
 ## Packages & Polyfills
 
 - [@httptoolkit/websocket-stream](https://www.npmjs.com/package/@httptoolkit/websocket-stream) `v6.0.1` — Use websockets with the node streams API. Works in browser and node, with all current WS versions
 - [jest-websocket-mock](https://www.npmjs.com/package/jest-websocket-mock) `v2.5.0` — Mock websockets and assert complex websocket interactions with Jest
 
-## Articles & Documentation
+## 📚 Platform Documentation & Specifications
 
-- [WebSocket: WebSocket() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket)
-- [WebSocketStream: WebSocketStream() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream)
-- [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
+- [WebSocket: WebSocket() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket) *(developer.mozilla.org)*
+- [WebSocketStream: WebSocketStream() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream) *(developer.mozilla.org)*
+- [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) *(developer.mozilla.org)*
 
 ## Useful Links
 

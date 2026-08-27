@@ -4,6 +4,7 @@ import { searchBaseline } from '../src/search/baseline.js';
 import { searchMdn } from '../src/search/mdn.js';
 import { searchEngineBugzillas } from '../src/search/bugzilla.js';
 import { searchTwitter } from '../src/search/twitter.js';
+import { searchDevToBlogs } from '../src/search/blogs.js';
 
 test('searchBaseline queries webstatus.dev API without throwing', async () => {
   const result = await searchBaseline({ name: 'Web Install API' });
@@ -27,4 +28,9 @@ test('searchEngineBugzillas queries Mozilla and WebKit without throwing', async 
 test('searchTwitter gracefully returns empty array when no token is set', async () => {
   const results = await searchTwitter({ name: 'Web Install API' });
   assert.deepStrictEqual(results, []);
+});
+
+test('searchDevToBlogs queries dev.to API without throwing', async () => {
+  const results = await searchDevToBlogs({ name: 'Web Install API' });
+  assert.ok(Array.isArray(results), 'Returns an array of blog articles');
 });

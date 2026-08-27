@@ -17,32 +17,22 @@ Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integ
 
 ## Ecosystem Status
 
-- **Momentum:** Moderate (50 points)
+- **Momentum:** Quiet (0 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Cautiously Optimistic
-- **Executive Take:** Additional Windowing Controls is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
+- **Sentiment:** Neutral
+- **Executive Take:** Additional Windowing Controls is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Quiet with Chromium-Led standards alignment and neutral developer pulse.
 
 ### Recommendations
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- Community package available: [@types/estree](https://www.npmjs.com/package/@types/estree) (v1.0.9) for progressive enhancement.
+- Standards Activity (WebKit): Latest discussion from @morsssss: "Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've..."
+- Standards Activity (Mozilla): Latest discussion from @michaelwasserman: "Here are additional details that may help. Those interested may wish to attend the upcoming [Second Screen WG/CG - 2023 Q1 virtual meeting](https://gi..."
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 ## Standards Positions
 
-- **WebKit:** [Additional Windowing Controls](https://github.com/WebKit/standards-positions/issues/96) [open]
-- **Mozilla:** [Additional Windowing Controls](https://github.com/mozilla/standards-positions/issues/712) [open]
-- **Mozilla:** [New 'onmove' event handler for the Window object](https://github.com/mozilla/standards-positions/issues/938) [closed]
+- **WebKit:** [Window Management](https://github.com/mozilla/standards-positions/issues/542) [open]
+- **Mozilla:** [Multi-Screen Window Placement API](https://github.com/WebKit/standards-positions/issues/117) [open]
 - **W3C TAG:** [WG New Spec: Additional Windowing Controls](https://github.com/w3ctag/design-reviews/issues/1246) [open]
-
-## Packages & Polyfills
-
-- [@types/estree](https://www.npmjs.com/package/@types/estree) `v1.0.9` — TypeScript definitions for estree
-
-## Articles & Documentation
-
-- [Mobile touch controls](https://developer.mozilla.org/en-US/docs/Games/Techniques/Control_mechanisms/Mobile_touch)
-- [Unconventional controls](https://developer.mozilla.org/en-US/docs/Games/Techniques/Control_mechanisms/Other)
-- [User input methods and controls](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/User_input_methods)
 
 ## Useful Links
 

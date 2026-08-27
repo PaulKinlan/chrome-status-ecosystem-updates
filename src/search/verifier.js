@@ -23,7 +23,9 @@ const STOP_WORDS = new Set([
   'when', 'whens', 'where', 'wheres', 'which', 'while', 'who', 'whos', 'whom',
   'why', 'whys', 'with', 'wont', 'would', 'wouldnt', 'you', 'youd', 'youll',
   'youre', 'youve', 'your', 'yours', 'yourself', 'yourselves', 'chrome',
-  'feature', 'support', 'supports', 'allows', 'enables', 'added', 'using',
+  'feature', 'features', 'support', 'supports', 'allows', 'enables', 'enable', 'enabling',
+  'added', 'using', 'method', 'methods', 'function', 'functions', 'desktop', 'window', 'windows',
+  'control', 'controls', 'state', 'states', 'user', 'users', 'virtual', 'current', 'currently',
   'api', 'apis', 'web', 'open', 'source', 'library', 'libraries', 'tool', 'tools',
   'com', 'org', 'net', 'io', 'dev', 'edu', 'gov', 'html', 'htm', 'http', 'https', 'www', 'github', 'spec', 'drafts', 'w3c',
 ]);
@@ -91,13 +93,15 @@ export function extractTechnicalAnchors(feature) {
     } catch {}
   }
 
-  // 5. Extract distinctive technical identifiers from summary & motivation (digits, hyphens, mixedCase, acronyms)
+  // 5. Extract distinctive technical identifiers from summary & motivation (digits, hyphens, camelCase, acronyms)
   const summaryTokens = `${feature.summary || ''} ${feature.motivation || ''}`
     .replace(/[^a-zA-Z0-9-]/g, ' ')
     .split(/\s+/)
     .filter(t => t.length >= 4 && !STOP_WORDS.has(t.toLowerCase()));
   for (const t of summaryTokens) {
-    if (/[0-9-]/.test(t) || /[A-Z]/.test(t)) {
+    // Digits (ChaCha20, CSS3), hyphens (display-state), camelCase (setResizable), or all-caps acronyms (PWA, CORS, WPT)
+    const isSpecialToken = /[0-9-]/.test(t) || /[a-z][A-Z]/.test(t) || /^[A-Z0-9_-]{3,}$/.test(t);
+    if (isSpecialToken) {
       anchors.add(t.toLowerCase());
     }
   }

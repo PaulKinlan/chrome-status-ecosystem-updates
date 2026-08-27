@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-08-27T22:21:24.556Z",
+  "lastRun": "2026-08-27T22:33:22.999Z",
   "lastWeekString": "2026-W35",
   "telemetry": {
     "searchProviders": [],
@@ -15,11 +15,13 @@
       "name": "Add options bag to WebSocket constructor",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T22:21:21.841Z",
+      "lastSeen": "2026-08-27T22:33:19.412Z",
       "knownUrls": [
         "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket",
         "https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream",
         "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket",
+        "https://github.com/WebKit/standards-positions/issues/708",
+        "https://github.com/mozilla/standards-positions/issues/1444",
         "https://www.npmjs.com/package/@httptoolkit/websocket-stream",
         "https://www.npmjs.com/package/jest-websocket-mock"
       ],
@@ -31,18 +33,13 @@
       "name": "Additional Windowing Controls",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T22:21:24.552Z",
+      "lastSeen": "2026-08-27T22:33:22.993Z",
       "knownUrls": [
-        "https://developer.mozilla.org/en-US/docs/Games/Techniques/Control_mechanisms/Mobile_touch",
-        "https://developer.mozilla.org/en-US/docs/Games/Techniques/Control_mechanisms/Other",
-        "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/User_input_methods",
-        "https://github.com/WebKit/standards-positions/issues/96",
-        "https://github.com/mozilla/standards-positions/issues/712",
-        "https://github.com/mozilla/standards-positions/issues/938",
-        "https://github.com/w3ctag/design-reviews/issues/1246",
-        "https://www.npmjs.com/package/@types/estree"
+        "https://github.com/mozilla/standards-positions/issues/542",
+        "https://github.com/WebKit/standards-positions/issues/117",
+        "https://github.com/w3ctag/design-reviews/issues/1246"
       ],
-      "lastMomentumLevel": "Moderate",
+      "lastMomentumLevel": "Quiet",
       "lastConsensus": "Chromium-Led"
     },
     "5198951632470016": {

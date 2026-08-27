@@ -670,7 +670,8 @@ export function generateDashboardHtml(reportData) {
         const stdCount = (eco.standards || []).length;
         const bzCount = (eco.bugs || []).length;
         const discCount = (eco.discussions || []).length;
-        const artCount = (eco.articles || []).length;
+        const blogCount = (eco.blogs || []).length;
+        const docCount = (eco.docs || []).length;
         const pkgCount = (eco.packages || []).length;
 
         return \`
@@ -744,6 +745,8 @@ export function generateDashboardHtml(reportData) {
               <div class="expander-left">
                 <span>🔍 Ecosystem Evidence & Inspected Resources</span>
                 <span class="expander-pill">🏛️ \${stdCount} standards</span>
+                \${bzCount ? \`<span class="expander-pill">🐛 \${bzCount} bugs</span>\` : ''}
+                \${blogCount ? \`<span class="expander-pill">📰 \${blogCount} blogs</span>\` : ''}
                 <span class="expander-pill">💬 \${discCount} discussions</span>
                 \${polyfill ? '<span class="expander-pill" style="color: var(--purple);">📦 1 polyfill</span>' : ''}
               </div>
@@ -811,13 +814,29 @@ export function generateDashboardHtml(reportData) {
                 </ul>
               \` : ''}
 
-              \${eco.articles && eco.articles.length ? \`
-                <div class="section-title">📰 Articles & Documentation:</div>
+              \${(eco.blogs && eco.blogs.length) ? \`
+                <div class="section-title">📰 Ecosystem Blogs & Articles:</div>
                 <ul class="links-list" style="margin-bottom: 1.25rem;">
-                  \${eco.articles.slice(0, 5).map(art => \`
+                  \${eco.blogs.slice(0, 6).map(art => \`
                     <li>
-                      📰 <a href="\${art.url}" target="_blank" rel="noopener">\${escapeHtml(art.title)}</a>
-                      \${art.domain ? \`<span class="tag-pill">\${art.domain}</span>\` : ''}
+                      <div>
+                        📰 <a href="\${art.url}" target="_blank" rel="noopener"><strong>\${escapeHtml(art.title)}</strong></a>
+                        \${art.domain ? \`<span class="tag-pill">\${art.domain}</span>\` : ''}
+                        \${art.author ? \`<span class="tag-pill">by \${escapeHtml(art.author)}</span>\` : ''}
+                        \${(art.contentExcerpt || art.snippet) ? \`<div class="comment-quote">\${escapeHtml((art.contentExcerpt || art.snippet).slice(0, 220))}...</div>\` : ''}
+                      </div>
+                    </li>
+                  \`).join('')}
+                </ul>
+              \` : ''}
+
+              \${(eco.docs && eco.docs.length) ? \`
+                <div class="section-title">📚 Documentation & Specifications:</div>
+                <ul class="links-list" style="margin-bottom: 1.25rem;">
+                  \${eco.docs.slice(0, 5).map(doc => \`
+                    <li>
+                      📚 <a href="\${doc.url}" target="_blank" rel="noopener">\${escapeHtml(doc.title)}</a>
+                      \${doc.domain ? \`<span class="tag-pill">\${doc.domain}</span>\` : ''}
                     </li>
                   \`).join('')}
                 </ul>

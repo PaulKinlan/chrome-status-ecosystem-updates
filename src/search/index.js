@@ -4,6 +4,7 @@ import { searchEngineBugzillas } from './bugzilla.js';
 import { searchBaseline } from './baseline.js';
 import { searchMdn } from './mdn.js';
 import { searchTwitter } from './twitter.js';
+import { searchDevToBlogs } from './blogs.js';
 import { searchNpmEcosystem } from './npm.js';
 import { searchWpt } from './wpt.js';
 import { searchWeb, extractDomain, cleanUrl, getActiveSearchProviders } from './web.js';
@@ -15,7 +16,7 @@ import { config } from '../config.js';
 /**
  * Searches the web and developer ecosystem for activity around an API/feature,
  * deeply inspecting linked resources across standards, bug trackers, tests,
- * documentation, and community channels.
+ * documentation, blogs, and community channels.
  */
 export async function gatherEcosystemData(feature) {
   const seenUrls = new Set();
@@ -88,13 +89,14 @@ export async function gatherEcosystemData(feature) {
     ? activeSearchProviders.join(' + ')
     : config.searchProvider;
 
-  logger.substep('Running ecosystem searches', `Web: [${searchEngineLabel}] | Standards | Bugzilla | Baseline | MDN | HN | NPM | WPT`);
+  logger.substep('Running ecosystem searches', `Web: [${searchEngineLabel}] | Blogs | Standards | Bugzilla | Baseline | MDN | HN | NPM | WPT`);
   logger.debug(`Web search query: ${webQuery}`);
   logger.debug(`Hacker News query: "${feature.name}"`);
 
   const [
     rawWebResults,
     rawHnResults,
+    devToResults,
     standardsResults,
     bugsResult,
     baselineResult,
@@ -109,6 +111,10 @@ export async function gatherEcosystemData(feature) {
     }),
     searchHackerNews(feature.name).catch(err => {
       logger.debug(`HN search error: ${err.message}`);
+      return [];
+    }),
+    searchDevToBlogs(feature).catch(err => {
+      logger.debug(`Dev.to search error: ${err.message}`);
       return [];
     }),
     searchStandardsPositions(feature).catch(err => {
@@ -141,8 +147,28 @@ export async function gatherEcosystemData(feature) {
     }),
   ]);
 
-  // Merge web search candidates and MDN docs
-  for (const item of [...rawWebResults, ...mdnResult]) {
+  // Extract external articles and blog posts submitted to Hacker News
+  for (const hn of rawHnResults) {
+    if (hn.url && !hn.url.includes('news.ycombinator.com')) {
+      const cleaned = cleanUrl(hn.url);
+      if (cleaned && !seenUrls.has(cleaned)) {
+        seenUrls.add(cleaned);
+        candidateArticles.push({
+          source: 'Hacker News Link',
+          type: 'article',
+          isBlog: true,
+          title: hn.title,
+          url: cleaned,
+          domain: extractDomain(cleaned),
+          publishedAt: hn.publishedAt,
+          snippet: hn.snippet,
+        });
+      }
+    }
+  }
+
+  // Merge web search candidates, developer blog articles, and MDN docs
+  for (const item of [...rawWebResults, ...devToResults, ...mdnResult]) {
     const cleaned = cleanUrl(item.url);
     if (cleaned && !seenUrls.has(cleaned)) {
       seenUrls.add(cleaned);
@@ -152,9 +178,9 @@ export async function gatherEcosystemData(feature) {
 
   // Fetch page content excerpts for candidate articles to inspect what is happening inside the links
   if (candidateArticles.length > 0) {
-    logger.substep('Ingesting page contents', `Fetching HTTP body text for ${Math.min(candidateArticles.length, 6)} article candidate(s)...`);
+    logger.substep('Ingesting page contents', `Fetching HTTP body text for ${Math.min(candidateArticles.length, 8)} article candidate(s)...`);
     await Promise.all(
-      candidateArticles.slice(0, 6).map(async (art) => {
+      candidateArticles.slice(0, 8).map(async (art) => {
         if (!art.contentExcerpt) {
           const excerpt = await fetchArticleExcerpt(art.url);
           if (excerpt) {
@@ -176,6 +202,17 @@ export async function gatherEcosystemData(feature) {
     filterRelevantItems(feature, rawNpmResults),
   ]);
 
+  // Partition verified articles into Ecosystem Blogs/Tutorials vs Reference Documentation
+  const verifiedBlogs = verifiedArticles.filter(a =>
+    a.isBlog ||
+    (a.domain &&
+     !a.domain.includes('w3.org') &&
+     !a.domain.includes('mozilla.org') &&
+     !a.domain.includes('whatwg.org') &&
+     !a.domain.includes('github.com'))
+  );
+  const verifiedDocs = verifiedArticles.filter(a => !verifiedBlogs.includes(a));
+
   // Standards positions from WebKit/Mozilla/TAG issues
   const standards = standardsResults;
 
@@ -191,7 +228,8 @@ export async function gatherEcosystemData(feature) {
   }
   logger.audit('Community Discussions', verifiedDiscussions.length, candidateDiscussions.length, verifiedDiscussions.length < candidateDiscussions.length ? `filtered ${candidateDiscussions.length - verifiedDiscussions.length} unrelated` : '');
   logger.audit('NPM Packages', verifiedPackages.length, rawNpmResults.length, verifiedPolyfill ? `polyfill: ${verifiedPolyfill.name}` : 'no polyfill');
-  logger.audit('Articles & Documentation', verifiedArticles.length, candidateArticles.length);
+  logger.audit('Ecosystem Blogs & Articles', verifiedBlogs.length, candidateArticles.length);
+  logger.audit('Platform Documentation', verifiedDocs.length, candidateArticles.length);
 
   // Metrics rollup based ONLY on verified findings
   const totalHnPoints = verifiedDiscussions.reduce((acc, d) => acc + (d.points || 0), 0);
@@ -200,6 +238,7 @@ export async function gatherEcosystemData(feature) {
   const auditTrail = {
     searchesExecuted: [
       { type: 'web', provider: searchEngineLabel, providers: activeSearchProviders, query: webQuery, rawFound: rawWebResults.length, verified: verifiedArticles.length },
+      { type: 'devto_blogs', query: feature.name, rawFound: devToResults.length, verified: verifiedBlogs.length },
       { type: 'hackernews', query: feature.name, rawFound: rawHnResults.length, verified: verifiedDiscussions.filter(d => d.source.includes('Hacker News')).length },
       { type: 'standards', count: standards.length, vendors: standards.map(s => s.vendor) },
       { type: 'bugzilla', count: bugsResult.length, vendors: bugsResult.map(b => b.vendor) },
@@ -223,6 +262,8 @@ export async function gatherEcosystemData(feature) {
     featureName: feature.name,
     gatheredAt: new Date().toISOString(),
     articles: verifiedArticles,
+    blogs: verifiedBlogs,
+    docs: verifiedDocs,
     discussions: verifiedDiscussions,
     standards,
     bugs: bugsResult,
@@ -234,6 +275,8 @@ export async function gatherEcosystemData(feature) {
     auditTrail,
     metrics: {
       totalArticles: verifiedArticles.length,
+      totalBlogs: verifiedBlogs.length,
+      totalDocs: verifiedDocs.length,
       totalDiscussions: verifiedDiscussions.length,
       totalStandards: standards.length,
       totalBugs: bugsResult.length,

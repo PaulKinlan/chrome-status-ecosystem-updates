@@ -163,11 +163,27 @@ export function generateWeeklyMarkdown(reportData) {
       md += `\n`;
     }
 
-    // Articles & Tutorials
-    if (eco.articles && eco.articles.length > 0) {
-      md += `#### 📚 Articles, Tutorials & Guides\n\n`;
-      for (const art of eco.articles.slice(0, 6)) {
-        md += `- [${art.title}](${art.url}) ${art.domain ? `*(${art.domain})*` : ''}\n`;
+    // Ecosystem Blogs & Articles
+    const blogs = eco.blogs || (eco.articles || []).filter(a => a.isBlog || (a.domain && !a.domain.includes('mozilla.org') && !a.domain.includes('w3.org')));
+    if (blogs.length > 0) {
+      md += `#### 📰 Ecosystem Blogs & Articles\n\n`;
+      for (const art of blogs.slice(0, 6)) {
+        const meta = [art.domain, art.author, art.publishedAt].filter(Boolean).join(' · ');
+        md += `- [${art.title}](${art.url}) ${meta ? `*(${meta})*` : ''}\n`;
+        const snippet = (art.contentExcerpt || art.snippet || '').trim();
+        if (snippet) {
+          md += `  > ${snippet.slice(0, 220).replace(/\r?\n/g, ' ')}${snippet.length > 220 ? '...' : ''}\n`;
+        }
+      }
+      md += `\n`;
+    }
+
+    // Platform Documentation & References
+    const docs = eco.docs || (eco.articles || []).filter(a => !blogs.includes(a));
+    if (docs.length > 0) {
+      md += `#### 📚 Platform Documentation & References\n\n`;
+      for (const doc of docs.slice(0, 5)) {
+        md += `- [${doc.title}](${doc.url}) ${doc.domain ? `*(${doc.domain})*` : ''}\n`;
       }
       md += `\n`;
     }
@@ -286,10 +302,25 @@ function generateSingleFeatureMarkdown(item, weekString) {
     md += `\n`;
   }
 
-  if (eco.articles?.length > 0) {
-    md += `## Articles & Documentation\n\n`;
-    for (const art of eco.articles) {
-      md += `- [${art.title}](${art.url})\n`;
+  const singleBlogs = eco.blogs || (eco.articles || []).filter(a => a.isBlog || (a.domain && !a.domain.includes('mozilla.org') && !a.domain.includes('w3.org')));
+  if (singleBlogs.length > 0) {
+    md += `## 📰 Ecosystem Blogs & Articles\n\n`;
+    for (const art of singleBlogs) {
+      const meta = [art.domain, art.author, art.publishedAt].filter(Boolean).join(' · ');
+      md += `- [${art.title}](${art.url}) ${meta ? `*(${meta})*` : ''}\n`;
+      const snippet = (art.contentExcerpt || art.snippet || '').trim();
+      if (snippet) {
+        md += `  > ${snippet.slice(0, 250).replace(/\r?\n/g, ' ')}${snippet.length > 250 ? '...' : ''}\n`;
+      }
+    }
+    md += `\n`;
+  }
+
+  const singleDocs = eco.docs || (eco.articles || []).filter(a => !singleBlogs.includes(a));
+  if (singleDocs.length > 0) {
+    md += `## 📚 Platform Documentation & Specifications\n\n`;
+    for (const doc of singleDocs) {
+      md += `- [${doc.title}](${doc.url}) ${doc.domain ? `*(${doc.domain})*` : ''}\n`;
     }
     md += `\n`;
   }

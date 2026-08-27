@@ -1,7 +1,7 @@
 {
   "weekString": "2026-W35",
   "date": "2026-08-27",
-  "generatedAt": "2026-08-27T22:21:24.552Z",
+  "generatedAt": "2026-08-27T22:33:22.993Z",
   "milestones": [
     154
   ],
@@ -15,356 +15,6 @@
     "featuresCount": 2
   },
   "features": [
-    {
-      "feature": {
-        "id": 5201832664629248,
-        "name": "Additional Windowing Controls",
-        "slug": "5201832664629248-additional-windowing-controls",
-        "milestone": 154,
-        "category": "Enabled by default",
-        "statusType": "enabled",
-        "summary": "Enable web applications to maximize, minimize, and restore their windows, control whether the window can be resized, and introspect the corresponding window state.\n\nThe Window Management permission is required for new JS API controls (window.maximize()/minimize()/restore()/setResizable(bool)). The new CSS media features display-state and resizable are not gated behind a permission as they can follow the non-AWC API toggled states as well.\n\nThis feature is an enhancement of the Window Management API:\nhttps://chromestatus.com/feature/5252960583942144",
-        "motivation": "Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integrate remote application windows with the local desktop environment, which creates suboptimal experiences for their users. Currently, they can only present full disjoint remote desktop environments (e.g. in a local fullscreen window), or present individual remote applications in separate local windows with titlebar window controls that are inoperative, redundant, and confusing for users.",
-        "blinkComponents": [
-          "Blink>WindowDialog"
-        ],
-        "specUrl": "https://www.w3.org/TR/window-management/#api-window-minimize-method",
-        "standardsMaturity": "Working draft",
-        "explainerUrls": [
-          "https://github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md"
-        ],
-        "docUrls": [],
-        "sampleUrls": [
-          "https://awc-demo-4a08a808.web.app"
-        ],
-        "bugUrl": "https://issues.chromium.org/issues/40192345",
-        "browsers": {
-          "chrome": {
-            "status": "In developer trial (Behind a flag)",
-            "bug": "https://issues.chromium.org/issues/40192345",
-            "flag": true,
-            "origintrial": false
-          },
-          "firefox": {
-            "view": "No signal",
-            "url": "https://github.com/WebKit/standards-positions/issues/117",
-            "notes": "Host Specification"
-          },
-          "safari": {
-            "view": "No signal",
-            "url": "https://github.com/mozilla/standards-positions/issues/542",
-            "notes": "Host Specification"
-          },
-          "webdev": {
-            "view": "Positive",
-            "notes": "From VDI web client partners (Citrix & VMware) - the feature is needed by them for single application streaming using web technologies.\nhttps://docs.citrix.com/en-us/citrix-virtual-apps-desktops/seamless.html\n\nhttps://github.com/w3c/window-management/issues/158"
-          }
-        },
-        "tags": [],
-        "updated": "2026-08-27 14:05:10.902535",
-        "created": "2022-11-08 13:52:19.287391",
-        "searchTerms": [
-          "\"Additional Windowing Controls\"",
-          "\"Additional Windowing Controls\" web API",
-          "\"window.maximize\"",
-          "\"chromestatus.com\"",
-          "\"Additional Windowing Controls\" WindowDialog"
-        ],
-        "chromeStatusUrl": "https://chromestatus.com/feature/5201832664629248",
-        "chromeStatusLiteUrl": "https://chromestatuslite.com/feature/5201832664629248"
-      },
-      "ecosystem": {
-        "featureId": 5201832664629248,
-        "featureName": "Additional Windowing Controls",
-        "gatheredAt": "2026-08-27T22:21:24.551Z",
-        "articles": [
-          {
-            "source": "MDN Web Docs",
-            "type": "documentation",
-            "title": "Mobile touch controls",
-            "url": "https://developer.mozilla.org/en-US/docs/Games/Techniques/Control_mechanisms/Mobile_touch",
-            "snippet": "The future of mobile gaming is definitely web, and many developers choose the mobile first approach in their game development process — in the modern world, this generally also involves implementing touch controls. In this tutorial, we will implement mobile controls in an HTML game, and enjoy playing on a mobile touch-enabled device.",
-            "domain": "developer.mozilla.org",
-            "contentExcerpt": "Mobile touch controls - Game development | MDN Skip to main content Skip to search Toggle sidebar Game development Techniques for game development Implementing game control mechanisms Mobile touch controls Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) 中文 (简体) Mobile touch controls Overview: Implementing game control mechanisms Next The future of mobile gaming is definitely web, and many developers choose the mobile first approach in their game development process — in the modern world, this generally also involves implementing touch controls. In this tutorial, we will implement mobile controls in an HTML game, and enjoy playing on a mobile touch-enabled device. Note: The game Captain Rogers: Battle at Andromeda is built with Phaser and managing the controls is Phaser-based, but it could also be done in pure JavaScript. The good thing about using Phaser is that it offers helper variables and functions for faster development, but it's entirely up to you which approach you to choose. Pure JavaScript approach We could implement touch events on our own — setting up event listeners and assigning relevant functions to them would be quite straig",
-            "relevanceConfidence": 80,
-            "relevanceReason": "Matched technical anchors: enable, controls"
-          },
-          {
-            "source": "MDN Web Docs",
-            "type": "documentation",
-            "title": "Unconventional controls",
-            "url": "https://developer.mozilla.org/en-US/docs/Games/Techniques/Control_mechanisms/Other",
-            "snippet": "Having different control mechanisms in your game helps reach broader audiences. Implementing mobile and desktop controls is recommended is a must, and gamepad controls add that extra experience. But imagine going even further — in this article we will explore various unconventional ways to control your web game, some more unconventional than others.",
-            "domain": "developer.mozilla.org",
-            "contentExcerpt": "Unconventional controls - Game development | MDN Skip to main content Skip to search Toggle sidebar Game development Techniques for game development Implementing game control mechanisms Unconventional controls Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) Unconventional controls Previous Overview: Implementing game control mechanisms Having different control mechanisms in your game helps reach broader audiences. Implementing mobile and desktop controls is recommended is a must, and gamepad controls add that extra experience. But imagine going even further — in this article we will explore various unconventional ways to control your web game, some more unconventional than others. TV remote Playing games on a TV screen doesn't always have to be done through consoles. There's already a Gamepad API working on the desktop computers, so we can imitate the experience, but we can go even further. Modern smart TVs can handle HTML games, because they have a built-in browser that can be used as a gaming platform. Smart TVs are shipped with remote controls, which can be used to control your games if you know how. The earliest demo of Captain Rogers:",
-            "relevanceConfidence": 80,
-            "relevanceReason": "Matched technical anchors: desktop, controls"
-          },
-          {
-            "source": "MDN Web Docs",
-            "type": "documentation",
-            "title": "User input methods and controls",
-            "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/User_input_methods",
-            "snippet": "Web forms require user input. When designing web forms, or really any web content, it's important to consider how users interact with their devices and browsers. Web user input goes beyond simple mouse and keyboard: think of touchscreens for example.",
-            "domain": "developer.mozilla.org",
-            "contentExcerpt": "User input methods and controls - Learn web development | MDN Skip to main content Skip to search Toggle sidebar Learn Extension modules Web forms UI methods & controls Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) Français 日本語 Русский User input methods and controls Web forms require user input. When designing web forms, or really any web content, it's important to consider how users interact with their devices and browsers. Web user input goes beyond simple mouse and keyboard: think of touchscreens for example. In this article, we take a look at the different ways users interact with forms and other web content and provide recommendations for managing user input, real-world examples, and links to further information. As you develop more complex and interactive forms or other UI features, there are many HTML elements and JavaScript APIs you may want to investigate. For example, you may want to create custom form controls that require non-semantic elements to be content editable. You might want to support touch events, determine or control the screen's orientation, make a form take up the full screen, or enable drag and drop features. Th",
-            "relevanceConfidence": 80,
-            "relevanceReason": "Matched technical anchors: method, controls"
-          }
-        ],
-        "discussions": [],
-        "standards": [
-          {
-            "source": "WebKit Standards Position",
-            "type": "standards",
-            "vendor": "WebKit",
-            "title": "Additional Windowing Controls",
-            "url": "https://github.com/WebKit/standards-positions/issues/96",
-            "state": "open",
-            "labels": [
-              "concerns: privacy",
-              "topic: app-like capabilities",
-              "concerns: integration",
-              "venue: none / personal repository",
-              "from: Google",
-              "concerns: annoyance"
-            ],
-            "commentsCount": 10,
-            "createdAt": "2022-11-24T14:13:17Z",
-            "updatedAt": "2026-08-26T15:49:06Z",
-            "snippet": "## Request for position on an emerging web specification  ### Information about the spec  * Spec Title: Additional Windowing Controls * Explainer: https://github.com/ivansandrk/additional-windowing-controls/blob/main/awc-explainer.md   ### Design reviews and vendor positions  * TAG Design R",
-            "comments": [],
-            "commentSummary": null
-          },
-          {
-            "source": "Mozilla Standards Position",
-            "type": "standards",
-            "vendor": "Mozilla",
-            "title": "Additional Windowing Controls",
-            "url": "https://github.com/mozilla/standards-positions/issues/712",
-            "state": "open",
-            "labels": [],
-            "commentsCount": 6,
-            "createdAt": "2022-11-24T14:09:40Z",
-            "updatedAt": "2024-10-18T12:42:32Z",
-            "snippet": "## Request for Mozilla Position on an Emerging Web Specification  * Specification Title: Additional Windowing Controls * Specification or proposal URL: https://github.com/ivansandrk/additional-windowing-controls/blob/main/awc-explainer.md  ### Introduction  This proposal introduces additional",
-            "comments": [],
-            "commentSummary": null
-          },
-          {
-            "source": "Mozilla Standards Position",
-            "type": "standards",
-            "vendor": "Mozilla",
-            "title": "New 'onmove' event handler for the Window object",
-            "url": "https://github.com/mozilla/standards-positions/issues/938",
-            "state": "closed",
-            "labels": [
-              "position: defer"
-            ],
-            "commentsCount": 13,
-            "createdAt": "2023-12-12T22:50:24Z",
-            "updatedAt": "2026-04-13T12:42:59Z",
-            "snippet": "<!-- Please use only the specification title as the issue title. -->  ## Request for Mozilla Position on an Emerging Web Specification  * Specification title: New 'onmove' event handler for the Window object * Specification or proposal URL (if available): https://github.com/w3c/csswg-drafts/pul",
-            "comments": [],
-            "commentSummary": null
-          },
-          {
-            "source": "W3C TAG Standards Position",
-            "type": "standards",
-            "vendor": "W3C TAG",
-            "title": "WG New Spec: Additional Windowing Controls",
-            "url": "https://github.com/w3ctag/design-reviews/issues/1246",
-            "state": "open",
-            "labels": [
-              "Review type: horizontal review"
-            ],
-            "commentsCount": 2,
-            "createdAt": "2026-07-16T17:36:05Z",
-            "updatedAt": "2026-08-20T12:28:47Z",
-            "snippet": "### Specification  https://w3c.github.io/window-management/  ### Explainer  https://github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md  ### Links  - The WG's request for this TAG review: https://lists.w3.org/Archives/Public/public-secondscreen/2026Jul/0004.html - A",
-            "comments": [],
-            "commentSummary": null
-          }
-        ],
-        "bugs": [],
-        "baseline": null,
-        "packages": [
-          {
-            "source": "NPM Registry",
-            "type": "package",
-            "name": "@types/estree",
-            "version": "1.0.9",
-            "description": "TypeScript definitions for estree",
-            "url": "https://www.npmjs.com/package/@types/estree",
-            "isPolyfill": true,
-            "publishedAt": "2026-05-06T21:01:00.975Z",
-            "readmeSnippet": "# Installation > `npm install --save @types/estree`  # Summary This package contains type definitions for estree (https://github.com/estree/estree).  # Details Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/estree.  ### Additional Details  * Last updated: Wed, 06 May 2026 21:01:00 GMT  * Dependencies: none  # Credits These definitions were written by [RReverser](https://github.com/RReverser).",
-            "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/estree",
-            "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-            "relevanceConfidence": 85,
-            "relevanceReason": "Identified as web polyfill"
-          }
-        ],
-        "resources": [
-          {
-            "source": "W3C / WHATWG Spec",
-            "type": "spec",
-            "title": "Additional Windowing Controls Specification",
-            "url": "https://www.w3.org/TR/window-management/#api-window-minimize-method",
-            "domain": "w3.org"
-          },
-          {
-            "source": "Feature Explainer",
-            "type": "explainer",
-            "title": "Additional Windowing Controls Explainer",
-            "url": "https://github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md",
-            "domain": "github.com",
-            "snippet": "# Explainer for Additional Windowing Controls  ## Introduction  This proposal introduces additional ways for web applications to introspect and control their windows, to enable critical window management functionality on the web platform.  The proposed enhancement would allow web applications to maximize, minimize, and restore their windows, control whether the window can be resized, and introspect the window state related to the mentioned controls, that is the window display state and ability to be resized by the user.  The [window management permission](https://w3c.github.io/window-managemen"
-          },
-          {
-            "source": "Demo / Sample",
-            "type": "demo",
-            "title": "Additional Windowing Controls Demo",
-            "url": "https://awc-demo-4a08a808.web.app",
-            "domain": "awc-demo-4a08a808.web.app"
-          }
-        ],
-        "wpt": {
-          "source": "Web Platform Tests",
-          "type": "test",
-          "url": "https://wpt.fyi/results/?q=additional-windowing-controls",
-          "queryUsed": "additional-windowing-controls",
-          "testCount": 1,
-          "sampleTests": [
-            "/window-management/additional-windowing-controls.tentative.https.html"
-          ]
-        },
-        "verifiedPolyfill": {
-          "source": "NPM Registry",
-          "type": "package",
-          "name": "@types/estree",
-          "version": "1.0.9",
-          "description": "TypeScript definitions for estree",
-          "url": "https://www.npmjs.com/package/@types/estree",
-          "isPolyfill": true,
-          "publishedAt": "2026-05-06T21:01:00.975Z",
-          "readmeSnippet": "# Installation > `npm install --save @types/estree`  # Summary This package contains type definitions for estree (https://github.com/estree/estree).  # Details Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/estree.  ### Additional Details  * Last updated: Wed, 06 May 2026 21:01:00 GMT  * Dependencies: none  # Credits These definitions were written by [RReverser](https://github.com/RReverser).",
-          "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/estree",
-          "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-          "relevanceConfidence": 85,
-          "relevanceReason": "Identified as web polyfill"
-        },
-        "auditTrail": {
-          "searchesExecuted": [
-            {
-              "type": "web",
-              "provider": "auto",
-              "providers": [],
-              "query": "\"Additional Windowing Controls\" API",
-              "rawFound": 0,
-              "verified": 3
-            },
-            {
-              "type": "hackernews",
-              "query": "Additional Windowing Controls",
-              "rawFound": 0,
-              "verified": 0
-            },
-            {
-              "type": "standards",
-              "count": 4,
-              "vendors": [
-                "WebKit",
-                "Mozilla",
-                "Mozilla",
-                "W3C TAG"
-              ]
-            },
-            {
-              "type": "bugzilla",
-              "count": 0,
-              "vendors": []
-            },
-            {
-              "type": "baseline",
-              "status": "untracked",
-              "url": null
-            },
-            {
-              "type": "npm",
-              "rawFound": 8,
-              "verified": 1,
-              "polyfillFound": true
-            },
-            {
-              "type": "wpt",
-              "testCount": 1
-            }
-          ],
-          "contentInspected": {
-            "hasSpec": true,
-            "explainerCount": 1,
-            "docCount": 0,
-            "sampleCount": 1,
-            "standardsCommentsRead": 0,
-            "webArticleExcerptsRead": 3
-          }
-        },
-        "metrics": {
-          "totalArticles": 3,
-          "totalDiscussions": 0,
-          "totalStandards": 4,
-          "totalBugs": 0,
-          "totalHnPoints": 0,
-          "totalHnComments": 0,
-          "hasPolyfill": true
-        }
-      },
-      "analysis": {
-        "momentumScore": 50,
-        "momentumLevel": "Moderate",
-        "consensus": "Chromium-Led",
-        "sentiment": "Cautiously Optimistic",
-        "hasSecurityConcerns": true,
-        "takeaways": [
-          "Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.",
-          "Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.",
-          "Community package available: [@types/estree](https://www.npmjs.com/package/@types/estree) (v1.0.9) for progressive enhancement."
-        ],
-        "verifiedPolyfill": {
-          "source": "NPM Registry",
-          "type": "package",
-          "name": "@types/estree",
-          "version": "1.0.9",
-          "description": "TypeScript definitions for estree",
-          "url": "https://www.npmjs.com/package/@types/estree",
-          "isPolyfill": true,
-          "publishedAt": "2026-05-06T21:01:00.975Z",
-          "readmeSnippet": "# Installation > `npm install --save @types/estree`  # Summary This package contains type definitions for estree (https://github.com/estree/estree).  # Details Files were exported from https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/estree.  ### Additional Details  * Last updated: Wed, 06 May 2026 21:01:00 GMT  * Dependencies: none  # Credits These definitions were written by [RReverser](https://github.com/RReverser).",
-          "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/estree",
-          "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-          "relevanceConfidence": 85,
-          "relevanceReason": "Identified as web polyfill"
-        },
-        "executiveSummary": "Additional Windowing Controls is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.",
-        "isAiEnhanced": false,
-        "isGroundedWithGoogleSearch": false,
-        "groundedQueries": [],
-        "groundedSources": []
-      },
-      "delta": {
-        "isNewFeature": false,
-        "statusChanged": false,
-        "newArticlesCount": 0,
-        "newDiscussionsCount": 0,
-        "newStandardsCount": 0,
-        "newArticles": [],
-        "newDiscussions": [],
-        "newStandards": [],
-        "previousMilestone": 154,
-        "previousStatus": "Enabled by default"
-      }
-    },
     {
       "feature": {
         "id": 5080055102439424,
@@ -425,7 +75,7 @@
       "ecosystem": {
         "featureId": 5080055102439424,
         "featureName": "Add options bag to WebSocket constructor",
-        "gatheredAt": "2026-08-27T22:21:21.840Z",
+        "gatheredAt": "2026-08-27T22:33:19.412Z",
         "articles": [
           {
             "source": "MDN Web Docs",
@@ -434,7 +84,6 @@
             "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket",
             "snippet": "The WebSocket() constructor returns a new WebSocket object and immediately attempts to establish a connection to the specified WebSocket URL.",
             "domain": "developer.mozilla.org",
-            "contentExcerpt": "WebSocket: WebSocket() constructor - Web APIs | MDN Skip to main content Skip to search Toggle sidebar Web Web APIs WebSocket WebSocket() Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) Français 日本語 한국어 中文 (简体) WebSocket: WebSocket() constructor Baseline Widely available * This feature is well established and works across many devices and browser versions. It’s been available across browsers since July 2015. * Some parts of this feature may have varying levels of support. Learn more See full compatibility Note: This feature is available in Web Workers . The WebSocket() constructor returns a new WebSocket object and immediately attempts to establish a connection to the specified WebSocket URL. Syntax js new WebSocket(url) new WebSocket(url, protocols) Parameters url The URL of the target WebSocket server to connect to. The URL must use one of the following schemes: ws , wss , http , or https , and cannot include a URL fragment . If a relative URL is provided, it is relative to the base URL of the calling script. protocols Optional A single string or an array of strings representing the sub-protocol(s) that the client would like to use, in o",
             "relevanceConfidence": 80,
             "relevanceReason": "Matched technical anchors: websocket, constructor"
           },
@@ -445,7 +94,6 @@
             "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream",
             "snippet": "The WebSocketStream() constructor creates a new\nWebSocketStream object instance.",
             "domain": "developer.mozilla.org",
-            "contentExcerpt": "WebSocketStream: WebSocketStream() constructor - Web APIs | MDN Skip to main content Skip to search Toggle sidebar Web Web APIs WebSocketStream WebSocketStream() Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) 日本語 WebSocketStream: WebSocketStream() constructor Experimental: This is an experimental technology Check the Browser compatibility table carefully before using this in production. Note: This feature is available in Web Workers . Non-standard: This feature is not standardized. We do not recommend using non-standard features in production, as they have limited browser support, and may change or be removed. However, they can be a suitable alternative in specific cases where no standard option exists. The WebSocketStream() constructor creates a new WebSocketStream object instance. Syntax js new WebSocketStream(url) new WebSocketStream(url, options) Parameters url A string representing the URL of the WebSocket server you want to connect to with this WebSocketStream instance. Allowed URL schemes are \"ws\" , \"wss\" , \"http\" , and \"https\" . options Optional An object that can contain the following properties: protocols Optional A single strin",
             "relevanceConfidence": 85,
             "relevanceReason": "Matched technical anchors: websockets, websocket, constructor"
           },
@@ -456,13 +104,87 @@
             "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket",
             "snippet": "The WebSocket object provides the API for creating and managing a WebSocket connection to a server, as well as for sending and receiving data on the connection.",
             "domain": "developer.mozilla.org",
-            "contentExcerpt": "WebSocket - Web APIs | MDN Skip to main content Skip to search Toggle sidebar Web Web APIs WebSocket Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) Español Français 日本語 한국어 Português (do Brasil) Русский 中文 (简体) 正體中文 (繁體) WebSocket Baseline Widely available * This feature is well established and works across many devices and browser versions. It’s been available across browsers since July 2015. * Some parts of this feature may have varying levels of support. Learn more See full compatibility Note: This feature is available in Web Workers . The WebSocket object provides the API for creating and managing a WebSocket connection to a server, as well as for sending and receiving data on the connection. To construct a WebSocket , use the WebSocket() constructor. Note: The WebSocket API has no way to apply backpressure , therefore when messages arrive faster than the application can process them, the application will either fill up the device's memory by buffering those messages, become unresponsive due to 100% CPU usage, or both. For an alternative that provides backpressure automatically, see WebSocketStream . Constructor WebSocket() Returns a ",
+            "relevanceConfidence": 65,
+            "relevanceReason": "Matched technical anchors: websocket"
+          }
+        ],
+        "blogs": [],
+        "docs": [
+          {
+            "source": "MDN Web Docs",
+            "type": "documentation",
+            "title": "WebSocket: WebSocket() constructor",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket",
+            "snippet": "The WebSocket() constructor returns a new WebSocket object and immediately attempts to establish a connection to the specified WebSocket URL.",
+            "domain": "developer.mozilla.org",
+            "relevanceConfidence": 80,
+            "relevanceReason": "Matched technical anchors: websocket, constructor"
+          },
+          {
+            "source": "MDN Web Docs",
+            "type": "documentation",
+            "title": "WebSocketStream: WebSocketStream() constructor",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream",
+            "snippet": "The WebSocketStream() constructor creates a new\nWebSocketStream object instance.",
+            "domain": "developer.mozilla.org",
+            "relevanceConfidence": 85,
+            "relevanceReason": "Matched technical anchors: websockets, websocket, constructor"
+          },
+          {
+            "source": "MDN Web Docs",
+            "type": "documentation",
+            "title": "WebSocket",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket",
+            "snippet": "The WebSocket object provides the API for creating and managing a WebSocket connection to a server, as well as for sending and receiving data on the connection.",
+            "domain": "developer.mozilla.org",
             "relevanceConfidence": 65,
             "relevanceReason": "Matched technical anchors: websocket"
           }
         ],
         "discussions": [],
-        "standards": [],
+        "standards": [
+          {
+            "source": "WebKit Standards Position",
+            "type": "standards",
+            "vendor": "WebKit",
+            "title": "Supporting options bag in WebSocket constructor",
+            "url": "https://github.com/WebKit/standards-positions/issues/708",
+            "state": "open",
+            "labels": [
+              "topic: networking",
+              "venue: WHATWG HTML Workstream",
+              "from: Google"
+            ],
+            "commentsCount": 1,
+            "createdAt": "2026-08-15T00:00:14Z",
+            "updatedAt": "2026-08-20T12:46:07Z",
+            "snippet": "### WebKittens  _No response_  ### Title of the proposal  Supporting options bag in WebSocket constructor  ### URL to the spec  https://github.com/whatwg/websockets/pull/76  ### URL to the spec's repository  https://github.com/whatwg/websockets  ### Issue Tracker URL  _No response_  ### Explainer UR",
+            "comments": [
+              {
+                "author": "annevk",
+                "authorAssociation": "CONTRIBUTOR",
+                "createdAt": "2026-08-20T12:45:42Z",
+                "body": "I suggest we resolve this as \"position: support\" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easily going forward."
+              }
+            ],
+            "commentSummary": "Latest discussion from @annevk: \"I suggest we resolve this as \"position: support\" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil...\""
+          },
+          {
+            "source": "Mozilla Standards Position",
+            "type": "standards",
+            "vendor": "Mozilla",
+            "title": "Supporting options bag in WebSocket constructor",
+            "url": "https://github.com/mozilla/standards-positions/issues/1444",
+            "state": "open",
+            "labels": [],
+            "commentsCount": 0,
+            "createdAt": "2026-08-15T00:00:29Z",
+            "updatedAt": "2026-08-15T00:00:29Z",
+            "snippet": "### Specification title  Supporting options bag in WebSocket constructor  ### Specification or proposal URL (if available)  https://github.com/whatwg/websockets/pull/76  ### Explainer URL (if available)  _No response_  ### Proposal author(s)  _No response_  ### web-feature id  websockets  ### MDN UR",
+            "comments": [],
+            "commentSummary": null
+          }
+        ],
         "bugs": [],
         "baseline": null,
         "packages": [
@@ -534,6 +256,12 @@
               "verified": 3
             },
             {
+              "type": "devto_blogs",
+              "query": "Add options bag to WebSocket constructor",
+              "rawFound": 8,
+              "verified": 0
+            },
+            {
               "type": "hackernews",
               "query": "Add options bag to WebSocket constructor",
               "rawFound": 0,
@@ -541,8 +269,11 @@
             },
             {
               "type": "standards",
-              "count": 0,
-              "vendors": []
+              "count": 2,
+              "vendors": [
+                "WebKit",
+                "Mozilla"
+              ]
             },
             {
               "type": "bugzilla",
@@ -570,14 +301,16 @@
             "explainerCount": 2,
             "docCount": 0,
             "sampleCount": 0,
-            "standardsCommentsRead": 0,
-            "webArticleExcerptsRead": 3
+            "standardsCommentsRead": 1,
+            "webArticleExcerptsRead": 8
           }
         },
         "metrics": {
           "totalArticles": 3,
+          "totalBlogs": 0,
+          "totalDocs": 3,
           "totalDiscussions": 0,
-          "totalStandards": 0,
+          "totalStandards": 2,
           "totalBugs": 0,
           "totalHnPoints": 0,
           "totalHnComments": 0,
@@ -592,7 +325,7 @@
         "hasSecurityConcerns": false,
         "takeaways": [
           "Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.",
-          "Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.",
+          "Standards Activity (WebKit): Latest discussion from @annevk: \"I suggest we resolve this as \"position: support\" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil...\"",
           "No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers."
         ],
         "verifiedPolyfill": null,
@@ -607,10 +340,440 @@
         "statusChanged": false,
         "newArticlesCount": 0,
         "newDiscussionsCount": 0,
-        "newStandardsCount": 0,
+        "newStandardsCount": 2,
         "newArticles": [],
         "newDiscussions": [],
-        "newStandards": [],
+        "newStandards": [
+          {
+            "source": "WebKit Standards Position",
+            "type": "standards",
+            "vendor": "WebKit",
+            "title": "Supporting options bag in WebSocket constructor",
+            "url": "https://github.com/WebKit/standards-positions/issues/708",
+            "state": "open",
+            "labels": [
+              "topic: networking",
+              "venue: WHATWG HTML Workstream",
+              "from: Google"
+            ],
+            "commentsCount": 1,
+            "createdAt": "2026-08-15T00:00:14Z",
+            "updatedAt": "2026-08-20T12:46:07Z",
+            "snippet": "### WebKittens  _No response_  ### Title of the proposal  Supporting options bag in WebSocket constructor  ### URL to the spec  https://github.com/whatwg/websockets/pull/76  ### URL to the spec's repository  https://github.com/whatwg/websockets  ### Issue Tracker URL  _No response_  ### Explainer UR",
+            "comments": [
+              {
+                "author": "annevk",
+                "authorAssociation": "CONTRIBUTOR",
+                "createdAt": "2026-08-20T12:45:42Z",
+                "body": "I suggest we resolve this as \"position: support\" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easily going forward."
+              }
+            ],
+            "commentSummary": "Latest discussion from @annevk: \"I suggest we resolve this as \"position: support\" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil...\""
+          },
+          {
+            "source": "Mozilla Standards Position",
+            "type": "standards",
+            "vendor": "Mozilla",
+            "title": "Supporting options bag in WebSocket constructor",
+            "url": "https://github.com/mozilla/standards-positions/issues/1444",
+            "state": "open",
+            "labels": [],
+            "commentsCount": 0,
+            "createdAt": "2026-08-15T00:00:29Z",
+            "updatedAt": "2026-08-15T00:00:29Z",
+            "snippet": "### Specification title  Supporting options bag in WebSocket constructor  ### Specification or proposal URL (if available)  https://github.com/whatwg/websockets/pull/76  ### Explainer URL (if available)  _No response_  ### Proposal author(s)  _No response_  ### web-feature id  websockets  ### MDN UR",
+            "comments": [],
+            "commentSummary": null
+          }
+        ],
+        "previousMilestone": 154,
+        "previousStatus": "Enabled by default"
+      }
+    },
+    {
+      "feature": {
+        "id": 5201832664629248,
+        "name": "Additional Windowing Controls",
+        "slug": "5201832664629248-additional-windowing-controls",
+        "milestone": 154,
+        "category": "Enabled by default",
+        "statusType": "enabled",
+        "summary": "Enable web applications to maximize, minimize, and restore their windows, control whether the window can be resized, and introspect the corresponding window state.\n\nThe Window Management permission is required for new JS API controls (window.maximize()/minimize()/restore()/setResizable(bool)). The new CSS media features display-state and resizable are not gated behind a permission as they can follow the non-AWC API toggled states as well.\n\nThis feature is an enhancement of the Window Management API:\nhttps://chromestatus.com/feature/5252960583942144",
+        "motivation": "Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integrate remote application windows with the local desktop environment, which creates suboptimal experiences for their users. Currently, they can only present full disjoint remote desktop environments (e.g. in a local fullscreen window), or present individual remote applications in separate local windows with titlebar window controls that are inoperative, redundant, and confusing for users.",
+        "blinkComponents": [
+          "Blink>WindowDialog"
+        ],
+        "specUrl": "https://www.w3.org/TR/window-management/#api-window-minimize-method",
+        "standardsMaturity": "Working draft",
+        "explainerUrls": [
+          "https://github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md"
+        ],
+        "docUrls": [],
+        "sampleUrls": [
+          "https://awc-demo-4a08a808.web.app"
+        ],
+        "bugUrl": "https://issues.chromium.org/issues/40192345",
+        "browsers": {
+          "chrome": {
+            "status": "In developer trial (Behind a flag)",
+            "bug": "https://issues.chromium.org/issues/40192345",
+            "flag": true,
+            "origintrial": false
+          },
+          "firefox": {
+            "view": "No signal",
+            "url": "https://github.com/WebKit/standards-positions/issues/117",
+            "notes": "Host Specification"
+          },
+          "safari": {
+            "view": "No signal",
+            "url": "https://github.com/mozilla/standards-positions/issues/542",
+            "notes": "Host Specification"
+          },
+          "webdev": {
+            "view": "Positive",
+            "notes": "From VDI web client partners (Citrix & VMware) - the feature is needed by them for single application streaming using web technologies.\nhttps://docs.citrix.com/en-us/citrix-virtual-apps-desktops/seamless.html\n\nhttps://github.com/w3c/window-management/issues/158"
+          }
+        },
+        "tags": [],
+        "updated": "2026-08-27 14:05:10.902535",
+        "created": "2022-11-08 13:52:19.287391",
+        "searchTerms": [
+          "\"Additional Windowing Controls\"",
+          "\"Additional Windowing Controls\" web API",
+          "\"window.maximize\"",
+          "\"chromestatus.com\"",
+          "\"Additional Windowing Controls\" WindowDialog"
+        ],
+        "chromeStatusUrl": "https://chromestatus.com/feature/5201832664629248",
+        "chromeStatusLiteUrl": "https://chromestatuslite.com/feature/5201832664629248"
+      },
+      "ecosystem": {
+        "featureId": 5201832664629248,
+        "featureName": "Additional Windowing Controls",
+        "gatheredAt": "2026-08-27T22:33:22.993Z",
+        "articles": [],
+        "blogs": [],
+        "docs": [],
+        "discussions": [],
+        "standards": [
+          {
+            "source": "WebKit Standards Position",
+            "type": "standards",
+            "vendor": "WebKit",
+            "title": "Window Management",
+            "url": "https://github.com/mozilla/standards-positions/issues/542",
+            "state": "open",
+            "labels": [],
+            "commentsCount": 18,
+            "createdAt": "2021-06-14T17:44:30Z",
+            "updatedAt": "2025-10-28T13:58:48Z",
+            "snippet": "## Request for Mozilla Position on an Emerging Web Specification  * Specification Title: Window Management (previously: Multi-Screen Window Placement) * Specification or proposal URL:    * [explainer](https://github.com/w3c/window-management/blob/main/EXPLAINER.md)   * [specification](https://w",
+            "comments": [
+              {
+                "author": "dbratell",
+                "authorAssociation": "NONE",
+                "createdAt": "2022-02-16T16:12:30Z",
+                "body": "Heads up: This now has a \"request to ship\" in Chromium."
+              },
+              {
+                "author": "morsssss",
+                "authorAssociation": "NONE",
+                "createdAt": "2022-02-16T16:26:23Z",
+                "body": "Thanks for pinging this up! If someone has time, we would still like Mozilla's position on this."
+              },
+              {
+                "author": "annevk",
+                "authorAssociation": "CONTRIBUTOR",
+                "createdAt": "2022-03-04T09:23:49Z",
+                "body": "I appreciate the detailed explainer here. The Privacy & Security section cites a TAG principle around device enumeration. That actually seems concerning to me as exactly these kind of bits are valuable information to segment and exploit end users. I would be much more comfortable with the website doing some kind of request to present its information and then after the user grants it that power it"
+              },
+              {
+                "author": "michaelwasserman",
+                "authorAssociation": "NONE",
+                "createdAt": "2022-03-08T18:02:07Z",
+                "body": "Thank you for providing this feedback, @annevk!  1. Does your concern about device enumeration pertain solely to the `Screen.isExtended` bit? (or also with `Window.getScreenDetails()` and the overall API design?)      1a. The `Screen.isExtended` bit is an important boolean signal for the site to know whether it is worth asking the user for additional screen details at all. That said, we want t"
+              },
+              {
+                "author": "morsssss",
+                "authorAssociation": "NONE",
+                "createdAt": "2022-03-08T19:33:18Z",
+                "body": "Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've traveled far down the road to launch. But this feedback is quite helpful. We'd like to see what we can do to address it, while minimizing potential breakages for any early adopters out there.  In other words, if you have time to get to Mike's qu"
+              }
+            ],
+            "commentSummary": "Latest discussion from @morsssss: \"Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've...\""
+          },
+          {
+            "source": "Mozilla Standards Position",
+            "type": "standards",
+            "vendor": "Mozilla",
+            "title": "Multi-Screen Window Placement API",
+            "url": "https://github.com/WebKit/standards-positions/issues/117",
+            "state": "open",
+            "labels": [
+              "concerns: privacy",
+              "topic: app-like capabilities",
+              "concerns: annoyance",
+              "venue: W3C Second Screen WG"
+            ],
+            "commentsCount": 1,
+            "createdAt": "2023-01-04T11:48:37Z",
+            "updatedAt": "2023-06-19T04:15:50Z",
+            "snippet": "## Request for position on an emerging web specification  **(Please delete inapplicable rows.)**  * WebKittens who can provide input:   ### Information about the spec  * Spec Title: Multi-Screen Window Placement API * Spec URL: https://www.w3.org/TR/window-placement/ * GitHub repository: \r",
+            "comments": [
+              {
+                "author": "michaelwasserman",
+                "authorAssociation": "NONE",
+                "createdAt": "2023-03-03T22:47:23Z",
+                "body": "Here are additional details that may help. Those interested may wish to attend the upcoming [Second Screen WG/CG - 2023 Q1 virtual meeting](https://github.com/w3c/secondscreen-wg/issues/7)  > * WebKittens who can provide input: @annevk, @marcoscaceres, @eric-carlson  >  > ### Information about the spec > * GitHub repository: https://github.com/w3c/window-placement > * Explainer (if not REA"
+              }
+            ],
+            "commentSummary": "Latest discussion from @michaelwasserman: \"Here are additional details that may help. Those interested may wish to attend the upcoming [Second Screen WG/CG - 2023 Q1 virtual meeting](https://gi...\""
+          },
+          {
+            "source": "W3C TAG Standards Position",
+            "type": "standards",
+            "vendor": "W3C TAG",
+            "title": "WG New Spec: Additional Windowing Controls",
+            "url": "https://github.com/w3ctag/design-reviews/issues/1246",
+            "state": "open",
+            "labels": [
+              "Review type: horizontal review"
+            ],
+            "commentsCount": 2,
+            "createdAt": "2026-07-16T17:36:05Z",
+            "updatedAt": "2026-08-20T12:28:47Z",
+            "snippet": "### Specification  https://w3c.github.io/window-management/  ### Explainer  https://github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md  ### Links  - The WG's request for this TAG review: https://lists.w3.org/Archives/Public/public-secondscreen/2026Jul/0004.html - A",
+            "comments": [
+              {
+                "author": "patrykchodur",
+                "authorAssociation": "NONE",
+                "createdAt": "2026-07-16T18:55:30Z",
+                "body": "As a result of misunderstanding I created the issue too early - there is no response from the Working Group yet. I'll reopen/create another issue after July 24th."
+              },
+              {
+                "author": "patrykchodur",
+                "authorAssociation": "NONE",
+                "createdAt": "2026-07-29T21:17:51Z",
+                "body": "Reopening the issue"
+              }
+            ],
+            "commentSummary": "Latest discussion from @patrykchodur: \"Reopening the issue...\""
+          }
+        ],
+        "bugs": [],
+        "baseline": null,
+        "packages": [],
+        "resources": [
+          {
+            "source": "W3C / WHATWG Spec",
+            "type": "spec",
+            "title": "Additional Windowing Controls Specification",
+            "url": "https://www.w3.org/TR/window-management/#api-window-minimize-method",
+            "domain": "w3.org"
+          },
+          {
+            "source": "Feature Explainer",
+            "type": "explainer",
+            "title": "Additional Windowing Controls Explainer",
+            "url": "https://github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md",
+            "domain": "github.com",
+            "snippet": "# Explainer for Additional Windowing Controls  ## Introduction  This proposal introduces additional ways for web applications to introspect and control their windows, to enable critical window management functionality on the web platform.  The proposed enhancement would allow web applications to maximize, minimize, and restore their windows, control whether the window can be resized, and introspect the window state related to the mentioned controls, that is the window display state and ability to be resized by the user.  The [window management permission](https://w3c.github.io/window-managemen"
+          },
+          {
+            "source": "Demo / Sample",
+            "type": "demo",
+            "title": "Additional Windowing Controls Demo",
+            "url": "https://awc-demo-4a08a808.web.app",
+            "domain": "awc-demo-4a08a808.web.app"
+          }
+        ],
+        "wpt": {
+          "source": "Web Platform Tests",
+          "type": "test",
+          "url": "https://wpt.fyi/results/?q=additional-windowing-controls",
+          "queryUsed": "additional-windowing-controls",
+          "testCount": 1,
+          "sampleTests": [
+            "/window-management/additional-windowing-controls.tentative.https.html"
+          ]
+        },
+        "verifiedPolyfill": null,
+        "auditTrail": {
+          "searchesExecuted": [
+            {
+              "type": "web",
+              "provider": "auto",
+              "providers": [],
+              "query": "\"Additional Windowing Controls\" API",
+              "rawFound": 0,
+              "verified": 0
+            },
+            {
+              "type": "devto_blogs",
+              "query": "Additional Windowing Controls",
+              "rawFound": 8,
+              "verified": 0
+            },
+            {
+              "type": "hackernews",
+              "query": "Additional Windowing Controls",
+              "rawFound": 0,
+              "verified": 0
+            },
+            {
+              "type": "standards",
+              "count": 3,
+              "vendors": [
+                "WebKit",
+                "Mozilla",
+                "W3C TAG"
+              ]
+            },
+            {
+              "type": "bugzilla",
+              "count": 0,
+              "vendors": []
+            },
+            {
+              "type": "baseline",
+              "status": "untracked",
+              "url": null
+            },
+            {
+              "type": "npm",
+              "rawFound": 8,
+              "verified": 0,
+              "polyfillFound": false
+            },
+            {
+              "type": "wpt",
+              "testCount": 1
+            }
+          ],
+          "contentInspected": {
+            "hasSpec": true,
+            "explainerCount": 1,
+            "docCount": 0,
+            "sampleCount": 1,
+            "standardsCommentsRead": 8,
+            "webArticleExcerptsRead": 8
+          }
+        },
+        "metrics": {
+          "totalArticles": 0,
+          "totalBlogs": 0,
+          "totalDocs": 0,
+          "totalDiscussions": 0,
+          "totalStandards": 3,
+          "totalBugs": 0,
+          "totalHnPoints": 0,
+          "totalHnComments": 0,
+          "hasPolyfill": false
+        }
+      },
+      "analysis": {
+        "momentumScore": 0,
+        "momentumLevel": "Quiet",
+        "consensus": "Chromium-Led",
+        "sentiment": "Neutral",
+        "hasSecurityConcerns": true,
+        "takeaways": [
+          "Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.",
+          "Standards Activity (WebKit): Latest discussion from @morsssss: \"Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've...\"",
+          "Standards Activity (Mozilla): Latest discussion from @michaelwasserman: \"Here are additional details that may help. Those interested may wish to attend the upcoming [Second Screen WG/CG - 2023 Q1 virtual meeting](https://gi...\"",
+          "No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers."
+        ],
+        "verifiedPolyfill": null,
+        "executiveSummary": "Additional Windowing Controls is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Quiet with Chromium-Led standards alignment and neutral developer pulse.",
+        "isAiEnhanced": false,
+        "isGroundedWithGoogleSearch": false,
+        "groundedQueries": [],
+        "groundedSources": []
+      },
+      "delta": {
+        "isNewFeature": false,
+        "statusChanged": false,
+        "newArticlesCount": 0,
+        "newDiscussionsCount": 0,
+        "newStandardsCount": 2,
+        "newArticles": [],
+        "newDiscussions": [],
+        "newStandards": [
+          {
+            "source": "WebKit Standards Position",
+            "type": "standards",
+            "vendor": "WebKit",
+            "title": "Window Management",
+            "url": "https://github.com/mozilla/standards-positions/issues/542",
+            "state": "open",
+            "labels": [],
+            "commentsCount": 18,
+            "createdAt": "2021-06-14T17:44:30Z",
+            "updatedAt": "2025-10-28T13:58:48Z",
+            "snippet": "## Request for Mozilla Position on an Emerging Web Specification  * Specification Title: Window Management (previously: Multi-Screen Window Placement) * Specification or proposal URL:    * [explainer](https://github.com/w3c/window-management/blob/main/EXPLAINER.md)   * [specification](https://w",
+            "comments": [
+              {
+                "author": "dbratell",
+                "authorAssociation": "NONE",
+                "createdAt": "2022-02-16T16:12:30Z",
+                "body": "Heads up: This now has a \"request to ship\" in Chromium."
+              },
+              {
+                "author": "morsssss",
+                "authorAssociation": "NONE",
+                "createdAt": "2022-02-16T16:26:23Z",
+                "body": "Thanks for pinging this up! If someone has time, we would still like Mozilla's position on this."
+              },
+              {
+                "author": "annevk",
+                "authorAssociation": "CONTRIBUTOR",
+                "createdAt": "2022-03-04T09:23:49Z",
+                "body": "I appreciate the detailed explainer here. The Privacy & Security section cites a TAG principle around device enumeration. That actually seems concerning to me as exactly these kind of bits are valuable information to segment and exploit end users. I would be much more comfortable with the website doing some kind of request to present its information and then after the user grants it that power it"
+              },
+              {
+                "author": "michaelwasserman",
+                "authorAssociation": "NONE",
+                "createdAt": "2022-03-08T18:02:07Z",
+                "body": "Thank you for providing this feedback, @annevk!  1. Does your concern about device enumeration pertain solely to the `Screen.isExtended` bit? (or also with `Window.getScreenDetails()` and the overall API design?)      1a. The `Screen.isExtended` bit is an important boolean signal for the site to know whether it is worth asking the user for additional screen details at all. That said, we want t"
+              },
+              {
+                "author": "morsssss",
+                "authorAssociation": "NONE",
+                "createdAt": "2022-03-08T19:33:18Z",
+                "body": "Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've traveled far down the road to launch. But this feedback is quite helpful. We'd like to see what we can do to address it, while minimizing potential breakages for any early adopters out there.  In other words, if you have time to get to Mike's qu"
+              }
+            ],
+            "commentSummary": "Latest discussion from @morsssss: \"Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've...\""
+          },
+          {
+            "source": "Mozilla Standards Position",
+            "type": "standards",
+            "vendor": "Mozilla",
+            "title": "Multi-Screen Window Placement API",
+            "url": "https://github.com/WebKit/standards-positions/issues/117",
+            "state": "open",
+            "labels": [
+              "concerns: privacy",
+              "topic: app-like capabilities",
+              "concerns: annoyance",
+              "venue: W3C Second Screen WG"
+            ],
+            "commentsCount": 1,
+            "createdAt": "2023-01-04T11:48:37Z",
+            "updatedAt": "2023-06-19T04:15:50Z",
+            "snippet": "## Request for position on an emerging web specification  **(Please delete inapplicable rows.)**  * WebKittens who can provide input:   ### Information about the spec  * Spec Title: Multi-Screen Window Placement API * Spec URL: https://www.w3.org/TR/window-placement/ * GitHub repository: \r",
+            "comments": [
+              {
+                "author": "michaelwasserman",
+                "authorAssociation": "NONE",
+                "createdAt": "2023-03-03T22:47:23Z",
+                "body": "Here are additional details that may help. Those interested may wish to attend the upcoming [Second Screen WG/CG - 2023 Q1 virtual meeting](https://github.com/w3c/secondscreen-wg/issues/7)  > * WebKittens who can provide input: @annevk, @marcoscaceres, @eric-carlson  >  > ### Information about the spec > * GitHub repository: https://github.com/w3c/window-placement > * Explainer (if not REA"
+              }
+            ],
+            "commentSummary": "Latest discussion from @michaelwasserman: \"Here are additional details that may help. Those interested may wish to attend the upcoming [Second Screen WG/CG - 2023 Q1 virtual meeting](https://gi...\""
+          }
+        ],
         "previousMilestone": 154,
         "previousStatus": "Enabled by default"
       }

@@ -17,76 +17,12 @@
 
 | Feature | Milestone | Category | Momentum | Consensus | Developer Pulse |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| [Additional Windowing Controls](#5201832664629248-additional-windowing-controls) | Chrome 154 | `Enabled by default` | **Moderate** | Chromium-Led | Cautiously Optimistic |
 | [Add options bag to WebSocket constructor](#5080055102439424-add-options-bag-to-websocket-constructor) | Chrome 154 | `Enabled by default` | **Emerging** | Chromium-Led | Neutral |
+| [Additional Windowing Controls](#5201832664629248-additional-windowing-controls) | Chrome 154 | `Enabled by default` | **Quiet** | Chromium-Led | Neutral |
 
 ---
 
 ## 🔍 Feature Ecosystem Deep Dives
-
-<a id="5201832664629248-additional-windowing-controls"></a>
-### [Additional Windowing Controls](https://chromestatus.com/feature/5201832664629248)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5201832664629248](https://chromestatus.com/feature/5201832664629248) · [chromestatuslite.com/feature/5201832664629248](https://chromestatuslite.com/feature/5201832664629248)
-- **Specification:** [https://www.w3.org/TR/window-management/#api-window-minimize-method](https://www.w3.org/TR/window-management/#api-window-minimize-method)
-- **Chromium Bug:** [https://issues.chromium.org/issues/40192345](https://issues.chromium.org/issues/40192345)
-- **Browser Signals:** Chrome: `In developer trial (Behind a flag)` · Firefox: `No signal` · Safari: `No signal`
-
-#### 📝 Overview
-
-Enable web applications to maximize, minimize, and restore their windows, control whether the window can be resized, and introspect the corresponding window state.
-
-The Window Management permission is required for new JS API controls (window.maximize()/minimize()/restore()/setResizable(bool)). The new CSS media features display-state and resizable are not gated behind a permission as they can follow the non-AWC API toggled states as well.
-
-This feature is an enhancement of the Window Management API:
-https://chromestatus.com/feature/5252960583942144
-
-> **Motivation:** Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integrate remote application windows with the local desktop environment, which creates suboptimal experiences for their users. Currently, they can only present full disjoint remote desktop environments (e.g. in a local fullscreen window), or present individual remote applica...
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **Moderate** (Activity Score: 50)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Cautiously Optimistic**
-- **Analysis:** Additional Windowing Controls is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
-
-**Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- Community package available: [@types/estree](https://www.npmjs.com/package/@types/estree) (v1.0.9) for progressive enhancement.
-
-#### 🏛️ Browser Standards Positions
-
-- **WebKit:** [Additional Windowing Controls](https://github.com/WebKit/standards-positions/issues/96) [open] `concerns: privacy`, `topic: app-like capabilities`, `concerns: integration`, `venue: none / personal repository`, `from: Google`, `concerns: annoyance`
-- **Mozilla:** [Additional Windowing Controls](https://github.com/mozilla/standards-positions/issues/712) [open] 
-- **Mozilla:** [New 'onmove' event handler for the Window object](https://github.com/mozilla/standards-positions/issues/938) [closed] `position: defer`
-- **W3C TAG:** [WG New Spec: Additional Windowing Controls](https://github.com/w3ctag/design-reviews/issues/1246) [open] `Review type: horizontal review`
-
-#### 📦 Polyfills & NPM Ecosystem
-
-- [@types/estree](https://www.npmjs.com/package/@types/estree) `v1.0.9` *(Verified Polyfill)* — TypeScript definitions for estree
-
-#### 📚 Articles, Tutorials & Guides
-
-- [Mobile touch controls](https://developer.mozilla.org/en-US/docs/Games/Techniques/Control_mechanisms/Mobile_touch) *(developer.mozilla.org)*
-- [Unconventional controls](https://developer.mozilla.org/en-US/docs/Games/Techniques/Control_mechanisms/Other) *(developer.mozilla.org)*
-- [User input methods and controls](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/User_input_methods) *(developer.mozilla.org)*
-
-#### 🧪 Interactive Demos & Samples
-
-- [Additional Windowing Controls Demo](https://awc-demo-4a08a808.web.app)
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=additional-windowing-controls) (1 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `web` (3 verified) · `hackernews` (0 verified) · `standards` (4 found) · `bugzilla` (0 found) · `baseline` (0 found) · `npm` (1 verified) · `wpt` (0 found)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 0
-
----
 
 <a id="5080055102439424-add-options-bag-to-websocket-constructor"></a>
 ### [Add options bag to WebSocket constructor](https://chromestatus.com/feature/5080055102439424)
@@ -116,15 +52,21 @@ See https://github.com/whatwg/websockets/issues/42 and spec PR https://github.co
 
 **Key Recommendations & Takeaways:**
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- Standards Activity (WebKit): Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+
+#### 🏛️ Browser Standards Positions
+
+- **WebKit:** [Supporting options bag in WebSocket constructor](https://github.com/WebKit/standards-positions/issues/708) [open] `topic: networking`, `venue: WHATWG HTML Workstream`, `from: Google`
+  > *Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."*
+- **Mozilla:** [Supporting options bag in WebSocket constructor](https://github.com/mozilla/standards-positions/issues/1444) [open] 
 
 #### 📦 Polyfills & NPM Ecosystem
 
 - [@httptoolkit/websocket-stream](https://www.npmjs.com/package/@httptoolkit/websocket-stream) `v6.0.1` — Use websockets with the node streams API. Works in browser and node, with all current WS versions
 - [jest-websocket-mock](https://www.npmjs.com/package/jest-websocket-mock) `v2.5.0` — Mock websockets and assert complex websocket interactions with Jest
 
-#### 📚 Articles, Tutorials & Guides
+#### 📚 Platform Documentation & References
 
 - [WebSocket: WebSocket() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket) *(developer.mozilla.org)*
 - [WebSocketStream: WebSocketStream() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream) *(developer.mozilla.org)*
@@ -136,8 +78,65 @@ See https://github.com/whatwg/websockets/issues/42 and spec PR https://github.co
 
 #### 🔍 Investigation Audit Trail
 
-- **Searches Run:** `web` (3 verified) · `hackernews` (0 verified) · `standards` (0 found) · `bugzilla` (0 found) · `baseline` (0 found) · `npm` (2 verified) · `wpt` (0 found)
-- **Content Inspected:** Spec: ✔ · Explainers: 2 · Standards Comments Read: 0
+- **Searches Run:** `web` (3 verified) · `devto_blogs` (0 verified) · `hackernews` (0 verified) · `standards` (2 found) · `bugzilla` (0 found) · `baseline` (0 found) · `npm` (2 verified) · `wpt` (0 found)
+- **Content Inspected:** Spec: ✔ · Explainers: 2 · Standards Comments Read: 1
+
+---
+
+<a id="5201832664629248-additional-windowing-controls"></a>
+### [Additional Windowing Controls](https://chromestatus.com/feature/5201832664629248)
+
+- **Milestone:** Chrome 154 (Enabled by default)
+- **ChromeStatus:** [chromestatus.com/feature/5201832664629248](https://chromestatus.com/feature/5201832664629248) · [chromestatuslite.com/feature/5201832664629248](https://chromestatuslite.com/feature/5201832664629248)
+- **Specification:** [https://www.w3.org/TR/window-management/#api-window-minimize-method](https://www.w3.org/TR/window-management/#api-window-minimize-method)
+- **Chromium Bug:** [https://issues.chromium.org/issues/40192345](https://issues.chromium.org/issues/40192345)
+- **Browser Signals:** Chrome: `In developer trial (Behind a flag)` · Firefox: `No signal` · Safari: `No signal`
+
+#### 📝 Overview
+
+Enable web applications to maximize, minimize, and restore their windows, control whether the window can be resized, and introspect the corresponding window state.
+
+The Window Management permission is required for new JS API controls (window.maximize()/minimize()/restore()/setResizable(bool)). The new CSS media features display-state and resizable are not gated behind a permission as they can follow the non-AWC API toggled states as well.
+
+This feature is an enhancement of the Window Management API:
+https://chromestatus.com/feature/5252960583942144
+
+> **Motivation:** Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integrate remote application windows with the local desktop environment, which creates suboptimal experiences for their users. Currently, they can only present full disjoint remote desktop environments (e.g. in a local fullscreen window), or present individual remote applica...
+
+#### 💡 Ecosystem Intelligence & Analysis
+
+- **Momentum:** **Quiet** (Activity Score: 0)
+- **Consensus:** **Chromium-Led**
+- **Developer Sentiment:** **Neutral**
+- **Analysis:** Additional Windowing Controls is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Quiet with Chromium-Led standards alignment and neutral developer pulse.
+
+**Key Recommendations & Takeaways:**
+- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Standards Activity (WebKit): Latest discussion from @morsssss: "Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've..."
+- Standards Activity (Mozilla): Latest discussion from @michaelwasserman: "Here are additional details that may help. Those interested may wish to attend the upcoming [Second Screen WG/CG - 2023 Q1 virtual meeting](https://gi..."
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+
+#### 🏛️ Browser Standards Positions
+
+- **WebKit:** [Window Management](https://github.com/mozilla/standards-positions/issues/542) [open] 
+  > *Latest discussion from @morsssss: "Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've..."*
+- **Mozilla:** [Multi-Screen Window Placement API](https://github.com/WebKit/standards-positions/issues/117) [open] `concerns: privacy`, `topic: app-like capabilities`, `concerns: annoyance`, `venue: W3C Second Screen WG`
+  > *Latest discussion from @michaelwasserman: "Here are additional details that may help. Those interested may wish to attend the upcoming [Second Screen WG/CG - 2023 Q1 virtual meeting](https://gi..."*
+- **W3C TAG:** [WG New Spec: Additional Windowing Controls](https://github.com/w3ctag/design-reviews/issues/1246) [open] `Review type: horizontal review`
+  > *Latest discussion from @patrykchodur: "Reopening the issue..."*
+
+#### 🧪 Interactive Demos & Samples
+
+- [Additional Windowing Controls Demo](https://awc-demo-4a08a808.web.app)
+
+#### 🧪 Web Platform Tests (WPT)
+
+- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=additional-windowing-controls) (1 tests listed)
+
+#### 🔍 Investigation Audit Trail
+
+- **Searches Run:** `web` (0 verified) · `devto_blogs` (0 verified) · `hackernews` (0 verified) · `standards` (3 found) · `bugzilla` (0 found) · `baseline` (0 found) · `npm` (0 verified) · `wpt` (0 found)
+- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 8
 
 ---
 
