@@ -18,19 +18,45 @@ This feature can be controlled by the following enterprise policies:
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (20 points)
+- **Momentum:** Emerging (30 points)
 - **Standards Alignment:** Contested / Concerns Raised
 - **Sentiment:** Mixed / Skeptical
 - **Executive Take:** Support for specialized WebHID devices on Android is currently In developer trial (Behind a flag) in Chrome 154. Verified ecosystem momentum is Emerging with Contested / Concerns Raised standards alignment and mixed / skeptical developer pulse.
 
 ### Recommendations
-- Non-Chromium browser vendors have raised architectural, security, or privacy considerations in standards position trackers.
+- Standards Activity (Mozilla): Latest discussion from @scheib: "I'd like to address dmitriid@'s and beaufortfrancois@ comments with a personal opinion.  I work on Chrome adding these capabilities.  We do strive to ..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
-## Articles & Documentation
+## Standards Positions
 
-- [Support for specialized WebHID devices on Android Documentation](https://web.dev/hid/)
-- [Support for specialized WebHID devices on Android Documentation](https://web.dev/hid-examples/)
+- **Mozilla:** [WebHID (Human Interface Device) API](https://github.com/mozilla/standards-positions/issues/459) [closed]
+
+## 📚 Platform Documentation & Specifications
+
+- [HID: getDevices() method](https://developer.mozilla.org/en-US/docs/Web/API/HID/getDevices) *(developer.mozilla.org)*
+- [WebHID API](https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API) *(developer.mozilla.org)*
+- [HID](https://developer.mozilla.org/en-US/docs/Web/API/HID) *(developer.mozilla.org)*
+
+## 🔍 Investigation Audit Trail
+
+### Searches Executed
+
+- **Brave Search:** 0 result(s) found (query: `""Support for specialized WebHID devices on Android" API"`) — **0 verified relevant**
+- **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 8 result(s) found (query: `"Support for specialized WebHID devices on Android"`) — **0 verified relevant**
+- **Hacker News Algolia:** 0 result(s) found (query: `"Support for specialized WebHID devices on Android"`) — **0 verified relevant**
+- **Standards Positions:** 1 item(s) inspected
+- **Engine Bug Trackers:** 0 item(s) inspected
+- **Baseline (baseline.dev):** *untracked*
+- **NPM Registry:** 7 result(s) found — **0 verified relevant**
+- **Web Platform Tests (wpt.fyi):** 2147 item(s) inspected
+
+### Content Inspected
+
+- **Specification:** ✔ Formally verified
+- **Explainers:** 1 document(s) analyzed
+- **Standards Discussion Comments:** 5 engineer comment(s) read
+- **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links
 

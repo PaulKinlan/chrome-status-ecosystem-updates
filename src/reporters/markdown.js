@@ -3,6 +3,17 @@ import path from 'node:path';
 import { config } from '../config.js';
 
 /**
+ * Escapes HTML tags and markdown table pipes to prevent raw HTML elements (like <iframe>)
+ */
+export function escapeMarkdown(text) {
+  if (!text) return '';
+  return String(text)
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\|/g, '\\|');
+}
+
+/**
  * Returns ISO week string e.g. "2026-W35"
  */
 export function getIsoWeekString(date = new Date()) {
@@ -52,7 +63,7 @@ export function generateWeeklyMarkdown(reportData) {
     const f = item.feature;
     const a = item.analysis;
     const anchor = `#${f.slug}`;
-    md += `| [${f.name}](${anchor}) | Chrome ${f.milestone || ''} | \`${f.category}\` | **${a.momentumLevel}** | ${a.consensus} | ${a.sentiment} |\n`;
+    md += `| [${escapeMarkdown(f.name)}](${anchor}) | Chrome ${f.milestone || ''} | \`${f.category}\` | **${a.momentumLevel}** | ${a.consensus} | ${a.sentiment} |\n`;
   }
   md += `\n---\n\n`;
 
@@ -66,7 +77,7 @@ export function generateWeeklyMarkdown(reportData) {
     const delta = item.delta;
 
     md += `<a id="${f.slug}"></a>\n`;
-    md += `### [${f.name}](${f.chromeStatusUrl})\n\n`;
+    md += `### [${escapeMarkdown(f.name)}](${f.chromeStatusUrl})\n\n`;
 
     // Metadata Bar
     md += `- **Milestone:** Chrome ${f.milestone || 'N/A'} (${f.category})\n`;
@@ -280,7 +291,7 @@ function generateSingleFeatureMarkdown(item, weekString) {
   const eco = item.ecosystem;
   const a = item.analysis;
 
-  let md = `# ${f.name}\n\n`;
+  let md = `# ${escapeMarkdown(f.name)}\n\n`;
   md += `> **Report Week:** ${weekString} | **Milestone:** Chrome ${f.milestone || 'N/A'} | **Category:** ${f.category}\n\n`;
   md += `## Overview\n\n${f.summary}\n\n`;
   if (f.motivation) {

@@ -11,7 +11,7 @@
 | **High Ecosystem Momentum** | `0` | Features with active community discussions & publications |
 | **Multi-Engine Consensus** | `0` | Broad alignment across Chromium, Gecko, and WebKit |
 | **Contested / Concerns** | `0` | Features with open vendor or security/privacy objections |
-| **New Mentions This Week** | `0` | Net new articles, discussions, or standards updates |
+| **New Mentions This Week** | `3` | Net new articles, discussions, or standards updates |
 
 ## 📋 Features Index
 
@@ -54,6 +54,10 @@ See https://github.com/whatwg/websockets/issues/42 and spec PR https://github.co
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Standards Activity (WebKit): Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+
+#### ⚡ What Happened This Week
+
+- 📰 **3 new articles/tutorials** published
 
 #### 🏛️ Browser Standards Positions
 

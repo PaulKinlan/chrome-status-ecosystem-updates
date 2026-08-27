@@ -1,7 +1,7 @@
 {
   "weekString": "2026-W35",
   "date": "2026-08-27",
-  "generatedAt": "2026-08-27T22:46:09.380Z",
+  "generatedAt": "2026-08-27T23:34:48.612Z",
   "milestones": [
     154
   ],
@@ -75,7 +75,7 @@
       "ecosystem": {
         "featureId": 5080055102439424,
         "featureName": "Add options bag to WebSocket constructor",
-        "gatheredAt": "2026-08-27T22:46:06.845Z",
+        "gatheredAt": "2026-08-27T23:34:45.528Z",
         "articles": [
           {
             "source": "MDN Web Docs",
@@ -397,10 +397,41 @@
       "delta": {
         "isNewFeature": false,
         "statusChanged": false,
-        "newArticlesCount": 0,
+        "newArticlesCount": 3,
         "newDiscussionsCount": 0,
         "newStandardsCount": 0,
-        "newArticles": [],
+        "newArticles": [
+          {
+            "source": "MDN Web Docs",
+            "type": "documentation",
+            "title": "WebSocket: WebSocket() constructor",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket",
+            "snippet": "The WebSocket() constructor returns a new WebSocket object and immediately attempts to establish a connection to the specified WebSocket URL.",
+            "domain": "developer.mozilla.org",
+            "relevanceConfidence": 80,
+            "relevanceReason": "Matched technical anchors: websocket, constructor"
+          },
+          {
+            "source": "MDN Web Docs",
+            "type": "documentation",
+            "title": "WebSocketStream: WebSocketStream() constructor",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream",
+            "snippet": "The WebSocketStream() constructor creates a new\nWebSocketStream object instance.",
+            "domain": "developer.mozilla.org",
+            "relevanceConfidence": 85,
+            "relevanceReason": "Matched technical anchors: websockets, websocket, constructor"
+          },
+          {
+            "source": "MDN Web Docs",
+            "type": "documentation",
+            "title": "WebSocket",
+            "url": "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket",
+            "snippet": "The WebSocket object provides the API for creating and managing a WebSocket connection to a server, as well as for sending and receiving data on the connection.",
+            "domain": "developer.mozilla.org",
+            "relevanceConfidence": 65,
+            "relevanceReason": "Matched technical anchors: websocket"
+          }
+        ],
         "newDiscussions": [],
         "newStandards": [],
         "previousMilestone": 154,
@@ -468,7 +499,7 @@
       "ecosystem": {
         "featureId": 5201832664629248,
         "featureName": "Additional Windowing Controls",
-        "gatheredAt": "2026-08-27T22:46:09.380Z",
+        "gatheredAt": "2026-08-27T23:34:48.612Z",
         "articles": [],
         "blogs": [],
         "docs": [],

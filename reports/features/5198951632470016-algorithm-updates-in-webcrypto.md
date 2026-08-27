@@ -21,29 +21,54 @@ Many Javascript cryptography libraries fall back to WebCrypto when it is availab
 
 ## Ecosystem Status
 
-- **Momentum:** High (100 points)
+- **Momentum:** Moderate (40 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Positive / High Interest
-- **Executive Take:** Algorithm Updates in WebCrypto is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** The 'Algorithm Updates in WebCrypto' proposal modernizes the Web Cryptography API by introducing standardized post-quantum cryptography (ML-KEM, ML-DSA, X-Wing) and modern symmetric AEAD ciphers (ChaCha20-Poly1305). Chrome enables these algorithms by default in Chrome 154 via underlying BoringSSL support, replacing the need for heavy WebAssembly or pure JavaScript cryptographic polyfills. While officially supported in Chromium, broader multi-engine consensus remains formally neutral across Gecko and WebKit.
 
 ### Recommendations
+- Actionable Advice: Web cryptography and security libraries should adopt progressive enhancement by detecting native algorithm support in `crypto.subtle` before falling back to WASM or pure JS implementations. Do not assume universal availability across non-Chromium browsers yet, and ensure key encapsulation methods are guarded with feature checks.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- Community package available: [webcrypto-shim](https://www.npmjs.com/package/webcrypto-shim) (v0.1.7) for progressive enhancement.
+- Standards Activity (WebKit): Latest discussion from @twiss: "Hi :wave: Apologies for the late response, I was OOO until now.  And, thanks for the standards position!  Regarding Argon2: I think it would be reason..."
+- Standards Activity (Mozilla): Latest discussion from @martinthomson: "We generally view this neutrally.  The cryptographic primitives in this set are broadly good, though we have little cause to implement some of those i..."
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
-## Packages & Polyfills
+## Standards Positions
 
-- [webcrypto-shim](https://www.npmjs.com/package/webcrypto-shim) `v0.1.7` — Web Cryptography API shim for legacy browsers
-- [webcrypto-core](https://www.npmjs.com/package/webcrypto-core) `v1.9.2` — Common layer to be used by crypto libraries based on WebCrypto API for input validation.
-- [@peculiar/webcrypto](https://www.npmjs.com/package/@peculiar/webcrypto) `v1.7.1` — A WebCrypto Polyfill for NodeJS
-- [iron-webcrypto](https://www.npmjs.com/package/iron-webcrypto) `v2.0.0` — a cryptographic utility for sealing-unsealing a JSON object using symmetric key encryption with message integrity verification
+- **WebKit:** [Modern Algorithms in WebCrypto](https://github.com/WebKit/standards-positions/issues/641) [closed]
+- **Mozilla:** [Request for Mozilla Position on Modern Algorithms in WebCrypto](https://github.com/mozilla/standards-positions/issues/1282) [closed]
 
-## Articles & Documentation
+## 📰 Ecosystem Blogs & Articles
 
-- [Intent to Prototype: Algorithm Updates in WebCrypto](https://groups.google.com/a/chromium.org/g/blink-dev/c/KluNhawvzgM/m/moAiFVVRBgAJ)
-- [[blink-dev] Ready for Developer Testing: Algorithm Updates in WebCrypto](http://www.mail-archive.com/blink-dev@chromium.org/msg16678.html)
-- [[blink-dev] Intent to Experiment: Algorithm Updates in WebCrypto](http://www.mail-archive.com/blink-dev@chromium.org/msg16785.html)
-- [Algorithm Updates in WebCrypto](https://chromestatus.com/feature/5198951632470016)
+- [Intent to Prototype: Algorithm Updates in WebCrypto](https://groups.google.com/a/chromium.org/g/blink-dev/c/KluNhawvzgM/m/moAiFVVRBgAJ) *(groups.google.com · 2025-10-10T00:00:00)*
+  > Intent to Prototype: Algorithm Updates in WebCrypto Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Prototype: Algorithm Updates in WebCrypt...
+- [[blink-dev] Ready for Developer Testing: Algorithm Updates in WebCrypto](http://www.mail-archive.com/blink-dev@chromium.org/msg16678.html) *(mail-archive.com)*
+  > [blink-dev] Ready for Developer Testing: Algorithm Updates in WebCrypto Skip to site navigation (Press enter) [blink-dev] Ready for Developer Testing: Algorithm Updates in WebCrypto Chromestatus Wed, 03 Jun 2026 10:10:48 -0700 Contact emails [email&#...
+- [[blink-dev] Intent to Experiment: Algorithm Updates in WebCrypto](http://www.mail-archive.com/blink-dev@chromium.org/msg16785.html) *(mail-archive.com)*
+  > [blink-dev] Intent to Experiment: Algorithm Updates in WebCrypto Skip to site navigation (Press enter) [blink-dev] Intent to Experiment: Algorithm Updates in WebCrypto Chromestatus Wed, 17 Jun 2026 06:38:17 -0700 Contact emails [email&#160;protected]...
+- [Algorithm Updates in WebCrypto](https://chromestatus.com/feature/5198951632470016) *(chromestatus.com · 2025-10-10T00:00:00)*
+  > Chrome Platform Status
+
+## 🔍 Investigation Audit Trail
+
+### Searches Executed
+
+- **Brave Search:** 4 result(s) found (query: `""Algorithm Updates in WebCrypto" API"`) — **4 verified relevant**
+- **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 8 result(s) found (query: `"Algorithm Updates in WebCrypto"`) — **4 verified relevant**
+- **Hacker News Algolia:** 0 result(s) found (query: `"Algorithm Updates in WebCrypto"`) — **0 verified relevant**
+- **Standards Positions:** 2 item(s) inspected
+- **Engine Bug Trackers:** 1 item(s) inspected
+- **Baseline (baseline.dev):** *untracked*
+- **NPM Registry:** 5 result(s) found — **0 verified relevant**
+- **Web Platform Tests (wpt.fyi):** 0 item(s) inspected
+
+### Content Inspected
+
+- **Specification:** ✔ Formally verified
+- **Explainers:** 0 document(s) analyzed
+- **Standards Discussion Comments:** 6 engineer comment(s) read
+- **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links
 

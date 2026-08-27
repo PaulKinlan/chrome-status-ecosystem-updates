@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import { generateWeeklyMarkdown, getIsoWeekString } from '../src/reporters/markdown.js';
-import { generateDashboardHtml } from '../src/reporters/html.js';
+import { generateWeeklyMarkdown, getIsoWeekString, escapeMarkdown } from '../src/reporters/markdown.js';
+import { generateDashboardHtml, escapeHtml } from '../src/reporters/html.js';
 import { generateRssFeed } from '../src/reporters/rss.js';
 
 const mockReportData = {
@@ -77,4 +77,54 @@ test('generateRssFeed outputs valid RSS 2.0 XML', () => {
   const rss = generateRssFeed(mockReportData);
   assert.ok(rss.includes('<rss version="2.0">'));
   assert.ok(rss.includes('<title>Web Install API — Chrome 154 Ecosystem Update</title>'));
+});
+
+test('escapeHtml encodes <, >, &, ", and \' properly', () => {
+  const input = 'responsively sized <iframe> & "test"';
+  const escaped = escapeHtml(input);
+  assert.strictEqual(escaped, 'responsively sized &lt;iframe&gt; &amp; &quot;test&quot;');
+});
+
+test('escapeMarkdown encodes <, >, and table pipe | properly', () => {
+  const input = 'responsively sized <iframe> | col2';
+  const escaped = escapeMarkdown(input);
+  assert.strictEqual(escaped, 'responsively sized &lt;iframe&gt; \\| col2');
+});
+
+test('generateDashboardHtml encodes HTML in feature titles to prevent embedding elements like <iframe>', () => {
+  const dataWithIframe = {
+    ...mockReportData,
+    features: [
+      {
+        ...mockReportData.features[0],
+        feature: {
+          ...mockReportData.features[0].feature,
+          name: 'responsively sized <iframe>',
+        },
+      },
+    ],
+  };
+
+  const html = generateDashboardHtml(dataWithIframe);
+  assert.ok(!html.includes('<iframe>'), 'Raw <iframe> tag is not embedded in the HTML');
+  assert.ok(html.includes(String.raw`\u003ciframe\u003e`), 'HTML tags in JSON are safely serialized');
+});
+
+test('generateWeeklyMarkdown encodes HTML in feature titles to prevent raw HTML elements in markdown', () => {
+  const dataWithIframe = {
+    ...mockReportData,
+    features: [
+      {
+        ...mockReportData.features[0],
+        feature: {
+          ...mockReportData.features[0].feature,
+          name: 'responsively sized <iframe>',
+        },
+      },
+    ],
+  };
+
+  const md = generateWeeklyMarkdown(dataWithIframe);
+  assert.ok(!md.includes('### [responsively sized <iframe>]'), 'Does not render unescaped <iframe> in headings');
+  assert.ok(md.includes('&lt;iframe&gt;'), 'Encodes < and > as HTML entities');
 });

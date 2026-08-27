@@ -28,6 +28,27 @@ Finally, applications often need to negotiate capabilities, such as supported vi
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
+## 🔍 Investigation Audit Trail
+
+### Searches Executed
+
+- **Brave Search:** 0 result(s) found (query: `""WebTransport headers and responseHeaders" API"`) — **0 verified relevant**
+- **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 8 result(s) found (query: `"WebTransport headers and responseHeaders"`) — **0 verified relevant**
+- **Hacker News Algolia:** 0 result(s) found (query: `"WebTransport headers and responseHeaders"`) — **0 verified relevant**
+- **Standards Positions:** 0 item(s) inspected
+- **Engine Bug Trackers:** 0 item(s) inspected
+- **Baseline (baseline.dev):** *untracked*
+- **NPM Registry:** 6 result(s) found — **0 verified relevant**
+- **Web Platform Tests (wpt.fyi):** 106 item(s) inspected
+
+### Content Inspected
+
+- **Specification:** ✔ Formally verified
+- **Explainers:** 0 document(s) analyzed
+- **Standards Discussion Comments:** 0 engineer comment(s) read
+- **Web Page Excerpts Ingested:** 8 page(s)
+
 ## Useful Links
 
 - [ChromeStatus](https://chromestatus.com/feature/5194104408506368)

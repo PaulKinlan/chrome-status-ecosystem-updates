@@ -20,24 +20,52 @@ To avoid mixed content blocking for local network WebSockets requests, web devel
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (30 points)
+- **Momentum:** Moderate (40 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Neutral
-- **Executive Take:** Support targetAddressSpace option for WebSockets is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** Support targetAddressSpace option for WebSockets is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
 
 ### Recommendations
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- Standards Activity (WebKit): Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
-## Packages & Polyfills
+## Standards Positions
 
-- [rpc-websockets](https://www.npmjs.com/package/rpc-websockets) `v10.0.1` — JSON-RPC 2.0 implementation over WebSockets for Node.js
-- [@httptoolkit/websocket-stream](https://www.npmjs.com/package/@httptoolkit/websocket-stream) `v6.0.1` — Use websockets with the node streams API. Works in browser and node, with all current WS versions
+- **WebKit:** [Supporting options bag in WebSocket constructor](https://github.com/WebKit/standards-positions/issues/708) [open]
+- **Mozilla:** [Supporting options bag in WebSocket constructor](https://github.com/mozilla/standards-positions/issues/1444) [open]
 
-## Articles & Documentation
+## 📰 Ecosystem Blogs & Articles
 
-- [[blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets](http://www.mail-archive.com/blink-dev@chromium.org/msg17125.html)
+- [[blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets](http://www.mail-archive.com/blink-dev@chromium.org/msg17125.html) *(mail-archive.com)*
+  > [blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets Chromestatus Wed, 05 Aug 2026 13:26:20 -0700 Con...
+
+## 📚 Platform Documentation & Specifications
+
+- [Request: targetAddressSpace property](https://developer.mozilla.org/en-US/docs/Web/API/Request/targetAddressSpace) *(developer.mozilla.org)*
+- [WebSocket API (WebSockets)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) *(developer.mozilla.org)*
+- [WebSockets](https://developer.mozilla.org/en-US/docs/Glossary/WebSockets) *(developer.mozilla.org)*
+
+## 🔍 Investigation Audit Trail
+
+### Searches Executed
+
+- **Brave Search:** 1 result(s) found (query: `""Support targetAddressSpace option for WebSockets" API"`) — **1 verified relevant**
+- **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 8 result(s) found (query: `"Support targetAddressSpace option for WebSockets"`) — **1 verified relevant**
+- **Hacker News Algolia:** 0 result(s) found (query: `"Support targetAddressSpace option for WebSockets"`) — **0 verified relevant**
+- **Standards Positions:** 2 item(s) inspected
+- **Engine Bug Trackers:** 0 item(s) inspected
+- **Baseline (baseline.dev):** *untracked*
+- **NPM Registry:** 5 result(s) found — **0 verified relevant**
+- **Web Platform Tests (wpt.fyi):** 128 item(s) inspected
+
+### Content Inspected
+
+- **Specification:** ✔ Formally verified
+- **Explainers:** 1 document(s) analyzed
+- **Standards Discussion Comments:** 1 engineer comment(s) read
+- **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links
 

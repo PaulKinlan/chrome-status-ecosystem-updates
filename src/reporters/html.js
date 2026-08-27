@@ -2,9 +2,21 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { config } from '../config.js';
 
+export function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 export function generateDashboardHtml(reportData) {
   const { weekString, date, milestones, features } = reportData;
-  const safeJsonData = JSON.stringify(reportData).replace(/</g, '\\u003c');
+  const safeJsonData = JSON.stringify(reportData)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e');
 
   return `<!doctype html>
 <html lang="en">
@@ -678,12 +690,12 @@ export function generateDashboardHtml(reportData) {
           <article class="feature-card" id="card-\${f.id}">
             <div class="feature-header">
               <h2 class="feature-title">
-                <a href="\${f.chromeStatusUrl}" target="_blank" rel="noopener">\${f.name}</a>
+                <a href="\${escapeHtml(f.chromeStatusUrl)}" target="_blank" rel="noopener">\${escapeHtml(f.name)}</a>
               </h2>
               <div class="feature-badges">
-                <span class="badge">Chrome \${f.milestone || ''}</span>
-                <span class="badge \${momentumBadgeClass}">\${a.momentumLevel} Momentum</span>
-                <span class="badge \${consensusBadgeClass}">\${a.consensus}</span>
+                <span class="badge">Chrome \${escapeHtml(f.milestone || '')}</span>
+                <span class="badge \${momentumBadgeClass}">\${escapeHtml(a.momentumLevel)} Momentum</span>
+                <span class="badge \${consensusBadgeClass}">\${escapeHtml(a.consensus)}</span>
                 \${baselineBadge}
                 \${polyfillBadge}
                 \${a.isGroundedWithGoogleSearch ? '<span class="badge badge-primary" title="Grounded with live Google Search via Gemini">🌐 Google Search Grounded</span>' : ''}
@@ -703,34 +715,34 @@ export function generateDashboardHtml(reportData) {
 
             <!-- Clickable Interactive Vendor Tiles -->
             <div class="vendors-grid">
-              <a href="\${chromeUrl}" target="_blank" rel="noopener" class="vendor-tile" title="View Chromium Bug / Status">
+              <a href="\${escapeHtml(chromeUrl)}" target="_blank" rel="noopener" class="vendor-tile" title="View Chromium Bug / Status">
                 <div class="vendor-tile-header">
                   <span class="name">Chromium</span>
                   <span class="external-arrow">↗</span>
                 </div>
-                <div class="val">\${f.browsers?.chrome?.status || 'Active'}</div>
+                <div class="val">\${escapeHtml(f.browsers?.chrome?.status || 'Active')}</div>
                 <div class="subtext">Tracking Bug & CLs</div>
               </a>
 
-              <a href="\${firefoxUrl}" target="_blank" rel="noopener" class="vendor-tile" title="View Mozilla Standards Position Issue">
+              <a href="\${escapeHtml(firefoxUrl)}" target="_blank" rel="noopener" class="vendor-tile" title="View Mozilla Standards Position Issue">
                 <div class="vendor-tile-header">
                   <span class="name">Firefox</span>
                   <span class="external-arrow">↗</span>
                 </div>
-                <div class="val">\${f.browsers?.firefox?.view || 'No signal'}</div>
-                <div class="subtext">\${ffStd ? 'Standards Issue #' + (ffStd.url.split('/').pop()) : 'Search Position'}</div>
+                <div class="val">\${escapeHtml(f.browsers?.firefox?.view || 'No signal')}</div>
+                <div class="subtext">\${ffStd ? 'Standards Issue #' + escapeHtml(ffStd.url.split('/').pop()) : 'Search Position'}</div>
               </a>
 
-              <a href="\${safariUrl}" target="_blank" rel="noopener" class="vendor-tile" title="View WebKit Standards Position Issue">
+              <a href="\${escapeHtml(safariUrl)}" target="_blank" rel="noopener" class="vendor-tile" title="View WebKit Standards Position Issue">
                 <div class="vendor-tile-header">
                   <span class="name">Safari</span>
                   <span class="external-arrow">↗</span>
                 </div>
-                <div class="val">\${f.browsers?.safari?.view || 'No signal'}</div>
-                <div class="subtext">\${safariStd ? 'Standards Issue #' + (safariStd.url.split('/').pop()) : 'Search Position'}</div>
+                <div class="val">\${escapeHtml(f.browsers?.safari?.view || 'No signal')}</div>
+                <div class="subtext">\${safariStd ? 'Standards Issue #' + escapeHtml(safariStd.url.split('/').pop()) : 'Search Position'}</div>
               </a>
 
-              <a href="\${hnUrl}" target="_blank" rel="noopener" class="vendor-tile" title="View Hacker News Developer Discussions">
+              <a href="\${escapeHtml(hnUrl)}" target="_blank" rel="noopener" class="vendor-tile" title="View Hacker News Developer Discussions">
                 <div class="vendor-tile-header">
                   <span class="name">HN Buzz</span>
                   <span class="external-arrow">↗</span>
@@ -888,10 +900,10 @@ export function generateDashboardHtml(reportData) {
 
               <div class="section-title">🔗 Official Platform References:</div>
               <ul class="links-list">
-                <li>🔗 <a href="\${f.chromeStatusUrl}" target="_blank">ChromeStatus (#\${f.id}) ↗</a></li>
-                <li>⚡ <a href="\${f.chromeStatusLiteUrl}" target="_blank">ChromeStatusLite ↗</a></li>
-                \${f.specUrl ? \`<li>📜 <a href="\${f.specUrl}" target="_blank">Specification Standard ↗</a></li>\` : ''}
-                \${f.bugUrl ? \`<li>🐛 <a href="\${f.bugUrl}" target="_blank">Chromium Bug Tracker ↗</a></li>\` : ''}
+                <li>🔗 <a href="\${escapeHtml(f.chromeStatusUrl)}" target="_blank" rel="noopener">ChromeStatus (#\${escapeHtml(f.id)}) ↗</a></li>
+                <li>⚡ <a href="\${escapeHtml(f.chromeStatusLiteUrl)}" target="_blank" rel="noopener">ChromeStatusLite ↗</a></li>
+                \${f.specUrl ? \`<li>📜 <a href="\${escapeHtml(f.specUrl)}" target="_blank" rel="noopener">Specification Standard ↗</a></li>\` : ''}
+                \${f.bugUrl ? \`<li>🐛 <a href="\${escapeHtml(f.bugUrl)}" target="_blank" rel="noopener">Chromium Bug Tracker ↗</a></li>\` : ''}
               </ul>
             </div>
           </article>
@@ -907,12 +919,13 @@ export function generateDashboardHtml(reportData) {
     }
 
     function escapeHtml(str) {
-      if (!str) return '';
+      if (str === null || str === undefined) return '';
       return String(str)
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
     document.querySelectorAll('.filter-btn').forEach(btn => {

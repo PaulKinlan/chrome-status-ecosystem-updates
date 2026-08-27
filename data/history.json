@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-08-27T22:46:09.385Z",
+  "lastRun": "2026-08-27T23:34:48.621Z",
   "lastWeekString": "2026-W35",
   "telemetry": {
     "searchProviders": [],
@@ -15,7 +15,7 @@
       "name": "Add options bag to WebSocket constructor",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T22:46:06.846Z",
+      "lastSeen": "2026-08-27T23:34:45.530Z",
       "knownUrls": [
         "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket",
         "https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream",
@@ -33,7 +33,7 @@
       "name": "Additional Windowing Controls",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T22:46:09.380Z",
+      "lastSeen": "2026-08-27T23:34:48.612Z",
       "knownUrls": [
         "https://github.com/mozilla/standards-positions/issues/542",
         "https://github.com/WebKit/standards-positions/issues/117",
@@ -47,18 +47,24 @@
       "name": "Algorithm Updates in WebCrypto",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:03.338Z",
+      "lastSeen": "2026-08-27T22:46:55.677Z",
       "knownUrls": [
         "https://groups.google.com/a/chromium.org/g/blink-dev/c/KluNhawvzgM/m/moAiFVVRBgAJ",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg16678.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg16785.html",
         "https://chromestatus.com/feature/5198951632470016",
-        "https://www.npmjs.com/package/webcrypto-shim",
-        "https://www.npmjs.com/package/webcrypto-core",
-        "https://www.npmjs.com/package/@peculiar/webcrypto",
-        "https://www.npmjs.com/package/iron-webcrypto"
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHYwBtV8GAsShxTLdLnXR4faFgXloAKFqfmMw19C_-b8w-b97IeCrxdRqURlVYTxaWnWVAUEMiPecY04UODxyCwYzXshVr9Q3R9BSylZ7zV8XtjWA7YaetIO0-I_O51UBxSET3atKMz",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGGbSYrYKu2ihnIqBt5jWo-fwGpXQ5nieLt7Ff8SATEjIcrgv3QOml5TLh3ZFVV57uAb6XNiIPi9HspBYh-mBi0Qugjut_XIcRlI-wUqdW501Ck9aAnOHPmn_2wvOxzWZNsl686",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGUCb6Lg5oK9g-WGm414OAIDftNpaXz9WikLW-Asr5qo7o18Kd2LW8lnQiTR55elxFV72f3z0jZAAwnTWndr4jIfhtgBuGqGn8BhwMNjKqg",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH-Y-_734Ki74_JYdML8PHojfovjPrE_sFM5YgG1ZaAlXyIn_ZAdnHzJTiLqmmYvlJavvsY2jDO_7e7ryZPqmcULDS_r4DeAtP3gkLo90UtV7DrWPsTVsbOWN8U9TL3y0NzNPn3H_OBAiqDQyrIMmgE",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGUQiA_OF4RgCnG-EkWncjmXV5VpJuFbMCxYjx_QOTG-a2AzVDunVxxNhuSOuFCbC-avQCv0uj82YtHOXmN2xLKUQ-67Ia9V3_AQGZ3uGzTOMLkVX9yLe5ienGVWP2acSNzMQj_",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQExM2PBEOn_0CtG1x8ub8cnpFn1DqGw3skuWbm3oW8FS2dvThWmz-0-U_QSZTNwbnZNlUwkWskUwjlwEWU7KfQb64GqxLI9vjAxFf7l1LNFuppt7HU-BLu3ZJKf3vFnOyLptQzSio5-Rd-6SNR0NruC164GmLf745h3nE-hrh2jGCvK5xrsqfZH8y8BbYEdKmicYadQlOa0H2BTGb0nS5eTbt8eSWN1twzR",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZB1ppNcsXAeAsnyD6Qj6wSOMuiqg5cNC5DWfbiInuLEWfTghF5Uc4kMlxRVILMQ2h7wK-AwFNO4RudJhxo4lEPVJ3hC4foJhievstDStyZFuSDZaNP_DYFlhIbawWzWk2OrnWHaJ35c2ESsigEA==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG_Jief0phyP7ywA-vJHBxfQzI3eNj0OVq_GIcUy2NlPxojkegwBYTDQAR-EY75Y-cWoxD-OhtgzgUBiRdYUXkGpL_4wvO-nks3p7z84qIKKs9cVzKEbOL_raD1Z8gnLCBsDUNGrlzLVW9uleSUCQ==",
+        "https://github.com/WebKit/standards-positions/issues/641",
+        "https://github.com/mozilla/standards-positions/issues/1282"
       ],
-      "lastMomentumLevel": "High",
+      "lastMomentumLevel": "Moderate",
       "lastConsensus": "Chromium-Led"
     },
     "6210300985606144": {
@@ -66,15 +72,15 @@
       "name": "CORS enforcement for Background Fetch",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:05.149Z",
+      "lastSeen": "2026-08-27T22:49:12.420Z",
       "knownUrls": [
-        "https://www.npmjs.com/package/whatwg-fetch",
-        "https://www.npmjs.com/package/cors",
-        "https://www.npmjs.com/package/react-native-background-fetch",
-        "https://www.npmjs.com/package/@ardatan/sync-fetch",
-        "https://www.npmjs.com/package/expo-background-fetch"
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHxXNeQM1ZkR8GWKgs4iTODIcRicm7DELGWYmBh77PyhMh6fXW7XmscWJiDdTUQiY5n1CVoNTJmeMhoROJHB0_G7IvHaIZFToEAhTeM6_DXa-LuRKMHrXyITGi1dlm8T7J4ksiLH0qVESw5yKqZ3RHeGit62ZnK6DDCSgsb",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHAzlivBhjzVpK0kXeI2orYmlHYKvyRVm-JbIMAbCPsFZUTVjXbAIYsxXfOgGjGwfvyKsb3vx36ZbAHI67rPKLeFmomL6tO72sKKWCVKoYAetX2osWmhrtU6i5lxHzy2olh-vn81hVsPKF6Dc1gjAyQCR2cBWluUGe_Xp9bX3zRj7vyax5MCw==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFhJgncXlEI7Qz_jDdG5THZUcpC0rRXWhx7kvCZnAQReCVm_RtwT-tkK7g3DF2th8l6jN3VAqrydlunpT6tbp6mKWga0WrBcHghNILClx9J5gXJCsM8kcB87oA4G2bMd4Q=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHViVBn0GM6WMhKyRz60S3la1HgqZGFJeFLoSlkDdCEEx9_IuKUND3xlgvUsOBW3f4_8FhIzjuFFWivopuTsWib11tM5lbCCXci8DzzCdwwMBiS-3XR7Y_UT4EF8V8QyaRT0TseKOKC",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECJft0Z6GWKh7ASFDVLH7fY4gaL8k_kef_w_3z7MIqrJ2Zgz_OmYNwyzVI-fbfWm_UM5eODdjAUb6kCQpRffDO58GljrTvHUxWLzOgv8IOXWBfXJuDkYthPkkq0P0BAds_PotpZDeWfiLq1fy0chplEhWDOVPxYwE8ZmjqncnWcSPK"
       ],
-      "lastMomentumLevel": "Moderate",
+      "lastMomentumLevel": "Quiet",
       "lastConsensus": "Chromium-Led"
     },
     "5146996093616128": {
@@ -82,13 +88,14 @@
       "name": "CSS Symbols()",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:08.128Z",
+      "lastSeen": "2026-08-27T22:50:19.040Z",
       "knownUrls": [
-        "https://css-tricks.com/almanac/functions/s/symbols/",
+        "https://css-tricks.com/almanac/functions/s/symbols",
         "https://www.quackit.com/css/functions/css_symbols_function.cfm",
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/symbols",
         "https://github.com/WebKit/standards-positions/issues/714"
       ],
-      "lastMomentumLevel": "Moderate",
+      "lastMomentumLevel": "Emerging",
       "lastConsensus": "Partial Multi-Engine Interest"
     },
     "5178263526834176": {
@@ -96,12 +103,25 @@
       "name": "CSS text-decoration-inset",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:10.966Z",
+      "lastSeen": "2026-08-27T22:52:13.302Z",
       "knownUrls": [
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFh8wtfLhI9mdLsUe3YbgSSrO36cN1ZGej2GYGC-Q2eQHy67OHDvuPGAxweU6GYokyKmh0_cPU5us97m89DoPmZcR8ojaCFxfBnSk3jO-d77KZ5OMaCjaNUxeRln6Bt43ZSCpUivIJhMz2aH2fmMPI1qlmvxYew6keWEcaLnDXZ8ZriLa3waw==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG4bVkmJjEyfFBOXttlPLnWwVO0JXseyNxu5Otlw8biRRlW4ZTUVUDoIXcy0OJ1xGzo6aOtpKPTOAoQ9yJrJOZ_yja4J7kBSIK0j5q4ODOfOXIDGIjNho4yukRd7TrNba7YP9Ugso5TQXhsMRXIK39faA==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGuEaFHJJBPi-t4UJ9if_XXqTMwOBXl1ZYf9SHEYRbFbTjcA4C5EjL4STlJWJI4fneYFhHtaQNMGZXQkwMV5Vzi2TsubVESXnXSrmEq4r_FfszIBrf29YNcS7niWpRRfX27aIPJ",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGtZIEc4nnrGBMpuAs_y0CbDlJWF-WwzSq30Zdm1E6gPHcbP5i-o4UxWWfVN4ig0chd22NNH7f2oxDh5rx8bliA_-Wlk4RSqk40YKbgCKiwKHazm81g5Tnb4Oh0IfeFecv6DSlqnF5BojC1PX1mhOWwMAfL928AwIQwUy4oXlQa-cf4-vKExQpndbNUwqqpRQ==",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17255.html",
-        "http://www.mail-archive.com/blink-dev@chromium.org/msg17259.html"
+        "http://www.mail-archive.com/blink-dev@chromium.org/msg17259.html",
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-decoration-inset",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGkIcxeGWwqT1qcMS-3ZdkExSofw1JK48XMpZXMemYmq1lzSdd3r-BYHhvwNocn_xv3dzNpkQpzfjKe4yBUnVGv2BFzc67bZrbNB_2uTHaWCAMHgotmcLv2JE6-_Fe81TWL6A1UL-asVgza0IyTI_0Ly2pxeXl--bpzsLdy58kszpOMTDxGUmJQ",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEc2H-dfEvk3H8Wix2eDYl_TwBRSAtmH10dENkiuLij5qtX07NvqKN96pIkleZFW66vysVQSb4IBZX1yg7E7NsR7MYvAZ4LVgqjWvoXd3ejzcl91s69w8VoHf-MeMSg-EAVeQ==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHE8TWw_-t5vXcGVmvPe0bHHU-tSPCMcvwdU_xLnf_1H_ZCTmBBkzHvesdO_KgcYBSY9OgzrN22IeVmMqmmWvIMA87EOnsshn18EeHoapK1ptAUWVWbZs-3t8CqCC5zsaIESOEvAfX4MPcVf18=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFFITShMlRirB_JiYxX0lfh-6M8-W7QVA4XJBkxi5onD8b9DXuxJSDo9pdIq3MIBJlSTui_kaSVXXZNZ7pXzAIqvV2PPCAbZ5IwKTGV7eGpdQh-1Bnqk0zPh10OWxdv7xsTLNSPoNM40ZDb_bX34qpwo1Jh",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHdEUwnSf-XIqRgvElZpluDilmm7L49Kh1WJa2LG-7jSg7aPPQxAgRUW9sN1QTeBcMB8RpLluyV5pd8nvv1FvNYgpBCiDroJKWMBxONWKJfogeLekuzrNNIzs9p6xuXLQuiUSyG815eVmxEGXR8CMB0pA==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHbFdqKG3upHhY8o0XCdhYrqV3sSSqqyL-rUTiOB6K6z8zvBMqYI8n_FhPYoBXt9ify-HirHYVAIc_2OZDG1VuXeP_JH98iK0dMUhIpHhYxSm1TZlqAeCaVUp0dhvMlxWQkpA8LrOTHi1HQFd8vLjGjVNdKHG2hAfywUh5IaWdKZh6_3kJKI7ag2uMbL0K53U8GhaDurZEbYTKYKg==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH-0sEV6Dx-0Kj3_XwLBqUrLytzihS0c3WPzL4g5oiJ7lFfO_0c8JmfnodtrQzQfCbv1VDuqZnK3dyJJ7vnjqxi6v_7nYPdpNO0EX2XPPWCbEM8qnC2NIYjELzMbsTPe5R_uvum4hviq19C02Qh4oWW1w==",
+        "https://www.npmjs.com/package/@csstools/postcss-text-decoration-shorthand"
       ],
-      "lastMomentumLevel": "Emerging",
+      "lastMomentumLevel": "Moderate",
       "lastConsensus": "Chromium-Led"
     },
     "4832783806627840": {
@@ -109,7 +129,7 @@
       "name": "CSS4 text-decoration-skip-spaces",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:12.653Z",
+      "lastSeen": "2026-08-27T22:53:01.420Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17159.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17140.html",
@@ -124,12 +144,22 @@
       "name": "Expose CSSStyleValue hierarchy to Worker contexts",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:14.695Z",
+      "lastSeen": "2026-08-27T22:54:19.942Z",
       "knownUrls": [
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGARYOAQGX6kLZYUeoEqUC5-_Vj_ApUZ8e-5gIUuVxgV0_QyWW_MS_e8Sik6SRyWTgc66vUEziUAPdQfR5aEJvBHP2O5YJSksdGXGQoPGa_eqmU69yKWNxXOc2yPwxWJzlowCMGspo=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrRWFeGnsLn-6lOCJfMiwzh-x60vbloiyZG_zfi-9UAZPCeWLKlnPe3d2BD_PyFUvAUk_IcsXCoJYYUs8O7stljDb6IkAGOolxwqhjNgOxFAig_4fh4fdirug=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF31JA0Bj7FG74V-_tT1Lr0ej0DwJLKDdANWtIUgAY687dvm2NnsF7GZ4VHI0L0s7dEC_w6uJPATpZDLje2EqFtyP4Jx8r7k98V2eqPn8ydJj6BlM7GQbqfIX549Eh0",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFVgJ25p2okjS8aMmlBL7NeB_TR1lZGZdrww0CvgbWgDNp4EEOpqTKIGdsg0gV4dZBA96rRhovZnAh8g09XHf0KXzNCmLbFEjs1bBFZwzqbJf0CPg==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFzu8Q0W9fPbHSm8-VgIAyxI1Soa0WugOdtuxeIL2Th6dykfSeBkVzD7w1esILTFlER71BwPkf2q-t0EclERiETifZVXSjhtJqmYTpFWdfSIBottxUOPADWa-duaTCpj7GIr1lp4-Z7iyqAGMDCD5kXlXhDFxsyrx3O1BG9lwJPNLgZ4w==",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17113.html",
-        "http://www.mail-archive.com/blink-dev@chromium.org/msg17118.html"
+        "http://www.mail-archive.com/blink-dev@chromium.org/msg17118.html",
+        "https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleValue/toString",
+        "https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleValue",
+        "https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleValue/parse_static",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGllJevXAGx0Vkn7J7u1y922eDhE5fEgU57XjY5yC9GetLxERZ4M5uLixGzjT8IDECXRHGuK3i9n45jy4ibtf2pgVBUPfqTmlvkjmG7oDvpRx8v2yzemRDv0QIDzbMFtKf6oOVTUFVW",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGQM69ocxwYPRyfOE_5ss3iDYf1ymxm7t2RdIa1e73QbFlf5GbqqVP5v8PbOZuhasC8fhG819lw2t1TFYU0ZzD41Ak_jwx6g1tUonYOCIcM-aYvqhwXEcJu0KhoPDDp-MQ59lzSid84RuDIZS2rHKi6suBuJvNI18QTd1w_S01GEYp6qex8OQcFqmPqP3s55w=="
       ],
-      "lastMomentumLevel": "Emerging",
+      "lastMomentumLevel": "High",
       "lastConsensus": "Chromium-Led"
     },
     "5158507786665984": {
@@ -137,14 +167,28 @@
       "name": "Fetch API: Forward reason from AbortController to fetch Response",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:17.081Z",
+      "lastSeen": "2026-08-27T22:55:53.543Z",
       "knownUrls": [
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9vpNzjCVXdAnLbu9PKD2YDU5r09et5FZ-1rz6Tywmv1slIWbbtt5bpR732ZLi6GTKGJQCO7hsI_YPzpr-fJB-y_TzU9KOuEv4BKLnqrWn9wc4njMHe6UZbvVUiXYT4S9qFSPsfN6v",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEEn2_7vcSxF_xIe4fGHgIKDLUx_ifXhmRWNrSUBPI-ns1DK8J86AKjlQY0c_isWUt6YABK6IqBzGd1c6K_HHiEhKd-smcB49rK7cxpRI1--f1D2dxMeQKT6hdvN_ObdXyQl9p670W9kKiwd3g4IvToLKrPNPhDMDTBRw_h5A2WV9TO69ytCMr5-esxHeFUFCJkEBDtyJGVc-6ADytI66TMj-Jo7w==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE6XTKMwq3Ro7cqX67MW1gvZEou1UafN9NKmYBai77cEVxG46mIz1kdC17lGspmkDxGU6-Ofm3gSmOkeHxxtfrmSXyJSkXLzYfFfR_8MlX6BCIAg94S4PSqepJhQztv9LRdprJxXBX-ZERgW03kJAqhOQs7_idq-Qk1ZSf4vA==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFscCrcn4kmBwNdO3obaKaWcnVRHP4KIh2IqJfj8ax-UnSUglm2xvBEaX0ImRFHrDSbB06ao-Kv6cywj_w0ndLo0ScGWi17sQk7ZhMKoSWoGNBL6lhzynuhqXDzHKXdFwdN5sWAV1KynK3aG6ygbiMAKdWI5AjQatlJTm-cJUOxcJIz",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGerXr_myKTf6DBHvRL9fkYLq8fudi4egCC1wkOb2rE8wst4_aKNeydP4ddoWBUY0jgO8k_7NLN7djqKhVFOHIsm8uZMNCpL3pbYTaLgEcQTxtg5XJv0TLzR4NbQV3BCLSHr030v8NGBAqUjd9OYTMfJ3LHVsiJ07ww1t_5",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFgFc4pl8QmIPS8K5oXrEV6zhqC8KPxdBCD4g92YxwRMdbMYLI4OChGMQMvVc_oGNOgZ3CRPf7ay791nmRMm2oDVqbhtGe0DdaQbkOgj7h1Xt4_Fu0Yow_5mrlSFBU4VCi6uWkznIpsfjWPN4w4Z_CYQWs_7L1T7jenOzHt",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGmqzWwRTUiFqsXp7zTaj_5M4gOi54tUMngfvAEmhYaTBm-dHQItvU9KdBI_umu1mvlObDi8vcPTBsUNi8IcruthTrfm1VOdwXUl_MrWfZBB_0DhyhozegWrKrvANw-LxUGByFVOl6KGX28q99MgAGQP6aB",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHPjE6X0t5HcWt5rW5br0V0r4Vaei4wPEtCmelD3tv3rW48u8H928RB9rbWcV2XdPK2JlWR1bxQqhnYVbrMj7OMgPfDK6tsw3AAqGn18z_MF4dWDhQarjNzYrqkTgDoa9nCopOLsePlWdcU",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGCi3y2y7UxuBmd0U7UIGSkiD1NG45Mo2Nz53tUlyK_kSnbIq1UA9tVcXwAjq-QCBbdAZTvIwdhvKOOhGxnkB0gExoi8XRsZsJflj_SiqFvQ1jY7wmvS2nIyA2ty6e4320rpZzp2yKUsNBgaogTgsB_xKGnuFcubAcvKEPkfoWrac1bl2V0ln2FvQKH6MK0Jg==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFySkGcEQshFp9YBv-7bbvSB9MN47KG3d-qWw67qDO1pgYAgp4xt4AfpmDKV4hMgk1vfQ24bfg67jIoxgyObKOGb-3t2rRtXnn7eKVx_oP8lTrCeX57P5e6Vp99f-9LvTEa",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17191.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17242.html",
-        "https://www.npmjs.com/package/abortcontroller-polyfill",
-        "https://www.npmjs.com/package/@remix-run/web-fetch",
-        "https://www.npmjs.com/package/node-fetch-native",
-        "https://www.npmjs.com/package/node-fetch"
+        "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch",
+        "https://developer.mozilla.org/en-US/docs/Web/API/AbortController",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFS1Wi8RhHe0GE7_HzGm_or3E1_1ekzWfS0OQD796TkKZ6vZ3n5R5lYXilzDji4wPN1TcWi6-aFQkkbsu4vilwe9QmtgDeD52Na2mW7Pl6SRzrd38l4tvkxCwjoE65tGfXChBqW-p8HSROEXx8FgIh0jJnJP70clSa8mJRwUgJ2vvcu",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEB-1ThiuZmc8BqmQoyhmdn7dAhVQJnh0AEBtT_rWRzzE4aj3F157dG46s4BzLlIEOeSP-S9ZgLZWPvI1FDRsZV09irwPcs5HPBKhxAjhE4",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHqcOE-rbyWY9VnLVM3s9J25NQPew7AM132Hbwgt7COIJ_vJPut2C2YZN8_6d_CIXDdGjpHMMb1ZX44xrCjUcuYT1lb8cVceAyKOEVTxLVJ1wkXSH2Pd2xXFMC5lYIovtmqVpMwkxCI",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEEDsccLEBUF25J4VjTx6yI9Iopd217NNsF-u57cyFUnI3_wq_ZqZFO6QoyafGEcERpfLIsY8bFHwea4XdfEe1DsOO3FDR6iUQwgxgBsfcp63yPryPvS4CAi3WyxvLi2U-HXu8yQlwLwXyI2KEGtT2lZi9tJ8f7UfxxVSbZ_eBFIN94gfgtYFWXXh0_AUbXf-LZpM_CoIuo-p2vw_oPGFStdG0YAQ==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF297Gp1tHKxwbrj13FpuYB18Uy7MXGLaxyX-Bg3EAU4lGWac3n3HpCR0zloyyipGppzXpJ2w6NmkI4EX1lsd_l7ZOJmxrW-8REeIbN2aKawuVvepldwbnP7ySpVC1vzB5yYTQ=",
+        "https://github.com/WebKit/standards-positions/issues/711"
       ],
       "lastMomentumLevel": "High",
       "lastConsensus": "Chromium-Led"
@@ -154,13 +198,27 @@
       "name": "FontFace width attribute and font-width descriptor",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:18.726Z",
+      "lastSeen": "2026-08-27T22:58:13.929Z",
       "knownUrls": [
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFoYLyBuAzWZkbdyBXikR-sE-K7jKi1nzs0A9BfEd7UNn48S3N03YCriibq8jreOZgJij6BYFZdgmsGaVuT5p9b_l6gxfQbokhqtOv8s_L-RPLQJ4kg2to9wfYZo0_9h5XuDHc94Kqf",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsYsVLA2akYcESFylaSvqYHqz_HP4LhLFBaI4obDpEDG1kJy9auAq-78ofq5aDJMl6DD9cipw2aJXaEY3AjvqwDWAN847TYrribcOP0ZZcyso5ayKLZvjo",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFHFcYrZCTfAhlawiRDsLtTwZPxwGJ4GK0yHMqfPVTnCksf9A5Sdgf-m0y-oOVm_HdiQVrIscKqRv1WxBX04ET7z_5u1kGE6cPn6vIyJq1OnPqgVI_BkLv1jYpkFE_TPWOZCEIsMwvT0kReccuVzgmLYzKCazebRoV9LPglzpRLjRUrgaFuqJ_RBYvYfwxKtNgZLjK7ydtG5STjWslXGi0=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6TLfwab9yN4T2Y-UoFMqUCD-wCxl5sO6yW6r3EtFfhK-mVrWNWqItwIO3nqwQzy3SNq145kpOk_Em1tfh7StZL5xdtyN0LDERASPrzfMC9IP8quzK_lFXu8O9foH6zAEGSfNSOf_om6JtB-bGdiSXEOlzreqCxci3lKmuQvzfDHjeSQMU9lAOxgyVjeFWpA==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGE97WTCOR6gQjbgS0B8wHge3LWcDgwrXW5aQ8HDvMJHZBQk3uTpzbzY8J5E5li1vj7Zu5PSriE1umoTkbS7E1ggSvXKN5B9-XlIaELOzScBDpfxcQ30bGZsQMW6UIZeQwIq9pCmSulfyjqe_o8CKNyt9nnvJzEDfM=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE7dzQOxpki7X-zlfoeUgLIhLAaq24q0Sx_BrZD1SKFUfmjiRhN-Lpj4Hj-1AG0AH--pg5JX7lNYUtLBc-rq0WalyE-p6SIE7UHe4MjthtNPvy7SUd9rq6k9D59jdN3WNrLXWPdJqJv4Bq_NSSS9k2aDc1FqJTKgKoSQ-XXPXgqa3ylEqfB0x8p0no8cL7jc1GD",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGqZewSjzEq8qQ04z7jp80iq66igb3xK-GWgh6zPtumDpIG4sn_VW7iWjzYbpVSq5_OLpZ-HXa3JhIIZC1P0A0i1rLynUOMDlytk_zQ4HoZ2CkvKA_5G-THp0JO1asU-zOpQWtI_uc6jqnxjpux_nfpnr3CcRQ=",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17165.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17196.html",
-        "http://www.mail-archive.com/blink-dev@chromium.org/msg17223.html"
+        "http://www.mail-archive.com/blink-dev@chromium.org/msg17223.html",
+        "https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/font-width",
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face/font-width",
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/font-width",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFyI5E-IqN2cfWqq0edOmsMj037oVF9FgOiz4tiFPg1VlXmYgqAGAfGxm8riv0emiZS6NF-cOwDl3iI4-LfmmMnNEpgEtH2_nzsYAziR3cd6_Hdgx-V2CuvZy-C1Jpr7RY_arE3VSzW",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3M6fzHFW5jhUgGt-2b3bpKNa0gcejy2DS79Fk2eONEYDHdANYBqWzly4VbzEu1oby_fIBrcS2v0VRR8Pvg8Hf89ICLJwAQpWHWP--IbRlaRIanfpBn3wxmt875UyoWO6rEKudI1JTDzrkxuan0XWPBsYLqhTkr_XtX9TulxSPJ1BxCWE5NCjDvBbGyiGokqvj2d-GQ5UsDsQggZcbdGI=",
+        "https://www.npmjs.com/package/roboto-fontface",
+        "https://www.npmjs.com/package/postcss-discard-unused"
       ],
-      "lastMomentumLevel": "Emerging",
+      "lastMomentumLevel": "High",
       "lastConsensus": "Chromium-Led"
     },
     "5205192866922496": {
@@ -168,9 +226,9 @@
       "name": "Iterator Includes",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:20.991Z",
+      "lastSeen": "2026-08-27T23:00:09.602Z",
       "knownUrls": [
-        "https://stackoverflow.com/questions/64093419/javascript-check-whether-iterator-includes-value"
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator/includes"
       ],
       "lastMomentumLevel": "Emerging",
       "lastConsensus": "Chromium-Led"
@@ -180,15 +238,17 @@
       "name": "Local Network Access restrictions for Background Fetch",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:23.763Z",
+      "lastSeen": "2026-08-27T23:01:55.682Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17193.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17180.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17209.html",
-        "https://www.npmjs.com/package/is-network-error",
-        "https://www.npmjs.com/package/react-native-fetch-api"
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFmr7bM6mi_9Gzvs7ukAOu7q53I4ciAALclc5yVleaFGdHKZzhEge6tXbd4gCDG_fC83qVR8YZVTIoM7Vbol67Fpym3BvOvQc-a1lDzSG6Ju15vpXVaoLYaH4t0Dufd98sbB1rIqoTexuYsg9iTynx_6AM9Jbf2zkwhag2e_k6ev_1rZtHz07I=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGpugD4NDU8rijkMXZdyjQ3AZIoSuRH_shJdHlS-m4_xnE6j48t4tr9p2UPnnccjmtrn2T5s2O3_Y02EPVavCyxYSW2xvHNhHwC9ZIGU-46gCpuRYS7Z2BhrpW1tot3gca9tgogRmiko9q9qxDzhomJWGMomorrLAwl90nJOw==",
+        "https://github.com/WebKit/standards-positions/issues/520",
+        "https://github.com/mozilla/standards-positions/issues/1260"
       ],
-      "lastMomentumLevel": "Moderate",
+      "lastMomentumLevel": "Emerging",
       "lastConsensus": "Chromium-Led"
     },
     "5068277495758848": {
@@ -196,16 +256,36 @@
       "name": "Media element pseudo-classes",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:25.994Z",
+      "lastSeen": "2026-08-27T23:03:59.512Z",
       "knownUrls": [
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHqs9CnTmrnC74A369i9lkxHiCvOdBERWhwozMFAbjMp2__y3f8MfaMSWXrZ9xTp83CESEo1OqOchkizMo0Y_Jjf-Sj9OC27U0QXVrmwbJ2OdCBuK6Ewv5rdi3hipI4VmyGS3oU1W_6LiQpECo=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFRmeqY5AzFnqE6lXDYgIwMRzY54b5mKTT9Q_2DMj-Fl6c-82_p6hYys_kI4PTbT_k08gOGsavkNyb5WW2108wcYuQDrWQn9Ha56qyUKx0qpnZS0C4UIXRGnD4m0_ocjKpmioe_xARfR85f2ap_N01HLxWmMXVv3E7I1YdYM9xttC2y9g==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGEey5YgpDJ6UXBg8L6cYPVFr2o4TCBCSX3jSE90xo43TkPnWwjUw38Rxc5aTilq1HbG3l4uiO7qxORp1jEgRK7_lmmN5-KQKJIwG401452mz5KjRrYWjGilITgnir6hiTsdmN6VbnuZ3i6bOCSKGQ3h5hiq0la38B1rczf79vU6rhC",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF7-6Rl-R81rwuyejg3gYrQqpM5Sl3wipKZISID6BVaKk-rzDx_g58KaimW19Lr4Lw-eJgeapBsEPZFwCpBGg4Rkhd1tIvX53V1UVI8vp6d5xOBH160hnrnLXPEVfaGts2YXyafY_RFIpoAdgzk0xaPT18JTXCAgsOmcsQCHhGA_ItVK9WX",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLEHs7h5J35gZS4g-TQNGOng1OcfE7E49Zg1YUB0MDBHDUjV9a3ksW6wIhFfzPcQi_J3mK-JY6If-40Xz3KcKtSbWHvwVrQwwwAy_kLmRqCq-375bVeobj37wELWSpb3HwY3oE_ZOizdYdcl8qfjNyNtCTzrQOu7pKqddvzVQvn6Y4_A==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHPi7hCLZ0HgIbvh1mcfWDW_-P16_vQPZ2MSvm2Qnl3KwKP2B3LHU6XlDipeKVg6U2B6WC4vIb5gnHm-SxRZWGVlXw0VUq9Sl4_VNrwPw8FtMH_jTxmHGhcKoHkiHo9NKI56snHNw==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXATe5KhqQ1a-7C1VHGPK6tcKSg73FyJX0W1IQBY-_xBDc3PvmD8ew2CqxJTUuZwCRMbYEhAPDTLPYo4VocblZ_m3m-pkczUxSTgHSO7Bg8PckBuS-BNET2xhSPTSaQIwZKMsjd9398N_5cpE0wNXnTMvItA06FF4ivc8=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF54h02nlqdeOChmBbDT6dFa6I09dHr4pCfnY4kfVkkh_pQhW5bW8KsxrTvsUeTjouB2LhWhZMHnsh_srxwurRcbf3v5A4wIMlEfRjpvDClBSRY-NuJ8Fs=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE-C0FJn9_Tc9WjXjozxiIwcZXjUxEVvKzbMI1cHCxoCPAsb-PTU8cvQ6mFqp_psK6Dy0F4R6YUl1W0-eGCWwKTOqfOOfZRySQmQ8fvvBKhxIhKFqFK1fXFS-Q_1rtl-QSOm2IoitbH",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH_JSD7LnwgOwj-v6XzVL27oUP6oDxuVuw6trsVok_9lzAZKcfRoZrXEBVnZ0vAa0aUTtueArIW3KBTeJjGoV42YYcI6iIDs5maWivGKqNHGhSD_Nro-_CL4Dw15rm1ZTvUbgQ8vpps",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFPbEXIlLL8AhtdM2fAxjcbkdzPMGv5bD_pk3ei2xo72m2ytZEq7yPPgrJVT1wVlhEB9-mOmPq066dmKyrS973gtrdnYfJTyRSEGz1_a9x9ZQA2Cov1sooVzk8DOTLL4v-nNUf16bMNvSVwOfsQ5IhoC6Kceqy8XIOJCqwVsWc0HV9u_w==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFaCjBRi7XF4i3mX2ixvgH8uWOvW_ozHbtXArEPyAwHtE-EPs7B5f6fFSDbUTS_RuhxlavL242WR0Zei2ThLdCN--vbmbxvQ8HpnV0eWPWnnL6Rvx3c_xcXtpk=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHPxrwu2cVdRSUhBY3w3C37h9QxXPL8u8I68NmE6tsdSipUlGxRn7azf7OYj0yNlGNsZTYMExBBVr6xtCZT8PNkfSWYgVIMHFooDA_SODqwP04szHMjgExtJLKovtbFun5xQpwzBlAmPbPU06ngwg==",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg16504.html",
         "https://github.com/web-platform-tests/interop/issues/1003",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg16508.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg16505.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg15214.html",
-        "https://github.com/web-platform-dx/developer-signals/issues/166"
+        "https://github.com/web-platform-dx/developer-signals/issues/166",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF005Pp3M8cWpjpW9KUdGYWV_cyc4-Grs-Z9wW0zYJz1HbgVqpeCnq-2Z1dvTPKVslyUl4CvULgcTSkImLdITeomLKCA-kvLm6ChML0bCGDRJSdmGo0w_sovQPV-D02zRTsokydWMnM",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHtWODBa0cep2u3Sxo39HkY0jGGOGHLtzD78Cs6gEX3mzJ39fcXMZInuVIe7g2oISC0WRNoc1dbuAae5eopXCMVJETKbBWzRQ_0f3sLzq3tPbnXTFNUwyi3bZ8FlKrTYMnf8dJCMRjNNR4NZV5gIOtCYP2WVVvixXSOBEg=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHceCelTaPz_ELvdVLK6bMaWqcbfkBrpAGMI9zo3Qxad5suZUfSVfRwYR416w5-Qj3mkt2IC1_samm0Ontg8FFHEjLdN7cAcC5MRDe7ke7m2dlPIpQhjhE=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEochYRafUUdsqmS7AUIGHuxRZncEf_m5s90CSkqUTepQDK2ykl7h1F0xWeeW2UlSWnqvE3g_jEEux6YfQwuEsFwSgN3nrlZxmi6PhO9kn6e2oqSYfMCaTjAIJrIK8HJ48R603AK3K76DHxjFk=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF5LiEq-xd2C-BSQJ76Lsng63Lg37oURL-tu7B82ZbosKIXTo_1ekKngeeYri7JXyd3cx6SAzq0SrDonofK35HTiHATVMlk5B5fiUwYazDaMJ7C7MVPX_xCERs=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFSVooCZ6KwB0kBltag_sUKqUD_PJ3ri2RTWIpJ8YOjYFEWGD4JodERGIUh1XKTMSSgyrnhaZW0v-09TgtWJl15uO3TH9OhRYoW2shUmKIMy4gMoXPqOs3S4FU=",
+        "https://github.com/mozilla/standards-positions/issues/1319"
       ],
-      "lastMomentumLevel": "Moderate",
+      "lastMomentumLevel": "High",
       "lastConsensus": "Chromium-Led"
     },
     "5054329641893888": {
@@ -213,13 +293,25 @@
       "name": "Renewed HTML insertion&streaming methods",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:28.505Z",
+      "lastSeen": "2026-08-27T23:06:26.864Z",
       "knownUrls": [
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEI74fHjk9m8XXBwIdtRTpUo5QXMVg3IPE0qSx5UIL9QAxwHYq-YU6XiOyTAXdl9cpKY0RVU2h4Sj1NrDRAhqwJZreCYdu5D481O0V4bqMsNJcJ5WXiMfNwchVnGl5rUM5EZzif0_28PaV2hK6L70mAxl6m",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH3GxbcJBsApu9a4XtFC_KIxF00mzeG1g6dLwni-qiirl-aglc7PsygaBEBHE8p0G1BWue4rosPnI8h0YA2EiSBKTJKggRhGi57SCJvMmiYhmtrDzI9NVMQuQ4gZ2_vhlD9",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFLOLmkumgq4m6i92aLDCMMZ-XHVItFjNHZOoDE-GFQRKGd8kEMedLUG1A2sWeWILfSq4NI5wuwMjCT9S1i0F8EvhNq7hL-x0jaqg3s1jjgE7WD8ROqHpGgKwmJwzqP0ERNnvxsJuKu",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhU9sFX3ZP5kLqk-xAohJM3KXB3gwWO3QpAc3Cc1JOTjiaxavKRWUGoIbzyGbkfzx5CZrgVds9TqmBBVr8chK8Pk0NvTPL3ZEufdjDtH9L6AoDRpgjGo_RltIHeqMQs65Sm-Hkz6pBG9rtbFv7bf13C9ux0lQzUfx5cuoVLrG2Ss9Nqvrs",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGB5VgbUVwL055d9lbH_hYxH040Y_rOHeQu2tzNemjpF1iINXa2U411ip41eRu0gEjbth3r75d1ZcCTvtVolXd8y1W2fAHgrLOEKhgk5t8avlT8datbO4IV-Nnf0Dg3jP39dlxJlgaZVvsHWhy1k6_J-IZCn5Fxh3mr1wWC7Lhn1J4rysLFScYwY11b83JN-HbQ7Fkv3D-vbA==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMSgfcNPQNiOTbcahwrABY6T8u75aRjjgxOlXrErbSn318GW6JBvSLnGMrrNDZawNzMSDcIVw-eAYUp24UQvEnIpvWn1IyXie9eHzSdA8ZYkemSR4gIuChy8eT4YS3eZ9ojbEPHg==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG7WD4zyAeaJX1-iAniQv_php3B2B4QlWkf8lU1zYVd6kCTPE6lVSgfUReUnsmJAm_DPAMpvNMViBT4w8rliIe3SOgGhxZMCSHaO1MTEA07fCt32mT3-I4RQxTL22_hc07RBfOjFAoNRy6A2FaPZ_s6B7A8",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHs-4Y59Gh3x9e5suBtLf5Q8Fdzb6Vw71DWhE1bd2j8FTV1Fz4OyxWeuHPXhagL0CoHKOy1rRIE7GangccOLQ6RlRUFQhRvRCUbngc_JgbnvIdY4CQw2Fc3pqSOspqe615W3OCCObEEmyQtAJ8xYiY=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEri8VLp2bbmWHg8cc5Gh8OMCPiEZDKqglCA8N5QEHkCyVgRpt-J6KuuWvR9g4AMVFT_vB372sZltfJjMwIf0V7iOrtfBmhgsBaM3nhCKxLrEXZjRdqkYeAl7IFMt4amKM7igiwjqnR-t1V_llsYinTlCYZUVDph2PMHFc5V_WcvWljJUE7apve4CW_tyW143e2clh9XNY=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHt0-_KIiYRx4YDNCPql5HWQRGM5ybJyys3Bpst7YmrOyeBdlIPPNial8sihKySHoSUJK5gpE8cQuGX-YZIpVV0aAse7e67i-KNNX9ENSLLG7jVT2Ur1bpNDcLaTf6CjA==",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg16984.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17049.html",
-        "http://www.mail-archive.com/blink-dev@chromium.org/msg17004.html"
+        "http://www.mail-archive.com/blink-dev@chromium.org/msg17004.html",
+        "https://github.com/WebKit/standards-positions/issues/629",
+        "https://github.com/mozilla/standards-positions/issues/1370"
       ],
-      "lastMomentumLevel": "Emerging",
+      "lastMomentumLevel": "High",
       "lastConsensus": "Partial Multi-Engine Interest"
     },
     "5108373464547328": {
@@ -227,10 +319,20 @@
       "name": "Responsively-sized <iframe>",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:30.300Z",
+      "lastSeen": "2026-08-27T23:07:15.484Z",
       "knownUrls": [
         "https://chromestatus.com/feature/5108373464547328",
-        "https://github.com/web-platform-dx/web-features/issues/4036"
+        "https://github.com/web-platform-dx/web-features/issues/4036",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGZTvH5uzP8caXycXylt9hun1Vcvh8hsekDY3Q4q3_cc2yZx1VybzBijcIrZW7nwWbGHx5jdj9tzzRB8B44b2QaJGSdIMissf5dCH_WK2_KDWSYZ9CBh3pn0mssdO_rXNgW8gKbLUET",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYR-SHV31LanJuaAhWKeg7uiH5e0xVC_CXwwgM60XdlLYjcbjTuAcHBmTmPdgWBqBcB_my744VSKEFHfFHeLkf0FOpXO6B4EYYZGQVAqh-LT4gdOTpZOXQMuMNv4DpoV9vv1bCbg==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHAvKTkJwuWemHta2Me4J9Jp64fILGfeHiS5co6Y0R2WiDiH2krUro8WWFgMrMf32A6p6yWr1CA32tkoVspHSXuqJI-Bv2CyB-LAN6UWT4cba_WuNZczohcr2NQqI5qOMtGDBPCHgRUNWa9Oo4zrosgxRkK5QELkSs=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGuakvN-Ic_gJw8mRnTVE0Zykv7ruTm3P5_snhhjYP2eqP-_vzEF-QXWt9SM6x1QHHy_N7wcmk8hKE21Sf20F7D1mMiuE_h9BFv7mjDJpqf-bsnP3xGYJJ01ZrVtbT65D87q3XH9Z6PxdsTYjLI0gUwJyz2qBJBf6hPXYqYPI5CV4_-_6UhTac=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF5L3_fq4J0OVeEcDXUQzTqB0ysBMdkQEQy28_uFFCIKasQ2xglf2VD52dS4j3na1qWmY5vNzsu9PyFmimysH-bGEJ0C-WfjMKyUJoopcpMkcl0dSEncL7vj87Yc7JqJZH4xP-olF-CeXhiMqNv9U7qig==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFbSz9JCxdLv1I88XmCWgsfkFUDwQx5HB_5yWhftFElilZVxoiRxEsu6Naza1cnGCUgN5frnrf1eX6V9IuaMUtgo4ZObk2vIJ9YeFxJ8Pwc-xYqDfpUFOGK2btPHI7K6GnnwWT_wOuAucIo2a0AisSY",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGENuPqiJ_PGKdA8uPRUlqJ3BSdycRnmwToy9ryxh6BzbJaDuf7fp0OTcNtYAPKUU_Y-cn9I2y6C0RZdjI557W2tOIsiwBqGcA8kjt4HUBf3vx1q1AcgiE6wJEiSzpYbuMKK-uQYIE_yDDxeH1v2g==",
+        "https://github.com/WebKit/standards-positions/issues/653",
+        "https://github.com/mozilla/standards-positions/issues/1394",
+        "https://github.com/w3ctag/design-reviews/issues/1223"
       ],
       "lastMomentumLevel": "Emerging",
       "lastConsensus": "Chromium-Led"
@@ -240,12 +342,20 @@
       "name": "Secure Payment Confirmation: Locale Validation",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:33.990Z",
+      "lastSeen": "2026-08-27T23:08:09.498Z",
       "knownUrls": [
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFduA3xRn75I648ci5z8HgNSHo9hmnTg6PrFjXsSQo4qjBXxUo6Ur7jGVNtUOSzIMXMPMONS5IC0sj3wmkqFWqDdKdN8EU_Od0FN3ifwyZSYCxtPBr5c97L7w-FoYuWcvyW2vQod11FXhRyqtEJFATT6wfaZPdsw_Y=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGNxXAVivvrIUJE0ZNwDXvm5MC-mo7aBvJ3nb5k0fXrKvjkOrrDxqP3mRg0gVMn1yGGpNYHEN4XMRl6jLQnHZBDeSkF39EQkkUYNgpF32sW-oH46WBhGcPvmfylm_ne4tQRsB4CuK80",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHGE_SE14Gb1hNI1I58jW7xIe8vh0WOtCZHcXDNomgJj0ku8NN0qDXg0T6cAGMsbXg_VZmHlcJNo2A2jORxhAgT-WVjJXJ_GGMVTA72w56ksuiINYd33eyGYfgHvfYUuDl9UGRfISIK5PtXFQdb8HzW4tEZPagvRafyXyV8_jrLjMd-ua6rCip-GLPmLeKuoFZMgBh-8DNf",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEolQMjfJTm3kTnFpc6gIOeiqfZ4ZZ1nUtzW4EbXiCLHwuQAbhgNqYAAawTqar18up2dLHkFmCfes5jFWE_HWJpZWStHIlHXNxSVQFwFyql5RdRgAqcUD7R27sRPpqbbAGDihqUb2PreSucutmuNqhGsExqz_1VgkqT",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17162.html",
-        "https://www.npmjs.com/package/os-locale",
-        "https://www.npmjs.com/package/@generaltranslation/format",
-        "https://www.npmjs.com/package/@lingo.dev/_locales"
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsMTjiXIE53bXOfi281FMrwvD8W4ZEk7JolYMWH9YJW0oYVhCXJPzfYy1zLQXYKiJXB0HnK0MvvU2xfMDcUoHnDSIDdBHp9_Yr1dVp2BNwlE3XW18YNamrk_ulkzOUOnJIXbF4kcaR1kTzfZIoDfAg0SX08l_4",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF1CBUaySdtp0jnWh1BZ7bLKL-SEl_A78yo0cmoFePDZm7Wpupxv8IcmTvHYPq_qyDKs_iEVK_qIRq9sepd-_LtWy_sogPhqLzkvj5S1ncjuUb8FSjeL5y_6Q9hwOD18DqMNX_FfGETAzX55Vfwo-mF5h6bQXGpW84lE4IfxLnskv9z6Mr9qn9KmEwIljSrvPD7QiyagNYVUKRpnFB9YIAFFUYxQQM=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFJFEE6zZkMffKPr1W2nlhF7tPKggu6SKoq1s4hmEuP12jM4mbqIvrX5Tmi-6vCv9OEj3yQF5MCNYxBdYFqaHyM1-XSJUdhZyZAzj-H_PE=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDTotP1frDAmNCAzrBFJZiO5f45qlwKQZ4VEwdzK66rkczF_yBdl6UTvt2Cy1evcv3qkXJdojcIz0dVMviCzdkSwmpjqRd1Dm1bUkLyGSIQxQYrL0mrUOTqbjlopncFZ3czD8LYOWp0-3c7lg=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFll4-kTOfI1EysRZLPuCWyhxUyzew2dMjqz8oDxqvL4mwuxwK1J4mfB_CzL6UwJO54FjX5c-cu_5cyRM0OwQYdnd5a3HIqHrUhWW-0aTn657omNci_p3L6ZGnJwLQdZ-m0J5amq0Wzzy4e4aRQRSB2ucQOChENSsN9jXhhDAdf",
+        "https://github.com/WebKit/standards-positions/issues/30",
+        "https://github.com/mozilla/standards-positions/issues/570"
       ],
       "lastMomentumLevel": "Moderate",
       "lastConsensus": "Chromium-Led"
@@ -255,13 +365,16 @@
       "name": "Support targetAddressSpace option for WebSockets",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:35.635Z",
+      "lastSeen": "2026-08-27T23:09:27.372Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17125.html",
-        "https://www.npmjs.com/package/rpc-websockets",
-        "https://www.npmjs.com/package/@httptoolkit/websocket-stream"
+        "https://developer.mozilla.org/en-US/docs/Web/API/Request/targetAddressSpace",
+        "https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API",
+        "https://developer.mozilla.org/en-US/docs/Glossary/WebSockets",
+        "https://github.com/WebKit/standards-positions/issues/708",
+        "https://github.com/mozilla/standards-positions/issues/1444"
       ],
-      "lastMomentumLevel": "Emerging",
+      "lastMomentumLevel": "Moderate",
       "lastConsensus": "Chromium-Led"
     },
     "5183481574850560": {
@@ -269,17 +382,41 @@
       "name": "Web Install API",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:38.671Z",
+      "lastSeen": "2026-08-27T23:10:30.500Z",
       "knownUrls": [
-        "https://docs.google.com/document/d/12nSXJLm8mW0gWZ_yjlXfrV8r9gwJliVt4WVa-209-KA/edit?tab=t.0",
+        "https://blogs.windows.com/msedgedev/2025/11/24/the-web-install-api-is-ready-for-testing",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG2J_dOguMum2fF3XRpt1lGlr5d3VMfbXyxIO5TblHV8qfqlF9EQOuL13cHRwacV9_QbRy9UaRaCeF6PwOu0phSBkfvJ7G2dZTmQeLu7YD4RcAH9WkgMxfkVrMkrvY=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEP7216Fh26ahxRzfC4A4eZ_ZHO9oPxc1pZrXwqwi5CZf6H5fkZNFf_nf8eFrPF6ZcKkiauNmH3izZ8Vrvgc1WsqBJKmjtKACMEwwhgIEqxWjupSPH_oADH057fTQFn81THzWwZm3mWCU_MkbWJgZz_LGGS9JvpyRqAZDtz6wd4Yffa6QxYy5HouA==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGZGCfRrkyAIjChXHs7DRvNN7wMdkWXLn87Hvy4Cs9T8jlsSeAEC25X59HGyKITDEwRN3OhKnKkSWj7JtJaIGnI2X97EMkCy-T78XtKcO7fSVZXvNjudJq3XmtFMw6gRMtUIUTFlm4gZm6_",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHRqqXHh1lyhsbO8n2oCQJ0rnCGmBQcdrv2leOV7bP0HY3SHJ_z6LMw1wN-jtKLdd5DWg_NhNetlRAjSD6oooXLqsbKtexVAHiGecywiT3QZvsoOw4CbCehyybN9ePPsg==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHAk_yvs_oDa8PiR2G_6_FKIF9ejAOEXmTxCwP0gtmbA3kIF_UKnR3id55dBTrHYMxMu0RECXpYyPMK4_d3o6GpRZRFo0_ugXw5zDhFn5XWh7TxeohBlGrKdJOjMk8uh0QHINz6vsePZ_q3wCBMtiqSvbFOAhZpJ7_m",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHny4JHTuCYa_h8jD_iIn1m27nqtGJu4a2lYgrqeJicZL1TnzhUbwWxaNyin9DQNhs84tTtOTvTR0tWHXL5znSVK_KpUXXBe1yFA5SyHT1SLHyYtD_X6B9WBSjMuXLtppEVvnpzoyahBUIHfg8o73_XX0BQ",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEnFFc0qWXHd7SeOpmDprzvPTOrX2WKbyC4wmlR90Co8sv6UHazBr_989yDxw38tc9rfgdGRilKQvyRu9ZClMLuNIMcQIRBy852BqYeObaiVfvlR-mG_3cbPWY7f7EMNWHU5iBMNxo_r1GM5fXGNX0-glvrR2W-Mk9UEe7BqgOfKPFkmrqmfNtbhOPcLuA6",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEzG7EkveiNASx5KKo9yAHXPmyxekB6S9003DHuoTaWIm4_aDWrr1JHXSiewPEbDYT8A9DAY8qu18XJKGiPB_n3-Qg78n-GKlbmzV6Aco3RwVKWZckAUusvhV0MAjEBdDdiBrYoTNuK8gEoOs4ojSAcMNG9k2FuU9A19ofih_gYjMVgFZD1qAGgamT_GPOW08E=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGMGsNS6shI6YFO_wWCRLpMwTNN6fXlrbNywWd94hBdJaGgzdsHEg-MG2c9HZX6CFTRlQmgTwCy8QqKhcnh5Iwy3teJSAKH0Q9IoyOxL8TOgWUGeTQSmymseoUdMMqjvqV0YPXZ5SNG",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEdFjl3jixo10-3NDQm5iT6BK6sfMyZD0wvTCwFV1xPi7a3VwPh9P7joA59EJd634P8U5OLgEYx76TRahFQc2StvcvP8HwFPNg9EsOd3nSBUYKXQZCfIwKRAj-Y3jEFosGNuQeIZ8S-EEoSIacw9w==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGCvm8_HBDq_K3VSsq-OHQFT1Nwy0CF5IWDpmEAqf9DQxh9o69fS7CtTe2RhM2qSRViCi8XcN9fc1OKcNwbV8GTti5DpsvqE2DbKEZIDlQVB2M61Tk0N8wZOzhhKVKJgiC5Qh8Vjtg9u7rzCNUoMumDQcKqdYJwaNs14AGAgq6g5xXSQZHWcxiSJAWDN7kA5OAO",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFb3tlIy8XJ-GguvGcxA0orFgXZxW7VrKTZFaa9CcWz_f_nsbkXTz6bwhYlO-OQqBbgnAknYEyXPO7yeFJY86ew9xkBcd1-QPF8h63WHC2qZ8gjoa51FIhtQ4VCP5vgCLn6Tz7_qRrjOtrkdb_wqBkSdp384aVe0jQMqkYDg1MpEQ==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFE9zWQewTtRw159M71iFNCpDxy2xIA0goYrgi4qqDJjE6f6aSsiXeHEL1krnmSq4LRoelY8alvqV4sbbnokVsvHE73C34lDKeVAk3ggGzICF3kmh8uj1gWgnZsg-dPvmaK95Ir4cvlPJypt8fLci3pUU9rFC8aiUrkTpGhOA==",
         "https://progressier.com/pwa-capabilities/web-install-api",
-        "https://blogs.windows.com/msedgedev/2025/11/24/the-web-install-api-is-ready-for-testing/",
-        "https://microsoftedge.github.io/Demos/pwa-web-install-api/",
-        "https://www.reddit.com/r/PWA/comments/1oub6ml/web_install_api_a_glimmer_of_hope/",
+        "https://microsoftedge.github.io/Demos/pwa-web-install-api",
+        "https://www.reddit.com/r/PWA/comments/1oub6ml/web_install_api_a_glimmer_of_hope",
         "https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/WebInstall/explainer.md",
         "https://www.pwastore.io/web-install-api",
-        "https://frontendmasters.com/blog/a-first-look-at-the-web-install-api/",
-        "https://www.w3.org/2024/Talks/TPAC/breakouts/web-install-api.pdf"
+        "https://frontendmasters.com/blog/a-first-look-at-the-web-install-api",
+        "https://www.w3.org/2024/Talks/TPAC/breakouts/web-install-api.pdf",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEXt9nyDnCnJmUPqf8aHhvuaoRBZtsA6AnmLod1d5up9pnrTS0ZFJdRT7qzNNFpG25RDxUGxGbWaS5lxqaaaksjicncgaPO3pmv4uR61lErt4d4MOC_lneRvPmnfj0=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFzOvALlrEUJJ2yON7EOGmDH_4Waf340AXSPq0OhgCMD8g4P89CL0gEXq0Gz3i_ZFTyYpvZyZuSr79Iw8vF_lpbjwe-AxNNZGDPO9Cyn9oe0rLjtujmw02OtAxga7yAIhwL4o5TFWQs",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQETLljQiRbGUnmVBWYYOUBem69IXsLWcXzZWTp1aIn9W1yIhuim7UjnTYndk5K0TPgG7qBCCc5mLm4jTDiB2AaxIi9z5zmuZLRr7UKVzJoHn3KjDeJw30PYs8tkq1Mwgvy2jmIm5vwcjaDCYSPaH-MEGAsVtiCh",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH2HJwaJTtIEhlKbJmsTADP6Fe-XR8NqDPEVbLn1znc2KbtebhutRZdHfFVT2qBUHq_oD0k_Xe5Jc_7RnopuLMCbFOUBpGL-8ol7qNhueObV-7y0oBRAhYkYql7927CnI59WaG8K8gpQZ3GB_mn40FeD1w=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGDRr5ESmAmZ3QORIfhvyBLKIJtIRudcCdgjn4Utjj1MwIAErcrYLilP3sJMb3cAwwdgril4Le5232DUAMk6SSzX2LaVo8rhUl7j8My6PClkeXOmBhI-WqIESUK4tlRXGGsYd4=",
+        "https://blogs.windows.com/msedgedev/2025/11/24/the-web-install-api-is-ready-for-testing/",
+        "https://github.com/WebKit/standards-positions/issues/463",
+        "https://github.com/mozilla/standards-positions/issues/1179",
+        "https://github.com/w3ctag/design-reviews/issues/1245",
+        "https://github.com/w3ctag/design-reviews/issues/1051",
+        "https://github.com/w3ctag/design-reviews/issues/946",
+        "https://www.npmjs.com/package/@types/web-install-api"
       ],
       "lastMomentumLevel": "High",
       "lastConsensus": "Contested / Concerns Raised"
@@ -289,13 +426,36 @@
       "name": "Web app HTML install element",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:41.769Z",
+      "lastSeen": "2026-08-27T23:11:33.998Z",
       "knownUrls": [
-        "https://docs.google.com/document/d/1rGvLhD4SR8Y9M1wVmqgyesPNkbZGU7HOqlttjEFJ5Vo/edit?tab=t.tmx19oox759l#heading=h.j3tt49hqiuck",
-        "https://azirgo.com/blog/html-install-element-pwa/",
+        "https://developer.chrome.com/blog/install-element-ot",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGaY0UP7Wxr2c-t2-bZ1udFKBhMcN76WGkNEzxmLRgE_Y7M2bQMjr7Ux__eMyLhh8q4ILFsjoe6XNDSUoDc8OQ-fPZuSFLqGttWAQW-lQ8JxfU-GFimpz4he7YBclklaNmL5FhwpgoY1XxtDDqVhsmcL2RQtesMDY0LCxetBA==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGbEEtnLWtgk4DZVByH9bQY7UaRPL5dRUZ0Nfpv7HTBki7NTutRZglKyqW7XQRNa-RuBdZjrHualem94-XK-nt60H0JkrSu-RS9xiNGQ7ztq0Uk5Ly8XiAsSOsPtdSqhMf5-REict-u0l7Y",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHC57IIMYjzuoCdUWgqYM9dn1KpWBq4qe31FlozAhDKT_3VEnMNw9x6qRulRAZ_CCtx1S3vwB3qB7BBZWgPrY4RxDMHVCp8UH1qX_yU7z85tRrzGzQiWD01TTh19qZahrw7KckwrcVF",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEZMrm-dQ35Ie1q4eYEhaokAtkYzsEkKMtJPQPWlMNkhjX3YNAgTWdxwdDVZY0NoEULjkVyOoMADhIcO9r90a3aTzwFgm86DPhAZyfRPEOtlyT9uq6DGOu9fQDWxE1PKtXtmHN_hgwgTkXNq5k0hU6Nkv4KnsHJu_Dw3ohIWaqvkxJ7L4OK7Yb75hnjC-Dd",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFAi_TCSX_TNyRCs-fO_cdW-gS6xotRzQqRYR3mRAmWeq9y2H2Y6RFnV8DtdB7AFjhCHK4UK8-6jj6tBDXCO-kIAqsCPaTf1khEbB8pyUqGNDsFzg3KSSukpp1vKnrhRZnwYgnQz-1TmJsRaDv8lfbOtQ_izo-tgcwWE5CaNspI2flRBgT94sp4bGg=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECSctsuApbXZpqapecG-IDyir1y94zLUxY2GvFO-VXI2KJ0TG08sgTqvK2Gq87CH1tK88Mq5tAbuWhKK0skbN0jcj0I0w1PwpgfWeYiKZd0i0kyxs2bRwCsalEAv7Eip6tCf_Q",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGKyhMWhHi8BlU7I7OaNmcCJwnAGUxH6ROl_aNsQlW1JaSOWSfOTmn5dj68IoU6AlLtzHmBk0eGVplv361csFaN5YQ1m49iFQyCD906r4-ku1QiSLBsBWrom-YAGcEl6DM-1tSvdxI_WzabiTsc5dJz_FwK3oQrjOiYO4MCSJnHaUvKZsA9BQk=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrNlz3VrOMPwg2VtqKy3aWF4oHKUBi-l_6bTIy16x3yk3WwHnG1qSod82lr3oncDvhKFuy903UACwV8op3aYYS__lohCA_-5MqjKcXQ9Eqvh4EEWihNidBvORk",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEc7cC4x_Lao4IE8pYVGy9K0-AG1MekgwkZ-MyS2KeWK5W2R-sxYKnnZuzlxIdTAP8it8PTGsdQEMQB8BW6TrpmlJk1dkj7-MHPV3OBDtRdQ7EMxkNsodZKS70=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHKoZZKOwkbbQVW9M9u8o8HNx1Kif0SEP961sDl7U2ql9ZoDYp1RmYvR0mdwdHYpzdRHeneWmGc9KzyCN2qTk7n_2soGr10SNrowZykKNthWqU-mJZGmh7bMHFlXIY=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGTkpnUz56UGQUVnKpwrDHcfgNPRpilW9UUdWriZAsI89QWkUDFdLHTZJHv2wWNe26kRBXs6qauynG2c-1-rqJH6A3--pDMUH5sDIfmb0ZvmPO4NMIKZkF4Oz1YMlpu1HCbqUoJ6hpVrok1m--_JVjphg4Ce7Not1M-PQF8vVEmPfBX-Vzaj_ZqixSAn8HPDCFxjZJ2nc-J",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4O5I9zgQOQ_ul3PVzCog1H_xxbh198sYgVG4CpIa0nePH-d9_baU1lKLbbqGNpNE-5meySWC27TV2-R_2Vbmq30AngWgyHb-mAqQMCv870Rwzv0KiEdix9hYuBO7dERr51t34wr7EoQcdcSdrbgwmVg==",
+        "https://azirgo.com/blog/html-install-element-pwa",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg16195.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg16233.html",
-        "https://developer.chrome.com/blog/install-element-ot"
+        "https://dev.to/bengreenberg/vector-search-is-still-the-memory-layer-agents-actually-need-50dn",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFHs33OkNpJzcC72dSt7GNwGjExd8xppn7fk5EAEZ03HFJt2clKkp4eVTJGHG1a8O2pyXz56DtdldN8sGnmT4HQXXpkkncqV6jyreqbLJ2UXR8b-agri230KWnOcRlhX-AUc4BGbJIZGFNA",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHbWPJKKn-cbH4yiuH-u6V66Y6FHZsVrxhvNK0TqXo6IKL7_6T0EOozqvChmuHfvrWmkJF1OQXLTGt3zx68-toaOHjrElx2EGaJsK8nk7becCKFW7wiL321vY3K-LM=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLG2YpEoLPaSnOhQImn4E47MArNK62FDyTviEU6jRbzb3puGTfH9vviceCCs_9ryeN8kw_WEDodTa2cQQiW2_e1XNSD_MFbg0JXuvaTf7K-m0H6SGaItW9zyxErwU=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHIMQDXd4AojKVE3z7X7z5MYsJTOlH3-CbGMlj5vea_c9GF3DEbJP1WeSkmkPSTOAXBR7TAfYaus-o-kHBdFMsK_Mf5zrIohJxv_14fYaBHoOJH2QdN-VUoIOlPCjRq0X1jcN2YyveJ",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFKznUTZh89TT_MS2PS6lpM7XNxo-snYzVAzFFmBkP3NF8w5vr9_-9brUrkT-oVz_h-CM3w6BorospoNoeVQOC8Csbfr1ubS3mZ7WXDGdyAYCPQiuyB-GnJA9xHQUq3l3Ugk7f4-PoH7cCj4b1FZvsF-cw5s7fTQ4HoYBfpGw==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFdW5fk5lmVkN2ag30xj8oP9iqyYfjV7PnofTVImQz86kC0d0Qb39iz80OM74KATO3r39UrLK_E0s7LBpvZZ4e8lufx3uDa9J0EvwYTPFtCwQ5qP9OsqxZrCwHMMR189dFr9FY=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEPOEGq-wLeJ0u4z2l9rR6rd8ZxZWyo6YToeaXcivjq5yVL3hRiMy879U7v8eybmBCG3KOyu0ekIaelIrsnmC_7sKq00EKrsPUaPiAqTCnRQuUzgolsvgKpQjYmarS4TxEo1vRu8cTF23AlK3wLTyVi-TbC22oFqIgrBAJ44QOJFkeNRTvWqhKDSIP00ikb",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWVbHjCaSjT7nWNZZEo_Gjjy2Wizej8xkqi9PLC0CTPVxZgGwXzTzF9IiHtvN_sO6sN7PjYYk9A-LcdaobMXFuBf3-I_stqEUMBY3tJ62HASg_Lw8Lx4LycuuK2GM=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFXBugX_HMSiY9HAlK2L4cKbOz7IAJMTVq-arQZ7RiQuZ8OIJyh5n_4qltT9FnVVvaEcRQEFXZJDVajdWzqGeBuvz3GVOag3shFRgO8100SyBqqSBYsLeuN0ObZLLNKUDrz9aI080iw",
+        "https://github.com/WebKit/standards-positions/issues/463",
+        "https://github.com/mozilla/standards-positions/issues/1179"
       ],
       "lastMomentumLevel": "High",
       "lastConsensus": "Contested / Concerns Raised"
@@ -305,13 +465,30 @@
       "name": "WebGPU: WGSL Fragment Depth",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:45.036Z",
+      "lastSeen": "2026-08-27T23:12:42.865Z",
       "knownUrls": [
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGlEbt2DtlhMgEangWK82wppIXvfoYNuRoQJSaTCnw8P4BAYDZVm-0gbBWIbGs6LPXOfHDBSwfCNdUoT29MCydfLKEUmd-dLcRmHQh0fENnPTMDDuWDjVXa31cUIaTclb54",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFUZ5ts96KVReXw2vgKZvbOxr80XzcjBG78B4UJFnekLP5wwHI59L2Nc9N22IjF-itA37cUn7UcX-m1RKiO-FuWU-r7G9lNMZ0z5Pn-yWHynDTjTXa4nds4TZ19kUSUyhS6EYh1CA==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGp7AWqMTKpwhDF9ScSqEe5vjE5OmhroixwUsZ2v6JLWJKRLI6s2R5UAYxCDvRBq77BJAkvUgVdgH7L-SrtACBzySWK52DOvXekaXMo-ma3dWbEHOBH1TS1F8S2vlwaxLR5",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGz2djR9kxCiw3_nqG05D_LZWg2DRABwz7WG46xgN08X7wOOrs9dsDTjUuoCrvgo7qnrECXVSrEQfJY2RcIwrKeuiwJuRRz8xH_lRSbADfmiA==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGvevGb65iY_3KWGOAjo4yKQTx1H0krYasEoc3QD4EyZ7ZjTG5vkmhoT54GrOmt9gTcyVVlQCL1QT37vPMY2Akl7fQdlHB4DsxwD9Ne8E-nwkFxm2ncUq7zgrlfBABS5-Cv-LJpi5k=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHI9EUpp-qxiTFfOb5ixVKPx24d8N39cB_2DZD95VIHtRJ6AZcKRgrKgDq4Rf4f34G0OaEiCaB2CsnljOMUijdpMqdOgldQxf4MaQNlErQ5qsO51e-xiWrIpK3yNONb6LvYVQlMvkF9nqAd3Ng=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQElOZ9x3qCAAQQpAz_3uGK6jLC2mfWbon_ikKlSurxxZAbkMK32XG4qC_ftUhIPs0EsrsKS_3CIePcuJ1aHSPzng1VPZuE53E5whFKHGYHBMiHYyN_zWMRsV44wZk8e5GDz",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGTwNZ_1_YivTCl9JSpT8igkBh-gE7bGBauQQwXQEUu6AxF8Y_FHj661eDeQzXa7u7D_uiv2HFpjO_mWoxFgqk3zcZimGwGKyoC0GQocy1JTaCFKvqD5U0Q-_DlLYmuhHxu08NPzJtA8dHwOvKJj3jklcnCGQMZGVQ2hw-CMHj4t6NCZWi4zZ8=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQElLk-yjVLILXJgTIRIIk5R0P1dpUulJCqgMp40fYHqxdtlCLkyp0qb3DUO-LBtbzEDL9Q8cN5wpGzV6WP78WOtJ48dhDUsbE8yX_l--CWHJxoCus6zQSp325gcg0LxEx6YWWm-gC6XnA==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGXv009XK7bYChLUO-PsDQynqBpk1_fIc7kNhBe4NCqnTMqsIXBfM94zDchD9t6gvMIrfexrDwgM0VtfgvFxWphz6WzhPH0bk1DWTI9P8pidy_R7Q4bpOWrdc=",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17263.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17276.html",
-        "http://www.mail-archive.com/blink-dev@chromium.org/msg17300.html"
+        "http://www.mail-archive.com/blink-dev@chromium.org/msg17300.html",
+        "https://developer.mozilla.org/en-US/docs/Web/API/GPU/wgslLanguageFeatures",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHkR6Ja7Wpee7z1LLQVDmyYlRBSjLbqoqAJi8-2D79qKAvoTBa1q6xjDhCd3zxjQLyrdLuP2xbcw1T2kHoQvEvOALpqe3uQeIYnVxiLPT-5Se1BWBprboTzM_crVtn8wPxyX-qIlIjTlxd7Wyz5UhN25H3rAr4kiEoiriw=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqxy-XiG-IjU9oi9ngY7WMy4Z1D0QY8igKmc5ihLBOyPBIz6nXBe2XvEr1pNnq26xkjFBl_D8cyVEKsUIklt5K3fGDgEWTiZMp1Ip514rMhvhnYKHebZiSqmkJAIicT73O",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQES7qtbM3f_2KcfEeSwGvL1Ft1r1I5UA97wKweIO_F0rwgXvBooHm02SQDozuoFGr8PQWsw5uooGEGuIBp7KKrUHPyzZ6fqSkp3f75NuVgHAbGsUrCLw0Tztj8YOJkbnGRFpGoaPgU=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH3w1LtY6AlukZxH7AKYAT6aIUIuLQIxEfMNoVeUjr7jLOmSix7IHzaRrW4JOGnc6SX9Hs4iBhT8DtUth3S9h5UZZHSbI0pqjHCOL5yPt_6Vg==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF5Zj3g4k8q-un6txo92VAfw_bg52Z75aD2k1satUmM7Njr8empznLa8-6ZRQh5ralmbVfJcSBFWP2cAGGEdirf0SCrhfzCWsw0F0xNCL0fNRawwJ-AJv4zHkeFFiRiEw==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEJLP1uEK5W4hSgTXe1gbjo-aSHAfEB2Mms65UclGEk4HD6ru-EaQ3-V97jqiFHXIS9iPauXCoapPdLxusxLTQUhxlqpogGwW9IbVqQkmXTxAnUo0LkDOo55JDJnngHlAZC"
       ],
-      "lastMomentumLevel": "Emerging",
+      "lastMomentumLevel": "High",
       "lastConsensus": "Partial Multi-Engine Interest"
     },
     "5194104408506368": {
@@ -319,7 +496,7 @@
       "name": "WebTransport headers and responseHeaders",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:47.431Z",
+      "lastSeen": "2026-08-27T23:14:19.713Z",
       "knownUrls": [],
       "lastMomentumLevel": "Quiet",
       "lastConsensus": "Chromium-Led"
@@ -329,14 +506,26 @@
       "name": "Window Shape API",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:51.311Z",
+      "lastSeen": "2026-08-27T23:14:45.438Z",
       "knownUrls": [
-        "https://docs.google.com/document/d/1zPr1QgS-bXsJE7nrO44zx9RBopR4gHuvHxfcqxsX5Ag/edit?tab=t.0#heading=h.pcgro84kqnh3",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEZmjAFYXN2D0LsGXrZCazyigQQATkQvfk5V-8V38CILFudwCZYWcuYxXbvB-J3HLQTqYjEQdK19DmQtaDIOoa0TM8qXxqogxTpULXde8S1hq5glY5BF1zid-TVPuNDwpJJtKcx2mQO",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEuMLV_lC827OUADBtsqut2xnHjn671983Bfl1QOgALhZsAIvh6uMX0sXRusaK8L4jQ0uyTPWCXL-KJrwMNha38EGmJaSP0K-RVon8hKljfX5WoDQsr01xPR0sRJmrADAr124ogUhRWDElQuQ==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQERSCjlEZ4FoBKs18VpCwm0p5hdPR5YIYZ-DD2pEygoB_ixoYolAxIA48JwM_B3piUvhEPmsI2FYo9n7_QfEsyCk0TQDMIkTUbFrqeWIB59ekFbeiIKihZIjbqQ7UFUm65QBiWxQjt1ZdK-Zf38",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHdQeH73eT-5YUK3bUcv9J0h1IYKpBc1vLJRK2F-YCOn-xrxKPYIPfwSPYhIqFnckaa57msqUGGqqsRBECSVqIxnW_3xRl2oaYHyyRou0vLk3DqyT5Wm9h4wfS7TvfAOuDnTgC5Nv1FRwsYbv1QzklQREsjKGMbx3sQWzbgu3gktOnUR0utvv-Y9qlfXMH13lhC_gAw6Ew=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFwhw1CZCfUfTMqmsT-3CMHbdeuMZa9gy0TdbCO1Kkc34OLIIIF-niimcQxVVq3Sy27-pC4_gUocPS36Mk0ORg6ZmL2qDhZE7GMK1XX2WnsIEqCvu1xiXlMyVSuPcbuvoXmgQdwyWSC",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHtxH-jqNCP1qugcMDR9Cno0VxTUx6A2Xr-K1eu7OWF0at9lBmqS-C8KpKAAmSx4dMl75QInQJeSVcdc-dm48E_aZgjuBd7O3ZzK7cjg6iEmHae8Aa_qzccRRuCDPROMt2p3FhPRpL3vEaOiltD8y0sVc6qFsYOFZT8",
         "https://issues.chromium.org/issues/40343068",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg16945.html",
-        "https://github.com/libsdl-org/SDL/issues/6654"
+        "https://github.com/libsdl-org/SDL/issues/6654",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHbrGNAxkHU8rrhHdgtZBfJU901htxU3E6SW4kGxuuYL_t0k4jD-ddFWV5hgpsi02cMh1aqihqJHpW_BdZk_Fp_PqKqL8t07czV-DqbvnGPJDkSrROS5kTWoR2gznfFbO3HbXJBXEcm",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFYPQs3xUXDlMnU45zRuJTLoB3rfKVDhPxaQjWJD_oCGFz1NAo3UKqQeukgWwGdZc1uA0moQGBp9DcJmYmUaB0HjWnTEvma7SEmxjb6j6ApS3YAP0W4o6zGkA27G3T5yYB5C97ogCVuSei61w==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFl7Kct-zb_Ud_dlkHIj59FyB39zao4_suYaCN7tA3uEccFi8frlP06k30CBAUiXw4tISQtz5IqTcuu-rnnU4VK4B7n0YgBPhwlPqADy6EQFSH021zpWKM5rJlnuYqkouqyvQQX4gPasCZgdf6wBaeDP_aVBjJp1KDBG8ZJC3fLw-F8uWv2nbpxwSEcLxX6a2UaVwGKonC2HoMH97Rw-g_E1KsbnYi1uA==",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGqXH7nFK-12klHvKn1TYWB2tBBo3OIhx_rQJUfInxDFRDnbIvUZxOtRlfO4u9_Mwu_wV6Vj4MaBnnXXNMlpJmr0sEzdnQavBY-WRKy3vAojNWkqXfhP2eTzRNUNzwyclWZFdAjaqTdgRDiaUjpkbundku9UFKr0Pv-",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGZssqLKns6HtuF8PNROIsCCxGKi2ID5uzgpTfZkX6TJl6r6GCZtRsJWdBGLKR1OPgFGhnFRNWQRVBVdriL_qW1NKEqrgzmv2N6UUldiD4zO4CvE0qBathO8XvVWlTLo6IkzBt4XWGn2jTc98KNXYNqliTt_UrNHeurIpKoKFtdcSAzHal73yKf011cAbUMhIlP2w86mMI=",
+        "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHN1ukUDJY-3_8Ust6nkl4f2-oyEqMuOgz9crulWz8W2J_zk4HbuNoqeo0nFN_p3nFIFcVOJorL2tvGNZDkOiR1OMIM44LCm4gPdQwpcOAOJuubiYFdGJAOQrGuK30NRs78ybyC6w5s4jZuH-FsCXWTBeI0TVHZFrzLZDnQeW-c85lyT-vaQB1ziemnN77RXA==",
+        "https://github.com/mozilla/standards-positions/issues/542"
       ],
-      "lastMomentumLevel": "Moderate",
+      "lastMomentumLevel": "High",
       "lastConsensus": "Chromium-Led"
     },
     "6210457816924160": {
@@ -344,11 +533,17 @@
       "name": "Private Verification Tokens",
       "milestone": 154,
       "status": "Origin trial",
-      "lastSeen": "2026-08-27T21:58:54.939Z",
+      "lastSeen": "2026-08-27T23:15:57.754Z",
       "knownUrls": [
-        "https://github.com/explainers-by-googlers/private-verification-tokens"
+        "https://www.neowin.net/news/cloudflare-announces-private-access-tokens---verification-without-captchas",
+        "https://developer.mozilla.org/en-US/docs/Web/API/Private_State_Token_API/Using",
+        "https://developer.mozilla.org/en-US/docs/Web/Security/Practical_implementation_guides/MIME_types",
+        "https://github.com/explainers-by-googlers/private-verification-tokens",
+        "https://www.neowin.net/news/cloudflare-announces-private-access-tokens---verification-without-captchas/",
+        "https://news.ycombinator.com/item?id=47096131",
+        "https://news.ycombinator.com/item?id=8962378"
       ],
-      "lastMomentumLevel": "Quiet",
+      "lastMomentumLevel": "Emerging",
       "lastConsensus": "Chromium-Led"
     },
     "5172464636133376": {
@@ -356,10 +551,12 @@
       "name": "Support for specialized WebHID devices on Android",
       "milestone": 154,
       "status": "In developer trial (Behind a flag)",
-      "lastSeen": "2026-08-27T21:58:58.560Z",
+      "lastSeen": "2026-08-27T23:17:23.631Z",
       "knownUrls": [
-        "https://web.dev/hid/",
-        "https://web.dev/hid-examples/"
+        "https://developer.mozilla.org/en-US/docs/Web/API/HID/getDevices",
+        "https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API",
+        "https://developer.mozilla.org/en-US/docs/Web/API/HID",
+        "https://github.com/mozilla/standards-positions/issues/459"
       ],
       "lastMomentumLevel": "Emerging",
       "lastConsensus": "Contested / Concerns Raised"
