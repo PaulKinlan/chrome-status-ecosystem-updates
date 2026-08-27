@@ -207,7 +207,12 @@ export function generateWeeklyMarkdown(reportData) {
     // Investigation Audit Trail
     if (eco.auditTrail) {
       md += `#### 🔍 Investigation Audit Trail\n\n`;
-      const searchSummaries = (eco.auditTrail.searchesExecuted || []).map(s => `\`${s.type}\` (${s.verified !== undefined ? `${s.verified} verified` : `${s.count || 0} found`})`);
+      const searchSummaries = (eco.auditTrail.searchesExecuted || []).map(s => {
+        const name = s.provider || s.type;
+        if (s.status) return `\`${name}\` *(${s.status})*`;
+        const countStr = s.rawFound !== undefined ? `${s.rawFound} found, ${s.verified} verified` : `${s.count || s.testCount || 0} items`;
+        return `\`${name}\` (${countStr})`;
+      });
       md += `- **Searches Run:** ${searchSummaries.join(' · ')}\n`;
       md += `- **Content Inspected:** Spec: ${eco.auditTrail.contentInspected.hasSpec ? '✔' : '○'} · Explainers: ${eco.auditTrail.contentInspected.explainerCount} · Standards Comments Read: ${eco.auditTrail.contentInspected.standardsCommentsRead}\n\n`;
     }
@@ -323,6 +328,27 @@ function generateSingleFeatureMarkdown(item, weekString) {
       md += `- [${doc.title}](${doc.url}) ${doc.domain ? `*(${doc.domain})*` : ''}\n`;
     }
     md += `\n`;
+  }
+
+  if (eco.auditTrail) {
+    md += `## 🔍 Investigation Audit Trail\n\n`;
+    md += `### Searches Executed\n\n`;
+    for (const s of eco.auditTrail.searchesExecuted || []) {
+      const name = s.provider || s.type;
+      if (s.status) {
+        md += `- **${name}:** *${s.status}*\n`;
+      } else if (s.rawFound !== undefined) {
+        const queryStr = s.query ? ` (query: \`"${s.query}"\`)` : '';
+        md += `- **${name}:** ${s.rawFound} result(s) found${queryStr} — **${s.verified} verified relevant**\n`;
+      } else {
+        md += `- **${name}:** ${s.count || s.testCount || 0} item(s) inspected\n`;
+      }
+    }
+    md += `\n### Content Inspected\n\n`;
+    md += `- **Specification:** ${eco.auditTrail.contentInspected?.hasSpec ? '✔ Formally verified' : '○ Not available'}\n`;
+    md += `- **Explainers:** ${eco.auditTrail.contentInspected?.explainerCount || 0} document(s) analyzed\n`;
+    md += `- **Standards Discussion Comments:** ${eco.auditTrail.contentInspected?.standardsCommentsRead || 0} engineer comment(s) read\n`;
+    md += `- **Web Page Excerpts Ingested:** ${eco.auditTrail.contentInspected?.webArticleExcerptsRead || 0} page(s)\n\n`;
   }
 
   md += `## Useful Links\n\n`;

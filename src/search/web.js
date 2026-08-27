@@ -58,7 +58,10 @@ Return a brief summary and discuss the key articles found.`;
  * Searches the web using Brave Search API
  */
 async function searchBrave(query, options = {}) {
-  if (!config.braveSearchApiKey) return [];
+  if (!config.braveSearchApiKey) {
+    logger.debug('[Brave Search] Skipped (BRAVE_SEARCH_API_KEY not configured)');
+    return [];
+  }
   try {
     const url = new URL('https://api.search.brave.com/res/v1/web/search');
     url.searchParams.set('q', query);
@@ -71,11 +74,13 @@ async function searchBrave(query, options = {}) {
       },
     });
     if (!res.ok) {
-      logger.debug(`Brave search failed with status ${res.status}`);
+      const errBody = await res.text().catch(() => '');
+      logger.warn(`[Brave Search] Warning: API returned HTTP ${res.status} (${res.statusText}) for query "${query}": ${errBody.slice(0, 120)}`);
       return [];
     }
     const data = await res.json();
-    return (data.web?.results || []).map(r => ({
+    const rawResults = data.web?.results || [];
+    const results = rawResults.map(r => ({
       source: 'Brave Search',
       type: 'article',
       title: r.title,
@@ -84,8 +89,10 @@ async function searchBrave(query, options = {}) {
       publishedAt: r.page_age || null,
       domain: extractDomain(r.url),
     }));
+    logger.info(`[Brave Search] Query "${query}": HTTP 200, returned ${results.length} result(s)`);
+    return results;
   } catch (err) {
-    logger.debug(`Brave search error: ${err.message}`);
+    logger.warn(`[Brave Search] Error querying "${query}": ${err.message}`);
     return [];
   }
 }
@@ -180,10 +187,12 @@ export async function searchWeb(query, options = {}) {
   // Merge and deduplicate by canonical URL, reconciling multi-provider findings
   const mergedMap = new Map();
   const successfulProviders = [];
+  const providerCounts = {};
 
   for (const s of settled) {
     if (s.status !== 'fulfilled' || !s.value) continue;
     const { provider, items } = s.value;
+    providerCounts[provider] = (items || []).length;
     if (items && items.length > 0) {
       successfulProviders.push(provider);
       logger.debug(`Provider [${provider}] discovered ${items.length} candidate(s)`);
@@ -219,6 +228,7 @@ export async function searchWeb(query, options = {}) {
   const allArticles = Array.from(mergedMap.values());
   allArticles.providersExecuted = activeProviders;
   allArticles.successfulProviders = successfulProviders;
+  allArticles.providerCounts = providerCounts;
 
   return allArticles;
 }

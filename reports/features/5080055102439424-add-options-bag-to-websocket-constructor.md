@@ -42,6 +42,26 @@ There is a demand for extensibility of options on the WebSocket constructor, to 
 - [WebSocketStream: WebSocketStream() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream) *(developer.mozilla.org)*
 - [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) *(developer.mozilla.org)*
 
+## 🔍 Investigation Audit Trail
+
+### Searches Executed
+
+- **Brave Search:** *Inactive (BRAVE_SEARCH_API_KEY not configured)*
+- **Dev.to Community Blogs:** 8 result(s) found (query: `"Add options bag to WebSocket constructor"`) — **0 verified relevant**
+- **Hacker News Algolia:** 0 result(s) found (query: `"Add options bag to WebSocket constructor"`) — **0 verified relevant**
+- **Standards Positions:** 2 item(s) inspected
+- **Engine Bug Trackers:** 0 item(s) inspected
+- **Baseline (baseline.dev):** *untracked*
+- **NPM Registry:** 8 result(s) found — **2 verified relevant**
+- **Web Platform Tests (wpt.fyi):** 0 item(s) inspected
+
+### Content Inspected
+
+- **Specification:** ✔ Formally verified
+- **Explainers:** 2 document(s) analyzed
+- **Standards Discussion Comments:** 1 engineer comment(s) read
+- **Web Page Excerpts Ingested:** 8 page(s)
+
 ## Useful Links
 
 - [ChromeStatus](https://chromestatus.com/feature/5080055102439424)

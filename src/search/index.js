@@ -220,7 +220,19 @@ export async function gatherEcosystemData(feature) {
   const verifiedPolyfill = verifiedPackages.find(p => p.isPolyfill) || null;
   const hasPolyfill = !!verifiedPolyfill;
 
+  const webProviderCounts = rawWebResults.providerCounts || {};
+
   // Log verification audit summary
+  if (activeSearchProviders.includes('brave')) {
+    logger.audit('Brave Search', verifiedArticles.filter(a => (a.providers || []).includes('brave')).length, webProviderCounts.brave || 0);
+  } else {
+    logger.audit('Brave Search', 0, 0, 'disabled: BRAVE_SEARCH_API_KEY not configured');
+  }
+
+  if (activeSearchProviders.includes('gemini')) {
+    logger.audit('Gemini Grounding', verifiedArticles.filter(a => (a.providers || []).includes('gemini')).length, webProviderCounts.gemini || 0);
+  }
+
   logger.audit('Standards Positions', standards.length, standards.length, `${standards.map(s => s.vendor).join(', ') || 'none'}`);
   logger.audit('Engine Bug Trackers', bugsResult.length, bugsResult.length, `${bugsResult.map(b => b.vendor).join(', ') || 'none'}`);
   if (baselineResult) {
@@ -235,18 +247,38 @@ export async function gatherEcosystemData(feature) {
   const totalHnPoints = verifiedDiscussions.reduce((acc, d) => acc + (d.points || 0), 0);
   const totalHnComments = verifiedDiscussions.reduce((acc, d) => acc + (d.commentsCount || 0), 0);
 
+  const searchesExecuted = [
+    ...(activeSearchProviders.includes('brave') ? [{
+      type: 'brave_search',
+      provider: 'Brave Search',
+      query: webQuery,
+      rawFound: webProviderCounts.brave || 0,
+      verified: verifiedArticles.filter(a => (a.providers || []).includes('brave')).length,
+    }] : [{
+      type: 'brave_search',
+      provider: 'Brave Search',
+      status: 'Inactive (BRAVE_SEARCH_API_KEY not configured)',
+      rawFound: 0,
+      verified: 0,
+    }]),
+    ...(activeSearchProviders.includes('gemini') ? [{
+      type: 'gemini_grounding',
+      provider: `Google Search Grounding (${config.geminiModel})`,
+      rawFound: webProviderCounts.gemini || 0,
+      verified: verifiedArticles.filter(a => (a.providers || []).includes('gemini')).length,
+    }] : []),
+    { type: 'devto_blogs', provider: 'Dev.to Community Blogs', query: feature.name, rawFound: devToResults.length, verified: verifiedBlogs.length },
+    { type: 'hackernews', provider: 'Hacker News Algolia', query: feature.name, rawFound: rawHnResults.length, verified: verifiedDiscussions.filter(d => d.source.includes('Hacker News')).length },
+    { type: 'standards', provider: 'Standards Positions', count: standards.length, vendors: standards.map(s => s.vendor) },
+    { type: 'bugzilla', provider: 'Engine Bug Trackers', count: bugsResult.length, vendors: bugsResult.map(b => b.vendor) },
+    { type: 'baseline', provider: 'Baseline (baseline.dev)', status: baselineResult?.status || 'untracked', url: baselineResult?.url || null },
+    { type: 'npm', provider: 'NPM Registry', rawFound: rawNpmResults.length, verified: verifiedPackages.length, polyfillFound: hasPolyfill },
+    { type: 'wpt', provider: 'Web Platform Tests (wpt.fyi)', testCount: wptResult?.testCount || 0 },
+    ...(twitterResult.length > 0 ? [{ type: 'twitter', provider: 'Twitter / X API v2', rawFound: twitterResult.length, verified: verifiedDiscussions.filter(d => d.source.includes('Twitter')).length }] : []),
+  ];
+
   const auditTrail = {
-    searchesExecuted: [
-      { type: 'web', provider: searchEngineLabel, providers: activeSearchProviders, query: webQuery, rawFound: rawWebResults.length, verified: verifiedArticles.length },
-      { type: 'devto_blogs', query: feature.name, rawFound: devToResults.length, verified: verifiedBlogs.length },
-      { type: 'hackernews', query: feature.name, rawFound: rawHnResults.length, verified: verifiedDiscussions.filter(d => d.source.includes('Hacker News')).length },
-      { type: 'standards', count: standards.length, vendors: standards.map(s => s.vendor) },
-      { type: 'bugzilla', count: bugsResult.length, vendors: bugsResult.map(b => b.vendor) },
-      { type: 'baseline', status: baselineResult?.status || 'untracked', url: baselineResult?.url || null },
-      { type: 'npm', rawFound: rawNpmResults.length, verified: verifiedPackages.length, polyfillFound: hasPolyfill },
-      { type: 'wpt', testCount: wptResult?.testCount || 0 },
-      ...(twitterResult.length > 0 ? [{ type: 'twitter', rawFound: twitterResult.length, verified: verifiedDiscussions.filter(d => d.source.includes('Twitter')).length }] : []),
-    ],
+    searchesExecuted,
     contentInspected: {
       hasSpec: !!feature.specUrl,
       explainerCount: (feature.explainerUrls || []).length,

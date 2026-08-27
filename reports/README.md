@@ -78,7 +78,7 @@ See https://github.com/whatwg/websockets/issues/42 and spec PR https://github.co
 
 #### 🔍 Investigation Audit Trail
 
-- **Searches Run:** `web` (3 verified) · `devto_blogs` (0 verified) · `hackernews` (0 verified) · `standards` (2 found) · `bugzilla` (0 found) · `baseline` (0 found) · `npm` (2 verified) · `wpt` (0 found)
+- **Searches Run:** `Brave Search` *(Inactive (BRAVE_SEARCH_API_KEY not configured))* · `Dev.to Community Blogs` (8 found, 0 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (2 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (8 found, 2 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
 - **Content Inspected:** Spec: ✔ · Explainers: 2 · Standards Comments Read: 1
 
 ---
@@ -135,7 +135,7 @@ https://chromestatus.com/feature/5252960583942144
 
 #### 🔍 Investigation Audit Trail
 
-- **Searches Run:** `web` (0 verified) · `devto_blogs` (0 verified) · `hackernews` (0 verified) · `standards` (3 found) · `bugzilla` (0 found) · `baseline` (0 found) · `npm` (0 verified) · `wpt` (0 found)
+- **Searches Run:** `Brave Search` *(Inactive (BRAVE_SEARCH_API_KEY not configured))* · `Dev.to Community Blogs` (8 found, 0 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (3 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (8 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (1 items)
 - **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 8
 
 ---

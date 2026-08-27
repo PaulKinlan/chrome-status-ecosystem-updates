@@ -1,5 +1,6 @@
 import path from 'node:path';
 import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 /**
  * Loads simple KEY=VALUE pairs from a .env file if present
@@ -29,10 +30,12 @@ function loadDotenv(filePath) {
   }
 }
 
-// Automatically check for .env in project root
-const projectRoot = path.resolve(process.cwd());
+// Automatically resolve project root from module location
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const projectRoot = path.resolve(__dirname, '..');
 loadDotenv(path.join(projectRoot, '.env'));
 loadDotenv(path.join(projectRoot, '.env.local'));
+loadDotenv(path.join(process.cwd(), '.env'));
 
 export const config = {
   projectRoot,

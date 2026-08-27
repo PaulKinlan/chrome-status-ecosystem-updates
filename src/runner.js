@@ -38,9 +38,11 @@ export async function runEcosystemReport(options = {}) {
     ? activeProviders.map(p => p === 'gemini' ? 'Gemini (Google Grounded)' : p.toUpperCase()).join(' + ')
     : config.searchProvider;
 
-  logger.info(`Web Search: [${searchEngineDisplay}] (${activeProviders.length > 0 ? activeProviders.length : '0'} provider(s) active)`);
-  logger.info(`AI Synthesis: ${config.geminiApiKey ? `Google Gemini (${config.geminiModel} with live search grounding)` : config.openaiApiKey ? 'OpenAI (gpt-4o-mini)' : 'Heuristic Engine (Rule-based)'}`);
-  logger.info(`GitHub API: ${config.githubToken ? 'Authenticated token (5,000 req/hr)' : 'Public access (60 req/hr)'}`);
+  logger.info(`Ecosystem Engines & Configuration:`);
+  logger.info(`  • Brave Search: ${config.braveSearchApiKey ? '✔ Enabled (BRAVE_SEARCH_API_KEY detected)' : '○ Disabled (BRAVE_SEARCH_API_KEY not configured)'}`);
+  logger.info(`  • Gemini Search Grounding: ${config.geminiApiKey ? `✔ Enabled (${config.geminiModel})` : '○ Disabled (GEMINI_API_KEY not configured)'}`);
+  logger.info(`  • Twitter / X API v2: ${config.twitterBearerToken ? '✔ Enabled (TWITTER_BEARER_TOKEN detected)' : '○ Disabled (TWITTER_BEARER_TOKEN not configured)'}`);
+  logger.info(`  • GitHub API: ${config.githubToken ? '✔ Authenticated (5,000 req/hr)' : '○ Public access (60 req/hr)'}`);
 
   logger.info('Loading historical snapshot for delta computation...');
   const history = await loadHistory();

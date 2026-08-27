@@ -1,7 +1,7 @@
 {
   "weekString": "2026-W35",
   "date": "2026-08-27",
-  "generatedAt": "2026-08-27T22:33:22.993Z",
+  "generatedAt": "2026-08-27T22:41:20.312Z",
   "milestones": [
     154
   ],
@@ -75,7 +75,7 @@
       "ecosystem": {
         "featureId": 5080055102439424,
         "featureName": "Add options bag to WebSocket constructor",
-        "gatheredAt": "2026-08-27T22:33:19.412Z",
+        "gatheredAt": "2026-08-27T22:41:17.363Z",
         "articles": [
           {
             "source": "MDN Web Docs",
@@ -248,27 +248,29 @@
         "auditTrail": {
           "searchesExecuted": [
             {
-              "type": "web",
-              "provider": "auto",
-              "providers": [],
-              "query": "\"Add options bag to WebSocket constructor\" API",
+              "type": "brave_search",
+              "provider": "Brave Search",
+              "status": "Inactive (BRAVE_SEARCH_API_KEY not configured)",
               "rawFound": 0,
-              "verified": 3
+              "verified": 0
             },
             {
               "type": "devto_blogs",
+              "provider": "Dev.to Community Blogs",
               "query": "Add options bag to WebSocket constructor",
               "rawFound": 8,
               "verified": 0
             },
             {
               "type": "hackernews",
+              "provider": "Hacker News Algolia",
               "query": "Add options bag to WebSocket constructor",
               "rawFound": 0,
               "verified": 0
             },
             {
               "type": "standards",
+              "provider": "Standards Positions",
               "count": 2,
               "vendors": [
                 "WebKit",
@@ -277,22 +279,26 @@
             },
             {
               "type": "bugzilla",
+              "provider": "Engine Bug Trackers",
               "count": 0,
               "vendors": []
             },
             {
               "type": "baseline",
+              "provider": "Baseline (baseline.dev)",
               "status": "untracked",
               "url": null
             },
             {
               "type": "npm",
+              "provider": "NPM Registry",
               "rawFound": 8,
               "verified": 2,
               "polyfillFound": false
             },
             {
               "type": "wpt",
+              "provider": "Web Platform Tests (wpt.fyi)",
               "testCount": 0
             }
           ],
@@ -340,52 +346,10 @@
         "statusChanged": false,
         "newArticlesCount": 0,
         "newDiscussionsCount": 0,
-        "newStandardsCount": 2,
+        "newStandardsCount": 0,
         "newArticles": [],
         "newDiscussions": [],
-        "newStandards": [
-          {
-            "source": "WebKit Standards Position",
-            "type": "standards",
-            "vendor": "WebKit",
-            "title": "Supporting options bag in WebSocket constructor",
-            "url": "https://github.com/WebKit/standards-positions/issues/708",
-            "state": "open",
-            "labels": [
-              "topic: networking",
-              "venue: WHATWG HTML Workstream",
-              "from: Google"
-            ],
-            "commentsCount": 1,
-            "createdAt": "2026-08-15T00:00:14Z",
-            "updatedAt": "2026-08-20T12:46:07Z",
-            "snippet": "### WebKittens  _No response_  ### Title of the proposal  Supporting options bag in WebSocket constructor  ### URL to the spec  https://github.com/whatwg/websockets/pull/76  ### URL to the spec's repository  https://github.com/whatwg/websockets  ### Issue Tracker URL  _No response_  ### Explainer UR",
-            "comments": [
-              {
-                "author": "annevk",
-                "authorAssociation": "CONTRIBUTOR",
-                "createdAt": "2026-08-20T12:45:42Z",
-                "body": "I suggest we resolve this as \"position: support\" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easily going forward."
-              }
-            ],
-            "commentSummary": "Latest discussion from @annevk: \"I suggest we resolve this as \"position: support\" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil...\""
-          },
-          {
-            "source": "Mozilla Standards Position",
-            "type": "standards",
-            "vendor": "Mozilla",
-            "title": "Supporting options bag in WebSocket constructor",
-            "url": "https://github.com/mozilla/standards-positions/issues/1444",
-            "state": "open",
-            "labels": [],
-            "commentsCount": 0,
-            "createdAt": "2026-08-15T00:00:29Z",
-            "updatedAt": "2026-08-15T00:00:29Z",
-            "snippet": "### Specification title  Supporting options bag in WebSocket constructor  ### Specification or proposal URL (if available)  https://github.com/whatwg/websockets/pull/76  ### Explainer URL (if available)  _No response_  ### Proposal author(s)  _No response_  ### web-feature id  websockets  ### MDN UR",
-            "comments": [],
-            "commentSummary": null
-          }
-        ],
+        "newStandards": [],
         "previousMilestone": 154,
         "previousStatus": "Enabled by default"
       }
@@ -451,7 +415,7 @@
       "ecosystem": {
         "featureId": 5201832664629248,
         "featureName": "Additional Windowing Controls",
-        "gatheredAt": "2026-08-27T22:33:22.993Z",
+        "gatheredAt": "2026-08-27T22:41:20.311Z",
         "articles": [],
         "blogs": [],
         "docs": [],
@@ -602,27 +566,29 @@
         "auditTrail": {
           "searchesExecuted": [
             {
-              "type": "web",
-              "provider": "auto",
-              "providers": [],
-              "query": "\"Additional Windowing Controls\" API",
+              "type": "brave_search",
+              "provider": "Brave Search",
+              "status": "Inactive (BRAVE_SEARCH_API_KEY not configured)",
               "rawFound": 0,
               "verified": 0
             },
             {
               "type": "devto_blogs",
+              "provider": "Dev.to Community Blogs",
               "query": "Additional Windowing Controls",
               "rawFound": 8,
               "verified": 0
             },
             {
               "type": "hackernews",
+              "provider": "Hacker News Algolia",
               "query": "Additional Windowing Controls",
               "rawFound": 0,
               "verified": 0
             },
             {
               "type": "standards",
+              "provider": "Standards Positions",
               "count": 3,
               "vendors": [
                 "WebKit",
@@ -632,22 +598,26 @@
             },
             {
               "type": "bugzilla",
+              "provider": "Engine Bug Trackers",
               "count": 0,
               "vendors": []
             },
             {
               "type": "baseline",
+              "provider": "Baseline (baseline.dev)",
               "status": "untracked",
               "url": null
             },
             {
               "type": "npm",
+              "provider": "NPM Registry",
               "rawFound": 8,
               "verified": 0,
               "polyfillFound": false
             },
             {
               "type": "wpt",
+              "provider": "Web Platform Tests (wpt.fyi)",
               "testCount": 1
             }
           ],
@@ -696,84 +666,10 @@
         "statusChanged": false,
         "newArticlesCount": 0,
         "newDiscussionsCount": 0,
-        "newStandardsCount": 2,
+        "newStandardsCount": 0,
         "newArticles": [],
         "newDiscussions": [],
-        "newStandards": [
-          {
-            "source": "WebKit Standards Position",
-            "type": "standards",
-            "vendor": "WebKit",
-            "title": "Window Management",
-            "url": "https://github.com/mozilla/standards-positions/issues/542",
-            "state": "open",
-            "labels": [],
-            "commentsCount": 18,
-            "createdAt": "2021-06-14T17:44:30Z",
-            "updatedAt": "2025-10-28T13:58:48Z",
-            "snippet": "## Request for Mozilla Position on an Emerging Web Specification  * Specification Title: Window Management (previously: Multi-Screen Window Placement) * Specification or proposal URL:    * [explainer](https://github.com/w3c/window-management/blob/main/EXPLAINER.md)   * [specification](https://w",
-            "comments": [
-              {
-                "author": "dbratell",
-                "authorAssociation": "NONE",
-                "createdAt": "2022-02-16T16:12:30Z",
-                "body": "Heads up: This now has a \"request to ship\" in Chromium."
-              },
-              {
-                "author": "morsssss",
-                "authorAssociation": "NONE",
-                "createdAt": "2022-02-16T16:26:23Z",
-                "body": "Thanks for pinging this up! If someone has time, we would still like Mozilla's position on this."
-              },
-              {
-                "author": "annevk",
-                "authorAssociation": "CONTRIBUTOR",
-                "createdAt": "2022-03-04T09:23:49Z",
-                "body": "I appreciate the detailed explainer here. The Privacy & Security section cites a TAG principle around device enumeration. That actually seems concerning to me as exactly these kind of bits are valuable information to segment and exploit end users. I would be much more comfortable with the website doing some kind of request to present its information and then after the user grants it that power it"
-              },
-              {
-                "author": "michaelwasserman",
-                "authorAssociation": "NONE",
-                "createdAt": "2022-03-08T18:02:07Z",
-                "body": "Thank you for providing this feedback, @annevk!  1. Does your concern about device enumeration pertain solely to the `Screen.isExtended` bit? (or also with `Window.getScreenDetails()` and the overall API design?)      1a. The `Screen.isExtended` bit is an important boolean signal for the site to know whether it is worth asking the user for additional screen details at all. That said, we want t"
-              },
-              {
-                "author": "morsssss",
-                "authorAssociation": "NONE",
-                "createdAt": "2022-03-08T19:33:18Z",
-                "body": "Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've traveled far down the road to launch. But this feedback is quite helpful. We'd like to see what we can do to address it, while minimizing potential breakages for any early adopters out there.  In other words, if you have time to get to Mike's qu"
-              }
-            ],
-            "commentSummary": "Latest discussion from @morsssss: \"Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've...\""
-          },
-          {
-            "source": "Mozilla Standards Position",
-            "type": "standards",
-            "vendor": "Mozilla",
-            "title": "Multi-Screen Window Placement API",
-            "url": "https://github.com/WebKit/standards-positions/issues/117",
-            "state": "open",
-            "labels": [
-              "concerns: privacy",
-              "topic: app-like capabilities",
-              "concerns: annoyance",
-              "venue: W3C Second Screen WG"
-            ],
-            "commentsCount": 1,
-            "createdAt": "2023-01-04T11:48:37Z",
-            "updatedAt": "2023-06-19T04:15:50Z",
-            "snippet": "## Request for position on an emerging web specification  **(Please delete inapplicable rows.)**  * WebKittens who can provide input:   ### Information about the spec  * Spec Title: Multi-Screen Window Placement API * Spec URL: https://www.w3.org/TR/window-placement/ * GitHub repository: \r",
-            "comments": [
-              {
-                "author": "michaelwasserman",
-                "authorAssociation": "NONE",
-                "createdAt": "2023-03-03T22:47:23Z",
-                "body": "Here are additional details that may help. Those interested may wish to attend the upcoming [Second Screen WG/CG - 2023 Q1 virtual meeting](https://github.com/w3c/secondscreen-wg/issues/7)  > * WebKittens who can provide input: @annevk, @marcoscaceres, @eric-carlson  >  > ### Information about the spec > * GitHub repository: https://github.com/w3c/window-placement > * Explainer (if not REA"
-              }
-            ],
-            "commentSummary": "Latest discussion from @michaelwasserman: \"Here are additional details that may help. Those interested may wish to attend the upcoming [Second Screen WG/CG - 2023 Q1 virtual meeting](https://gi...\""
-          }
-        ],
+        "newStandards": [],
         "previousMilestone": 154,
         "previousStatus": "Enabled by default"
       }

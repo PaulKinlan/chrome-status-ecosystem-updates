@@ -34,6 +34,26 @@ Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integ
 - **Mozilla:** [Multi-Screen Window Placement API](https://github.com/WebKit/standards-positions/issues/117) [open]
 - **W3C TAG:** [WG New Spec: Additional Windowing Controls](https://github.com/w3ctag/design-reviews/issues/1246) [open]
 
+## 🔍 Investigation Audit Trail
+
+### Searches Executed
+
+- **Brave Search:** *Inactive (BRAVE_SEARCH_API_KEY not configured)*
+- **Dev.to Community Blogs:** 8 result(s) found (query: `"Additional Windowing Controls"`) — **0 verified relevant**
+- **Hacker News Algolia:** 0 result(s) found (query: `"Additional Windowing Controls"`) — **0 verified relevant**
+- **Standards Positions:** 3 item(s) inspected
+- **Engine Bug Trackers:** 0 item(s) inspected
+- **Baseline (baseline.dev):** *untracked*
+- **NPM Registry:** 8 result(s) found — **0 verified relevant**
+- **Web Platform Tests (wpt.fyi):** 1 item(s) inspected
+
+### Content Inspected
+
+- **Specification:** ✔ Formally verified
+- **Explainers:** 1 document(s) analyzed
+- **Standards Discussion Comments:** 8 engineer comment(s) read
+- **Web Page Excerpts Ingested:** 8 page(s)
+
 ## Useful Links
 
 - [ChromeStatus](https://chromestatus.com/feature/5201832664629248)

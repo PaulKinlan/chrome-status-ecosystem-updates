@@ -848,7 +848,7 @@ export function generateDashboardHtml(reportData) {
                   <div style="margin-bottom: 0.4rem;"><strong>Searches Executed:</strong></div>
                   <ul style="list-style: none; margin-left: 0.5rem; margin-bottom: 0.65rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.25rem;">
                     \${(eco.auditTrail.searchesExecuted || []).map(s => \`
-                      <li>• <strong style="color: var(--text);">\${escapeHtml((s.type || '').toUpperCase())}:</strong> \${s.provider ? '(' + escapeHtml(s.provider) + ') ' : ''}\${s.query ? '<em>"' + escapeHtml(s.query) + '"</em>' : ''} — found \${s.rawFound || s.count || 0} candidate(s), verified \${s.verified !== undefined ? s.verified : s.count || 0}</li>
+                      <li>• <strong style="color: var(--text);">\${escapeHtml(s.provider || (s.type || '').toUpperCase())}:</strong> \${s.status ? \`<em style="color: var(--text-muted);">(\${escapeHtml(s.status)})</em>\` : \`\${s.query ? '<em>"' + escapeHtml(s.query) + '"</em> — ' : ''}found \${s.rawFound || s.count || 0} candidate(s), verified \${s.verified !== undefined ? s.verified : s.count || 0}\`}</li>
                     \`).join('')}
                   </ul>
                   <div><strong>Content Inspected:</strong></div>
