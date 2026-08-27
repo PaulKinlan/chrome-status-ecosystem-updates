@@ -25,6 +25,22 @@ export async function synthesizeWithAI(feature, ecosystemData, heuristicAnalysis
     .map(r => `"${r.title}": ${r.snippet}`)
     .join('\n- ');
 
+  // Format verified web articles and page excerpts
+  const articlesSummary = (ecosystemData.articles || [])
+    .slice(0, 6)
+    .map(a => {
+      let line = `"${a.title}" (${a.domain || a.source})`;
+      if (a.sources && a.sources.length > 1) {
+        line += ` [Found across: ${a.sources.join(' + ')}]`;
+      }
+      const text = (a.contentExcerpt || a.snippet || '').slice(0, 300);
+      if (text) {
+        line += `\n    Content Excerpt: "${text}"`;
+      }
+      return line;
+    })
+    .join('\n- ');
+
   const prompt = `You are a Senior Web Standards and Developer Relations analyst.
 Analyze the following Web Platform feature and search Google for live ecosystem updates, developer discussions, and browser consensus.
 
@@ -40,6 +56,9 @@ Inspected Standards Discussions:
 
 Explainer & Documentation Excerpts:
 - ${explainers || 'No explainer text excerpted'}
+
+Inspected Web Articles & Community Documentation:
+- ${articlesSummary || 'No external web articles verified'}
 
 Known Verified Discussions:
 - ${ecosystemData.discussions.map(d => `"${d.title}" (${d.points} pts, ${d.commentsCount} comments)`).join('\n- ') || 'None found yet'}

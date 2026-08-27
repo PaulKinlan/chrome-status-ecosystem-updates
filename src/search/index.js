@@ -2,27 +2,11 @@ import { searchHackerNews } from './hackernews.js';
 import { searchStandardsPositions } from './standards.js';
 import { searchNpmEcosystem } from './npm.js';
 import { searchWpt } from './wpt.js';
-import { searchWeb, extractDomain } from './web.js';
-import { fetchExplainerSummary } from './content-fetcher.js';
+import { searchWeb, extractDomain, cleanUrl, getActiveSearchProviders } from './web.js';
+import { fetchExplainerSummary, fetchArticleExcerpt } from './content-fetcher.js';
 import { filterRelevantItems } from './verifier.js';
 import { logger } from '../logger.js';
 import { config } from '../config.js';
-
-/**
- * Normalizes and strips tracking parameters from URLs for deduplication
- */
-function cleanUrl(rawUrl) {
-  try {
-    const u = new URL(rawUrl);
-    u.searchParams.delete('utm_source');
-    u.searchParams.delete('utm_medium');
-    u.searchParams.delete('utm_campaign');
-    u.searchParams.delete('utm_content');
-    return u.toString().replace(/\/$/, '');
-  } catch {
-    return (rawUrl || '').trim().replace(/\/$/, '');
-  }
-}
 
 /**
  * Searches the web and developer ecosystem for activity around an API/feature,
@@ -96,7 +80,12 @@ export async function gatherEcosystemData(feature) {
 
   // Execute external searches
   const webQuery = `"${feature.name}" API`;
-  logger.substep('Running ecosystem searches', `Web: ${config.searchProvider} | HN | Standards | NPM | WPT`);
+  const activeSearchProviders = getActiveSearchProviders();
+  const searchEngineLabel = activeSearchProviders.length > 0
+    ? activeSearchProviders.join(' + ')
+    : config.searchProvider;
+
+  logger.substep('Running ecosystem searches', `Web: [${searchEngineLabel}] | HN | Standards | NPM | WPT`);
   logger.debug(`Web search query: ${webQuery}`);
   logger.debug(`Hacker News query: "${feature.name}"`);
 
@@ -132,6 +121,21 @@ export async function gatherEcosystemData(feature) {
     }
   }
 
+  // Fetch page content excerpts for candidate articles to inspect what is happening inside the links
+  if (candidateArticles.length > 0) {
+    logger.debug(`Fetching content excerpts for ${Math.min(candidateArticles.length, 6)} web article candidates...`);
+    await Promise.all(
+      candidateArticles.slice(0, 6).map(async (art) => {
+        if (!art.contentExcerpt) {
+          const excerpt = await fetchArticleExcerpt(art.url);
+          if (excerpt) {
+            art.contentExcerpt = excerpt;
+          }
+        }
+      })
+    );
+  }
+
   // STRICT RELEVANCE VERIFICATION
   logger.substep('Relevance Verification', `Testing ${rawHnResults.length} HN threads, ${candidateArticles.length} articles, ${rawNpmResults.length} npm packages`);
   const [verifiedDiscussions, verifiedArticles, verifiedPackages] = await Promise.all([
@@ -159,7 +163,7 @@ export async function gatherEcosystemData(feature) {
 
   const auditTrail = {
     searchesExecuted: [
-      { type: 'web', provider: config.searchProvider, query: webQuery, rawFound: rawWebResults.length, verified: verifiedArticles.length },
+      { type: 'web', provider: searchEngineLabel, providers: activeSearchProviders, query: webQuery, rawFound: rawWebResults.length, verified: verifiedArticles.length },
       { type: 'hackernews', query: feature.name, rawFound: rawHnResults.length, verified: verifiedDiscussions.length },
       { type: 'standards', count: standards.length, vendors: standards.map(s => s.vendor) },
       { type: 'npm', rawFound: rawNpmResults.length, verified: verifiedPackages.length, polyfillFound: hasPolyfill },
@@ -171,6 +175,7 @@ export async function gatherEcosystemData(feature) {
       docCount: (feature.docUrls || []).length,
       sampleCount: (feature.sampleUrls || []).length,
       standardsCommentsRead: standards.reduce((acc, s) => acc + (s.comments?.length || 0), 0),
+      webArticleExcerptsRead: candidateArticles.filter(a => !!a.contentExcerpt).length,
     },
   };
 

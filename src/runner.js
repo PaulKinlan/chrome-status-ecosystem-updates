@@ -19,6 +19,8 @@ import { writeJsonReports } from './reporters/json.js';
 import { writeRssFeed } from './reporters/rss.js';
 import { logger } from './logger.js';
 
+import { getActiveSearchProviders } from './search/web.js';
+
 export async function runEcosystemReport(options = {}) {
   logger.setVerbose(options.verbose);
   const targetInput = options.milestone || config.targetMilestones;
@@ -31,8 +33,12 @@ export async function runEcosystemReport(options = {}) {
   const milestones = await resolveTargetMilestones(targetInput);
   logger.info(`Target milestones: Chrome ${milestones.join(', ')}`);
 
-  const geminiSearchActive = !!config.geminiApiKey;
-  logger.info(`Web Search Provider: ${geminiSearchActive ? 'Gemini (Google Search Grounding)' : config.searchProvider}`);
+  const activeProviders = getActiveSearchProviders();
+  const searchEngineDisplay = activeProviders.length > 0
+    ? activeProviders.map(p => p === 'gemini' ? 'Gemini (Google Grounded)' : p.toUpperCase()).join(' + ')
+    : config.searchProvider;
+
+  logger.info(`Web Search: [${searchEngineDisplay}] (${activeProviders.length > 0 ? activeProviders.length : '0'} provider(s) active)`);
   logger.info(`AI Synthesis: ${config.geminiApiKey ? 'Google Gemini (gemini-2.5-flash with live search grounding)' : config.openaiApiKey ? 'OpenAI (gpt-4o-mini)' : 'Heuristic Engine (Rule-based)'}`);
   logger.info(`GitHub API: ${config.githubToken ? 'Authenticated token (5,000 req/hr)' : 'Public access (60 req/hr)'}`);
 
@@ -154,9 +160,10 @@ export async function runEcosystemReport(options = {}) {
     milestones,
     featuresCount: processedFeatures.length,
     telemetry: {
-      searchProvider: geminiSearchActive ? 'Gemini (Google Search Grounding)' : config.searchProvider,
+      searchProviders: activeProviders,
+      searchProvider: searchEngineDisplay,
       aiProvider: config.geminiApiKey ? 'Google Gemini 2.5 Flash' : config.openaiApiKey ? 'OpenAI gpt-4o-mini' : 'Heuristic Engine',
-      isGeminiSearchGrounded: geminiSearchActive,
+      isGeminiSearchGrounded: !!config.geminiApiKey,
       hasGithubToken: !!config.githubToken,
       featuresCount: processedFeatures.length,
     },

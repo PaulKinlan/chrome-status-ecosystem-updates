@@ -69,7 +69,7 @@ export function extractTechnicalAnchors(feature) {
 export function verifySemantically(feature, item) {
   const nameLower = (feature.name || '').toLowerCase();
   const titleLower = (item.title || item.name || '').toLowerCase();
-  const snippetLower = (item.snippet || item.description || item.readmeSnippet || '').toLowerCase();
+  const snippetLower = (item.snippet || item.description || item.readmeSnippet || item.contentExcerpt || '').toLowerCase();
   const fullText = `${titleLower} ${snippetLower}`;
 
   // 1. Exact phrase match of full feature name (high confidence)

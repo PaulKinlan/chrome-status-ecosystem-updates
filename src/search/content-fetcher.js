@@ -160,3 +160,55 @@ export async function fetchNpmPackageDetails(packageName) {
     return null;
   }
 }
+
+/**
+ * Fetches an article or blog post URL and extracts a clean text excerpt of the content
+ */
+export async function fetchArticleExcerpt(url, maxChars = 1200) {
+  if (!url || typeof url !== 'string') return null;
+  const cacheKey = `article_excerpt_${url}`;
+  if (cache.has(cacheKey)) return cache.get(cacheKey);
+
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 3500);
+
+    const res = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,text/plain;q=0.9',
+      },
+    });
+    clearTimeout(timer);
+
+    if (!res.ok) return null;
+    const contentType = res.headers.get('content-type') || '';
+    if (!contentType.includes('text/') && !contentType.includes('json') && !contentType.includes('xml')) {
+      return null;
+    }
+
+    const html = await res.text();
+    // Strip scripts, styles, nav, footer, and SVG
+    const cleaned = html
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, ' ')
+      .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, ' ')
+      .replace(/<nav\b[^<]*(?:(?!<\/nav>)<[^<]*)*<\/nav>/gi, ' ')
+      .replace(/<footer\b[^<]*(?:(?!<\/footer>)<[^<]*)*<\/footer>/gi, ' ')
+      .replace(/<svg\b[^<]*(?:(?!<\/svg>)<[^<]*)*<\/svg>/gi, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    const excerpt = cleaned.slice(0, maxChars);
+    cache.set(cacheKey, excerpt);
+    return excerpt;
+  } catch {
+    return null;
+  }
+}

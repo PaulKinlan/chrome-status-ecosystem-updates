@@ -1,12 +1,12 @@
 {
-  "lastRun": "2026-08-27T21:56:16.305Z",
+  "lastRun": "2026-08-27T21:58:58.590Z",
   "lastWeekString": "2026-W35",
   "telemetry": {
-    "searchProvider": "auto",
-    "aiProvider": "Heuristic Engine",
-    "isGeminiSearchGrounded": false,
+    "searchProvider": "Gemini (Google Search Grounding)",
+    "aiProvider": "Google Gemini 2.5 Flash",
+    "isGeminiSearchGrounded": true,
     "hasGithubToken": false,
-    "featuresCount": 2
+    "featuresCount": 24
   },
   "features": {
     "5080055102439424": {
@@ -14,8 +14,10 @@
       "name": "Add options bag to WebSocket constructor",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:56:13.279Z",
+      "lastSeen": "2026-08-27T21:57:58.560Z",
       "knownUrls": [
+        "https://groups.google.com/a/chromium.org/g/blink-dev/c/YwkXWzPUJ7U",
+        "http://www.mail-archive.com/blink-dev@chromium.org/msg17124.html",
         "https://www.npmjs.com/package/isomorphic-ws",
         "https://www.npmjs.com/package/@httptoolkit/websocket-stream",
         "https://www.npmjs.com/package/ws",
@@ -29,14 +31,16 @@
       "name": "Additional Windowing Controls",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:56:16.296Z",
+      "lastSeen": "2026-08-27T21:58:01.300Z",
       "knownUrls": [
         "https://github.com/WebKit/standards-positions/issues/96",
+        "https://discourse.wicg.io/t/proposal-additional-windowing-controls/6044/",
+        "https://chromestatus.com/feature/5201832664629248",
         "https://github.com/mozilla/standards-positions/issues/712",
         "https://github.com/mozilla/standards-positions/issues/938",
         "https://github.com/w3ctag/design-reviews/issues/1246"
       ],
-      "lastMomentumLevel": "Moderate",
+      "lastMomentumLevel": "High",
       "lastConsensus": "Chromium-Led"
     },
     "5198951632470016": {
@@ -44,7 +48,7 @@
       "name": "Algorithm Updates in WebCrypto",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:08.746Z",
+      "lastSeen": "2026-08-27T21:58:03.338Z",
       "knownUrls": [
         "https://groups.google.com/a/chromium.org/g/blink-dev/c/KluNhawvzgM/m/moAiFVVRBgAJ",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg16678.html",
@@ -63,7 +67,7 @@
       "name": "CORS enforcement for Background Fetch",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:10.170Z",
+      "lastSeen": "2026-08-27T21:58:05.149Z",
       "knownUrls": [
         "https://www.npmjs.com/package/whatwg-fetch",
         "https://www.npmjs.com/package/cors",
@@ -79,7 +83,7 @@
       "name": "CSS Symbols()",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:13.144Z",
+      "lastSeen": "2026-08-27T21:58:08.128Z",
       "knownUrls": [
         "https://css-tricks.com/almanac/functions/s/symbols/",
         "https://www.quackit.com/css/functions/css_symbols_function.cfm",
@@ -93,7 +97,7 @@
       "name": "CSS text-decoration-inset",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:14.810Z",
+      "lastSeen": "2026-08-27T21:58:10.966Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17255.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17259.html"
@@ -106,7 +110,7 @@
       "name": "CSS4 text-decoration-skip-spaces",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:16.444Z",
+      "lastSeen": "2026-08-27T21:58:12.653Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17159.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17140.html",
@@ -121,7 +125,7 @@
       "name": "Expose CSSStyleValue hierarchy to Worker contexts",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:18.086Z",
+      "lastSeen": "2026-08-27T21:58:14.695Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17113.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17118.html"
@@ -134,7 +138,7 @@
       "name": "Fetch API: Forward reason from AbortController to fetch Response",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:19.708Z",
+      "lastSeen": "2026-08-27T21:58:17.081Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17191.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17242.html",
@@ -151,7 +155,7 @@
       "name": "FontFace width attribute and font-width descriptor",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:21.364Z",
+      "lastSeen": "2026-08-27T21:58:18.726Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17165.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17196.html",
@@ -165,7 +169,7 @@
       "name": "Iterator Includes",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:24.384Z",
+      "lastSeen": "2026-08-27T21:58:20.991Z",
       "knownUrls": [
         "https://stackoverflow.com/questions/64093419/javascript-check-whether-iterator-includes-value"
       ],
@@ -177,7 +181,7 @@
       "name": "Local Network Access restrictions for Background Fetch",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:25.656Z",
+      "lastSeen": "2026-08-27T21:58:23.763Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17193.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17180.html",
@@ -193,7 +197,7 @@
       "name": "Media element pseudo-classes",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:27.296Z",
+      "lastSeen": "2026-08-27T21:58:25.994Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg16504.html",
         "https://github.com/web-platform-tests/interop/issues/1003",
@@ -210,7 +214,7 @@
       "name": "Renewed HTML insertion&streaming methods",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:29.111Z",
+      "lastSeen": "2026-08-27T21:58:28.505Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg16984.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17049.html",
@@ -224,7 +228,7 @@
       "name": "Responsively-sized <iframe>",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:30.853Z",
+      "lastSeen": "2026-08-27T21:58:30.300Z",
       "knownUrls": [
         "https://chromestatus.com/feature/5108373464547328",
         "https://github.com/web-platform-dx/web-features/issues/4036"
@@ -237,7 +241,7 @@
       "name": "Secure Payment Confirmation: Locale Validation",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:32.659Z",
+      "lastSeen": "2026-08-27T21:58:33.990Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17162.html",
         "https://www.npmjs.com/package/os-locale",
@@ -252,7 +256,7 @@
       "name": "Support targetAddressSpace option for WebSockets",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:34.275Z",
+      "lastSeen": "2026-08-27T21:58:35.635Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17125.html",
         "https://www.npmjs.com/package/rpc-websockets",
@@ -266,7 +270,7 @@
       "name": "Web Install API",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:37.268Z",
+      "lastSeen": "2026-08-27T21:58:38.671Z",
       "knownUrls": [
         "https://docs.google.com/document/d/12nSXJLm8mW0gWZ_yjlXfrV8r9gwJliVt4WVa-209-KA/edit?tab=t.0",
         "https://progressier.com/pwa-capabilities/web-install-api",
@@ -286,7 +290,7 @@
       "name": "Web app HTML install element",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:40.188Z",
+      "lastSeen": "2026-08-27T21:58:41.769Z",
       "knownUrls": [
         "https://docs.google.com/document/d/1rGvLhD4SR8Y9M1wVmqgyesPNkbZGU7HOqlttjEFJ5Vo/edit?tab=t.tmx19oox759l#heading=h.j3tt49hqiuck",
         "https://azirgo.com/blog/html-install-element-pwa/",
@@ -302,7 +306,7 @@
       "name": "WebGPU: WGSL Fragment Depth",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:41.908Z",
+      "lastSeen": "2026-08-27T21:58:45.036Z",
       "knownUrls": [
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17263.html",
         "http://www.mail-archive.com/blink-dev@chromium.org/msg17276.html",
@@ -316,7 +320,7 @@
       "name": "WebTransport headers and responseHeaders",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:43.585Z",
+      "lastSeen": "2026-08-27T21:58:47.431Z",
       "knownUrls": [],
       "lastMomentumLevel": "Quiet",
       "lastConsensus": "Chromium-Led"
@@ -326,7 +330,7 @@
       "name": "Window Shape API",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:51:47.195Z",
+      "lastSeen": "2026-08-27T21:58:51.311Z",
       "knownUrls": [
         "https://docs.google.com/document/d/1zPr1QgS-bXsJE7nrO44zx9RBopR4gHuvHxfcqxsX5Ag/edit?tab=t.0#heading=h.pcgro84kqnh3",
         "https://issues.chromium.org/issues/40343068",
@@ -341,7 +345,7 @@
       "name": "Private Verification Tokens",
       "milestone": 154,
       "status": "Origin trial",
-      "lastSeen": "2026-08-27T21:51:50.565Z",
+      "lastSeen": "2026-08-27T21:58:54.939Z",
       "knownUrls": [
         "https://github.com/explainers-by-googlers/private-verification-tokens"
       ],
@@ -353,7 +357,7 @@
       "name": "Support for specialized WebHID devices on Android",
       "milestone": 154,
       "status": "In developer trial (Behind a flag)",
-      "lastSeen": "2026-08-27T21:51:52.581Z",
+      "lastSeen": "2026-08-27T21:58:58.560Z",
       "knownUrls": [
         "https://web.dev/hid/",
         "https://web.dev/hid-examples/"
