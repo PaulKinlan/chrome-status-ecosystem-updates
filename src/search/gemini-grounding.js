@@ -42,7 +42,8 @@ export function extractJsonFromText(text) {
 export async function callGeminiWithSearchGrounding(prompt, options = {}) {
   if (!config.geminiApiKey) return null;
 
-  const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash'];
+  const configuredModel = config.geminiModel || 'gemini-3.7-flash';
+  const models = [...new Set([configuredModel, 'gemini-3.7-flash', 'gemini-2.5-flash', 'gemini-2.0-flash'])];
   let lastError = null;
 
   for (const model of models) {

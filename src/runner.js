@@ -39,7 +39,7 @@ export async function runEcosystemReport(options = {}) {
     : config.searchProvider;
 
   logger.info(`Web Search: [${searchEngineDisplay}] (${activeProviders.length > 0 ? activeProviders.length : '0'} provider(s) active)`);
-  logger.info(`AI Synthesis: ${config.geminiApiKey ? 'Google Gemini (gemini-2.5-flash with live search grounding)' : config.openaiApiKey ? 'OpenAI (gpt-4o-mini)' : 'Heuristic Engine (Rule-based)'}`);
+  logger.info(`AI Synthesis: ${config.geminiApiKey ? `Google Gemini (${config.geminiModel} with live search grounding)` : config.openaiApiKey ? 'OpenAI (gpt-4o-mini)' : 'Heuristic Engine (Rule-based)'}`);
   logger.info(`GitHub API: ${config.githubToken ? 'Authenticated token (5,000 req/hr)' : 'Public access (60 req/hr)'}`);
 
   logger.info('Loading historical snapshot for delta computation...');
@@ -117,7 +117,7 @@ export async function runEcosystemReport(options = {}) {
     const ecosystemData = await gatherEcosystemData(detailedFeature);
 
     // 2. Run analysis (heuristic + optional AI synthesis with search grounding)
-    logger.substep('Analysis & Synthesis', config.geminiApiKey ? 'Gemini 2.5 Flash with Google Search Grounding' : 'Heuristic Engine');
+    logger.substep('Analysis & Synthesis', config.geminiApiKey ? `Gemini 3.7 Flash with Google Search Grounding` : 'Heuristic Engine');
     const analysis = await analyzeFeature(detailedFeature, ecosystemData);
 
     logger.debug(`Momentum: ${analysis.momentumLevel} (score: ${analysis.momentumScore}) | Consensus: ${analysis.consensus} | Sentiment: ${analysis.sentiment}`);
@@ -162,7 +162,7 @@ export async function runEcosystemReport(options = {}) {
     telemetry: {
       searchProviders: activeProviders,
       searchProvider: searchEngineDisplay,
-      aiProvider: config.geminiApiKey ? 'Google Gemini 2.5 Flash' : config.openaiApiKey ? 'OpenAI gpt-4o-mini' : 'Heuristic Engine',
+      aiProvider: config.geminiApiKey ? `Google Gemini (${config.geminiModel})` : config.openaiApiKey ? 'OpenAI gpt-4o-mini' : 'Heuristic Engine',
       isGeminiSearchGrounded: !!config.geminiApiKey,
       hasGithubToken: !!config.githubToken,
       featuresCount: processedFeatures.length,
