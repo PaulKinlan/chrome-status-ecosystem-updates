@@ -1,0 +1,85 @@
+name: Weekly Chrome Ecosystem Report
+
+on:
+  schedule:
+    # Run every Monday at 09:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      milestone:
+        description: 'Chrome Milestone (e.g. 154 or "auto")'
+        required: false
+        default: 'auto'
+      limit:
+        description: 'Max features to process (optional)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'weekly-ecosystem-report'
+  cancel-in-progress: true
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run Ecosystem Intelligence Crawler
+        env:
+          TARGET_MILESTONES: ${{ github.event.inputs.milestone || 'auto' }}
+          MAX_FEATURES: ${{ github.event.inputs.limit || '' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          GOOGLE_SEARCH_API_KEY: ${{ secrets.GOOGLE_SEARCH_API_KEY }}
+          GOOGLE_SEARCH_CX: ${{ secrets.GOOGLE_SEARCH_CX }}
+          BRAVE_SEARCH_API_KEY: ${{ secrets.BRAVE_SEARCH_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          node bin/cli.js run
+
+      - name: Publish to Job Summary
+        run: |
+          cat reports/README.md >> $GITHUB_STEP_SUMMARY
+
+      - name: Commit and push reports & data history
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add reports/ data/
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            WEEK_ID=$(date +'%Y-W%V')
+            git commit -m "chore(report): automated ecosystem update for $WEEK_ID [skip ci]"
+            git push
+          fi
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'reports/'
+
+  deploy-pages:
+    needs: report
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,270 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { config } from '../config.js';
+
+/**
+ * Returns ISO week string e.g. "2026-W35"
+ */
+export function getIsoWeekString(date = new Date()) {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  return `${d.getUTCFullYear()}-W${String(weekNo).padStart(2, '0')}`;
+}
+
+/**
+ * Generates the full weekly Markdown report
+ */
+export function generateWeeklyMarkdown(reportData) {
+  const { weekString, date, milestones, features } = reportData;
+
+  const totalFeatures = features.length;
+  const highMomentum = features.filter(f => f.analysis.momentumLevel === 'High');
+  const multiEngine = features.filter(f => f.analysis.consensus === 'Multi-Engine Consensus');
+  const contested = features.filter(f => f.analysis.consensus.includes('Contested') || f.analysis.consensus.includes('Concerns'));
+  const newActivityCount = features.reduce((acc, f) => acc + (f.delta?.newArticlesCount || 0) + (f.delta?.newDiscussionsCount || 0), 0);
+
+  let md = `# 🌐 Chrome Web Platform Ecosystem Report — ${weekString}\n\n`;
+  md += `> **Generated on:** ${date} | **Target Milestones:** Chrome ${milestones.join(', ')}\n\n`;
+
+  // Executive Summary Cards
+  md += `## 📊 Executive Snapshot\n\n`;
+  md += `| Metric | Count | Description |\n`;
+  md += `| :--- | :--- | :--- |\n`;
+  md += `| **Features Tracked** | \`${totalFeatures}\` | APIs & platform features analyzed across milestones |\n`;
+  md += `| **High Ecosystem Momentum** | \`${highMomentum.length}\` | Features with active community discussions & publications |\n`;
+  md += `| **Multi-Engine Consensus** | \`${multiEngine.length}\` | Broad alignment across Chromium, Gecko, and WebKit |\n`;
+  md += `| **Contested / Concerns** | \`${contested.length}\` | Features with open vendor or security/privacy objections |\n`;
+  md += `| **New Mentions This Week** | \`${newActivityCount}\` | Net new articles, discussions, or standards updates |\n\n`;
+
+  // Quick Navigation Table
+  md += `## 📋 Features Index\n\n`;
+  md += `| Feature | Milestone | Category | Momentum | Consensus | Developer Pulse |\n`;
+  md += `| :--- | :--- | :--- | :--- | :--- | :--- |\n`;
+
+  for (const item of features) {
+    const f = item.feature;
+    const a = item.analysis;
+    const anchor = `#${f.slug}`;
+    md += `| [${f.name}](${anchor}) | Chrome ${f.milestone || ''} | \`${f.category}\` | **${a.momentumLevel}** | ${a.consensus} | ${a.sentiment} |\n`;
+  }
+  md += `\n---\n\n`;
+
+  // Feature Deep Dives
+  md += `## 🔍 Feature Ecosystem Deep Dives\n\n`;
+
+  for (const item of features) {
+    const f = item.feature;
+    const eco = item.ecosystem;
+    const a = item.analysis;
+    const delta = item.delta;
+
+    md += `<a id="${f.slug}"></a>\n`;
+    md += `### [${f.name}](${f.chromeStatusUrl})\n\n`;
+
+    // Metadata Bar
+    md += `- **Milestone:** Chrome ${f.milestone || 'N/A'} (${f.category})\n`;
+    md += `- **ChromeStatus:** [chromestatus.com/feature/${f.id}](${f.chromeStatusUrl}) · [chromestatuslite.com/feature/${f.id}](${f.chromeStatusLiteUrl})\n`;
+    if (f.specUrl) md += `- **Specification:** [${f.specUrl}](${f.specUrl})\n`;
+    if (f.bugUrl) md += `- **Chromium Bug:** [${f.bugUrl}](${f.bugUrl})\n`;
+    md += `- **Browser Signals:** Chrome: \`${f.browsers?.chrome?.status || 'Active'}\` · Firefox: \`${f.browsers?.firefox?.view || 'No signal'}\` · Safari: \`${f.browsers?.safari?.view || 'No signal'}\`\n\n`;
+
+    // Summary & Motivation
+    md += `#### 📝 Overview\n\n`;
+    md += `${f.summary}\n\n`;
+    if (f.motivation) {
+      md += `> **Motivation:** ${f.motivation.slice(0, 350)}${f.motivation.length > 350 ? '...' : ''}\n\n`;
+    }
+
+    // Ecosystem Analysis
+    md += `#### 💡 Ecosystem Intelligence & Analysis\n\n`;
+    md += `- **Momentum:** **${a.momentumLevel}** (Activity Score: ${a.momentumScore})\n`;
+    md += `- **Consensus:** **${a.consensus}**\n`;
+    md += `- **Developer Sentiment:** **${a.sentiment}**\n`;
+    md += `- **Analysis:** ${a.executiveSummary}\n\n`;
+
+    if (a.takeaways && a.takeaways.length > 0) {
+      md += `**Key Recommendations & Takeaways:**\n`;
+      for (const t of a.takeaways) {
+        md += `- ${t}\n`;
+      }
+      md += `\n`;
+    }
+
+    // Delta / What's New This Week
+    if (delta && (delta.newArticlesCount > 0 || delta.newDiscussionsCount > 0 || delta.statusChanged)) {
+      md += `#### ⚡ What Happened This Week\n\n`;
+      if (delta.statusChanged) {
+        md += `- 🔄 **Status Change:** Moved from *${delta.previousStatus}* to *${f.category}*\n`;
+      }
+      if (delta.newDiscussionsCount > 0) {
+        md += `- 💬 **${delta.newDiscussionsCount} new community discussions** found\n`;
+      }
+      if (delta.newArticlesCount > 0) {
+        md += `- 📰 **${delta.newArticlesCount} new articles/tutorials** published\n`;
+      }
+      md += `\n`;
+    }
+
+    // Community Discussions (HN / Forums)
+    if (eco.discussions && eco.discussions.length > 0) {
+      md += `#### 💬 Community Discussions & Developer Reactions\n\n`;
+      for (const disc of eco.discussions.slice(0, 5)) {
+        md += `- [${disc.title}](${disc.discussionUrl || disc.url}) — *${disc.source} (${disc.points || 0} pts, ${disc.commentsCount || 0} comments)*\n`;
+      }
+      md += `\n`;
+    }
+
+    // Standards Positions
+    if (eco.standards && eco.standards.length > 0) {
+      md += `#### 🏛️ Browser Standards Positions\n\n`;
+      for (const std of eco.standards) {
+        const labelsStr = (std.labels || []).length > 0 ? `\`${std.labels.join('`, `')}\`` : '';
+        md += `- **${std.vendor}:** [${std.title}](${std.url}) [${std.state}] ${labelsStr}\n`;
+      }
+      md += `\n`;
+    }
+
+    // Polyfills & NPM Packages
+    if (eco.packages && eco.packages.length > 0) {
+      md += `#### 📦 Polyfills & NPM Ecosystem\n\n`;
+      for (const pkg of eco.packages) {
+        const polyBadge = pkg.isPolyfill ? ' *(Polyfill)*' : '';
+        md += `- [${pkg.name}](https://www.npmjs.com/package/${pkg.name}) \`v${pkg.version}\`${polyBadge} — ${pkg.description}\n`;
+      }
+      md += `\n`;
+    }
+
+    // Articles & Tutorials
+    if (eco.articles && eco.articles.length > 0) {
+      md += `#### 📚 Articles, Tutorials & Guides\n\n`;
+      for (const art of eco.articles.slice(0, 6)) {
+        md += `- [${art.title}](${art.url}) ${art.domain ? `*(${art.domain})*` : ''}\n`;
+      }
+      md += `\n`;
+    }
+
+    // Demos & Samples
+    const demos = (eco.resources || []).filter(r => r.type === 'demo');
+    if (demos.length > 0) {
+      md += `#### 🧪 Interactive Demos & Samples\n\n`;
+      for (const demo of demos) {
+        md += `- [${demo.title}](${demo.url})\n`;
+      }
+      md += `\n`;
+    }
+
+    // Web Platform Tests
+    if (eco.wpt?.url) {
+      md += `#### 🧪 Web Platform Tests (WPT)\n\n`;
+      md += `- View cross-browser test results on [wpt.fyi](${eco.wpt.url}) (${eco.wpt.testCount} tests listed)\n\n`;
+    }
+
+    md += `---\n\n`;
+  }
+
+  return md;
+}
+
+/**
+ * Saves markdown reports to disk
+ */
+export async function writeMarkdownReports(reportData) {
+  const { weekString, features } = reportData;
+  const weeklyDir = path.join(config.reportsDir, 'weekly');
+  const featuresDir = path.join(config.reportsDir, 'features');
+
+  await fs.mkdir(weeklyDir, { recursive: true });
+  await fs.mkdir(featuresDir, { recursive: true });
+
+  // 1. Weekly rollup report
+  const weeklyContent = generateWeeklyMarkdown(reportData);
+  const weeklyFilePath = path.join(weeklyDir, `${weekString}.md`);
+  await fs.writeFile(weeklyFilePath, weeklyContent, 'utf-8');
+
+  // Also write reports/README.md as current latest report
+  const latestReadmePath = path.join(config.reportsDir, 'README.md');
+  await fs.writeFile(latestReadmePath, weeklyContent, 'utf-8');
+
+  // 2. Individual feature reports
+  for (const item of features) {
+    const featureReport = generateSingleFeatureMarkdown(item, weekString);
+    const featureFilePath = path.join(featuresDir, `${item.feature.slug}.md`);
+    await fs.writeFile(featureFilePath, featureReport, 'utf-8');
+  }
+
+  return {
+    weeklyFilePath,
+    featuresCount: features.length,
+  };
+}
+
+/**
+ * Generates an individual feature Markdown page
+ */
+function generateSingleFeatureMarkdown(item, weekString) {
+  const f = item.feature;
+  const eco = item.ecosystem;
+  const a = item.analysis;
+
+  let md = `# ${f.name}\n\n`;
+  md += `> **Report Week:** ${weekString} | **Milestone:** Chrome ${f.milestone || 'N/A'} | **Category:** ${f.category}\n\n`;
+  md += `## Overview\n\n${f.summary}\n\n`;
+  if (f.motivation) {
+    md += `### Motivation\n\n${f.motivation}\n\n`;
+  }
+
+  md += `## Ecosystem Status\n\n`;
+  md += `- **Momentum:** ${a.momentumLevel} (${a.momentumScore} points)\n`;
+  md += `- **Standards Alignment:** ${a.consensus}\n`;
+  md += `- **Sentiment:** ${a.sentiment}\n`;
+  md += `- **Executive Take:** ${a.executiveSummary}\n\n`;
+
+  if (a.takeaways && a.takeaways.length > 0) {
+    md += `### Recommendations\n`;
+    for (const t of a.takeaways) md += `- ${t}\n`;
+    md += `\n`;
+  }
+
+  if (eco.standards?.length > 0) {
+    md += `## Standards Positions\n\n`;
+    for (const s of eco.standards) {
+      md += `- **${s.vendor}:** [${s.title}](${s.url}) [${s.state}]\n`;
+    }
+    md += `\n`;
+  }
+
+  if (eco.discussions?.length > 0) {
+    md += `## Community Discussions\n\n`;
+    for (const d of eco.discussions) {
+      md += `- [${d.title}](${d.discussionUrl || d.url}) (${d.points} pts, ${d.commentsCount} comments)\n`;
+    }
+    md += `\n`;
+  }
+
+  if (eco.packages?.length > 0) {
+    md += `## Packages & Polyfills\n\n`;
+    for (const p of eco.packages) {
+      md += `- [${p.name}](https://www.npmjs.com/package/${p.name}) \`v${p.version}\` — ${p.description}\n`;
+    }
+    md += `\n`;
+  }
+
+  if (eco.articles?.length > 0) {
+    md += `## Articles & Documentation\n\n`;
+    for (const art of eco.articles) {
+      md += `- [${art.title}](${art.url})\n`;
+    }
+    md += `\n`;
+  }
+
+  md += `## Useful Links\n\n`;
+  md += `- [ChromeStatus](${f.chromeStatusUrl})\n`;
+  md += `- [ChromeStatusLite](${f.chromeStatusLiteUrl})\n`;
+  if (f.specUrl) md += `- [Specification](${f.specUrl})\n`;
+  if (f.bugUrl) md += `- [Chromium Tracking Bug](${f.bugUrl})\n`;
+
+  return md;
+}

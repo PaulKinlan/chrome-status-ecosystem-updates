@@ -1,0 +1,33 @@
+{
+  "name": "chrome-status-ecosystem-updates",
+  "version": "1.0.0",
+  "description": "Weekly automated ecosystem intelligence reports for ChromeStatus features and Web APIs",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "chrome-status-ecosystem": "./bin/cli.js"
+  },
+  "scripts": {
+    "start": "node bin/cli.js run",
+    "report": "node bin/cli.js run",
+    "report:feature": "node bin/cli.js inspect",
+    "serve": "node bin/cli.js serve",
+    "test": "node --test test/**/*.test.js"
+  },
+  "keywords": [
+    "chromestatus",
+    "chromestatuslite",
+    "web-platform",
+    "web-api",
+    "ecosystem",
+    "weekly-report",
+    "crawler",
+    "developer-relations",
+    "browser-compat"
+  ],
+  "author": "Paul Kinlan",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

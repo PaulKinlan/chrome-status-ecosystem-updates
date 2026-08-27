@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>Chrome Web Platform Ecosystem Updates</title>
+    <link>https://chromestatuslite.com</link>
+    <description>Weekly web intelligence on ChromeStatus features, web standards, and developer community pulse</description>
+    <lastBuildDate>Thu, 27 Aug 2026 17:36:25 GMT</lastBuildDate>
+    <item>
+      <title>CSS Symbols() — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5146996093616128</link>
+      <guid isPermaLink="false">5146996093616128-2026-W35</guid>
+      <pubDate>Thu, 27 Aug 2026 17:36:25 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;CSS Symbols()&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;The CSS symbols() function lets authors define a counter style inline instead of first declaring a named @counter-style at-rule.
+It builds an anonymous counter style from a list of string symbols plus an optional counting system (cyclic, numeric, alphabetic, symbolic, or fixed), and is accepted as the counter style in list-style-type, the list-style shorthand, and counter() / counters().&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; CSS Symbols() is currently Enabled by default in Chrome 154. Ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Additional Windowing Controls — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5201832664629248</link>
+      <guid isPermaLink="false">5201832664629248-2026-W35</guid>
+      <pubDate>Thu, 27 Aug 2026 17:36:25 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Additional Windowing Controls&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Enable web applications to maximize, minimize, and restore their windows, control whether the window can be resized, and introspect the corresponding window state.
+
+The Window Management permission is required for new JS API controls (window.maximize()/minimize()/restore()/setResizable(bool)). The new CSS media features display-state and resizable are not gated behind a permission as they can follow the non-AWC API toggled states as well.
+
+This feature is an enhancement of the Window Management API:
+https://chromestatus.com/feature/5252960583942144&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Additional Windowing Controls is currently Enabled by default in Chrome 154. Ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Algorithm Updates in WebCrypto — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5198951632470016</link>
+      <guid isPermaLink="false">5198951632470016-2026-W35</guid>
+      <pubDate>Thu, 27 Aug 2026 17:36:25 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Algorithm Updates in WebCrypto&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Add post-quantum cryptography and a common symmetric AEAD to the set of cryptographic algorithms available in the Web Cryptography API. This will enable developers to have access browser-provided implementations of common quantum-resistant cryptographic algorithms standardized by NIST.
+
+* ML-KEM - 768, 1024
+* ML-DSA - 44, 65, 87
+* ChaCha20-Poly1305
+* X-Wing&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Algorithm Updates in WebCrypto is currently Enabled by default in Chrome 154. Ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Add options bag to WebSocket constructor — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5080055102439424</link>
+      <guid isPermaLink="false">5080055102439424-2026-W35</guid>
+      <pubDate>Thu, 27 Aug 2026 17:36:25 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Add options bag to WebSocket constructor&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Add support for passing an option bag (WebSocketInit dictionary) as the second argument to the WebSocket constructor. The option bag will initially support a &amp;quot;protocols&amp;quot; option, allowing developers to specify subprotocols (mirroring the existing protocols argument), and also serves as an extension point for future options.
+
+Before, this would be written `const socket = new WebSocket(&amp;quot;wss://example.com:8080&amp;quot;, &amp;quot;soap&amp;quot;)`. After, this could also be written `const socket = new WebSocket(&amp;quot;wss://example.com:8080&amp;quot;, { protocols: &amp;quot;soap&amp;quot; })`.
+
+See https://github.com/whatwg/websockets/issues/42 and spec PR https://github.com/whatwg/websockets/pull/76 for this change.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Add options bag to WebSocket constructor is currently Enabled by default in Chrome 154. Ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CORS enforcement for Background Fetch — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/6210300985606144</link>
+      <guid isPermaLink="false">6210300985606144-2026-W35</guid>
+      <pubDate>Thu, 27 Aug 2026 17:36:25 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;CORS enforcement for Background Fetch&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Starting in Chrome 154, the Background Fetch API will enforce Cross-Origin Resource Sharing (CORS). 
+This update aligns Chromium&amp;apos;s implementation with the intent of the [Background Fetch spec](https://wicg.github.io/background-fetch/). This ensures that Background Fetch requests are subject to the same security policies, such as Local Network Access checks. 
+This update prevents sites from bypassing CORS (and other security policy checks) by using Background Fetch instead of regular [Fetch](https://fetch.spec.whatwg.org/).&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; CORS enforcement for Background Fetch is currently Enabled by default in Chrome 154. Ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

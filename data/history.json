@@ -1,0 +1,79 @@
+{
+  "lastRun": "2026-08-27T17:36:25.041Z",
+  "lastWeekString": "2026-W35",
+  "features": {
+    "5080055102439424": {
+      "id": 5080055102439424,
+      "name": "Add options bag to WebSocket constructor",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T17:36:19.664Z",
+      "knownUrls": [
+        "https://github.com/WebKit/standards-positions/issues/708",
+        "https://github.com/mozilla/standards-positions/issues/1444"
+      ],
+      "lastMomentumLevel": "Emerging",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5201832664629248": {
+      "id": 5201832664629248,
+      "name": "Additional Windowing Controls",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T17:36:21.217Z",
+      "knownUrls": [
+        "https://github.com/mozilla/standards-positions/issues/542",
+        "https://github.com/WebKit/standards-positions/issues/117",
+        "https://github.com/w3ctag/design-reviews/issues/1246"
+      ],
+      "lastMomentumLevel": "Moderate",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5198951632470016": {
+      "id": 5198951632470016,
+      "name": "Algorithm Updates in WebCrypto",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T17:36:22.496Z",
+      "knownUrls": [
+        "https://github.com/WebKit/standards-positions/issues/641",
+        "https://github.com/mozilla/standards-positions/issues/1282",
+        "https://www.npmjs.com/package/@peculiar/webcrypto"
+      ],
+      "lastMomentumLevel": "Moderate",
+      "lastConsensus": "Chromium-Led"
+    },
+    "6210300985606144": {
+      "id": 6210300985606144,
+      "name": "CORS enforcement for Background Fetch",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T17:36:23.891Z",
+      "knownUrls": [
+        "https://www.npmjs.com/package/whatwg-fetch"
+      ],
+      "lastMomentumLevel": "Emerging",
+      "lastConsensus": "Chromium-Led"
+    },
+    "5146996093616128": {
+      "id": 5146996093616128,
+      "name": "CSS Symbols()",
+      "milestone": 154,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-27T17:36:25.029Z",
+      "knownUrls": [
+        "https://github.com/nikumu/lambda-css",
+        "https://news.ycombinator.com/item?id=15395388",
+        "https://fontgenerator.design/symbols",
+        "https://github.com/yapstudios/sfsym",
+        "https://news.ycombinator.com/item?id=29136096",
+        "https://fossil.wanderinghorse.net/r/cssminc/doc/ckout/README.md",
+        "https://github.com/ayarse/popkorn",
+        "https://symbol.so/",
+        "https://github.com/WebKit/standards-positions/issues/714"
+      ],
+      "lastMomentumLevel": "High",
+      "lastConsensus": "Chromium-Led"
+    }
+  }
+}
