@@ -4,12 +4,12 @@
     <title>Chrome Web Platform Ecosystem Updates</title>
     <link>https://chromestatuslite.com</link>
     <description>Weekly web intelligence on ChromeStatus features, web standards, and developer community pulse</description>
-    <lastBuildDate>Thu, 27 Aug 2026 22:41:20 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2026 22:46:09 GMT</lastBuildDate>
     <item>
       <title>Add options bag to WebSocket constructor — Chrome 154 Ecosystem Update</title>
       <link>https://chromestatus.com/feature/5080055102439424</link>
       <guid isPermaLink="false">5080055102439424-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 22:41:20 GMT</pubDate>
+      <pubDate>Thu, 27 Aug 2026 22:46:09 GMT</pubDate>
       <description>&lt;p&gt;&lt;strong&gt;Add options bag to WebSocket constructor&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Add support for passing an option bag (WebSocketInit dictionary) as the second argument to the WebSocket constructor. The option bag will initially support a &amp;quot;protocols&amp;quot; option, allowing developers to specify subprotocols (mirroring the existing protocols argument), and also serves as an extension point for future options.
 
 Before, this would be written `const socket = new WebSocket(&amp;quot;wss://example.com:8080&amp;quot;, &amp;quot;soap&amp;quot;)`. After, this could also be written `const socket = new WebSocket(&amp;quot;wss://example.com:8080&amp;quot;, { protocols: &amp;quot;soap&amp;quot; })`.
@@ -20,7 +20,7 @@ See https://github.com/whatwg/websockets/issues/42 and spec PR https://github.co
       <title>Additional Windowing Controls — Chrome 154 Ecosystem Update</title>
       <link>https://chromestatus.com/feature/5201832664629248</link>
       <guid isPermaLink="false">5201832664629248-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 22:41:20 GMT</pubDate>
+      <pubDate>Thu, 27 Aug 2026 22:46:09 GMT</pubDate>
       <description>&lt;p&gt;&lt;strong&gt;Additional Windowing Controls&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Enable web applications to maximize, minimize, and restore their windows, control whether the window can be resized, and introspect the corresponding window state.
 
 The Window Management permission is required for new JS API controls (window.maximize()/minimize()/restore()/setResizable(bool)). The new CSS media features display-state and resizable are not gated behind a permission as they can follow the non-AWC API toggled states as well.

@@ -1,7 +1,7 @@
 {
   "weekString": "2026-W35",
   "date": "2026-08-27",
-  "generatedAt": "2026-08-27T22:41:20.312Z",
+  "generatedAt": "2026-08-27T22:46:09.380Z",
   "milestones": [
     154
   ],
@@ -75,7 +75,7 @@
       "ecosystem": {
         "featureId": 5080055102439424,
         "featureName": "Add options bag to WebSocket constructor",
-        "gatheredAt": "2026-08-27T22:41:17.363Z",
+        "gatheredAt": "2026-08-27T22:46:06.845Z",
         "articles": [
           {
             "source": "MDN Web Docs",
@@ -139,6 +139,58 @@
             "domain": "developer.mozilla.org",
             "relevanceConfidence": 65,
             "relevanceReason": "Matched technical anchors: websocket"
+          }
+        ],
+        "reverseLinks": [],
+        "queryPlan": [
+          {
+            "query": "\"chromestatus.com/feature/5080055102439424\" -site:chromestatus.com",
+            "intent": "reverse-link-chromestatus",
+            "description": "Inbound citations linking to ChromeStatus entry",
+            "isReverseLink": true,
+            "targetUrl": "https://chromestatus.com/feature/5080055102439424"
+          },
+          {
+            "query": "\"github.com/whatwg/websockets/issues/42\" -site:github.com",
+            "intent": "reverse-link-explainer",
+            "description": "Inbound citations linking to Explainer",
+            "isReverseLink": true,
+            "targetUrl": "https://github.com/whatwg/websockets/issues/42"
+          },
+          {
+            "query": "\"github.com/whatwg/websockets/pull/76\" -site:github.com",
+            "intent": "reverse-link-explainer",
+            "description": "Inbound citations linking to Explainer",
+            "isReverseLink": true,
+            "targetUrl": "https://github.com/whatwg/websockets/pull/76"
+          },
+          {
+            "query": "\"Add options bag to WebSocket constructor\" API",
+            "intent": "core-api",
+            "description": "Core feature API query",
+            "isReverseLink": false,
+            "targetUrl": null
+          },
+          {
+            "query": "\"Add options bag to WebSocket constructor\" (blog OR tutorial OR guide OR \"how to use\")",
+            "intent": "tutorials-blogs",
+            "description": "Community tutorials and developer blogs",
+            "isReverseLink": false,
+            "targetUrl": null
+          },
+          {
+            "query": "\"const socket = new websocket(\"wss://example.com:8080\", \"soap\")\" OR \"const socket = new websocket(\"wss://example\" (javascript OR web OR css)",
+            "intent": "api-syntax",
+            "description": "Code syntax and WebIDL method usage",
+            "isReverseLink": false,
+            "targetUrl": null
+          },
+          {
+            "query": "\"Add options bag to WebSocket constructor\" (adoption OR shipping OR \"developer preview\" OR PWA)",
+            "intent": "ecosystem-adoption",
+            "description": "Ecosystem adoption and developer sentiment",
+            "isReverseLink": false,
+            "targetUrl": null
           }
         ],
         "discussions": [],
@@ -315,6 +367,7 @@
           "totalArticles": 3,
           "totalBlogs": 0,
           "totalDocs": 3,
+          "totalReverseLinks": 0,
           "totalDiscussions": 0,
           "totalStandards": 2,
           "totalBugs": 0,
@@ -415,10 +468,62 @@
       "ecosystem": {
         "featureId": 5201832664629248,
         "featureName": "Additional Windowing Controls",
-        "gatheredAt": "2026-08-27T22:41:20.311Z",
+        "gatheredAt": "2026-08-27T22:46:09.380Z",
         "articles": [],
         "blogs": [],
         "docs": [],
+        "reverseLinks": [],
+        "queryPlan": [
+          {
+            "query": "\"chromestatus.com/feature/5201832664629248\" -site:chromestatus.com",
+            "intent": "reverse-link-chromestatus",
+            "description": "Inbound citations linking to ChromeStatus entry",
+            "isReverseLink": true,
+            "targetUrl": "https://chromestatus.com/feature/5201832664629248"
+          },
+          {
+            "query": "\"github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md\" -site:github.com",
+            "intent": "reverse-link-explainer",
+            "description": "Inbound citations linking to Explainer",
+            "isReverseLink": true,
+            "targetUrl": "https://github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md"
+          },
+          {
+            "query": "\"www.w3.org/TR/window-management\" -site:www.w3.org",
+            "intent": "reverse-link-spec",
+            "description": "Inbound citations linking to Specification",
+            "isReverseLink": true,
+            "targetUrl": "https://www.w3.org/TR/window-management/#api-window-minimize-method"
+          },
+          {
+            "query": "\"Additional Windowing Controls\" API",
+            "intent": "core-api",
+            "description": "Core feature API query",
+            "isReverseLink": false,
+            "targetUrl": null
+          },
+          {
+            "query": "\"Additional Windowing Controls\" (blog OR tutorial OR guide OR \"how to use\")",
+            "intent": "tutorials-blogs",
+            "description": "Community tutorials and developer blogs",
+            "isReverseLink": false,
+            "targetUrl": null
+          },
+          {
+            "query": "\"window.maximize\" OR \"chromestatus.com\" (javascript OR web OR css)",
+            "intent": "api-syntax",
+            "description": "Code syntax and WebIDL method usage",
+            "isReverseLink": false,
+            "targetUrl": null
+          },
+          {
+            "query": "\"Additional Windowing Controls\" (adoption OR shipping OR \"developer preview\" OR PWA)",
+            "intent": "ecosystem-adoption",
+            "description": "Ecosystem adoption and developer sentiment",
+            "isReverseLink": false,
+            "targetUrl": null
+          }
+        ],
         "discussions": [],
         "standards": [
           {
@@ -634,6 +739,7 @@
           "totalArticles": 0,
           "totalBlogs": 0,
           "totalDocs": 0,
+          "totalReverseLinks": 0,
           "totalDiscussions": 0,
           "totalStandards": 3,
           "totalBugs": 0,

@@ -178,6 +178,21 @@ export function generateWeeklyMarkdown(reportData) {
       md += `\n`;
     }
 
+    // Inbound Citations & Reverse Links
+    if (eco.reverseLinks && eco.reverseLinks.length > 0) {
+      md += `#### 🔗 Inbound Citations & Reverse Links\n\n`;
+      for (const link of eco.reverseLinks.slice(0, 5)) {
+        const meta = [link.domain, link.author, link.publishedAt].filter(Boolean).join(' · ');
+        const targetLabel = link.reverseLinkedTo ? `*(Cites: \`${link.reverseLinkedTo}\`)*` : '';
+        md += `- [${link.title}](${link.url}) ${meta ? `*(${meta})*` : ''} ${targetLabel}\n`;
+        const snippet = (link.contentExcerpt || link.snippet || '').trim();
+        if (snippet) {
+          md += `  > ${snippet.slice(0, 220).replace(/\r?\n/g, ' ')}${snippet.length > 220 ? '...' : ''}\n`;
+        }
+      }
+      md += `\n`;
+    }
+
     // Platform Documentation & References
     const docs = eco.docs || (eco.articles || []).filter(a => !blogs.includes(a));
     if (docs.length > 0) {
@@ -210,7 +225,8 @@ export function generateWeeklyMarkdown(reportData) {
       const searchSummaries = (eco.auditTrail.searchesExecuted || []).map(s => {
         const name = s.provider || s.type;
         if (s.status) return `\`${name}\` *(${s.status})*`;
-        const countStr = s.rawFound !== undefined ? `${s.rawFound} found, ${s.verified} verified` : `${s.count || s.testCount || 0} items`;
+        const queryCountStr = s.queryAudits?.length ? ` across ${s.queryAudits.length} planned queries` : '';
+        const countStr = s.rawFound !== undefined ? `${s.rawFound} found${queryCountStr}, ${s.verified} verified` : `${s.count || s.testCount || 0} items`;
         return `\`${name}\` (${countStr})`;
       });
       md += `- **Searches Run:** ${searchSummaries.join(' · ')}\n`;
@@ -321,6 +337,21 @@ function generateSingleFeatureMarkdown(item, weekString) {
     md += `\n`;
   }
 
+  if (eco.reverseLinks && eco.reverseLinks.length > 0) {
+    md += `## 🔗 Inbound Citations & Reverse Links\n\n`;
+    md += `The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:\n\n`;
+    for (const link of eco.reverseLinks) {
+      const meta = [link.domain, link.author, link.publishedAt].filter(Boolean).join(' · ');
+      const targetLabel = link.reverseLinkedTo ? `*(Cites: \`${link.reverseLinkedTo}\`)*` : '';
+      md += `- [${link.title}](${link.url}) ${meta ? `*(${meta})*` : ''} ${targetLabel}\n`;
+      const snippet = (link.contentExcerpt || link.snippet || '').trim();
+      if (snippet) {
+        md += `  > ${snippet.slice(0, 240).replace(/\r?\n/g, ' ')}${snippet.length > 240 ? '...' : ''}\n`;
+      }
+    }
+    md += `\n`;
+  }
+
   const singleDocs = eco.docs || (eco.articles || []).filter(a => !singleBlogs.includes(a));
   if (singleDocs.length > 0) {
     md += `## 📚 Platform Documentation & Specifications\n\n`;
@@ -338,8 +369,14 @@ function generateSingleFeatureMarkdown(item, weekString) {
       if (s.status) {
         md += `- **${name}:** *${s.status}*\n`;
       } else if (s.rawFound !== undefined) {
-        const queryStr = s.query ? ` (query: \`"${s.query}"\`)` : '';
-        md += `- **${name}:** ${s.rawFound} result(s) found${queryStr} — **${s.verified} verified relevant**\n`;
+        const queryCountStr = s.queryAudits?.length ? ` across ${s.queryAudits.length} planned queries` : '';
+        md += `- **${name}:** ${s.rawFound} result(s) found${queryCountStr} — **${s.verified} verified relevant**\n`;
+        if (s.queryAudits && s.queryAudits.length > 0) {
+          for (const qa of s.queryAudits) {
+            const revTag = qa.isReverseLink ? ' *(Reverse Citation)*' : '';
+            md += `  - \`${qa.query}\`${revTag} — *${qa.description}* (${qa.count} returned)\n`;
+          }
+        }
       } else {
         md += `- **${name}:** ${s.count || s.testCount || 0} item(s) inspected\n`;
       }

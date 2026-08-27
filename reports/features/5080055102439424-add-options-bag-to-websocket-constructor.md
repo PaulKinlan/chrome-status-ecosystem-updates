@@ -47,8 +47,8 @@ There is a demand for extensibility of options on the WebSocket constructor, to 
 ### Searches Executed
 
 - **Brave Search:** *Inactive (BRAVE_SEARCH_API_KEY not configured)*
-- **Dev.to Community Blogs:** 8 result(s) found (query: `"Add options bag to WebSocket constructor"`) — **0 verified relevant**
-- **Hacker News Algolia:** 0 result(s) found (query: `"Add options bag to WebSocket constructor"`) — **0 verified relevant**
+- **Dev.to Community Blogs:** 8 result(s) found — **0 verified relevant**
+- **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 2 item(s) inspected
 - **Engine Bug Trackers:** 0 item(s) inspected
 - **Baseline (baseline.dev):** *untracked*

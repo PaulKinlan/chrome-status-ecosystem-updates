@@ -830,6 +830,22 @@ export function generateDashboardHtml(reportData) {
                 </ul>
               \` : ''}
 
+              \${(eco.reverseLinks && eco.reverseLinks.length) ? \`
+                <div class="section-title">🔗 Inbound Citations & Reverse Links:</div>
+                <ul class="links-list" style="margin-bottom: 1.25rem;">
+                  \${eco.reverseLinks.slice(0, 5).map(link => \`
+                    <li>
+                      <div>
+                        🔗 <a href="\${link.url}" target="_blank" rel="noopener"><strong>\${escapeHtml(link.title)}</strong></a>
+                        \${link.domain ? \`<span class="tag-pill">\${link.domain}</span>\` : ''}
+                        \${link.reverseLinkedTo ? \`<span class="tag-pill" style="color: var(--purple);">Cites: \${escapeHtml(link.reverseLinkedTo)}</span>\` : ''}
+                        \${(link.contentExcerpt || link.snippet) ? \`<div class="comment-quote">\${escapeHtml((link.contentExcerpt || link.snippet).slice(0, 220))}...</div>\` : ''}
+                      </div>
+                    </li>
+                  \`).join('')}
+                </ul>
+              \` : ''}
+
               \${(eco.docs && eco.docs.length) ? \`
                 <div class="section-title">📚 Documentation & Specifications:</div>
                 <ul class="links-list" style="margin-bottom: 1.25rem;">
@@ -846,9 +862,18 @@ export function generateDashboardHtml(reportData) {
                 <div class="section-title">🔍 Investigation Audit Trail:</div>
                 <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.85rem 1rem; margin-bottom: 1.25rem; font-size: 0.85rem;">
                   <div style="margin-bottom: 0.4rem;"><strong>Searches Executed:</strong></div>
-                  <ul style="list-style: none; margin-left: 0.5rem; margin-bottom: 0.65rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.25rem;">
+                  <ul style="list-style: none; margin-left: 0.5rem; margin-bottom: 0.65rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.35rem;">
                     \${(eco.auditTrail.searchesExecuted || []).map(s => \`
-                      <li>• <strong style="color: var(--text);">\${escapeHtml(s.provider || (s.type || '').toUpperCase())}:</strong> \${s.status ? \`<em style="color: var(--text-muted);">(\${escapeHtml(s.status)})</em>\` : \`\${s.query ? '<em>"' + escapeHtml(s.query) + '"</em> — ' : ''}found \${s.rawFound || s.count || 0} candidate(s), verified \${s.verified !== undefined ? s.verified : s.count || 0}\`}</li>
+                      <li>
+                        • <strong style="color: var(--text);">\${escapeHtml(s.provider || (s.type || '').toUpperCase())}:</strong> \${s.status ? \`<em style="color: var(--text-muted);">(\${escapeHtml(s.status)})</em>\` : \`\${s.query ? '<em>"' + escapeHtml(s.query) + '"</em> — ' : ''}found \${s.rawFound || s.count || 0} candidate(s), verified \${s.verified !== undefined ? s.verified : s.count || 0}\`}
+                        \${s.queryAudits && s.queryAudits.length ? \`
+                          <ul style="margin-left: 1.2rem; margin-top: 0.25rem; font-size: 0.8rem; color: var(--text-muted); list-style: circle;">
+                            \${s.queryAudits.map(qa => \`
+                              <li><code>\${escapeHtml(qa.query)}</code> \${qa.isReverseLink ? '<span class="tag-pill" style="font-size: 0.7rem;">Reverse</span>' : ''} — <em>\${escapeHtml(qa.description)}</em> (\${qa.count} found)</li>
+                            \`).join('')}
+                          </ul>
+                        \` : ''}
+                      </li>
                     \`).join('')}
                   </ul>
                   <div><strong>Content Inspected:</strong></div>

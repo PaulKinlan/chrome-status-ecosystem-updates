@@ -39,8 +39,8 @@ Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integ
 ### Searches Executed
 
 - **Brave Search:** *Inactive (BRAVE_SEARCH_API_KEY not configured)*
-- **Dev.to Community Blogs:** 8 result(s) found (query: `"Additional Windowing Controls"`) — **0 verified relevant**
-- **Hacker News Algolia:** 0 result(s) found (query: `"Additional Windowing Controls"`) — **0 verified relevant**
+- **Dev.to Community Blogs:** 8 result(s) found — **0 verified relevant**
+- **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 3 item(s) inspected
 - **Engine Bug Trackers:** 0 item(s) inspected
 - **Baseline (baseline.dev):** *untracked*

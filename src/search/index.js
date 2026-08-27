@@ -7,6 +7,7 @@ import { searchTwitter } from './twitter.js';
 import { searchDevToBlogs } from './blogs.js';
 import { searchNpmEcosystem } from './npm.js';
 import { searchWpt } from './wpt.js';
+import { planEcosystemQueries } from './query-planner.js';
 import { searchWeb, extractDomain, cleanUrl, getActiveSearchProviders } from './web.js';
 import { fetchExplainerSummary, fetchArticleExcerpt } from './content-fetcher.js';
 import { filterRelevantItems } from './verifier.js';
@@ -93,6 +94,11 @@ export async function gatherEcosystemData(feature) {
   logger.debug(`Web search query: ${webQuery}`);
   logger.debug(`Hacker News query: "${feature.name}"`);
 
+  // Plan multifaceted search queries (reverse searches for ChromeStatus, explainers, spec + LLM semantic queries)
+  const queryPlan = await planEcosystemQueries(feature);
+  const reverseQueryCount = queryPlan.filter(q => q.isReverseLink).length;
+  logger.substep('Query Planner', `Planned ${queryPlan.length} queries (${reverseQueryCount} reverse citations, ${queryPlan.length - reverseQueryCount} semantic)`);
+
   const [
     rawWebResults,
     rawHnResults,
@@ -105,7 +111,7 @@ export async function gatherEcosystemData(feature) {
     rawNpmResults,
     wptResult,
   ] = await Promise.all([
-    searchWeb(webQuery, { feature }).catch(err => {
+    searchWeb(webQuery, { feature, queryPlan }).catch(err => {
       logger.debug(`Web search error: ${err.message}`);
       return [];
     }),
@@ -212,6 +218,7 @@ export async function gatherEcosystemData(feature) {
      !a.domain.includes('github.com'))
   );
   const verifiedDocs = verifiedArticles.filter(a => !verifiedBlogs.includes(a));
+  const verifiedReverseLinks = verifiedArticles.filter(a => a.isReverseCitation);
 
   // Standards positions from WebKit/Mozilla/TAG issues
   const standards = standardsResults;
@@ -231,6 +238,10 @@ export async function gatherEcosystemData(feature) {
 
   if (activeSearchProviders.includes('gemini')) {
     logger.audit('Gemini Grounding', verifiedArticles.filter(a => (a.providers || []).includes('gemini')).length, webProviderCounts.gemini || 0);
+  }
+
+  if (verifiedReverseLinks.length > 0) {
+    logger.audit('Inbound Citations', verifiedReverseLinks.length, verifiedReverseLinks.length, `from ${verifiedReverseLinks.map(r => r.domain).join(', ')}`);
   }
 
   logger.audit('Standards Positions', standards.length, standards.length, `${standards.map(s => s.vendor).join(', ') || 'none'}`);
@@ -254,6 +265,7 @@ export async function gatherEcosystemData(feature) {
       query: webQuery,
       rawFound: webProviderCounts.brave || 0,
       verified: verifiedArticles.filter(a => (a.providers || []).includes('brave')).length,
+      queryAudits: rawWebResults.braveQueryAudits || [],
     }] : [{
       type: 'brave_search',
       provider: 'Brave Search',
@@ -296,6 +308,8 @@ export async function gatherEcosystemData(feature) {
     articles: verifiedArticles,
     blogs: verifiedBlogs,
     docs: verifiedDocs,
+    reverseLinks: verifiedReverseLinks,
+    queryPlan,
     discussions: verifiedDiscussions,
     standards,
     bugs: bugsResult,
@@ -309,6 +323,7 @@ export async function gatherEcosystemData(feature) {
       totalArticles: verifiedArticles.length,
       totalBlogs: verifiedBlogs.length,
       totalDocs: verifiedDocs.length,
+      totalReverseLinks: verifiedReverseLinks.length,
       totalDiscussions: verifiedDiscussions.length,
       totalStandards: standards.length,
       totalBugs: bugsResult.length,

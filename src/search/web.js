@@ -55,46 +55,99 @@ Return a brief summary and discuss the key articles found.`;
 }
 
 /**
- * Searches the web using Brave Search API
+ * Executes a single Brave Search query with metadata tagging
+ */
+async function executeBraveQuery(queryObj, options = {}) {
+  const queryStr = typeof queryObj === 'string' ? queryObj : queryObj.query;
+  const description = queryObj.description || 'Web search';
+  const isReverseLink = !!queryObj.isReverseLink;
+  const targetUrl = queryObj.targetUrl || null;
+  const intent = queryObj.intent || 'general';
+
+  const url = new URL('https://api.search.brave.com/res/v1/web/search');
+  url.searchParams.set('q', queryStr);
+  url.searchParams.set('count', String(options.limit || 8));
+
+  const res = await fetch(url, {
+    headers: {
+      'Accept': 'application/json',
+      'X-Subscription-Token': config.braveSearchApiKey,
+    },
+  });
+
+  if (!res.ok) {
+    const errBody = await res.text().catch(() => '');
+    logger.warn(`[Brave Search] Warning: API returned HTTP ${res.status} (${res.statusText}) for query "${queryStr}": ${errBody.slice(0, 100)}`);
+    return { queryStr, description, items: [], isReverseLink, intent };
+  }
+
+  const data = await res.json();
+  const rawResults = data.web?.results || [];
+  const items = rawResults.map(r => ({
+    source: 'Brave Search',
+    type: 'article',
+    title: r.title,
+    url: r.url,
+    snippet: r.description || '',
+    publishedAt: r.page_age || null,
+    domain: extractDomain(r.url),
+    isReverseCitation: isReverseLink,
+    reverseLinkedTo: targetUrl,
+    discoveredViaQuery: queryStr,
+    queryIntent: intent,
+  }));
+
+  logger.info(`[Brave Search] Query "${queryStr}" (${description}): HTTP 200, returned ${items.length} result(s)`);
+  return { queryStr, description, items, isReverseLink, intent };
+}
+
+/**
+ * Searches the web using Brave Search API, executing a multifaceted query plan
+ * that includes reverse-link queries and LLM-synthesized queries.
  */
 async function searchBrave(query, options = {}) {
   if (!config.braveSearchApiKey) {
     logger.debug('[Brave Search] Skipped (BRAVE_SEARCH_API_KEY not configured)');
     return [];
   }
-  try {
-    const url = new URL('https://api.search.brave.com/res/v1/web/search');
-    url.searchParams.set('q', query);
-    url.searchParams.set('count', String(options.limit || 8));
 
-    const res = await fetch(url, {
-      headers: {
-        'Accept': 'application/json',
-        'X-Subscription-Token': config.braveSearchApiKey,
-      },
-    });
-    if (!res.ok) {
-      const errBody = await res.text().catch(() => '');
-      logger.warn(`[Brave Search] Warning: API returned HTTP ${res.status} (${res.statusText}) for query "${query}": ${errBody.slice(0, 120)}`);
-      return [];
+  const queriesToRun = (options.queryPlan && options.queryPlan.length > 0)
+    ? options.queryPlan
+    : [{ query, intent: 'core-api', description: 'Core feature query' }];
+
+  const allItems = [];
+  const seenUrls = new Set();
+  const queryAudits = [];
+
+  for (const q of queriesToRun) {
+    try {
+      const res = await executeBraveQuery(q, options);
+      queryAudits.push({
+        query: res.queryStr,
+        description: res.description,
+        intent: res.intent,
+        isReverseLink: res.isReverseLink,
+        count: res.items.length,
+      });
+
+      for (const item of res.items) {
+        const canonical = cleanUrl(item.url);
+        if (canonical && !seenUrls.has(canonical)) {
+          seenUrls.add(canonical);
+          allItems.push({ ...item, url: canonical });
+        }
+      }
+
+      if (queriesToRun.length > 1) {
+        await new Promise(r => setTimeout(r, 100));
+      }
+    } catch (err) {
+      logger.warn(`[Brave Search] Error querying "${q.query || q}": ${err.message}`);
     }
-    const data = await res.json();
-    const rawResults = data.web?.results || [];
-    const results = rawResults.map(r => ({
-      source: 'Brave Search',
-      type: 'article',
-      title: r.title,
-      url: r.url,
-      snippet: r.description || '',
-      publishedAt: r.page_age || null,
-      domain: extractDomain(r.url),
-    }));
-    logger.info(`[Brave Search] Query "${query}": HTTP 200, returned ${results.length} result(s)`);
-    return results;
-  } catch (err) {
-    logger.warn(`[Brave Search] Error querying "${query}": ${err.message}`);
-    return [];
   }
+
+  allItems.queryAudits = queryAudits;
+  return allItems;
 }
 
 /**
@@ -229,6 +282,11 @@ export async function searchWeb(query, options = {}) {
   allArticles.providersExecuted = activeProviders;
   allArticles.successfulProviders = successfulProviders;
   allArticles.providerCounts = providerCounts;
+
+  const braveResult = settled.find(s => s.status === 'fulfilled' && s.value?.provider === 'brave');
+  if (braveResult?.value?.items?.queryAudits) {
+    allArticles.braveQueryAudits = braveResult.value.items.queryAudits;
+  }
 
   return allArticles;
 }
