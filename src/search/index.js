@@ -1,5 +1,9 @@
 import { searchHackerNews } from './hackernews.js';
 import { searchStandardsPositions } from './standards.js';
+import { searchEngineBugzillas } from './bugzilla.js';
+import { searchBaseline } from './baseline.js';
+import { searchMdn } from './mdn.js';
+import { searchTwitter } from './twitter.js';
 import { searchNpmEcosystem } from './npm.js';
 import { searchWpt } from './wpt.js';
 import { searchWeb, extractDomain, cleanUrl, getActiveSearchProviders } from './web.js';
@@ -10,19 +14,19 @@ import { config } from '../config.js';
 
 /**
  * Searches the web and developer ecosystem for activity around an API/feature,
- * deeply inspecting linked resources and strictly verifying relevance.
+ * deeply inspecting linked resources across standards, bug trackers, tests,
+ * documentation, and community channels.
  */
 export async function gatherEcosystemData(feature) {
   const seenUrls = new Set();
-  const resources = [];
   const candidateArticles = [];
+  const resources = [];
 
-  // Register feature's own spec & explainer links
+  // Register ChromeStatus official link URLs
   if (feature.specUrl) {
-    const cleaned = cleanUrl(feature.specUrl);
-    seenUrls.add(cleaned);
+    seenUrls.add(cleanUrl(feature.specUrl));
     resources.push({
-      source: 'Specification',
+      source: 'W3C / WHATWG Spec',
       type: 'spec',
       title: `${feature.name} Specification`,
       url: feature.specUrl,
@@ -30,19 +34,19 @@ export async function gatherEcosystemData(feature) {
     });
   }
 
-  for (const expUrl of feature.explainerUrls || []) {
-    const cleaned = cleanUrl(expUrl);
+  // Inspect Explainer links
+  for (const explainerUrl of feature.explainerUrls || []) {
+    const cleaned = cleanUrl(explainerUrl);
     if (!seenUrls.has(cleaned)) {
       seenUrls.add(cleaned);
-      // Fetch explainer content snippet
-      const explainerSnippet = await fetchExplainerSummary(expUrl);
+      const summary = await fetchExplainerSummary(explainerUrl);
       resources.push({
-        source: 'Explainer',
+        source: 'Feature Explainer',
         type: 'explainer',
         title: `${feature.name} Explainer`,
-        url: expUrl,
-        domain: extractDomain(expUrl),
-        snippet: explainerSnippet || '',
+        url: explainerUrl,
+        domain: extractDomain(explainerUrl),
+        snippet: summary,
       });
     }
   }
@@ -51,13 +55,12 @@ export async function gatherEcosystemData(feature) {
     const cleaned = cleanUrl(docUrl);
     if (!seenUrls.has(cleaned)) {
       seenUrls.add(cleaned);
-      candidateArticles.push({
-        source: 'Documentation',
-        type: 'article',
+      resources.push({
+        source: 'Chrome Platform Docs',
+        type: 'documentation',
         title: `${feature.name} Documentation`,
         url: docUrl,
         domain: extractDomain(docUrl),
-        isOfficialDoc: true,
       });
     }
   }
@@ -78,18 +81,28 @@ export async function gatherEcosystemData(feature) {
 
   logger.substep('Inspecting ChromeStatus links', `Spec: ${feature.specUrl ? '✔' : '○'} | Explainers: ${(feature.explainerUrls || []).length} | Docs: ${(feature.docUrls || []).length} | Demos: ${(feature.sampleUrls || []).length}`);
 
-  // Execute external searches
+  // Execute external searches across breadth of ecosystem sources
   const webQuery = `"${feature.name}" API`;
   const activeSearchProviders = getActiveSearchProviders();
   const searchEngineLabel = activeSearchProviders.length > 0
     ? activeSearchProviders.join(' + ')
     : config.searchProvider;
 
-  logger.substep('Running ecosystem searches', `Web: [${searchEngineLabel}] | HN | Standards | NPM | WPT`);
+  logger.substep('Running ecosystem searches', `Web: [${searchEngineLabel}] | Standards | Bugzilla | Baseline | MDN | HN | NPM | WPT`);
   logger.debug(`Web search query: ${webQuery}`);
   logger.debug(`Hacker News query: "${feature.name}"`);
 
-  const [rawWebResults, rawHnResults, standardsResults, rawNpmResults, wptResult] = await Promise.all([
+  const [
+    rawWebResults,
+    rawHnResults,
+    standardsResults,
+    bugsResult,
+    baselineResult,
+    mdnResult,
+    twitterResult,
+    rawNpmResults,
+    wptResult,
+  ] = await Promise.all([
     searchWeb(webQuery, { feature }).catch(err => {
       logger.debug(`Web search error: ${err.message}`);
       return [];
@@ -102,6 +115,22 @@ export async function gatherEcosystemData(feature) {
       logger.debug(`Standards search error: ${err.message}`);
       return [];
     }),
+    searchEngineBugzillas(feature).catch(err => {
+      logger.debug(`Bugzilla search error: ${err.message}`);
+      return [];
+    }),
+    searchBaseline(feature).catch(err => {
+      logger.debug(`Baseline query error: ${err.message}`);
+      return null;
+    }),
+    searchMdn(feature).catch(err => {
+      logger.debug(`MDN search error: ${err.message}`);
+      return [];
+    }),
+    searchTwitter(feature).catch(err => {
+      logger.debug(`Twitter search error: ${err.message}`);
+      return [];
+    }),
     searchNpmEcosystem(feature).catch(err => {
       logger.debug(`NPM search error: ${err.message}`);
       return [];
@@ -112,10 +141,10 @@ export async function gatherEcosystemData(feature) {
     }),
   ]);
 
-  // Merge web search candidates
-  for (const item of rawWebResults) {
+  // Merge web search candidates and MDN docs
+  for (const item of [...rawWebResults, ...mdnResult]) {
     const cleaned = cleanUrl(item.url);
-    if (!seenUrls.has(cleaned)) {
+    if (cleaned && !seenUrls.has(cleaned)) {
       seenUrls.add(cleaned);
       candidateArticles.push(item);
     }
@@ -123,7 +152,7 @@ export async function gatherEcosystemData(feature) {
 
   // Fetch page content excerpts for candidate articles to inspect what is happening inside the links
   if (candidateArticles.length > 0) {
-    logger.debug(`Fetching content excerpts for ${Math.min(candidateArticles.length, 6)} web article candidates...`);
+    logger.substep('Ingesting page contents', `Fetching HTTP body text for ${Math.min(candidateArticles.length, 6)} article candidate(s)...`);
     await Promise.all(
       candidateArticles.slice(0, 6).map(async (art) => {
         if (!art.contentExcerpt) {
@@ -136,15 +165,18 @@ export async function gatherEcosystemData(feature) {
     );
   }
 
-  // STRICT RELEVANCE VERIFICATION
-  logger.substep('Relevance Verification', `Testing ${rawHnResults.length} HN threads, ${candidateArticles.length} articles, ${rawNpmResults.length} npm packages`);
+  // Combine discussions from Hacker News and Twitter
+  const candidateDiscussions = [...rawHnResults, ...twitterResult];
+
+  // PRIMARY RELEVANCE VERIFICATION (Using LLM with dynamic NLP token fallback)
+  logger.substep('Relevance Verification', `Testing ${candidateDiscussions.length} discussion(s), ${candidateArticles.length} article(s), ${rawNpmResults.length} package(s)`);
   const [verifiedDiscussions, verifiedArticles, verifiedPackages] = await Promise.all([
-    filterRelevantItems(feature, rawHnResults),
+    filterRelevantItems(feature, candidateDiscussions),
     filterRelevantItems(feature, candidateArticles),
     filterRelevantItems(feature, rawNpmResults),
   ]);
 
-  // Standards positions from WebKit/Mozilla/TAG issues (already queried with feature name and direct URLs)
+  // Standards positions from WebKit/Mozilla/TAG issues
   const standards = standardsResults;
 
   // Identify true polyfills
@@ -153,9 +185,13 @@ export async function gatherEcosystemData(feature) {
 
   // Log verification audit summary
   logger.audit('Standards Positions', standards.length, standards.length, `${standards.map(s => s.vendor).join(', ') || 'none'}`);
-  logger.audit('Hacker News Threads', verifiedDiscussions.length, rawHnResults.length, verifiedDiscussions.length < rawHnResults.length ? `filtered ${rawHnResults.length - verifiedDiscussions.length} false-positives` : '');
+  logger.audit('Engine Bug Trackers', bugsResult.length, bugsResult.length, `${bugsResult.map(b => b.vendor).join(', ') || 'none'}`);
+  if (baselineResult) {
+    logger.audit('Baseline Status', 1, 1, `${baselineResult.statusLabel}`);
+  }
+  logger.audit('Community Discussions', verifiedDiscussions.length, candidateDiscussions.length, verifiedDiscussions.length < candidateDiscussions.length ? `filtered ${candidateDiscussions.length - verifiedDiscussions.length} unrelated` : '');
   logger.audit('NPM Packages', verifiedPackages.length, rawNpmResults.length, verifiedPolyfill ? `polyfill: ${verifiedPolyfill.name}` : 'no polyfill');
-  logger.audit('Articles & Docs', verifiedArticles.length, candidateArticles.length);
+  logger.audit('Articles & Documentation', verifiedArticles.length, candidateArticles.length);
 
   // Metrics rollup based ONLY on verified findings
   const totalHnPoints = verifiedDiscussions.reduce((acc, d) => acc + (d.points || 0), 0);
@@ -164,10 +200,13 @@ export async function gatherEcosystemData(feature) {
   const auditTrail = {
     searchesExecuted: [
       { type: 'web', provider: searchEngineLabel, providers: activeSearchProviders, query: webQuery, rawFound: rawWebResults.length, verified: verifiedArticles.length },
-      { type: 'hackernews', query: feature.name, rawFound: rawHnResults.length, verified: verifiedDiscussions.length },
+      { type: 'hackernews', query: feature.name, rawFound: rawHnResults.length, verified: verifiedDiscussions.filter(d => d.source.includes('Hacker News')).length },
       { type: 'standards', count: standards.length, vendors: standards.map(s => s.vendor) },
+      { type: 'bugzilla', count: bugsResult.length, vendors: bugsResult.map(b => b.vendor) },
+      { type: 'baseline', status: baselineResult?.status || 'untracked', url: baselineResult?.url || null },
       { type: 'npm', rawFound: rawNpmResults.length, verified: verifiedPackages.length, polyfillFound: hasPolyfill },
       { type: 'wpt', testCount: wptResult?.testCount || 0 },
+      ...(twitterResult.length > 0 ? [{ type: 'twitter', rawFound: twitterResult.length, verified: verifiedDiscussions.filter(d => d.source.includes('Twitter')).length }] : []),
     ],
     contentInspected: {
       hasSpec: !!feature.specUrl,
@@ -186,6 +225,8 @@ export async function gatherEcosystemData(feature) {
     articles: verifiedArticles,
     discussions: verifiedDiscussions,
     standards,
+    bugs: bugsResult,
+    baseline: baselineResult,
     packages: verifiedPackages,
     resources,
     wpt: wptResult,
@@ -194,12 +235,11 @@ export async function gatherEcosystemData(feature) {
     metrics: {
       totalArticles: verifiedArticles.length,
       totalDiscussions: verifiedDiscussions.length,
-      totalStandardsPositions: standards.length,
-      totalPackages: verifiedPackages.length,
-      hnPoints: totalHnPoints,
-      hnComments: totalHnComments,
+      totalStandards: standards.length,
+      totalBugs: bugsResult.length,
+      totalHnPoints,
+      totalHnComments,
       hasPolyfill,
-      hasDemos: resources.some(r => r.type === 'demo'),
     },
   };
 }

@@ -658,8 +658,17 @@ export function generateDashboardHtml(reportData) {
           </a>
         \` : '';
 
+        // Baseline badge
+        const baseline = eco.baseline;
+        const baselineBadge = baseline ? \`
+          <a href="\${baseline.url}" target="_blank" rel="noopener" class="badge \${baseline.status === 'widely' ? 'badge-success' : baseline.status === 'newly' ? 'badge-primary' : 'badge-warning'}" title="View Baseline Status on baseline.dev">
+            🌐 \${escapeHtml(baseline.statusLabel)} ↗
+          </a>
+        \` : '';
+
         // Counts for expander pill counters
         const stdCount = (eco.standards || []).length;
+        const bzCount = (eco.bugs || []).length;
         const discCount = (eco.discussions || []).length;
         const artCount = (eco.articles || []).length;
         const pkgCount = (eco.packages || []).length;
@@ -674,6 +683,7 @@ export function generateDashboardHtml(reportData) {
                 <span class="badge">Chrome \${f.milestone || ''}</span>
                 <span class="badge \${momentumBadgeClass}">\${a.momentumLevel} Momentum</span>
                 <span class="badge \${consensusBadgeClass}">\${a.consensus}</span>
+                \${baselineBadge}
                 \${polyfillBadge}
                 \${a.isGroundedWithGoogleSearch ? '<span class="badge badge-primary" title="Grounded with live Google Search via Gemini">🌐 Google Search Grounded</span>' : ''}
               </div>
@@ -771,6 +781,19 @@ export function generateDashboardHtml(reportData) {
                         \${(s.labels || []).map(l => \`<span class="tag-pill">\${escapeHtml(l)}</span>\`).join(' ')}
                         \${s.commentSummary ? \`<div class="comment-quote">\${escapeHtml(s.commentSummary)}</div>\` : ''}
                       </div>
+                    </li>
+                  \`).join('')}
+                </ul>
+              \` : ''}
+
+              \${eco.bugs && eco.bugs.length ? \`
+                <div class="section-title">🐛 Engine Implementation Trackers (Bugzilla):</div>
+                <ul class="links-list" style="margin-bottom: 1.25rem;">
+                  \${eco.bugs.map(b => \`
+                    <li>
+                      🐛 <strong>\${escapeHtml(b.vendor)}:</strong>
+                      <a href="\${b.url}" target="_blank" rel="noopener">Bug #\${b.id}: \${escapeHtml(b.title)}</a>
+                      <span class="tag-pill">\${escapeHtml(b.status)}\${b.resolution ? ' (' + escapeHtml(b.resolution) + ')' : ''}</span>
                     </li>
                   \`).join('')}
                 </ul>

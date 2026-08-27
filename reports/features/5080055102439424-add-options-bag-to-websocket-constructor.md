@@ -16,10 +16,10 @@ There is a demand for extensibility of options on the WebSocket constructor, to 
 
 ## Ecosystem Status
 
-- **Momentum:** Moderate (60 points)
+- **Momentum:** Emerging (30 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Cautiously Optimistic
-- **Executive Take:** Add options bag to WebSocket constructor is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
+- **Sentiment:** Neutral
+- **Executive Take:** Add options bag to WebSocket constructor is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
 
 ### Recommendations
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
@@ -28,15 +28,14 @@ There is a demand for extensibility of options on the WebSocket constructor, to 
 
 ## Packages & Polyfills
 
-- [isomorphic-ws](https://www.npmjs.com/package/isomorphic-ws) `v5.0.0` — Isomorphic implementation of WebSocket
 - [@httptoolkit/websocket-stream](https://www.npmjs.com/package/@httptoolkit/websocket-stream) `v6.0.1` — Use websockets with the node streams API. Works in browser and node, with all current WS versions
-- [ws](https://www.npmjs.com/package/ws) `v8.21.3` — Simple to use, blazing fast and thoroughly tested websocket client and server for Node.js
 - [jest-websocket-mock](https://www.npmjs.com/package/jest-websocket-mock) `v2.5.0` — Mock websockets and assert complex websocket interactions with Jest
 
 ## Articles & Documentation
 
-- [Intent to Prototype: Add options bag to WebSocket constructor](https://groups.google.com/a/chromium.org/g/blink-dev/c/YwkXWzPUJ7U)
-- [[blink-dev] Intent to Prototype: Add options bag to WebSocket constructor](http://www.mail-archive.com/blink-dev@chromium.org/msg17124.html)
+- [WebSocket: WebSocket() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket)
+- [WebSocketStream: WebSocketStream() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream)
+- [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
 
 ## Useful Links
 

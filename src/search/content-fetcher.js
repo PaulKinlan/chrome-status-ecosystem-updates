@@ -1,4 +1,5 @@
 import { config } from '../config.js';
+import { logger } from '../logger.js';
 
 const cache = new Map();
 
@@ -206,9 +207,11 @@ export async function fetchArticleExcerpt(url, maxChars = 1200) {
       .trim();
 
     const excerpt = cleaned.slice(0, maxChars);
+    logger.debug(`[Content Fetcher] Page content fetched for ${url}: HTTP ${res.status}, extracted ${excerpt.length} chars`);
     cache.set(cacheKey, excerpt);
     return excerpt;
-  } catch {
+  } catch (err) {
+    logger.debug(`[Content Fetcher] Failed fetching ${url}: ${err.message}`);
     return null;
   }
 }

@@ -17,15 +17,15 @@ Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integ
 
 ## Ecosystem Status
 
-- **Momentum:** High (105 points)
+- **Momentum:** Moderate (50 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Neutral
-- **Executive Take:** Additional Windowing Controls is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and neutral developer pulse.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** Additional Windowing Controls is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
 
 ### Recommendations
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+- Community package available: [@types/estree](https://www.npmjs.com/package/@types/estree) (v1.0.9) for progressive enhancement.
 
 ## Standards Positions
 
@@ -34,11 +34,15 @@ Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integ
 - **Mozilla:** [New 'onmove' event handler for the Window object](https://github.com/mozilla/standards-positions/issues/938) [closed]
 - **W3C TAG:** [WG New Spec: Additional Windowing Controls](https://github.com/w3ctag/design-reviews/issues/1246) [open]
 
+## Packages & Polyfills
+
+- [@types/estree](https://www.npmjs.com/package/@types/estree) `v1.0.9` — TypeScript definitions for estree
+
 ## Articles & Documentation
 
-- [Additional Windowing Controls · Issue #96 · WebKit/standards-positions](https://github.com/WebKit/standards-positions/issues/96)
-- [[Proposal] Additional Windowing Controls](https://discourse.wicg.io/t/proposal-additional-windowing-controls/6044/)
-- [Additional Windowing Controls](https://chromestatus.com/feature/5201832664629248)
+- [Mobile touch controls](https://developer.mozilla.org/en-US/docs/Games/Techniques/Control_mechanisms/Mobile_touch)
+- [Unconventional controls](https://developer.mozilla.org/en-US/docs/Games/Techniques/Control_mechanisms/Other)
+- [User input methods and controls](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/User_input_methods)
 
 ## Useful Links
 

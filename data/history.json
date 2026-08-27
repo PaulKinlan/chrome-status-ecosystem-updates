@@ -1,12 +1,13 @@
 {
-  "lastRun": "2026-08-27T21:58:58.590Z",
+  "lastRun": "2026-08-27T22:21:24.556Z",
   "lastWeekString": "2026-W35",
   "telemetry": {
-    "searchProvider": "Gemini (Google Search Grounding)",
-    "aiProvider": "Google Gemini 2.5 Flash",
-    "isGeminiSearchGrounded": true,
+    "searchProviders": [],
+    "searchProvider": "auto",
+    "aiProvider": "Heuristic Engine",
+    "isGeminiSearchGrounded": false,
     "hasGithubToken": false,
-    "featuresCount": 24
+    "featuresCount": 2
   },
   "features": {
     "5080055102439424": {
@@ -14,16 +15,15 @@
       "name": "Add options bag to WebSocket constructor",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:57:58.560Z",
+      "lastSeen": "2026-08-27T22:21:21.841Z",
       "knownUrls": [
-        "https://groups.google.com/a/chromium.org/g/blink-dev/c/YwkXWzPUJ7U",
-        "http://www.mail-archive.com/blink-dev@chromium.org/msg17124.html",
-        "https://www.npmjs.com/package/isomorphic-ws",
+        "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket",
+        "https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream",
+        "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket",
         "https://www.npmjs.com/package/@httptoolkit/websocket-stream",
-        "https://www.npmjs.com/package/ws",
         "https://www.npmjs.com/package/jest-websocket-mock"
       ],
-      "lastMomentumLevel": "Moderate",
+      "lastMomentumLevel": "Emerging",
       "lastConsensus": "Chromium-Led"
     },
     "5201832664629248": {
@@ -31,16 +31,18 @@
       "name": "Additional Windowing Controls",
       "milestone": 154,
       "status": "Enabled by default",
-      "lastSeen": "2026-08-27T21:58:01.300Z",
+      "lastSeen": "2026-08-27T22:21:24.552Z",
       "knownUrls": [
+        "https://developer.mozilla.org/en-US/docs/Games/Techniques/Control_mechanisms/Mobile_touch",
+        "https://developer.mozilla.org/en-US/docs/Games/Techniques/Control_mechanisms/Other",
+        "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/User_input_methods",
         "https://github.com/WebKit/standards-positions/issues/96",
-        "https://discourse.wicg.io/t/proposal-additional-windowing-controls/6044/",
-        "https://chromestatus.com/feature/5201832664629248",
         "https://github.com/mozilla/standards-positions/issues/712",
         "https://github.com/mozilla/standards-positions/issues/938",
-        "https://github.com/w3ctag/design-reviews/issues/1246"
+        "https://github.com/w3ctag/design-reviews/issues/1246",
+        "https://www.npmjs.com/package/@types/estree"
       ],
-      "lastMomentumLevel": "High",
+      "lastMomentumLevel": "Moderate",
       "lastConsensus": "Chromium-Led"
     },
     "5198951632470016": {

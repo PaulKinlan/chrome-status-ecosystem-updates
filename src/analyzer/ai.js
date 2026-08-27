@@ -1,5 +1,6 @@
 import { config } from '../config.js';
 import { callGeminiWithSearchGrounding, extractJsonFromText } from '../search/gemini-grounding.js';
+import { logger } from '../logger.js';
 
 /**
  * AI-assisted ecosystem synthesis using Google Gemini with native Google Search Grounding,
@@ -18,6 +19,15 @@ export async function synthesizeWithAI(feature, ecosystemData, heuristicAnalysis
     }
     return text;
   }).join('\n- ');
+
+  // Format engine bug tracker issues
+  const bugsSummary = (ecosystemData.bugs || []).map(b => {
+    return `${b.vendor}: Bug #${b.id} "${b.title}" [Status: ${b.status} ${b.resolution ? `(${b.resolution})` : ''}] (${b.url})`;
+  }).join('\n- ');
+
+  const baselineText = ecosystemData.baseline
+    ? `${ecosystemData.baseline.statusLabel} (Chrome: ${ecosystemData.baseline.browserSupport?.chrome || '?'}, Firefox: ${ecosystemData.baseline.browserSupport?.firefox || '?'}, Safari: ${ecosystemData.baseline.browserSupport?.safari || '?'}) [${ecosystemData.baseline.url}]`
+    : 'Not yet indexed in Baseline';
 
   // Format explainer snippets
   const explainers = (ecosystemData.resources || [])
@@ -51,8 +61,14 @@ Target Web Platform Feature:
 - Motivation: ${feature.motivation || 'N/A'}
 - Spec Link: ${feature.specUrl || 'N/A'}
 
+Baseline Cross-Browser Interoperability (baseline.dev):
+- ${baselineText}
+
 Inspected Standards Discussions:
 - ${standardsSummary || 'No formal standards issues found'}
+
+Engine Bug Trackers (Mozilla Gecko / WebKit Safari):
+- ${bugsSummary || 'No engine implementation tickets tracked'}
 
 Explainer & Documentation Excerpts:
 - ${explainers || 'No explainer text excerpted'}
@@ -80,6 +96,8 @@ Instructions:
 }
 \`\`\``;
 
+  logger.debug(`[AI Synthesis] Dispatching prompt to LLM for "${feature.name}"...`);
+
   // 1. Google Gemini with Native Search Grounding
   if (config.geminiApiKey) {
     try {
@@ -93,8 +111,8 @@ Instructions:
           isGroundedWithGoogleSearch: (groundingResult.groundingChunks || []).length > 0,
         };
       }
-    } catch {
-      // Fall through to OpenAI if Gemini fails
+    } catch (err) {
+      logger.debug(`[AI Synthesis] Gemini error: ${err.message}`);
     }
   }
 
@@ -131,8 +149,8 @@ Instructions:
           };
         }
       }
-    } catch {
-      // Return null on failure
+    } catch (err) {
+      logger.debug(`[AI Synthesis] OpenAI error: ${err.message}`);
     }
   }
 

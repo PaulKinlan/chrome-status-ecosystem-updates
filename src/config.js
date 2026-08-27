@@ -63,6 +63,10 @@ export const config = {
   // GitHub token for GitHub search API rate limits (optional)
   githubToken: process.env.GITHUB_TOKEN || '',
 
+  // Twitter / X developer search (optional)
+  twitterBearerToken: process.env.TWITTER_BEARER_TOKEN || process.env.X_BEARER_TOKEN || '',
+  twitterApiKey: process.env.TWITTER_API_KEY || process.env.X_API_KEY || '',
+
   // AI synthesis
   aiProvider: process.env.AI_PROVIDER || 'gemini',
   geminiApiKey: process.env.GEMINI_API_KEY || '',

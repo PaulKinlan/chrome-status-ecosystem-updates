@@ -73,7 +73,11 @@ export function generateWeeklyMarkdown(reportData) {
     md += `- **ChromeStatus:** [chromestatus.com/feature/${f.id}](${f.chromeStatusUrl}) · [chromestatuslite.com/feature/${f.id}](${f.chromeStatusLiteUrl})\n`;
     if (f.specUrl) md += `- **Specification:** [${f.specUrl}](${f.specUrl})\n`;
     if (f.bugUrl) md += `- **Chromium Bug:** [${f.bugUrl}](${f.bugUrl})\n`;
-    md += `- **Browser Signals:** Chrome: \`${f.browsers?.chrome?.status || 'Active'}\` · Firefox: \`${f.browsers?.firefox?.view || 'No signal'}\` · Safari: \`${f.browsers?.safari?.view || 'No signal'}\`\n\n`;
+    md += `- **Browser Signals:** Chrome: \`${f.browsers?.chrome?.status || 'Active'}\` · Firefox: \`${f.browsers?.firefox?.view || 'No signal'}\` · Safari: \`${f.browsers?.safari?.view || 'No signal'}\`\n`;
+    if (eco.baseline) {
+      md += `- **Baseline Interoperability:** [${eco.baseline.statusLabel}](${eco.baseline.url}) (Chrome: \`${eco.baseline.browserSupport?.chrome || '—'}\`, Firefox: \`${eco.baseline.browserSupport?.firefox || '—'}\`, Safari: \`${eco.baseline.browserSupport?.safari || '—'}\`)\n`;
+    }
+    md += `\n`;
 
     // Summary & Motivation
     md += `#### 📝 Overview\n\n`;
@@ -136,6 +140,15 @@ export function generateWeeklyMarkdown(reportData) {
         if (std.commentSummary) {
           md += `  > *${std.commentSummary}*\n`;
         }
+      }
+      md += `\n`;
+    }
+
+    // Engine Bug Trackers (Mozilla Bugzilla & WebKit Bugzilla)
+    if (eco.bugs && eco.bugs.length > 0) {
+      md += `#### 🐛 Engine Bug Trackers (Bugzilla)\n\n`;
+      for (const bug of eco.bugs) {
+        md += `- **${bug.vendor}:** [Bug #${bug.id}: ${bug.title}](${bug.url}) \`[${bug.status}${bug.resolution ? ` (${bug.resolution})` : ''}]\`\n`;
       }
       md += `\n`;
     }

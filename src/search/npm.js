@@ -38,11 +38,11 @@ export async function searchNpmEcosystem(feature) {
         const desc = pkg.description || '';
         const fullDesc = `${desc} ${readme}`.toLowerCase();
 
-        // Check if package is explicitly a polyfill, shim, or TypeScript definitions
+        // Check if package is explicitly a polyfill or shim
         const isPolyfill = pkg.name.includes('polyfill') ||
           fullDesc.includes('polyfill') ||
           fullDesc.includes('shim') ||
-          pkg.name.startsWith('@types/');
+          fullDesc.includes('prollyfill');
 
         seenPackages.add(pkg.name);
         results.push({

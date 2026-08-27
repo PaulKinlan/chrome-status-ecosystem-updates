@@ -4,242 +4,29 @@
     <title>Chrome Web Platform Ecosystem Updates</title>
     <link>https://chromestatuslite.com</link>
     <description>Weekly web intelligence on ChromeStatus features, web standards, and developer community pulse</description>
-    <lastBuildDate>Thu, 27 Aug 2026 21:58:58 GMT</lastBuildDate>
-    <item>
-      <title>Web app HTML install element — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5152834368700416</link>
-      <guid isPermaLink="false">5152834368700416-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Web app HTML install element&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Triggers a request for the browser to install a web app, given a manifest URL and optional manifest ID. The &amp;lt;install&amp;gt; element enables cross-origin web app installation without JavaScript and provides a better developer experience than handling beforeinstallprompt events. Enterprises can control this in two ways - (1) Enterprise policy, WebAppInstallByUserEnabled, can disable user web app installs broadly, including installs initiated via navigator.install() and &amp;lt;install&amp;gt;. Or (2) Permissions Policy, web-app-installation, can allow or disallow use of this feature on origins the enterprise controls (for example, internal sites/iframes).&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Web app HTML install element is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Contested / Concerns Raised standards alignment and mixed / skeptical developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Web Install API — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5183481574850560</link>
-      <guid isPermaLink="false">5183481574850560-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Web Install API&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Triggers a request for the browser to install a web app, given a manifest URL and optional manifest ID. The navigator.install() method enables cross-origin web app installation and provides a better developer experience than handling beforeinstallprompt events. Enterprises can control this in two ways - (1) Enterprise policy, WebAppInstallByUserEnabled, can disable user web app installs broadly, including installs initiated via navigator.install() and &amp;lt;install&amp;gt;. Or (2) Permissions Policy, web-app-installation, can allow or disallow use of this feature on origins the enterprise controls (for example, internal sites/iframes).&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Web Install API is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Contested / Concerns Raised standards alignment and mixed / skeptical developer pulse.&lt;/p&gt;</description>
-    </item>
+    <lastBuildDate>Thu, 27 Aug 2026 22:21:24 GMT</lastBuildDate>
     <item>
       <title>Additional Windowing Controls — Chrome 154 Ecosystem Update</title>
       <link>https://chromestatus.com/feature/5201832664629248</link>
       <guid isPermaLink="false">5201832664629248-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
+      <pubDate>Thu, 27 Aug 2026 22:21:24 GMT</pubDate>
       <description>&lt;p&gt;&lt;strong&gt;Additional Windowing Controls&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Enable web applications to maximize, minimize, and restore their windows, control whether the window can be resized, and introspect the corresponding window state.
 
 The Window Management permission is required for new JS API controls (window.maximize()/minimize()/restore()/setResizable(bool)). The new CSS media features display-state and resizable are not gated behind a permission as they can follow the non-AWC API toggled states as well.
 
 This feature is an enhancement of the Window Management API:
-https://chromestatus.com/feature/5252960583942144&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Additional Windowing Controls is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Algorithm Updates in WebCrypto — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5198951632470016</link>
-      <guid isPermaLink="false">5198951632470016-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Algorithm Updates in WebCrypto&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Add post-quantum cryptography and a common symmetric AEAD to the set of cryptographic algorithms available in the Web Cryptography API. This will enable developers to have access browser-provided implementations of common quantum-resistant cryptographic algorithms standardized by NIST.
-
-* ML-KEM - 768, 1024
-* ML-DSA - 44, 65, 87
-* ChaCha20-Poly1305
-* X-Wing&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Algorithm Updates in WebCrypto is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Fetch API: Forward reason from AbortController to fetch Response — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5158507786665984</link>
-      <guid isPermaLink="false">5158507786665984-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Fetch API: Forward reason from AbortController to fetch Response&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Surfaces the abort reason, if one is provided, to the methods of the Response object and its ReadableStream, rather than just the fetch promise. This fills a gap in our compliance with the standard, surfacing the developer-supplied abort reason everywhere it is intended to.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Fetch API: Forward reason from AbortController to fetch Response is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>CORS enforcement for Background Fetch — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/6210300985606144</link>
-      <guid isPermaLink="false">6210300985606144-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;CORS enforcement for Background Fetch&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Starting in Chrome 154, the Background Fetch API will enforce Cross-Origin Resource Sharing (CORS). 
-This update aligns Chromium&amp;apos;s implementation with the intent of the [Background Fetch spec](https://wicg.github.io/background-fetch/). This ensures that Background Fetch requests are subject to the same security policies, such as Local Network Access checks. 
-This update prevents sites from bypassing CORS (and other security policy checks) by using Background Fetch instead of regular [Fetch](https://fetch.spec.whatwg.org/).&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; CORS enforcement for Background Fetch is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Local Network Access restrictions for Background Fetch — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/6225598451154944</link>
-      <guid isPermaLink="false">6225598451154944-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Local Network Access restrictions for Background Fetch&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Background Fetch requests will soon require that the service worker&amp;apos;s origin has the necessary Local Network Access (LNA) permission in order to send requests to local or loopback servers.
-
-This aligns Chromium&amp;apos;s implementation with the intent of the Background Fetch spec, which states that such requests go through the Fetch spec and have the same security policies applied to them, in this case LNA checks. This prevents sites from bypassing LNA checks by using [Background Fetch spec](https://wicg.github.io/background-fetch/) instead of regular [Fetch](https://fetch.spec.whatwg.org/).
-
-For enterprises, you can use existing LNA enterprise policies in the same way you previously would have for regular Fetch API requests from service workers:
-- [LocalNetworkAccessRestrictionsTemporaryOptOut](https://chromeenterprise.google/policies/#LocalNetworkAccessRestrictionsTemporaryOptOut)
-- [LocalNetworkAccessAllowedForUrls](https://chromeenterprise.google/policies/#LocalNetworkAccessAllowedForUrls)
-- [LoopbackNetworkAllowedForUrls](https://chromeenterprise.google/policies/#LoopbackNetworkAllowedForUrls)
-- [LocalNetworkAccessPermissionsPolicyDefaultEnabled](https://chromeenterprise.google/policies/#LocalNetworkAccessPermissionsPolicyDefaultEnabled)
-- [LocalNetworkAccessIpAddressSpaceOverrides](https://chromeenterprise.google/policies/#LocalNetworkAccessIpAddressSpaceOverrides)).&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Local Network Access restrictions for Background Fetch is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.&lt;/p&gt;</description>
+https://chromestatus.com/feature/5252960583942144&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Additional Windowing Controls is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Add options bag to WebSocket constructor — Chrome 154 Ecosystem Update</title>
       <link>https://chromestatus.com/feature/5080055102439424</link>
       <guid isPermaLink="false">5080055102439424-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
+      <pubDate>Thu, 27 Aug 2026 22:21:24 GMT</pubDate>
       <description>&lt;p&gt;&lt;strong&gt;Add options bag to WebSocket constructor&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Add support for passing an option bag (WebSocketInit dictionary) as the second argument to the WebSocket constructor. The option bag will initially support a &amp;quot;protocols&amp;quot; option, allowing developers to specify subprotocols (mirroring the existing protocols argument), and also serves as an extension point for future options.
 
 Before, this would be written `const socket = new WebSocket(&amp;quot;wss://example.com:8080&amp;quot;, &amp;quot;soap&amp;quot;)`. After, this could also be written `const socket = new WebSocket(&amp;quot;wss://example.com:8080&amp;quot;, { protocols: &amp;quot;soap&amp;quot; })`.
 
-See https://github.com/whatwg/websockets/issues/42 and spec PR https://github.com/whatwg/websockets/pull/76 for this change.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Add options bag to WebSocket constructor is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Media element pseudo-classes — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5068277495758848</link>
-      <guid isPermaLink="false">5068277495758848-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Media element pseudo-classes&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;The :playing, :paused, :seeking, :buffering, :stalled, :muted, and :volume-locked CSS pseudo-classes match &amp;lt;audio&amp;gt; and &amp;lt;video&amp;gt; elements based on their state.
-
-This is one of the focus areas in https://wpt.fyi/interop-2026.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Media element pseudo-classes is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>CSS4 text-decoration-skip-spaces — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/4832783806627840</link>
-      <guid isPermaLink="false">4832783806627840-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;CSS4 text-decoration-skip-spaces&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;The text-decoration-skip-spaces CSS property controls whether text decoration lines (underlines, overlines, line-throughs, etc.) skip over whitespace characters. This allows authors to prevent decorations from being drawn under spaces, which is often more visually appealing.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; CSS4 text-decoration-skip-spaces is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Window Shape API — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5075144470036480</link>
-      <guid isPermaLink="false">5075144470036480-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Window Shape API&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Window Shape API enables allowlisted [Isolated Web Apps](https://chromeos.dev/en/web/isolated-web-apps) on ChromeOS to have a customized window shape. By enabling non-rectangular and non-contiguous window layouts, developers can implement unique user experiences (such as widgets, floating panels, and overlays) that match the look-and-feel of native applications. The `window.setShape` API requires the window to be in _unframed_ display mode and requires the window-management permission to be granted.
-
-Administrators can manage this feature with existing policies for window management:  
-- [DefaultWindowManagementSetting](https://chromeenterprise.google/policies/#DefaultWindowManagementSetting) configures the default state for the window management for all apps. The policies below can override this default.  
-- [WindowManagementAllowedForUrls](https://chromeenterprise.google/policies/#WindowManagementAllowedForUrls) allows IWAs with specified origins to enter unframed mode and set custom window shapes without any user interaction.  
-- [WindowManagementBlockedForUrls](https://chromeenterprise.google/policies/#WindowManagementBlockedForUrls) blocks the permission for specified origins, forcing Chrome to remove any custom window shapes and fallback to other available display modes.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Window Shape API is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>CSS Symbols() — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5146996093616128</link>
-      <guid isPermaLink="false">5146996093616128-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;CSS Symbols()&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;The CSS symbols() function lets authors define a counter style inline instead of first declaring a named @counter-style at-rule.
-It builds an anonymous counter style from a list of string symbols plus an optional counting system (cyclic, numeric, alphabetic, symbolic, or fixed), and is accepted as the counter style in list-style-type, the list-style shorthand, and counter() / counters().&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; CSS Symbols() is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Partial Multi-Engine Interest standards alignment and cautiously optimistic developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Secure Payment Confirmation: Locale Validation — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5126146013396992</link>
-      <guid isPermaLink="false">5126146013396992-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Secure Payment Confirmation: Locale Validation&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Updates Secure Payment Confirmation&amp;apos;s `locale` data field to return a Not Supported DOMException if none of the language tags provided in the field match the language used by the Secure Payment Confirmation&amp;apos;s dialog. If the field is not set or empty, this validation is skipped.
-
-This helps web developers with matching the language of the data that they are supplying to Secure Payment Confirmation with the dialog.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Secure Payment Confirmation: Locale Validation is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>FontFace width attribute and font-width descriptor — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5145402365050880</link>
-      <guid isPermaLink="false">5145402365050880-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;FontFace width attribute and font-width descriptor&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Exposes the width attribute on FontFace and the @font-face font-width descriptor as aliases for stretch and font-stretch. Aligns Chromium with the updated CSS Font Loading and CSS Fonts 4 specifications. Developers can now inspect or initialize font face widths using FontFace.width and CSS font-width interchangeably with stretch and font-stretch.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; FontFace width attribute and font-width descriptor is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Renewed HTML insertion&amp;streaming methods — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5054329641893888</link>
-      <guid isPermaLink="false">5054329641893888-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Renewed HTML insertion&amp;streaming methods&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Expose multiple HTML setting methods that provide a coherent story for dynamically inserting markup into an existing document.
-
-- Positional methods (before/after/append/prepend/replaceWith) that take HTML as argument, effectively replacing insertAdjacentHTML.
-- Streaming methods (stream{Append}HTML{Unsafe}) which return a WritableStream
-- Passing {runScripts} as part of SetHTMLUnsafeOptions, mimicking createContextualFragment behavior.
-- Supporting createParserOptions in trusted types, allowing trusted types to override scripting mode and sanitizer.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Renewed HTML insertion&amp;amp;streaming methods is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Partial Multi-Engine Interest standards alignment and neutral developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Support targetAddressSpace option for WebSockets — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/4779920606756864</link>
-      <guid isPermaLink="false">4779920606756864-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Support targetAddressSpace option for WebSockets&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Add support for passing a targetAddressSpace option in the WebSocket constructor. This allows developers to specify that a WebSocket connection to a public hostname should be treated as going to a &amp;quot;local&amp;quot; or &amp;quot;loopback&amp;quot; destination, matching the existing support on the Fetch API. The main use case is to offer an escape hatch to bypass mixed content restrictions for connecting to local servers that cannot yet support HTTPS (as Local Network Access permissions require a secure context).
-
-Example: A public site that connects to a local server can use a hostname to avoid needing manual configuration of the exact private IP address in use:
-
-`const ws = new WebSocket(&amp;quot;ws://local-server.example&amp;quot;, { targetAddressSpace: &amp;quot;local&amp;quot;}`
-
-This will flag the WebSocket connection as going to a local address, bypassing mixed content blocking when run in a secure context. The user must grant the site the local network permission for the WebSocket connection to succeed, and the hostname must resolve to a local IP address (otherwise it will be blocked).
-
-This builds on https://chromestatus.com/feature/5080055102439424 which adds an options bag to the WebSocket constructor.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Support targetAddressSpace option for WebSockets is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>WebGPU: WGSL Fragment Depth — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5663304168112128</link>
-      <guid isPermaLink="false">5663304168112128-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;WebGPU: WGSL Fragment Depth&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Adds the ability to provide a `less` or `greater` modifier to the `@builtin(frag_depth)` in WGSL.
-
-The current `@builtin(frag_depth)` can potentially introduce a performance penalty due to disabling the early-Z optimizations on a draw call. The new modifiers allow the explicit setting of the buffer mode and allow the early-Z optimizations to be applied.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; WebGPU: WGSL Fragment Depth is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Partial Multi-Engine Interest standards alignment and neutral developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>CSS text-decoration-inset — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5178263526834176</link>
-      <guid isPermaLink="false">5178263526834176-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;CSS text-decoration-inset&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;CSS text-decoration-inset controls how far underlines, overlines, and line-through decorations are inset from or extended beyond text run edges. It supports auto, length, and percentage values, including one-value and two-value syntax for setting the start and end offsets. This lets developers adjust decoration spacing and create reveal effects with native text decorations instead of background gradients or additional elements.
-
-
-sampler: https://static.januschka.com/i-468928416/?asddsaasd
-MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-decoration-inset
-
-CL: https://chromium-review.googlesource.com/c/chromium/src/+/7748204&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; CSS text-decoration-inset is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Expose CSSStyleValue hierarchy to Worker contexts — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5114591051907072</link>
-      <guid isPermaLink="false">5114591051907072-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Expose CSSStyleValue hierarchy to Worker contexts&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;The CSS Typed OM spec exposes the CSSStyleValue hierarchy to worker global scopes ([Exposed=(Window, Worker, PaintWorklet, LayoutWorklet)]), but Blink only exposed CSSStyleValue, CSSKeywordValue, CSSNumericValue, CSSUnitValue and CSSUnparsedValue to Window and the worklets. As a result these constructors were undefined in Workers, unlike in Firefox and Safari.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Expose CSSStyleValue hierarchy to Worker contexts is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Responsively-sized &lt;iframe&gt; — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5108373464547328</link>
-      <guid isPermaLink="false">5108373464547328-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Responsively-sized &lt;iframe&gt;&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Allow sites to opt into iframes having responsive sizing (sizing the &amp;lt;iframe&amp;gt; element in the parent document to the iframe document&amp;apos;s layout overflow sizing, so that scrolling in the child document is avoided).&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Responsively-sized &amp;lt;iframe&amp;gt; is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Support for specialized WebHID devices on Android — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5172464636133376</link>
-      <guid isPermaLink="false">5172464636133376-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Support for specialized WebHID devices on Android&lt;/strong&gt; (Chrome 154, In developer trial (Behind a flag))&lt;/p&gt;&lt;p&gt;WebHID now allows web applications to interact with a wider range of devices. Standard Human Interface Device (HID) examples include mice, keyboards, touchscreens, and gamepads. Those are accessible with high-level input events. However, specialized HID devices and features (for example, custom keyboards, game controllers, and call control headsets) require extended access. 
-
-WebHID allows web applications to request access, send and receive HID reports, and retrieve information about the report descriptor. This feature was previously launched on desktop platforms (Windows, macOS, Linux, and ChromeOS). Support on Android is planned for Chrome 157. To read more, see [Connect to uncommon HID devices](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid).
-
-This feature can be controlled by the following enterprise policies: 
-* [DefaultWebHidGuardSetting](https://chromeenterprise.google/policies/#DefaultWebHidGuardSetting)
-* [WebHidAllowAllDevicesForUrls](https://chromeenterprise.google/policies/#WebHidAllowAllDevicesForUrls)
-* [WebHidAllowDevicesForUrls](https://chromeenterprise.google/policies/#WebHidAllowDevicesForUrls)
-* [WebHidAllowDevicesWithHidUsagesForUrls](https://chromeenterprise.google/policies/#WebHidAllowDevicesWithHidUsagesForUrls)
-* [WebHidAskForUrls](https://chromeenterprise.google/policies/#WebHidAskForUrls)
-* [WebHidBlockedForUrls](https://chromeenterprise.google/policies/#WebHidBlockedForUrls)&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Support for specialized WebHID devices on Android is currently In developer trial (Behind a flag) in Chrome 154. Verified ecosystem momentum is Emerging with Contested / Concerns Raised standards alignment and mixed / skeptical developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Iterator Includes — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5205192866922496</link>
-      <guid isPermaLink="false">5205192866922496-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Iterator Includes&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;A TC39 proposal to allow the developer to ask whether an iterator yields a given value. Analogue to `Array.prototype.includes`.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Iterator Includes is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Private Verification Tokens — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/6210457816924160</link>
-      <guid isPermaLink="false">6210457816924160-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Private Verification Tokens&lt;/strong&gt; (Chrome 154, Origin trial)&lt;/p&gt;&lt;p&gt;Automated traffic is increasing across the web, and many websites have responded with more user friction in the form of CAPTCHAs and other challenges to combat unwanted traffic. This degrades the web user experience for all users, with a particularly outsized impact to users in private browsing modes.
-
-Private Verification Tokens (PVT) is a low entropy mechanism that allows websites to transfer the trust that their users have established in regular browsing into private browsing mode to reduce their experienced user friction. PVTs are issued during a regular browsing session and redeemed in private browsing mode.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Private Verification Tokens is currently Origin trial in Chrome 154. Verified ecosystem momentum is Quiet with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>WebTransport headers and responseHeaders — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5194104408506368</link>
-      <guid isPermaLink="false">5194104408506368-2026-W35</guid>
-      <pubDate>Thu, 27 Aug 2026 21:58:58 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;WebTransport headers and responseHeaders&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Adds support for passing custom HTTP request headers via WebTransportOptions and inspecting server response headers through the WebTransport instance. This allows web applications to supply metadata, authentication tokens, and custom parameters during the initial CONNECT handshake and access server-provided headers once the connection is established.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; WebTransport headers and responseHeaders is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Quiet with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
+See https://github.com/whatwg/websockets/issues/42 and spec PR https://github.com/whatwg/websockets/pull/76 for this change.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Add options bag to WebSocket constructor is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
