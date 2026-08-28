@@ -1,4 +1,4 @@
-name: Weekly Chrome Ecosystem Report
+name: Weekly Chrome Ecosystem Report & Deploy
 
 on:
   schedule:
@@ -14,6 +14,17 @@ on:
         description: 'Max features to process (optional)'
         required: false
         default: ''
+      skip_crawl:
+        description: 'Skip crawling and just deploy existing reports'
+        type: boolean
+        required: false
+        default: false
+  push:
+    branches:
+      - main
+    paths:
+      - 'reports/**'
+      - '.github/workflows/weekly-report.yml'
 
 permissions:
   contents: write
@@ -38,24 +49,31 @@ jobs:
           node-version: 22
 
       - name: Run Ecosystem Intelligence Crawler
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.skip_crawl)
         env:
           TARGET_MILESTONES: ${{ github.event.inputs.milestone || 'auto' }}
           MAX_FEATURES: ${{ github.event.inputs.limit || '' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           GOOGLE_SEARCH_API_KEY: ${{ secrets.GOOGLE_SEARCH_API_KEY }}
           GOOGLE_SEARCH_CX: ${{ secrets.GOOGLE_SEARCH_CX }}
           BRAVE_SEARCH_API_KEY: ${{ secrets.BRAVE_SEARCH_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           node bin/cli.js run
 
       - name: Publish to Job Summary
+        if: hashFiles('reports/README.md') != ''
         run: |
           cat reports/README.md >> $GITHUB_STEP_SUMMARY
 
+      - name: Ensure .nojekyll exists
+        run: |
+          touch reports/.nojekyll
+
       - name: Commit and push reports & data history
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.skip_crawl)
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'

@@ -959,5 +959,6 @@ export async function writeDashboardHtml(reportData) {
   const html = generateDashboardHtml(reportData);
   const filePath = path.join(config.reportsDir, 'index.html');
   await fs.writeFile(filePath, html, 'utf-8');
+  await fs.writeFile(path.join(config.reportsDir, '.nojekyll'), '', 'utf-8');
   return filePath;
 }
