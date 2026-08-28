@@ -244,6 +244,12 @@ export async function gatherEcosystemData(feature) {
     logger.audit('Inbound Citations', verifiedReverseLinks.length, verifiedReverseLinks.length, `from ${verifiedReverseLinks.map(r => r.domain).join(', ')}`);
   }
 
+  if (config.twitterBearerToken) {
+    logger.audit('Twitter / X API v2', verifiedDiscussions.filter(d => (d.source || '').includes('Twitter')).length, twitterResult.length, twitterResult.audit?.status || '');
+  } else {
+    logger.audit('Twitter / X API v2', 0, 0, 'disabled: TWITTER_BEARER_TOKEN not configured');
+  }
+
   logger.audit('Standards Positions', standards.length, standards.length, `${standards.map(s => s.vendor).join(', ') || 'none'}`);
   logger.audit('Engine Bug Trackers', bugsResult.length, bugsResult.length, `${bugsResult.map(b => b.vendor).join(', ') || 'none'}`);
   if (baselineResult) {
@@ -255,8 +261,12 @@ export async function gatherEcosystemData(feature) {
   logger.audit('Platform Documentation', verifiedDocs.length, candidateArticles.length);
 
   // Metrics rollup based ONLY on verified findings
-  const totalHnPoints = verifiedDiscussions.reduce((acc, d) => acc + (d.points || 0), 0);
-  const totalHnComments = verifiedDiscussions.reduce((acc, d) => acc + (d.commentsCount || 0), 0);
+  const hnDiscussions = verifiedDiscussions.filter(d => (d.source || '').includes('Hacker News'));
+  const twitterDiscussions = verifiedDiscussions.filter(d => (d.source || '').includes('Twitter') || (d.source || '').includes('X'));
+  const totalHnPoints = hnDiscussions.reduce((acc, d) => acc + (d.points || 0), 0);
+  const totalHnComments = hnDiscussions.reduce((acc, d) => acc + (d.commentsCount || 0), 0);
+  const totalTwitterLikes = twitterDiscussions.reduce((acc, d) => acc + (d.points || 0), 0);
+  const totalTwitterReplies = twitterDiscussions.reduce((acc, d) => acc + (d.commentsCount || 0), 0);
 
   const searchesExecuted = [
     ...(activeSearchProviders.includes('brave') ? [{
@@ -279,6 +289,20 @@ export async function gatherEcosystemData(feature) {
       rawFound: webProviderCounts.gemini || 0,
       verified: verifiedArticles.filter(a => (a.providers || []).includes('gemini')).length,
     }] : []),
+    ...(config.twitterBearerToken ? [{
+      type: 'twitter',
+      provider: 'Twitter / X API v2',
+      query: twitterResult.audit?.query || `"${feature.name}"`,
+      rawFound: twitterResult.length,
+      verified: verifiedDiscussions.filter(d => (d.source || '').includes('Twitter')).length,
+      status: twitterResult.audit?.status || (twitterResult.length === 0 ? '0 tweets returned' : undefined),
+    }] : [{
+      type: 'twitter',
+      provider: 'Twitter / X API v2',
+      status: 'Inactive (TWITTER_BEARER_TOKEN not configured)',
+      rawFound: 0,
+      verified: 0,
+    }]),
     { type: 'devto_blogs', provider: 'Dev.to Community Blogs', query: feature.name, rawFound: devToResults.length, verified: verifiedBlogs.length },
     { type: 'hackernews', provider: 'Hacker News Algolia', query: feature.name, rawFound: rawHnResults.length, verified: verifiedDiscussions.filter(d => d.source.includes('Hacker News')).length },
     { type: 'standards', provider: 'Standards Positions', count: standards.length, vendors: standards.map(s => s.vendor) },
@@ -286,7 +310,6 @@ export async function gatherEcosystemData(feature) {
     { type: 'baseline', provider: 'Baseline (baseline.dev)', status: baselineResult?.status || 'untracked', url: baselineResult?.url || null },
     { type: 'npm', provider: 'NPM Registry', rawFound: rawNpmResults.length, verified: verifiedPackages.length, polyfillFound: hasPolyfill },
     { type: 'wpt', provider: 'Web Platform Tests (wpt.fyi)', testCount: wptResult?.testCount || 0 },
-    ...(twitterResult.length > 0 ? [{ type: 'twitter', provider: 'Twitter / X API v2', rawFound: twitterResult.length, verified: verifiedDiscussions.filter(d => d.source.includes('Twitter')).length }] : []),
   ];
 
   const auditTrail = {
@@ -329,6 +352,12 @@ export async function gatherEcosystemData(feature) {
       totalBugs: bugsResult.length,
       totalHnPoints,
       totalHnComments,
+      hnPoints: totalHnPoints,
+      hnComments: totalHnComments,
+      hnCount: hnDiscussions.length,
+      twitterLikes: totalTwitterLikes,
+      twitterReplies: totalTwitterReplies,
+      twitterCount: twitterDiscussions.length,
       hasPolyfill,
     },
   };

@@ -27,7 +27,9 @@ test('searchEngineBugzillas queries Mozilla and WebKit without throwing', async 
 
 test('searchTwitter gracefully returns empty array when no token is set', async () => {
   const results = await searchTwitter({ name: 'Web Install API' });
-  assert.deepStrictEqual(results, []);
+  assert.ok(Array.isArray(results));
+  assert.strictEqual(results.length, 0);
+  assert.ok(results.audit, 'Attaches audit info');
 });
 
 test('searchDevToBlogs queries dev.to API without throwing', async () => {

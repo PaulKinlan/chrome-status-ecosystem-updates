@@ -12,12 +12,13 @@ Currently there is no web standard way to control whether text decorations (unde
 
 ## Ecosystem Status
 
-- **Momentum:** Moderate (40 points)
+- **Momentum:** Moderate (60 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Cautiously Optimistic
-- **Executive Take:** CSS4 text-decoration-skip-spaces is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
+- **Sentiment:** Positive
+- **Executive Take:** CSS4 text-decoration-skip-spaces enables fine-grained authorial control over whether text decorations like underlines and line-throughs skip leading, trailing, or all whitespace characters. Shipping enabled by default in Chromium (Chrome 154), this property resolves long-standing cross-browser discrepancies in whitespace underline rendering without requiring layout hacks. While specified in CSS Text Decoration Module Level 4, Chromium is the first engine to finalize default shipping status as WebKit and Gecko track related WPT suites.
 
 ### Recommendations
+- Actionable Advice: Adopt text-decoration-skip-spaces as a pure progressive enhancement today, as unsupported browsers will gracefully fall back to standard text-decoration behavior without breaking layout. Use `@supports (text-decoration-skip-spaces: none)` if styling logic depends on custom text offset or padding adjustments.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
@@ -26,21 +27,38 @@ Currently there is no web standard way to control whether text decorations (unde
 
 - [[blink-dev] Re: Intent to Ship: CSS4 text-decoration-skip-spaces](http://www.mail-archive.com/blink-dev@chromium.org/msg17159.html) *(mail-archive.com)*
   > [blink-dev] Re: Intent to Ship: CSS4 text-decoration-skip-spaces Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: CSS4 text-decoration-skip-spaces 'Dan Clark' via blink-dev Wed, 12 Aug 2026 09:19:31 -0700 We talked about this dur...
-- [[blink-dev] Intent to Ship: CSS4 text-decoration-skip-spaces](http://www.mail-archive.com/blink-dev@chromium.org/msg17140.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Ship: CSS4 text-decoration-skip-spaces Skip to site navigation (Press enter) [blink-dev] Intent to Ship: CSS4 text-decoration-skip-spaces Chromestatus Tue, 11 Aug 2026 06:02:57 -0700 Contact emails [email&#160;protected] Specifi...
 - [CSS4 text-decoration-skip-spaces](https://chromestatus.com/feature/4832783806627840) *(chromestatus.com · 2026-04-10T00:00:00)*
-  > Chrome Platform Status
-- [Re: [blink-dev] Re: Intent to Ship: CSS4 text-decoration-skip-spaces](http://www.mail-archive.com/blink-dev@chromium.org/msg17311.html) *(mail-archive.com)*
-  > Re: [blink-dev] Re: Intent to Ship: CSS4 text-decoration-skip-spaces Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: CSS4 text-decoration-skip-spaces Chris Harrelson Wed, 26 Aug 2026 13:25:02 -0700 Hi, please let us (API own...
+  > We cannot provide a description for this page right now
+
+## 🔗 Inbound Citations & Reverse Links
+
+The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
+
+- [[blink-dev] Re: Intent to Ship: CSS4 text-decoration-skip-spaces](http://www.mail-archive.com/blink-dev@chromium.org/msg17159.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/4832783806627840`)*
+  > [blink-dev] Re: Intent to Ship: CSS4 text-decoration-skip-spaces Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: CSS4 text-decoration-skip-spaces 'Dan Clark' via blink-dev Wed, 12 Aug 2026 09:19:31 -0700 We talked abou...
+
+## 📚 Platform Documentation & Specifications
+
+- [[css-text-decor-4] Variants of text-decoration-skip-spaces:end behavior, and initial value · Issue #4653 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/4653) *(github.com)*
+- [CSS Text Decoration Module Level 4](https://www.w3.org/TR/css-text-decor-4) *(w3.org)*
+- [[css-text-decor-4] Don't skip visible word-separators when skipping only leading/trailing spaces · Issue #5249 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/5249) *(github.com)*
+- [[css-text-decor] selective toggling in the text-decoration-skip property. · Issue #843 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/843) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 4 result(s) found (query: `""CSS4 text-decoration-skip-spaces" API"`) — **4 verified relevant**
+- **Brave Search:** 35 result(s) found across 7 planned queries — **6 verified relevant**
+  - `"chromestatus.com/feature/4832783806627840" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
+  - `"drafts.csswg.org/css-text-decor-4" -site:drafts.csswg.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (7 returned)
+  - `"text-decoration-skip-spaces" OR "text-decoration-skip: spaces" css underline` — *Finds developer guides, web typography tutorials, and blog posts explaining how to suppress underline or decoration rendering over whitespace.* (6 returned)
+  - `"text-decoration-skip-spaces" css (none | all | start | end) example` — *Discovers CSS syntax definitions, spec values, and practical stylesheet usage examples.* (3 returned)
+  - `"text-decoration-skip-spaces" (site:chromestatus.com OR site:bugs.webkit.org OR site:bugzilla.mozilla.org OR "Intent to")` — *Searches for browser engine implementation tickets, Intent to Prototype/Ship signals, and engine support status.* (8 returned)
+  - `"text-decoration-skip-spaces" site:github.com/w3c/csswg-drafts` — *Finds CSS Working Group specification issues, design feedback, and standard evolution discussions on GitHub.* (4 returned)
+  - `css underline whitespace "text-decoration-skip" OR "text-decoration-skip-spaces" (site:stackoverflow.com OR site:reddit.com/r/css)` — *Identifies real-world developer pain points, workarounds, and discussions regarding text decorations drawing under trailing/leading spaces.* (8 returned)
 - **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
-- **Dev.to Community Blogs:** 8 result(s) found (query: `"CSS4 text-decoration-skip-spaces"`) — **4 verified relevant**
-- **Hacker News Algolia:** 0 result(s) found (query: `"CSS4 text-decoration-skip-spaces"`) — **0 verified relevant**
+- **Dev.to Community Blogs:** 8 result(s) found — **2 verified relevant**
+- **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 item(s) inspected
 - **Engine Bug Trackers:** 0 item(s) inspected
 - **Baseline (baseline.dev):** *untracked*
@@ -52,7 +70,7 @@ Currently there is no web standard way to control whether text decorations (unde
 - **Specification:** ✔ Formally verified
 - **Explainers:** 0 document(s) analyzed
 - **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 8 page(s)
+- **Web Page Excerpts Ingested:** 7 page(s)
 
 ## Useful Links
 

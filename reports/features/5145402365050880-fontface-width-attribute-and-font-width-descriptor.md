@@ -12,13 +12,13 @@ CSS Font Loading and CSS Fonts 4 define width as the primary FontFace descriptor
 
 ## Ecosystem Status
 
-- **Momentum:** High (130 points)
+- **Momentum:** High (170 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Positive
-- **Executive Take:** Chromium 154 ships support for the `FontFace.prototype.width` attribute and the `@font-face` `font-width` descriptor as direct aliases for `stretch` and `font-stretch`. This brings Chromium into compliance with modern CSS Font Loading and CSS Fonts Level 4 specifications, resolving failing Web Platform Tests. The change provides a unified naming convention across JavaScript and CSS without breaking backward compatibility.
+- **Executive Take:** The addition of the FontFace `width` attribute and the `@font-face` `font-width` descriptor brings Chromium into compliance with CSS Fonts 4 and CSS Font Loading specifications. These properties serve as modern, standardized aliases for the legacy `stretch` and `font-stretch` syntax without breaking existing font descriptors. With Gecko already supporting the aliasing WPT tests and WebKit aligned with the specification direction, cross-engine interoperability is solidifying.
 
 ### Recommendations
-- Actionable Advice: Continue authoring `@font-face` rules and `FontFace` descriptors with `font-stretch`/`stretch` or adopt `font-width`/`width` interchangeably, as browsers will retain backward compatibility. For greenfield font loading pipelines in JavaScript, `FontFace.prototype.width` can now be safely inspected or initialized when targeting modern browser baselines.
+- Actionable Advice: Development teams can begin using `FontFace.width` and `font-width` for modern code clarity, but should maintain fallback to or continue using `font-stretch` / `FontFace.stretch` in cross-browser production code until Baseline status is fully achieved.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
@@ -30,41 +30,73 @@ CSS Font Loading and CSS Fonts 4 define width as the primary FontFace descriptor
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFoYLyBuAzWZkbdyBXikR-sE-K7jKi1nzs0A9BfEd7UNn48S3N03YCriibq8jreOZgJij6BYFZdgmsGaVuT5p9b_l6gxfQbokhqtOv8s_L-RPLQJ4kg2to9wfYZo0_9h5XuDHc94Kqf) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [w3.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsYsVLA2akYcESFylaSvqYHqz_HP4LhLFBaI4obDpEDG1kJy9auAq-78ofq5aDJMl6DD9cipw2aJXaEY3AjvqwDWAN847TYrribcOP0ZZcyso5ayKLZvjo) *(vertexaisearch.cloud.google.com)*
-  > ### Summary  The CSS Fonts Module Level 4 and CSS Font Loading specifications modernize font descriptor terminology by establishing **`font-width`** and **`FontFace.prototype.width`** as the canonical identifiers, retaining `font-stretch` and `FontFa
-- [google.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFHFcYrZCTfAhlawiRDsLtTwZPxwGJ4GK0yHMqfPVTnCksf9A5Sdgf-m0y-oOVm_HdiQVrIscKqRv1WxBX04ET7z_5u1kGE6cPn6vIyJq1OnPqgVI_BkLv1jYpkFE_TPWOZCEIsMwvT0kReccuVzgmLYzKCazebRoV9LPglzpRLjRUrgaFuqJ_RBYvYfwxKtNgZLjK7ydtG5STjWslXGi0=) *(vertexaisearch.cloud.google.com)*
-  > Intent to Ship: FontFace width attribute and font-width descriptor Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Ship: FontFace width attr...
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6TLfwab9yN4T2Y-UoFMqUCD-wCxl5sO6yW6r3EtFfhK-mVrWNWqItwIO3nqwQzy3SNq145kpOk_Em1tfh7StZL5xdtyN0LDERASPrzfMC9IP8quzK_lFXu8O9foH6zAEGSfNSOf_om6JtB-bGdiSXEOlzreqCxci3lKmuQvzfDHjeSQMU9lAOxgyVjeFWpA==) *(vertexaisearch.cloud.google.com)*
-  > font-width CSS at-rule descriptor - CSS | MDN Skip to main content Skip to search Toggle sidebar Web CSS Reference At-rules @font-face font-width Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) Français font...
-- [realityripple.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGE97WTCOR6gQjbgS0B8wHge3LWcDgwrXW5aQ8HDvMJHZBQk3uTpzbzY8J5E5li1vj7Zu5PSriE1umoTkbS7E1ggSvXKN5B9-XlIaELOzScBDpfxcQ30bGZsQMW6UIZeQwIq9pCmSulfyjqe_o8CKNyt9nnvJzEDfM=) *(vertexaisearch.cloud.google.com)*
-  > font-stretch - CSS: Cascading Style Sheets Skip to main content font-stretch On this Page Jump to section Syntax Accessibility concerns Formal definition Formal syntax Examples Specifications Browser compatibility See also Related topics The font-str...
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE7dzQOxpki7X-zlfoeUgLIhLAaq24q0Sx_BrZD1SKFUfmjiRhN-Lpj4Hj-1AG0AH--pg5JX7lNYUtLBc-rq0WalyE-p6SIE7UHe4MjthtNPvy7SUd9rq6k9D59jdN3WNrLXWPdJqJv4Bq_NSSS9k2aDc1FqJTKgKoSQ-XXPXgqa3ylEqfB0x8p0no8cL7jc1GD) *(vertexaisearch.cloud.google.com)*
-  > font-stretch CSS at-rule descriptor - CSS | MDN Skip to main content Skip to search Toggle sidebar Web CSS Reference At-rules @font-face font-stretch Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) Français ...
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGqZewSjzEq8qQ04z7jp80iq66igb3xK-GWgh6zPtumDpIG4sn_VW7iWjzYbpVSq5_OLpZ-HXa3JhIIZC1P0A0i1rLynUOMDlytk_zQ4HoZ2CkvKA_5G-THp0JO1asU-zOpQWtI_uc6jqnxjpux_nfpnr3CcRQ=) *(vertexaisearch.cloud.google.com)*
-  > font-width · Issue #285 · web-platform-dx/developer-signals · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your session. Yo...
-- [[blink-dev] Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17165.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Ship: FontFace width attribute and font-width descriptor Skip to site navigation (Press enter) [blink-dev] Intent to Ship: FontFace width attribute and font-width descriptor Chromestatus Wed, 12 Aug 2026 21:46:10 -0700 Contact e...
-- [[blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17196.html) *(mail-archive.com)*
-  > &gt; &gt; *Adoption expectation* &gt; Feature ... font face width &gt; descriptors within 12 months of reaching Web Platform baseline. &gt; &gt; *Adoption plan* &gt; Web Platform Tests (WPT) have been added to ensure cross-browser &gt; interoperabili...
 - [Re: [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17223.html) *(mail-archive.com)*
-  > &gt;&gt;&gt; &gt;&gt; &gt;&gt;&gt; &gt;&gt; Adoption expectation ... font face width &gt;&gt;&gt; descriptors within 12 months of reaching Web Platform baseline. &gt;&gt;&gt; &gt;&gt; &gt;&gt;&gt; &gt;&gt; Adoption plan &gt;&gt;&gt; &gt;&gt; Web Plat...
+  > Please list open issues (e.g. links to known github &gt;&gt;&gt; issues in the project for the feature specification) whose resolution may &gt;&gt;&gt; introduce web compat/interop risk (e.g., changing to naming or structure of &gt;&gt;&gt; the API i...
+- [[blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17203.html) *(mail-archive.com)*
+  > Please list open issues (e.g. links to known github issues &gt;&gt; in the project for the feature specification) whose resolution may introduce &gt;&gt; web compat/interop risk (e.g., changing to naming or structure of the API in &gt;&gt; a non-back...
+- [[blink-dev] Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17165.html) *(mail-archive.com)*
+  > Please list open issues (eg links ... API in a non-backward-compatible way). None Link to entry on the Chrome Platform Status https://<strong>chromestatus.com/feature/5145402365050880</strong>?gate=5525688097570816 This intent message was generated b...
+- [CSS Fonts Module Level 4](https://w3c.github.io/csswg-drafts/css-fonts-4) *(w3c.github.io)*
+  > CSS Fonts Module Level 4 CSS Fonts Module Level 4 Editor’s Draft , 28 August 2026 More details about this document This version: https://drafts.csswg.org/css-fonts-4/ Latest published version: https://www.w3.org/TR/css-fonts-4/ Previous Versions: htt...
+- [font-stretch CSS at-rule descriptor - CSS | MDN](https://developer.cdn.mozilla.net/en-US/docs/Web/CSS/@font-face/font-stretch) *(developer.cdn.mozilla.net · 2020-07-22T00:00:00)*
+  > Understanding Success Criterion 1.4.8 | W3C Understanding WCAG 2.0 · font-width = auto | &lt;&#x27;font-width&#x27;&gt;{1,2} &lt;font-width&gt; = normal | &lt;percentage [0,∞]&gt; | ultra-condensed | extra-condensed | condensed | semi-condensed | sem...
+
+## 🔗 Inbound Citations & Reverse Links
+
+The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
+
+- [Re: [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17223.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5145402365050880`)*
+  > Please list open issues (e.g. links to known github &gt;&gt;&gt; issues in the project for the feature specification) whose resolution may &gt;&gt;&gt; introduce web compat/interop risk (e.g., changing to naming or structure of &gt;&gt;&gt;...
+- [[blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17203.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5145402365050880`)*
+  > Please list open issues (e.g. links to known github issues &gt;&gt; in the project for the feature specification) whose resolution may introduce &gt;&gt; web compat/interop risk (e.g., changing to naming or structure of the API in &gt;&gt; ...
+- [[blink-dev] Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17165.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5145402365050880`)*
+  > Please list open issues (eg links ... API in a non-backward-compatible way). None Link to entry on the Chrome Platform Status https://<strong>chromestatus.com/feature/5145402365050880</strong>?gate=5525688097570816 This intent message was g...
+- [csswg-drafts/css-fonts-4/Overview.bs at main · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/blob/main/css-fonts-4/Overview.bs) *(github.com)* *(Cites: `https://drafts.csswg.org/css-fonts-4/#font-width-prop`)*
+  > csswg-drafts/css-fonts-4/Overview.bs at main · w3c/csswg-drafts · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh yo...
+- [CSS Fonts Module Level 4](https://w3c.github.io/csswg-drafts/css-fonts-4) *(w3c.github.io)* *(Cites: `https://drafts.csswg.org/css-fonts-4/#font-width-prop`)*
+  > CSS Fonts Module Level 4 CSS Fonts Module Level 4 Editor’s Draft , 28 August 2026 More details about this document This version: https://drafts.csswg.org/css-fonts-4/ Latest published version: https://www.w3.org/TR/css-fonts-4/ Previous Ver...
+- [CSS Fonts Module Level 4](https://www.w3.org/TR/css-fonts-4) *(w3.org · 2026-08-10T22:22:55)* *(Cites: `https://drafts.csswg.org/css-fonts-4/#font-width-prop`)*
+  > https://www.w3.org/TR/css-fonts-4/ Editor&#x27;s Draft: https://<strong>drafts.csswg.org/css-fonts-4</strong>/ Previous Versions: https://www.w3.org/TR/2024/WD-css-fonts-4-20240201/ https://www.w3.org/TR/2026/WD-css-fonts-4-20260422/ Histor...
+- [[css-fonts-4] [varfont] Problem setting up a "4-style family" with variable fonts · Issue #1289 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/1289) *(github.com · 2017-04-24T20:10:52)* *(Cites: `https://drafts.csswg.org/css-fonts-4/#font-width-prop`)*
+  > [css-fonts-4] [varfont] Problem setting up a "4-style family" with variable fonts · Issue #1289 · w3c/csswg-drafts · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed ...
+- [[css-fonts-4] Avoid font synthesis outside of variable range · Issue #7999 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/7999) *(github.com · 2022-11-03T10:32:42)* *(Cites: `https://drafts.csswg.org/css-fonts-4/#font-width-prop`)*
+  > [css-fonts-4] Avoid font synthesis outside of variable range · Issue #7999 · w3c/csswg-drafts · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab o...
+- [[css-fonts-4] Which type of font family names are system font names? · Issue #9292 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/9292) *(github.com)* *(Cites: `https://drafts.csswg.org/css-fonts-4/#font-width-prop`)*
+  > Are they generic family names? There are two types of font family names: [...] [...] https://<strong>drafts.csswg.org/css-fonts-4</strong>/#font-family-prop Or a separate type? About # in the prelude of @font-f...
+- [csswg-drafts/Overview.bs at main · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/blob/main/css-fonts-5/Overview.bs) *(github.com)* *(Cites: `https://drafts.csswg.org/css-fonts-4/#font-width-prop`)*
+  > Abstract: <strong>This specification defines modifications to the existing &lt;a href=&quot;https://drafts.csswg.org/css-fonts-4/&quot;&gt;CSS Fonts 4&lt;/a&gt; specification along with additional features</strong>. Repository: w3c/csswg-dr...
+- [[css-fonts] font property descriptors for variable fonts · Issue #2485 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/2485) *(github.com · 2018-03-29T17:15:50)* *(Cites: `https://drafts.csswg.org/css-fonts-4/#font-width-prop`)*
+  > Re: https://<strong>drafts.csswg.org/css-fonts-4</strong>/#font-prop-desc According to my reading of the current spec text, in particular: If these descriptors are omitted, initial values are assumed. Where a single value is specified, it h...
 
 ## 📚 Platform Documentation & Specifications
 
+- [csswg-drafts/css-fonts-4/Overview.bs at main · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/blob/main/css-fonts-4/Overview.bs) *(github.com)*
+- [CSS Fonts Module Level 4](https://www.w3.org/TR/css-fonts-4) *(w3.org)*
+- [[css-fonts-4] [varfont] Problem setting up a "4-style family" with variable fonts · Issue #1289 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/1289) *(github.com)*
+- [[css-fonts-4] Avoid font synthesis outside of variable range · Issue #7999 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/7999) *(github.com)*
+- [[css-fonts-4] Which type of font family names are system font names? · Issue #9292 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/9292) *(github.com)*
+- [csswg-drafts/Overview.bs at main · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/blob/main/css-fonts-5/Overview.bs) *(github.com)*
+- [[css-fonts] font property descriptors for variable fonts · Issue #2485 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/2485) *(github.com)*
+- [font-stretch CSS at-rule descriptor - CSS | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-stretch) *(developer.mozilla.org)*
+- [font-stretch CSS at-rule descriptor - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face/font-stretch) *(developer.mozilla.org)*
+- [font-width CSS at-rule descriptor - CSS | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face/font-width) *(developer.mozilla.org)*
+- [font-width CSS property - MDN Web Docs - Mozilla](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/font-width) *(developer.mozilla.org)*
 - [font-width](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/font-width) *(developer.mozilla.org)*
-- [font-width CSS at-rule descriptor](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face/font-width) *(developer.mozilla.org)*
-- [font-width CSS property](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/font-width) *(developer.mozilla.org)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 3 result(s) found (query: `""FontFace width attribute and font-width descriptor" API"`) — **3 verified relevant**
-- **Google Search Grounding (gemini-3.7-flash):** 7 result(s) found — **7 verified relevant**
-- **Dev.to Community Blogs:** 8 result(s) found (query: `"FontFace width attribute and font-width descriptor"`) — **10 verified relevant**
-- **Hacker News Algolia:** 0 result(s) found (query: `"FontFace width attribute and font-width descriptor"`) — **0 verified relevant**
+- **Brave Search:** 16 result(s) found across 6 planned queries — **16 verified relevant**
+  - `"chromestatus.com/feature/5145402365050880" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (3 returned)
+  - `"drafts.csswg.org/css-fonts-4" -site:drafts.csswg.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (8 returned)
+  - `"@font-face" "font-width" ("font-stretch" OR "CSS Fonts 4") (guide OR tutorial OR blog)` — *Finds developer guides and articles explaining the transition from font-stretch to font-width in CSS @font-face rules.* (4 returned)
+  - `"new FontFace" ("width:" OR "font-width") javascript (example OR snippet OR github)` — *Locates practical JavaScript code examples and WebIDL usage where FontFace is initialized or inspected using the width descriptor.* (2 returned)
+  - `("FontFace.width" OR "font-width descriptor") ("Chrome" OR "Chromium" OR "Firefox" OR "WebKit") ("Intent to Ship" OR "Release Notes")` — *Tracks browser implementation status, release notes, and Intent to Ship announcements across major browser engines.* (0 returned)
+  - `site:github.com/w3c/csswg-drafts ("font-width" OR "FontFace.width") ("font-stretch" OR "stretch")` — *Surfaces CSSWG standard discussions, debates, and resolutions surrounding renaming stretch to width as the primary descriptor.* (0 returned)
+- **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 8 result(s) found — **5 verified relevant**
+- **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 item(s) inspected
 - **Engine Bug Trackers:** 0 item(s) inspected
 - **Baseline (baseline.dev):** *untracked*
@@ -76,7 +108,7 @@ CSS Font Loading and CSS Fonts 4 define width as the primary FontFace descriptor
 - **Specification:** ✔ Formally verified
 - **Explainers:** 0 document(s) analyzed
 - **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 7 page(s)
+- **Web Page Excerpts Ingested:** 4 page(s)
 
 ## Useful Links
 

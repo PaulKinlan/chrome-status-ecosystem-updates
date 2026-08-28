@@ -133,11 +133,16 @@ export function generateWeeklyMarkdown(reportData) {
       md += `\n`;
     }
 
-    // Community Discussions (HN / Forums)
+    // Community Discussions (HN / Twitter / Forums)
     if (eco.discussions && eco.discussions.length > 0) {
       md += `#### 💬 Community Discussions & Developer Reactions\n\n`;
-      for (const disc of eco.discussions.slice(0, 5)) {
-        md += `- [${disc.title}](${disc.discussionUrl || disc.url}) — *${disc.source} (${disc.points || 0} pts, ${disc.commentsCount || 0} comments)*\n`;
+      for (const disc of eco.discussions.slice(0, 8)) {
+        const icon = (disc.source || '').includes('Twitter') ? '🐦' : '💬';
+        const authorSuffix = disc.author ? ` by ${disc.author}` : '';
+        const metricsStr = (disc.source || '').includes('Twitter')
+          ? `${disc.points || 0} likes/RTs, ${disc.commentsCount || 0} replies`
+          : `${disc.points || 0} pts, ${disc.commentsCount || 0} comments`;
+        md += `- ${icon} [${escapeMarkdown(disc.title)}](${disc.discussionUrl || disc.url}) — *${disc.source}${authorSuffix} (${metricsStr})*\n`;
       }
       md += `\n`;
     }
@@ -319,9 +324,14 @@ function generateSingleFeatureMarkdown(item, weekString) {
   }
 
   if (eco.discussions?.length > 0) {
-    md += `## Community Discussions\n\n`;
+    md += `## Community Discussions & Social Pulse\n\n`;
     for (const d of eco.discussions) {
-      md += `- [${d.title}](${d.discussionUrl || d.url}) (${d.points} pts, ${d.commentsCount} comments)\n`;
+      const icon = (d.source || '').includes('Twitter') ? '🐦' : '💬';
+      const authorSuffix = d.author ? ` by ${d.author}` : '';
+      const metricsStr = (d.source || '').includes('Twitter')
+        ? `${d.points || 0} likes/RTs, ${d.commentsCount || 0} replies`
+        : `${d.points || 0} pts, ${d.commentsCount || 0} comments`;
+      md += `- ${icon} **${d.source || 'Discussion'}:** [${escapeMarkdown(d.title)}](${d.discussionUrl || d.url}) — *${authorSuffix ? authorSuffix.trim() + ', ' : ''}${metricsStr}*\n`;
     }
     md += `\n`;
   }

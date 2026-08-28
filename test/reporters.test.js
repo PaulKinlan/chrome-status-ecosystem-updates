@@ -128,3 +128,32 @@ test('generateWeeklyMarkdown encodes HTML in feature titles to prevent raw HTML 
   assert.ok(!md.includes('### [responsively sized <iframe>]'), 'Does not render unescaped <iframe> in headings');
   assert.ok(md.includes('&lt;iframe&gt;'), 'Encodes < and > as HTML entities');
 });
+
+test('generateWeeklyMarkdown renders Twitter discussions with author and bird icon', () => {
+  const dataWithTweet = {
+    ...mockReportData,
+    features: [
+      {
+        ...mockReportData.features[0],
+        ecosystem: {
+          ...mockReportData.features[0].ecosystem,
+          discussions: [
+            {
+              source: 'Twitter / X',
+              title: 'Check out the new Web Install API!',
+              url: 'https://twitter.com/dev/status/123',
+              points: 25,
+              commentsCount: 5,
+              author: '@ChromiumDev',
+            },
+          ],
+        },
+      },
+    ],
+  };
+
+  const md = generateWeeklyMarkdown(dataWithTweet);
+  assert.ok(md.includes('🐦 [Check out the new Web Install API!]'));
+  assert.ok(md.includes('Twitter / X by @ChromiumDev'));
+  assert.ok(md.includes('25 likes/RTs, 5 replies'));
+});

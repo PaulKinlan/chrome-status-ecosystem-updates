@@ -12,36 +12,47 @@ Aligns Chrome with the spec's [Exposed] set and removes a cross‑thread inconsi
 
 ## Ecosystem Status
 
-- **Momentum:** High (100 points)
+- **Momentum:** High (140 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Positive
-- **Executive Take:** Chrome 154 resolves a long-standing omission in Blink by exposing the CSS Typed OM `CSSStyleValue` class hierarchy (including `CSSNumericValue`, `CSSKeywordValue`, and `CSSUnitValue`) inside Dedicated and Shared Worker global scopes. This change brings Blink into full alignment with the W3C CSS Typed OM Level 1 specification and closes an interoperability gap with Firefox and Safari, which already supported these constructors off the main thread.
+- **Executive Take:** Exposing the CSSStyleValue hierarchy to Worker contexts completes cross-browser alignment for CSS Typed OM Level 1 across all major engines. While Firefox and Safari previously supported these interfaces in background threads, Blink's shipment resolves a longstanding cross-thread inconsistency. This unlocks robust, interoperable off-main-thread CSS calculations and unit manipulation without runtime type mismatches.
 
 ### Recommendations
-- Actionable Advice: Teams performing off-main-thread CSS calculations or canvas/worker styling should verify worker contexts and can safely adopt Typed OM constructors across all modern browsers. Maintain simple runtime feature detection (e.g., `typeof CSSNumericValue !== 'undefined'`) to gracefully support older Chromium releases.
+- Actionable Advice: Teams can safely leverage CSS Typed OM constructors (like CSSUnitValue, CSSKeywordValue, and CSSMathValue) inside Web Workers for background computations. Be mindful that static parser methods like CSSStyleValue.parse() remain Window-only and require explicit constructor instantiation in worker scripts.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGARYOAQGX6kLZYUeoEqUC5-_Vj_ApUZ8e-5gIUuVxgV0_QyWW_MS_e8Sik6SRyWTgc66vUEziUAPdQfR5aEJvBHP2O5YJSksdGXGQoPGa_eqmU69yKWNxXOc2yPwxWJzlowCMGspo=) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [w3.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrRWFeGnsLn-6lOCJfMiwzh-x60vbloiyZG_zfi-9UAZPCeWLKlnPe3d2BD_PyFUvAUk_IcsXCoJYYUs8O7stljDb6IkAGOolxwqhjNgOxFAig_4fh4fdirug=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary  The web platform update **"Expose CSSStyleValue hierarchy to Worker contexts"** aligns Chromium's Blink engine with the **W3C CSS Typed OM Level 1 specification**.   * **The Problem:** The CSS Typed OM specification mandates exposing the
-- [bsky.app](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF31JA0Bj7FG74V-_tT1Lr0ej0DwJLKDdANWtIUgAY687dvm2NnsF7GZ4VHI0L0s7dEC_w6uJPATpZDLje2EqFtyP4Jx8r7k98V2eqPn8ydJj6BlM7GQbqfIX549Eh0) *(vertexaisearch.cloud.google.com)*
-  > @intenttoship.dev on Bluesky JavaScript Required This is a heavily interactive web application, and JavaScript is required. Simple HTML interfaces are possible, but that is not what this is. Learn more about Bluesky at bsky.social and atproto.com . P...
-- [appspot.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFVgJ25p2okjS8aMmlBL7NeB_TR1lZGZdrww0CvgbWgDNp4EEOpqTKIGdsg0gV4dZBA96rRhovZnAh8g09XHf0KXzNCmLbFEjs1bBFZwzqbJf0CPg==) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [appspot.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFzu8Q0W9fPbHSm8-VgIAyxI1Soa0WugOdtuxeIL2Th6dykfSeBkVzD7w1esILTFlER71BwPkf2q-t0EclERiETifZVXSjhtJqmYTpFWdfSIBottxUOPADWa-duaTCpj7GIr1lp4-Z7iyqAGMDCD5kXlXhDFxsyrx3O1BG9lwJPNLgZ4w==) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
 - [[blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17113.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Skip to site navigation (Press enter) [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Javier Fernandez Tue, 04 Aug...
-- [Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17118.html) *(mail-archive.com)*
-  > Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Skip to site navigation (Press enter) Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Daniel Bratell Wed, ...
+  > https://github.com/w3c/csswg-drafts/issues/14229 *Link to entry on the Chrome Platform Status* https://<strong>chromestatus.com/feature/5114591051907072</strong>?gate=6116938171416576 This intent message was generated byChrome Platform Status &lt;htt...
+- [Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17119.html) *(mail-archive.com)*
+  > &gt;&gt; https://github.com/w3c/csswg-drafts/issues/14229 &gt;&gt; &gt;&gt; *Link to entry on the Chrome Platform Status* &gt;&gt; https://<strong>chromestatus.com/feature/5114591051907072</strong>?gate=6116938171416576 &gt;&gt; &gt;&gt; This intent ...
+- [Working with the new CSS Typed Object Model | CSS and UI | Chrome for Developers](https://developer.chrome.com/docs/css-ui/cssom) *(developer.chrome.com · 2018-03-26T00:00:00)*
+  > Working with the new CSS Typed Object Model | CSS and UI | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربي...
+- [CSSUnitValue interface - WebIDLpedia](https://dontcallmedom.github.io/webidlpedia/names/CSSUnitValue.html) *(dontcallmedom.github.io)*
+  > [Exposed=(Window, Worker, PaintWorklet, LayoutWorklet)] interface CSSUnitValue : CSSNumericValue { constructor(double value, USVString unit); attribute double value; readonly attribute USVString unit; };
+- [Creating a Typescript Project with Support for Web Workers?](https://stackoverflow.com/questions/78949923/creating-a-typescript-project-with-support-for-web-workers) *(stackoverflow.com)*
+  > Variable &#x27;CSSNumericValue&#x27; must be of type &#x27;{ new (): CSSNumericValue; prototype: CSSNumericValue; parse(cssText: string): CSSNumericValue; }&#x27;, but here has type &#x27;{ new (): CSSNumericValue; prototype: CSSNumericValue; }&#x27;...
+
+## 🔗 Inbound Citations & Reverse Links
+
+The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
+
+- [[blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17113.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5114591051907072`)*
+  > https://github.com/w3c/csswg-drafts/issues/14229 *Link to entry on the Chrome Platform Status* https://<strong>chromestatus.com/feature/5114591051907072</strong>?gate=6116938171416576 This intent message was generated byChrome Platform Stat...
+- [Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17119.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5114591051907072`)*
+  > &gt;&gt; https://github.com/w3c/csswg-drafts/issues/14229 &gt;&gt; &gt;&gt; *Link to entry on the Chrome Platform Status* &gt;&gt; https://<strong>chromestatus.com/feature/5114591051907072</strong>?gate=6116938171416576 &gt;&gt; &gt;&gt; Th...
 
 ## 📚 Platform Documentation & Specifications
 
+- [CSSNumericValue: parse() static method - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/CSSNumericValue/parse_static) *(developer.mozilla.org)*
+- [Using the CSS Typed Object Model - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Typed_OM_API/Guide) *(developer.mozilla.org)*
+- [CSS Typed Object Model API - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Typed_OM_API) *(developer.mozilla.org)*
+- [CSSUnitValue - Web APIs - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSUnitValue) *(developer.mozilla.org)*
+- [CSSUnitValue: CSSUnitValue() constructor - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/CSSUnitValue/CSSUnitValue) *(developer.mozilla.org)*
+- [@nx/angular:library unbuildable due to WebWorker and DOM · Issue #30194 · nrwl/nx](https://github.com/nrwl/nx/issues/30194) *(github.com)*
 - [CSSStyleValue: toString() method](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleValue/toString) *(developer.mozilla.org)*
 - [CSSStyleValue](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleValue) *(developer.mozilla.org)*
 - [CSSStyleValue: parse() static method](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleValue/parse_static) *(developer.mozilla.org)*
@@ -50,10 +61,16 @@ Aligns Chrome with the spec's [Exposed] set and removes a cross‑thread inconsi
 
 ### Searches Executed
 
-- **Brave Search:** 2 result(s) found (query: `""Expose CSSStyleValue hierarchy to Worker contexts" API"`) — **2 verified relevant**
-- **Google Search Grounding (gemini-3.7-flash):** 5 result(s) found — **5 verified relevant**
-- **Dev.to Community Blogs:** 8 result(s) found (query: `"Expose CSSStyleValue hierarchy to Worker contexts"`) — **7 verified relevant**
-- **Hacker News Algolia:** 0 result(s) found (query: `"Expose CSSStyleValue hierarchy to Worker contexts"`) — **0 verified relevant**
+- **Brave Search:** 13 result(s) found across 6 planned queries — **11 verified relevant**
+  - `"chromestatus.com/feature/5114591051907072" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (2 returned)
+  - `"www.w3.org/TR/css-typed-om-1" -site:www.w3.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (1 returned)
+  - `"CSS Typed OM" ("Web Worker" OR "WorkerGlobalScope") ("CSSStyleValue" OR "CSSNumericValue")` — *Discovers developer articles, tutorials, and guides explaining off-main-thread CSS value manipulation and Typed OM support in workers.* (0 returned)
+  - `("new CSSUnitValue" OR "CSSNumericValue.parse" OR "CSSKeywordValue") (worker.js OR "onmessage" OR "postMessage")` — *Finds real-world JavaScript code examples and test cases utilizing CSS Typed OM constructors inside Web Worker scripts.* (8 returned)
+  - `"CSSStyleValue" ("Exposed=(Window, Worker" OR "WorkerGlobalScope") ("Intent to Ship" OR "Chrome" OR "Chromium")` — *Surfaces browser engine release notes, Intent-to-Ship announcements, and standard alignment updates across Chromium, Firefox, and WebKit.* (0 returned)
+  - `("CSSStyleValue" OR "CSSNumericValue") "undefined" ("Worker" OR "DedicatedWorkerGlobalScope") site:github.com OR site:stackoverflow.com OR site:bugs.chromium.org` — *Finds developer bug reports, compatibility discussions, and workarounds regarding missing CSS Typed OM constructors in Chrome workers versus other browsers.* (2 returned)
+- **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 8 result(s) found — **5 verified relevant**
+- **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 item(s) inspected
 - **Engine Bug Trackers:** 0 item(s) inspected
 - **Baseline (baseline.dev):** *untracked*
@@ -65,7 +82,7 @@ Aligns Chrome with the spec's [Exposed] set and removes a cross‑thread inconsi
 - **Specification:** ✔ Formally verified
 - **Explainers:** 0 document(s) analyzed
 - **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 7 page(s)
+- **Web Page Excerpts Ingested:** 6 page(s)
 
 ## Useful Links
 

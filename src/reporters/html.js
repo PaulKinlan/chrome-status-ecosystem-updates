@@ -673,9 +673,21 @@ export function generateDashboardHtml(reportData) {
         const safariStd = (eco.standards || []).find(s => s.vendor === 'WebKit');
         const safariUrl = f.browsers?.safari?.url || safariStd?.url || \`https://github.com/WebKit/standards-positions/issues?q=\${encodeURIComponent(f.name)}\`;
 
-        // Top discussion URL for HN buzz tile
-        const topHnDiscussion = (eco.discussions && eco.discussions.length > 0) ? eco.discussions[0] : null;
-        const hnUrl = topHnDiscussion ? (topHnDiscussion.discussionUrl || topHnDiscussion.url) : \`https://hn.algolia.com/?q=\${encodeURIComponent(f.name)}\`;
+        // Top discussion URL for Community buzz tile (Hacker News or Twitter / X)
+        const twitterDiscussions = (eco.discussions || []).filter(d => (d.source || '').includes('Twitter') || (d.source || '').includes('X'));
+        const hnDiscussions = (eco.discussions || []).filter(d => (d.source || '').includes('Hacker News'));
+        const topDiscussion = (eco.discussions && eco.discussions.length > 0) ? eco.discussions[0] : null;
+        const communityUrl = topDiscussion ? (topDiscussion.discussionUrl || topDiscussion.url) : \`https://hn.algolia.com/?q=\${encodeURIComponent(f.name)}\`;
+        const communityTileTitle = twitterDiscussions.length > 0 && hnDiscussions.length > 0
+          ? 'Community Pulse'
+          : twitterDiscussions.length > 0
+            ? 'X / Twitter'
+            : 'HN Buzz';
+        const communityTileVal = twitterDiscussions.length > 0 && hnDiscussions.length > 0
+          ? \`\${eco.metrics.hnPoints || 0} pts (HN) · \${eco.metrics.twitterLikes || 0} likes (X)\`
+          : twitterDiscussions.length > 0
+            ? \`\${eco.metrics.twitterLikes || 0} likes (\${eco.metrics.twitterReplies || 0} replies)\`
+            : \`\${eco.metrics.hnPoints || 0} pts (\${eco.metrics.hnComments || 0} msgs)\`;
 
         // Clickable polyfill badge
         const polyfill = eco.verifiedPolyfill;
@@ -757,13 +769,13 @@ export function generateDashboardHtml(reportData) {
                 <div class="subtext">\${safariStd ? 'Standards Issue #' + escapeHtml(safariStd.url.split('/').pop()) : 'Search Position'}</div>
               </a>
 
-              <a href="\${escapeHtml(hnUrl)}" target="_blank" rel="noopener" class="vendor-tile" title="View Hacker News Developer Discussions">
+              <a href="\${escapeHtml(communityUrl)}" target="_blank" rel="noopener" class="vendor-tile" title="View Developer Discussions on \${escapeHtml(communityTileTitle)}">
                 <div class="vendor-tile-header">
-                  <span class="name">HN Buzz</span>
+                  <span class="name">\${escapeHtml(communityTileTitle)}</span>
                   <span class="external-arrow">↗</span>
                 </div>
-                <div class="val">\${eco.metrics.hnPoints || 0} pts (\${eco.metrics.hnComments || 0} msgs)</div>
-                <div class="subtext">\${topHnDiscussion ? 'View Top Discussion' : 'Search Algolia'}</div>
+                <div class="val">\${escapeHtml(communityTileVal)}</div>
+                <div class="subtext">\${topDiscussion ? 'View Top Discussion' : 'Search Discussions'}</div>
               </a>
             </div>
 
@@ -830,12 +842,20 @@ export function generateDashboardHtml(reportData) {
               \` : ''}
 
               \${eco.discussions && eco.discussions.length ? \`
-                <div class="section-title">💬 Verified Community Discussions:</div>
+                <div class="section-title">💬 Verified Community Discussions & Social Pulse:</div>
                 <ul class="links-list" style="margin-bottom: 1.25rem;">
-                  \${eco.discussions.slice(0, 5).map(d => \`
+                  \${eco.discussions.slice(0, 8).map(d => \`
                     <li>
-                      💬 <a href="\${d.discussionUrl || d.url}" target="_blank" rel="noopener">\${escapeHtml(d.title)}</a>
-                      <span class="tag-pill">\${d.points} pts / \${d.commentsCount} comments</span>
+                      <div>
+                        \${(d.source || '').includes('Twitter') ? '🐦' : '💬'}
+                        <strong style="color: var(--text);">\${escapeHtml(d.source || 'Discussion')}:</strong>
+                        <a href="\${escapeHtml(d.discussionUrl || d.url)}" target="_blank" rel="noopener">
+                          \${escapeHtml(d.title || d.content)}
+                        </a>
+                        <span class="tag-pill">\${d.points} \${(d.source || '').includes('Twitter') ? 'likes & RTs' : 'pts'} / \${d.commentsCount} \${(d.source || '').includes('Twitter') ? 'replies' : 'comments'}</span>
+                        \${d.author ? \`<span class="tag-pill" style="color: var(--primary);">\${escapeHtml(d.author)}</span>\` : ''}
+                        \${(d.content && d.content !== d.title) ? \`<div class="comment-quote">\${escapeHtml(d.content.slice(0, 220))}...</div>\` : ''}
+                      </div>
                     </li>
                   \`).join('')}
                 </ul>
