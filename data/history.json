@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-08-27T23:34:48.621Z",
+  "lastRun": "2026-08-28T21:15:08.303Z",
   "lastWeekString": "2026-W35",
   "telemetry": {
     "searchProviders": [],
@@ -560,6 +560,40 @@
       ],
       "lastMomentumLevel": "Emerging",
       "lastConsensus": "Contested / Concerns Raised"
+    },
+    "5068127364186112": {
+      "id": 5068127364186112,
+      "name": "AccentColor and AccentColorText system colors",
+      "milestone": 150,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-28T21:15:05.838Z",
+      "knownUrls": [
+        "https://developer.mozilla.org/en-US/docs/Glossary/Accent",
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/system-color",
+        "https://github.com/WebKit/standards-positions/issues/136",
+        "https://www.npmjs.com/package/@radix-ui/colors",
+        "https://www.npmjs.com/package/@colors/colors",
+        "https://www.npmjs.com/package/ansi-colors"
+      ],
+      "lastMomentumLevel": "Emerging",
+      "lastConsensus": "Chromium-Led"
+    },
+    "6636392944893952": {
+      "id": 6636392944893952,
+      "name": "Allow optional rounding parameter for `polygon()`",
+      "milestone": 150,
+      "status": "Enabled by default",
+      "lastSeen": "2026-08-28T21:15:08.294Z",
+      "knownUrls": [
+        "https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polygon",
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/basic-shape/polygon",
+        "https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions",
+        "https://github.com/WebKit/standards-positions/issues/474",
+        "https://github.com/mozilla/standards-positions/issues/1197",
+        "https://www.npmjs.com/package/@turf/mask"
+      ],
+      "lastMomentumLevel": "Emerging",
+      "lastConsensus": "Chromium-Led"
     }
   }
 }

@@ -1,6 +1,6 @@
 # 🌐 Chrome Web Platform Ecosystem Report — 2026-W35
 
-> **Generated on:** 2026-08-27 | **Target Milestones:** Chrome 154
+> **Generated on:** 2026-08-28 | **Target Milestones:** Chrome 150, 151, 152, 153, 154
 > **Search Engine:** auto | **Analysis Model:** Heuristic Engine
 
 ## 📊 Executive Snapshot
@@ -11,48 +11,47 @@
 | **High Ecosystem Momentum** | `0` | Features with active community discussions & publications |
 | **Multi-Engine Consensus** | `0` | Broad alignment across Chromium, Gecko, and WebKit |
 | **Contested / Concerns** | `0` | Features with open vendor or security/privacy objections |
-| **New Mentions This Week** | `3` | Net new articles, discussions, or standards updates |
+| **New Mentions This Week** | `5` | Net new articles, discussions, or standards updates |
 
 ## 📋 Features Index
 
 | Feature | Milestone | Category | Momentum | Consensus | Developer Pulse |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| [Add options bag to WebSocket constructor](#5080055102439424-add-options-bag-to-websocket-constructor) | Chrome 154 | `Enabled by default` | **Emerging** | Chromium-Led | Neutral |
-| [Additional Windowing Controls](#5201832664629248-additional-windowing-controls) | Chrome 154 | `Enabled by default` | **Quiet** | Chromium-Led | Neutral |
+| [Allow optional rounding parameter for `polygon()`](#6636392944893952-allow-optional-rounding-parameter-for-polygon) | Chrome 150 | `Enabled by default` | **Emerging** | Chromium-Led | Neutral |
+| [AccentColor and AccentColorText system colors](#5068127364186112-accentcolor-and-accentcolortext-system-colors) | Chrome 150 | `Enabled by default` | **Emerging** | Chromium-Led | Neutral |
 
 ---
 
 ## 🔍 Feature Ecosystem Deep Dives
 
-<a id="5080055102439424-add-options-bag-to-websocket-constructor"></a>
-### [Add options bag to WebSocket constructor](https://chromestatus.com/feature/5080055102439424)
+<a id="6636392944893952-allow-optional-rounding-parameter-for-polygon"></a>
+### [Allow optional rounding parameter for `polygon()`](https://chromestatus.com/feature/6636392944893952)
 
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5080055102439424](https://chromestatus.com/feature/5080055102439424) · [chromestatuslite.com/feature/5080055102439424](https://chromestatuslite.com/feature/5080055102439424)
-- **Specification:** [https://github.com/whatwg/websockets/pull/76](https://github.com/whatwg/websockets/pull/76)
-- **Chromium Bug:** [https://crbug.com/542670554](https://crbug.com/542670554)
+- **Milestone:** Chrome 150 (Enabled by default)
+- **ChromeStatus:** [chromestatus.com/feature/6636392944893952](https://chromestatus.com/feature/6636392944893952) · [chromestatuslite.com/feature/6636392944893952](https://chromestatuslite.com/feature/6636392944893952)
+- **Specification:** [https://drafts.csswg.org/css-shapes-1/#funcdef-basic-shape-polygon](https://drafts.csswg.org/css-shapes-1/#funcdef-basic-shape-polygon)
+- **Chromium Bug:** [https://issues.chromium.org/issues/329302249](https://issues.chromium.org/issues/329302249)
 - **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `No signal`
 
 #### 📝 Overview
 
-Add support for passing an option bag (WebSocketInit dictionary) as the second argument to the WebSocket constructor. The option bag will initially support a "protocols" option, allowing developers to specify subprotocols (mirroring the existing protocols argument), and also serves as an extension point for future options.
+Allows an optional corner-rounding parameter in the polygon() CSS shape function. Developers can specify a length value to round polygon corners without manually computing bezier curves.
 
-Before, this would be written `const socket = new WebSocket("wss://example.com:8080", "soap")`. After, this could also be written `const socket = new WebSocket("wss://example.com:8080", { protocols: "soap" })`.
+Interactive demo: https://codepen.io/yisi/pen/NPRLEQN
+CSSWG issue: https://github.com/w3c/csswg-drafts/issues/9843
 
-See https://github.com/whatwg/websockets/issues/42 and spec PR https://github.com/whatwg/websockets/pull/76 for this change.
-
-> **Motivation:** There is a demand for extensibility of options on the WebSocket constructor, to mirror the "option bag" approach that the Fetch API has. https://github.com/whatwg/websockets/issues/42 is requested by a number of implementors and users, and Chromium wants this as a means to add a `targetAddressSpace` option matching the one added to Fetch for Local ...
+> **Motivation:** Rounded polygons are a common design pattern on the web. Without this feature, developers who want rounded corners on a polygon shape must manually compute bezier control points or use workarounds such as SVG clip paths. The polygon() round parameter makes this directly expressible in CSS, reducing complexity and improving maintainability.
 
 #### 💡 Ecosystem Intelligence & Analysis
 
 - **Momentum:** **Emerging** (Activity Score: 30)
 - **Consensus:** **Chromium-Led**
 - **Developer Sentiment:** **Neutral**
-- **Analysis:** Add options bag to WebSocket constructor is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
+- **Analysis:** Allow optional rounding parameter for `polygon()` is currently Enabled by default in Chrome 150. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
 
 **Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."
+- Shipping enabled by default in Chrome 150. Developers can begin adopting in production with progressive feature detection.
+- Standards Activity (WebKit): Latest discussion from @smfr: "Seems OK but there's certainly some implementation complexity...."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 #### ⚡ What Happened This Week
@@ -61,86 +60,91 @@ See https://github.com/whatwg/websockets/issues/42 and spec PR https://github.co
 
 #### 🏛️ Browser Standards Positions
 
-- **WebKit:** [Supporting options bag in WebSocket constructor](https://github.com/WebKit/standards-positions/issues/708) [open] `topic: networking`, `venue: WHATWG HTML Workstream`, `from: Google`
-  > *Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."*
-- **Mozilla:** [Supporting options bag in WebSocket constructor](https://github.com/mozilla/standards-positions/issues/1444) [open] 
+- **WebKit:** [CSS Shapes: vertex rounding for polygon()](https://github.com/WebKit/standards-positions/issues/474) [open] `topic: css`, `venue: W3C CSS WG`
+  > *Latest discussion from @smfr: "Seems OK but there's certainly some implementation complexity...."*
+- **Mozilla:** [CSS Shapes: vertex rounding for polygon()](https://github.com/mozilla/standards-positions/issues/1197) [open] `venue: W3C`, `topic: CSS`
 
 #### 📦 Polyfills & NPM Ecosystem
 
-- [@httptoolkit/websocket-stream](https://www.npmjs.com/package/@httptoolkit/websocket-stream) `v6.0.1` — Use websockets with the node streams API. Works in browser and node, with all current WS versions
-- [jest-websocket-mock](https://www.npmjs.com/package/jest-websocket-mock) `v2.5.0` — Mock websockets and assert complex websocket interactions with Jest
+- [@turf/mask](https://www.npmjs.com/package/@turf/mask) `v7.4.0` — Takes polygons or multipolygons and an optional mask, and returns an exterior ring polygon with holes.
 
 #### 📚 Platform Documentation & References
 
-- [WebSocket: WebSocket() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket) *(developer.mozilla.org)*
-- [WebSocketStream: WebSocketStream() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream) *(developer.mozilla.org)*
-- [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) *(developer.mozilla.org)*
+- [<polygon>](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polygon) *(developer.mozilla.org)*
+- [polygon() CSS function](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/basic-shape/polygon) *(developer.mozilla.org)*
+- [optional_permissions](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions) *(developer.mozilla.org)*
 
 #### 🧪 Web Platform Tests (WPT)
 
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=add-options-bag-to-websocket-constructor) (0 tests listed)
+- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=allow-optional-rounding-parameter-for-%60polygon%60) (0 tests listed)
 
 #### 🔍 Investigation Audit Trail
 
-- **Searches Run:** `Brave Search` *(Inactive (BRAVE_SEARCH_API_KEY not configured))* · `Dev.to Community Blogs` (8 found, 0 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (2 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (8 found, 2 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 2 · Standards Comments Read: 1
+- **Searches Run:** `Brave Search` *(Inactive (BRAVE_SEARCH_API_KEY not configured))* · `Dev.to Community Blogs` (8 found, 0 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (2 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 1 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
+- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 1
 
 ---
 
-<a id="5201832664629248-additional-windowing-controls"></a>
-### [Additional Windowing Controls](https://chromestatus.com/feature/5201832664629248)
+<a id="5068127364186112-accentcolor-and-accentcolortext-system-colors"></a>
+### [AccentColor and AccentColorText system colors](https://chromestatus.com/feature/5068127364186112)
 
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5201832664629248](https://chromestatus.com/feature/5201832664629248) · [chromestatuslite.com/feature/5201832664629248](https://chromestatuslite.com/feature/5201832664629248)
-- **Specification:** [https://www.w3.org/TR/window-management/#api-window-minimize-method](https://www.w3.org/TR/window-management/#api-window-minimize-method)
-- **Chromium Bug:** [https://issues.chromium.org/issues/40192345](https://issues.chromium.org/issues/40192345)
-- **Browser Signals:** Chrome: `In developer trial (Behind a flag)` · Firefox: `No signal` · Safari: `No signal`
+- **Milestone:** Chrome 150 (Enabled by default)
+- **ChromeStatus:** [chromestatus.com/feature/5068127364186112](https://chromestatus.com/feature/5068127364186112) · [chromestatuslite.com/feature/5068127364186112](https://chromestatuslite.com/feature/5068127364186112)
+- **Specification:** [https://www.w3.org/TR/css-color-4/#css-system-colors](https://www.w3.org/TR/css-color-4/#css-system-colors)
+- **Chromium Bug:** [https://issues.chromium.org/issues/40229450?pli=1](https://issues.chromium.org/issues/40229450?pli=1)
+- **Browser Signals:** Chrome: `In developer trial (Behind a flag)` · Firefox: `Shipped/Shipping` · Safari: `No signal`
 
 #### 📝 Overview
 
-Enable web applications to maximize, minimize, and restore their windows, control whether the window can be resized, and introspect the corresponding window state.
+The AccentColor and AccentColorText system colors can be used in CSS to access the system accent color specified on the user's device.
+This allows developers to apply native app like styling to their web content in contexts where users expect OS theme integration, such as an installed web application. Users must be in an installed web application on the initial profile to see the system accent color rendered.
 
-The Window Management permission is required for new JS API controls (window.maximize()/minimize()/restore()/setResizable(bool)). The new CSS media features display-state and resizable are not gated behind a permission as they can follow the non-AWC API toggled states as well.
-
-This feature is an enhancement of the Window Management API:
-https://chromestatus.com/feature/5252960583942144
-
-> **Motivation:** Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integrate remote application windows with the local desktop environment, which creates suboptimal experiences for their users. Currently, they can only present full disjoint remote desktop environments (e.g. in a local fullscreen window), or present individual remote applica...
+> **Motivation:** Without access to system accent colors, developers must hardcode theme values or implement non‑native design patterns, resulting in web applications that visually diverge from user‑configured platform settings. This is especially noticeable in installed web apps, where users expect a level of OS‑level visual integration comparable to native applica...
 
 #### 💡 Ecosystem Intelligence & Analysis
 
-- **Momentum:** **Quiet** (Activity Score: 0)
+- **Momentum:** **Emerging** (Activity Score: 20)
 - **Consensus:** **Chromium-Led**
 - **Developer Sentiment:** **Neutral**
-- **Analysis:** Additional Windowing Controls is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Quiet with Chromium-Led standards alignment and neutral developer pulse.
+- **Analysis:** AccentColor and AccentColorText system colors is currently Enabled by default in Chrome 150. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
 
 **Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @morsssss: "Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've..."
-- Standards Activity (Mozilla): Latest discussion from @michaelwasserman: "Here are additional details that may help. Those interested may wish to attend the upcoming [Second Screen WG/CG - 2023 Q1 virtual meeting](https://gi..."
+- Shipping enabled by default in Chrome 150. Developers can begin adopting in production with progressive feature detection.
+- Standards Activity (WebKit): Latest discussion from @o-t-w: "The fact that it isn't dynamic severely limits its [usefulness](https://fullystacked.net/posts/accentcolor/).  Chromium and Firefox managed to impleme..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+
+#### ⚡ What Happened This Week
+
+- 📰 **2 new articles/tutorials** published
 
 #### 🏛️ Browser Standards Positions
 
-- **WebKit:** [Window Management](https://github.com/mozilla/standards-positions/issues/542) [open] 
-  > *Latest discussion from @morsssss: "Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've..."*
-- **Mozilla:** [Multi-Screen Window Placement API](https://github.com/WebKit/standards-positions/issues/117) [open] `concerns: privacy`, `topic: app-like capabilities`, `concerns: annoyance`, `venue: W3C Second Screen WG`
-  > *Latest discussion from @michaelwasserman: "Here are additional details that may help. Those interested may wish to attend the upcoming [Second Screen WG/CG - 2023 Q1 virtual meeting](https://gi..."*
-- **W3C TAG:** [WG New Spec: Additional Windowing Controls](https://github.com/w3ctag/design-reviews/issues/1246) [open] `Review type: horizontal review`
-  > *Latest discussion from @patrykchodur: "Reopening the issue..."*
+- **WebKit:** [CSS AccentColor and AccentColorText system colors](https://github.com/WebKit/standards-positions/issues/136) [open] `topic: css`, `concerns: privacy`, `venue: W3C CSS WG`
+  > *Latest discussion from @o-t-w: "The fact that it isn't dynamic severely limits its [usefulness](https://fullystacked.net/posts/accentcolor/).  Chromium and Firefox managed to impleme..."*
 
-#### 🧪 Interactive Demos & Samples
+#### 🐛 Engine Bug Trackers (Bugzilla)
 
-- [Additional Windowing Controls Demo](https://awc-demo-4a08a808.web.app)
+- **WebKit (Safari):** [Bug #245631: Audit new CSS Color 4 system colors to determine if OS overrides are useful](https://bugs.webkit.org/show_bug.cgi?id=245631) `[NEW]`
+
+#### 📦 Polyfills & NPM Ecosystem
+
+- [@radix-ui/colors](https://www.npmjs.com/package/@radix-ui/colors) `v3.0.0` — [![Radix Colors Logo](colors.png)](https://radix-ui.com/colors)
+- [@colors/colors](https://www.npmjs.com/package/@colors/colors) `v1.6.0` — get colors in your node.js console
+- [ansi-colors](https://www.npmjs.com/package/ansi-colors) `v4.1.3` — Easily add ANSI colors to your text and symbols in the terminal. A faster drop-in replacement for chalk, kleur and turbocolor (without the dependencies and rendering bugs).
+
+#### 📚 Platform Documentation & References
+
+- [Accent](https://developer.mozilla.org/en-US/docs/Glossary/Accent) *(developer.mozilla.org)*
+- [<system-color> CSS type](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/system-color) *(developer.mozilla.org)*
 
 #### 🧪 Web Platform Tests (WPT)
 
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=additional-windowing-controls) (1 tests listed)
+- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=css-color-4) (151 tests listed)
 
 #### 🔍 Investigation Audit Trail
 
-- **Searches Run:** `Brave Search` *(Inactive (BRAVE_SEARCH_API_KEY not configured))* · `Dev.to Community Blogs` (8 found, 0 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (3 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (8 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (1 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 8
+- **Searches Run:** `Brave Search` *(Inactive (BRAVE_SEARCH_API_KEY not configured))* · `Dev.to Community Blogs` (8 found, 0 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (1 items) · `Engine Bug Trackers` (1 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 3 verified) · `Web Platform Tests (wpt.fyi)` (151 items)
+- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 5
 
 ---
 

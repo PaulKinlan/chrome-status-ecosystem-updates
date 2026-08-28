@@ -23,7 +23,8 @@ Commands:
   help                 Display this help message
 
 Options for 'run':
-  --milestone, -m      Milestone number (e.g. 154, or comma-separated: 153,154)
+  --milestone, -m      Milestone number, list, or range (e.g. 154, 150-154, 150,151,152, or last-5)
+  --last               Inspect the last N Chrome milestones (e.g. --last 5)
   --limit, -l          Max number of features to inspect (default: all)
   --feature, -f        Inspect a specific feature ID only
   --status, -s         Comma-separated status filters (enabled,origin-trial,flagged,deprecated)
@@ -32,6 +33,8 @@ Options for 'run':
   --verbose, -v        Enable detailed logging of search queries, API calls & verifications
 
 Examples:
+  node bin/cli.js run --last 5 --limit 10
+  node bin/cli.js run --milestone 150-154
   node bin/cli.js run --milestone 154 --limit 5 --verbose
   node bin/cli.js run --serve
   node bin/cli.js inspect 5183481574850560
@@ -139,6 +142,7 @@ async function main() {
     args: runArgs,
     options: {
       milestone: { type: 'string', short: 'm' },
+      last: { type: 'string' },
       limit: { type: 'string', short: 'l' },
       feature: { type: 'string', short: 'f' },
       status: { type: 'string', short: 's' },
@@ -149,7 +153,9 @@ async function main() {
     strict: false,
   });
 
-  const milestone = values.milestone || config.targetMilestones;
+  const milestone = values.last
+    ? `last-${values.last}`
+    : (values.milestone || config.targetMilestones);
   const limit = values.limit ? parseInt(values.limit, 10) : config.maxFeatures;
   const featureId = values.feature || null;
   const statusTypes = values.status ? values.status.split(',').map(s => s.trim().toLowerCase()) : config.featureStatuses;

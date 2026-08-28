@@ -72,11 +72,15 @@ No `npm install` required to get started — it uses Node's standard library!
 # Target the current beta milestone automatically (default)
 node bin/cli.js run
 
-# Target a specific milestone
-node bin/cli.js run --milestone 154
+# Target the last 5 Chrome releases (e.g. Chrome 150–154)
+node bin/cli.js run --last 5
 
-# Test run with a limit of 5 features
-node bin/cli.js run --milestone 154 --limit 5
+# Target a milestone range or comma-separated list
+node bin/cli.js run --milestone 150-154
+node bin/cli.js run --milestone 150,152,154
+
+# Test run with a limit of 5 features across the last 5 releases
+node bin/cli.js run --last 5 --limit 10
 
 # Run and automatically start the preview web server
 node bin/cli.js run --serve
@@ -116,7 +120,7 @@ cp .env.example .env
 
 | Environment Variable | Description | Default |
 | :--- | :--- | :--- |
-| `TARGET_MILESTONES` | Milestones to crawl (`auto`, or e.g. `154`, `153,154`) | `auto` |
+| `TARGET_MILESTONES` | Milestones to crawl (`auto`, `last-5`, `150-154`, `150,151,152`) | `auto` |
 | `FEATURE_STATUSES` | Filter by status: `enabled,origin-trial,flagged,deprecated` | all |
 | `MAX_FEATURES` | Cap number of features processed per run | (unlimited) |
 | `GITHUB_TOKEN` | GitHub Personal Access Token (boosts API limit from 60 to 5000/hr) | *(optional)* |

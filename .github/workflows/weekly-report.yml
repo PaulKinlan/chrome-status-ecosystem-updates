@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       milestone:
-        description: 'Chrome Milestone (e.g. 154 or "auto")'
+        description: 'Chrome Milestone(s) (e.g. "last-5", "150-154", "154", or "auto")'
         required: false
-        default: 'auto'
+        default: 'last-5'
       limit:
         description: 'Max features to process (optional)'
         required: false

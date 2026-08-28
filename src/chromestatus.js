@@ -36,20 +36,55 @@ export async function fetchChannels() {
 }
 
 /**
- * Resolves milestone numbers from 'auto' or explicit input
+ * Resolves milestone numbers from 'auto', 'last-N', ranges ('150-154'), or explicit lists ('150,151,152')
  */
 export async function resolveTargetMilestones(targetInput = 'auto') {
-  if (targetInput && targetInput !== 'auto') {
-    return targetInput
-      .toString()
-      .split(',')
-      .map(s => parseInt(s.trim(), 10))
-      .filter(n => !isNaN(n));
+  if (Array.isArray(targetInput)) {
+    return targetInput.map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b);
   }
 
+  const inputStr = String(targetInput || 'auto').trim().toLowerCase();
+
+  // 1. Check for 'last-N', 'lastN', 'last N' (e.g. 'last-5', 'last 5')
+  const lastMatch = inputStr.match(/^last[-_\s]?(\d+)$/);
+  if (lastMatch) {
+    const count = Math.max(1, parseInt(lastMatch[1], 10));
+    const channels = await fetchChannels();
+    const latest = channels.beta?.mstone || channels.stable?.mstone || 154;
+    return Array.from({ length: count }, (_, i) => latest - count + 1 + i);
+  }
+
+  // 2. Check for single small number <= 20 representing "last N versions"
+  if (/^\d+$/.test(inputStr)) {
+    const num = parseInt(inputStr, 10);
+    if (num <= 20) {
+      const channels = await fetchChannels();
+      const latest = channels.beta?.mstone || channels.stable?.mstone || 154;
+      return Array.from({ length: num }, (_, i) => latest - num + 1 + i);
+    }
+    // Specific milestone e.g. 154
+    return [num];
+  }
+
+  // 3. Check for milestone range e.g. "150-154" or "150..154"
+  const rangeMatch = inputStr.match(/^(\d+)\s*[-–.]{1,2}\s*(\d+)$/);
+  if (rangeMatch) {
+    const start = Math.min(parseInt(rangeMatch[1], 10), parseInt(rangeMatch[2], 10));
+    const end = Math.max(parseInt(rangeMatch[1], 10), parseInt(rangeMatch[2], 10));
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+  }
+
+  // 4. Comma-separated milestones e.g. "150, 151, 152, 153, 154"
+  if (inputStr.includes(',')) {
+    return inputStr
+      .split(',')
+      .map(s => parseInt(s.trim(), 10))
+      .filter(n => !isNaN(n))
+      .sort((a, b) => a - b);
+  }
+
+  // 5. Default 'auto' -> single upcoming Beta milestone
   const channels = await fetchChannels();
-  // Default to Beta channel (upcoming features to prepare developers for)
-  // or Stable if Beta not available
   const betaMilestone = channels.beta?.mstone;
   const stableMilestone = channels.stable?.mstone;
 

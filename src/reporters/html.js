@@ -534,7 +534,7 @@ export function generateDashboardHtml(reportData) {
       </div>
       <div class="header-badges">
         <span class="badge badge-primary">Week: ${weekString}</span>
-        <span class="badge">Chrome ${milestones.join(', ')}</span>
+        <span class="badge">Chrome ${milestones.length > 3 ? `${Math.min(...milestones)}–${Math.max(...milestones)} (${milestones.length} releases)` : milestones.join(', ')}</span>
         ${reportData.telemetry?.searchProvider ? `<span class="badge" title="Web Search Engine">🔎 ${reportData.telemetry.searchProvider}</span>` : ''}
         ${reportData.telemetry?.aiProvider ? `<span class="badge" title="AI Analysis Engine">🤖 ${reportData.telemetry.aiProvider}</span>` : ''}
         <a href="feed.xml" class="badge badge-warning badge-link" title="Subscribe via RSS">📡 RSS Feed</a>
@@ -567,6 +567,15 @@ export function generateDashboardHtml(reportData) {
       <div class="search-row">
         <input type="text" id="search-input" class="search-input" placeholder="Search features by name, API, CSS property, or keywords...">
       </div>
+      ${milestones && milestones.length > 1 ? `
+      <div class="filters-row">
+        <span class="filter-label">Milestone:</span>
+        <button class="filter-btn active" data-filter-type="milestone" data-filter-val="all">All (${milestones.length} releases)</button>
+        ${[...milestones].sort((a, b) => b - a).map(m => `
+          <button class="filter-btn" data-filter-type="milestone" data-filter-val="${m}">Chrome ${m}</button>
+        `).join('')}
+      </div>
+      ` : ''}
       <div class="filters-row">
         <span class="filter-label">Status:</span>
         <button class="filter-btn active" data-filter-type="status" data-filter-val="all">All</button>
@@ -596,15 +605,20 @@ export function generateDashboardHtml(reportData) {
     const reportData = ${safeJsonData};
     const features = reportData.features || [];
 
+    let currentMilestone = 'all';
     let currentStatus = 'all';
     let currentMomentum = 'all';
     let currentSearch = '';
 
     function updateStats() {
-      document.getElementById('stat-total').textContent = features.length;
-      document.getElementById('stat-high').textContent = features.filter(f => f.analysis.momentumLevel === 'High').length;
-      document.getElementById('stat-consensus').textContent = features.filter(f => f.analysis.consensus === 'Multi-Engine Consensus').length;
-      document.getElementById('stat-contested').textContent = features.filter(f => f.analysis.consensus.includes('Contested') || f.analysis.consensus.includes('Concerns')).length;
+      const activeSubset = currentMilestone === 'all'
+        ? features
+        : features.filter(f => String(f.feature.milestone) === String(currentMilestone));
+
+      document.getElementById('stat-total').textContent = activeSubset.length;
+      document.getElementById('stat-high').textContent = activeSubset.filter(f => f.analysis.momentumLevel === 'High').length;
+      document.getElementById('stat-consensus').textContent = activeSubset.filter(f => f.analysis.consensus === 'Multi-Engine Consensus').length;
+      document.getElementById('stat-contested').textContent = activeSubset.filter(f => f.analysis.consensus.includes('Contested') || f.analysis.consensus.includes('Concerns')).length;
     }
 
     function renderFeatures() {
@@ -615,6 +629,7 @@ export function generateDashboardHtml(reportData) {
         const f = item.feature;
         const a = item.analysis;
 
+        if (currentMilestone !== 'all' && String(f.milestone) !== String(currentMilestone)) return false;
         if (currentStatus !== 'all' && f.statusType !== currentStatus) return false;
         if (currentMomentum !== 'all' && a.momentumLevel !== currentMomentum) return false;
 
@@ -936,8 +951,10 @@ export function generateDashboardHtml(reportData) {
         document.querySelectorAll(\`[data-filter-type="\${type}"]\`).forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
+        if (type === 'milestone') currentMilestone = val;
         if (type === 'status') currentStatus = val;
         if (type === 'momentum') currentMomentum = val;
+        updateStats();
         renderFeatures();
       });
     });
