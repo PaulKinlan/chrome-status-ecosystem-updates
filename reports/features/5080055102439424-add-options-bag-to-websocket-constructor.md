@@ -1,6 +1,6 @@
 # Add options bag to WebSocket constructor
 
-> **Report Week:** 2026-W35 | **Milestone:** Chrome 154 | **Category:** Enabled by default
+> **Report Week:** 2026-W36 | **Milestone:** Chrome 154 | **Category:** Enabled by default
 
 ## Overview
 
@@ -16,13 +16,12 @@ There is a demand for extensibility of options on the WebSocket constructor, to 
 
 ## Ecosystem Status
 
-- **Momentum:** High (80 points)
+- **Momentum:** Moderate (60 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Positive
-- **Executive Take:** Adding an options bag (`WebSocketInit` dictionary) to the `WebSocket` constructor aligns WebSocket instantiation ergonomics with modern Web APIs like `fetch()`. In addition to accepting `protocols` as an option object property, it creates an extensible foundation for future network controls such as Local Network Access (`targetAddressSpace`). With WHATWG specification pull request #76 active and Chromium enabling it by default, multi-engine consensus is rapidly solidifying.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** Add options bag to WebSocket constructor is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
 
 ### Recommendations
-- Actionable Advice: Continue passing subprotocols as strings or string arrays in cross-browser production code until Safari and Firefox ship the new dictionary overload. In Chromium-targeted environments or feature-detected wrappers, start testing the `{ protocols }` dictionary syntax as an extensible base for upcoming networking features.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Standards Activity (WebKit): Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
@@ -34,47 +33,43 @@ There is a demand for extensibility of options on the WebSocket constructor, to 
 
 ## 📰 Ecosystem Blogs & Articles
 
+- [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFT0aCRa62YWmc1hNrcjo4jG4bnuT4dMfjeLLtwP4eQ7HSFe7BQn_FWDadMSi4Znyywz6aVsgyNbSHZrkcWJ6ougZDfV3cDjLxb3Ap0RDDG_8TMWVqSODwuIVGwzOoXmC4R0FV0TpUIgCaxqZYy3Ux190PRkhQIydibeAFcGN3mZnLVDsRIolM=) *(vertexaisearch.cloud.google.com)*
+  > Here is a summary of the feature, along with key announcements, developer articles, and ecosystem context regarding adding an options bag to the `WebSocket` constructor.  ---  ### **Feature Summary**  * **Specification**: WHATWG WebSockets Standard (
+- [mozaic.fm](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFyVdvShBPzGJ-ZeQcSuBVjrRhonE5mr1vvDe4bCDPIOOM5Ol14tjgRssjpcXmRdpxohpEoqoEy0i37rlrulu8NBfRmZYkjyvBRTzAxKESOS082CLJ5wdXxKRqBLxxRKtbRGK68_AefNhyUwMnHGOeL2w==) *(vertexaisearch.cloud.google.com)*
+  > Here is a summary of the feature, along with key announcements, developer articles, and ecosystem context regarding adding an options bag to the `WebSocket` constructor.  ---  ### **Feature Summary**  * **Specification**: WHATWG WebSockets Standard (
 - [[blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets](http://www.mail-archive.com/blink-dev@chromium.org/msg17125.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets Chromestatus Wed, 05 Aug 2026 13:26:20 -0700 Con...
+  > The user must grant the site the ... it will be blocked). This builds on https://chromestatus.com/feature/5080055102439424 which <strong>adds an options bag to the WebSocket constructor</strong>....
 - [Intent to Prototype: Add options bag to WebSocket constructor](https://groups.google.com/a/chromium.org/g/blink-dev/c/YwkXWzPUJ7U) *(groups.google.com · 2026-08-05T00:00:00)*
-  > Intent to Prototype: Add options bag to WebSocket constructor Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Prototype: Add options bag to ...
-- [javascript - HTTP headers in Websockets client API](https://stackoverflow.com/questions/4361173/http-headers-in-websockets-client-api) *(stackoverflow.com)*
-  > https://<strong>github.com/whatwg/websockets/issues/42</strong> · https://github.com/nodejs/undici/blob/main/docs/docs/api/WebSocket.md · Share · Share a link to this answer · Copy linkCC BY-SA 4.0 · Short permalink to this answer · Improve this answ...
-- [Private Network Access](https://wicg.github.io/private-network-access) *(wicg.github.io · 2024-09-26T00:00:00)*
-  > Private Network Access Private Network Access Draft Community Group Report , 26 September 2024 This version: https://wicg.github.io/private-network-access/ Issue Tracking: GitHub Inline In Spec Editor: Titouan Rigoudy ( Google ) Former Editor: Mike W...
+  > Link to entry on the Chrome Platform Status https://<strong>chromestatus.com/feature/5080055102439424</strong>?gate=5087234207383552
+- [[blink-dev] Intent to Prototype: Add options bag to WebSocket constructor](http://www.mail-archive.com/blink-dev@chromium.org/msg17124.html) *(mail-archive.com)*
+  > Explainer https://github.com/whatwg/websockets/issues/42 https://github.com/whatwg/websockets/pull/76 Specification https://github.com/whatwg/websockets/pull/76 Summary <strong>Add support for passing an option bag (WebSocketInit dictionary) as the s...
+- [Local Network Access](https://wicg.github.io/local-network-access) *(wicg.github.io · 2026-08-07T00:00:00)*
+  > One minor difference between the Fetch API and the WebSockets API is that WebSockets does not have an equivalent to fetch’s RequestInit, and so there is no place to put in a targetAddressSpace option to bypass mixed content checks for ws:// urls.
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
 - [[blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets](http://www.mail-archive.com/blink-dev@chromium.org/msg17125.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5080055102439424`)*
-  > [blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets Chromestatus Wed, 05 Aug 2026 13:26:20...
+  > The user must grant the site the ... it will be blocked). This builds on https://chromestatus.com/feature/5080055102439424 which <strong>adds an options bag to the WebSocket constructor</strong>....
 - [Intent to Prototype: Add options bag to WebSocket constructor](https://groups.google.com/a/chromium.org/g/blink-dev/c/YwkXWzPUJ7U) *(groups.google.com · 2026-08-05T00:00:00)* *(Cites: `https://chromestatus.com/feature/5080055102439424`)*
-  > Intent to Prototype: Add options bag to WebSocket constructor Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Prototype: Add optio...
-- [javascript - HTTP headers in Websockets client API](https://stackoverflow.com/questions/4361173/http-headers-in-websockets-client-api) *(stackoverflow.com)* *(Cites: `https://github.com/whatwg/websockets/issues/42`)*
-  > https://<strong>github.com/whatwg/websockets/issues/42</strong> · https://github.com/nodejs/undici/blob/main/docs/docs/api/WebSocket.md · Share · Share a link to this answer · Copy linkCC BY-SA 4.0 · Short permalink to this answer · Improve...
-
-## 📚 Platform Documentation & Specifications
-
-- [local-network-access/explainer.md at main · WICG/local-network-access](https://github.com/WICG/local-network-access/blob/main/explainer.md) *(github.com)*
-- [WebSocket: WebSocket() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket) *(developer.mozilla.org)*
-- [WebSocketStream: WebSocketStream() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WebSocketStream/WebSocketStream) *(developer.mozilla.org)*
-- [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) *(developer.mozilla.org)*
+  > Link to entry on the Chrome Platform Status https://<strong>chromestatus.com/feature/5080055102439424</strong>?gate=5087234207383552
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 5 result(s) found across 7 planned queries — **5 verified relevant**
+- **Brave Search:** 6 result(s) found across 7 planned queries — **4 verified relevant**
   - `"chromestatus.com/feature/5080055102439424" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (2 returned)
   - `"github.com/whatwg/websockets/issues/42" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (2 returned)
   - `"github.com/whatwg/websockets/pull/76" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (1 returned)
-  - `"new WebSocket" ("WebSocketInit" OR "options bag" OR "options dictionary") (tutorial OR guide OR "modern javascript")` — *Finds developer guides, tutorials, and blog posts explaining the new options bag syntax for the WebSocket constructor.* (0 returned)
-  - `"new WebSocket" "{ protocols:" OR "WebSocketInit"` — *Surfaces practical JavaScript code snippets, type definitions, and WebIDL specs demonstrating the dictionary-based constructor signature.* (1 returned)
-  - `("WebSocket constructor" OR "new WebSocket") ("WebSocketInit" OR "options") ("Intent to Ship" OR "Chrome Platform Status" OR "Firefox" OR "WebKit")` — *Identifies browser vendor implementation status, Intent to Ship announcements, and cross-browser support tracking.* (1 returned)
-  - `"WebSocket" ("WebSocketInit" OR "targetAddressSpace") ("Local Network Access" OR "Private Network Access" OR "WHATWG")` — *Uncovers standards discussions, security/extensibility motivations, and community feedback regarding Local Network Access integration with WebSockets.* (3 returned)
-- **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
-- **Dev.to Community Blogs:** 8 result(s) found — **4 verified relevant**
+  - `"WebSocketInit" OR ("new WebSocket" AND "{ protocols")` — *Finds code snippets, API type definitions, and WebIDL implementations utilizing the new WebSocketInit dictionary syntax.* (3 returned)
+  - `("WebSocket" OR "new WebSocket") ("options bag" OR "WebSocketInit") (guide OR tutorial OR blog OR javascript)` — *Discovers developer blog posts, migration guides, and tutorials explaining how and why to use the options bag in the WebSocket constructor.* (1 returned)
+  - `("WebSocketInit" OR "WebSocket constructor") ("intent to ship" OR "intent to prototype" OR "Chrome" OR "WebKit" OR "Firefox") "options"` — *Locates browser vendor release notes, intents to ship/prototype, and platform status trackers showing implementation rollout.* (2 returned)
+  - `"WebSocket" ("WebSocketInit" OR "options bag") ("targetAddressSpace" OR "Local Network Access" OR "whatwg/websockets")` — *Surfaces standards debates, spec discussions, and motivation around Local Network Access security and extending WebSocket constructor parameters.* (5 returned)
+- **Google Search Grounding (gemini-3.7-flash):** 9 result(s) found — **2 verified relevant**
+- **Twitter / X API v2:** *found 0 tweet(s)*
+- **Dev.to Community Blogs:** 8 result(s) found — **6 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 2 item(s) inspected
 - **Engine Bug Trackers:** 0 item(s) inspected

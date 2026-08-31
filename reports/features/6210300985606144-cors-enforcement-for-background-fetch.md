@@ -1,6 +1,6 @@
 # CORS enforcement for Background Fetch
 
-> **Report Week:** 2026-W35 | **Milestone:** Chrome 154 | **Category:** Enabled by default
+> **Report Week:** 2026-W36 | **Milestone:** Chrome 154 | **Category:** Enabled by default
 
 ## Overview
 
@@ -16,58 +16,41 @@ This fixes a security issue where Background Fetch unintentionally bypasses secu
 
 ## Ecosystem Status
 
-- **Momentum:** Moderate (70 points)
+- **Momentum:** Emerging (20 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Neutral
-- **Executive Take:** Background Fetch remains a Chromium-exclusive API that narrowly avoided complete deprecation due to low web-wide usage. In Chrome 154, Chromium is hardening the feature by routing all requests through standard Fetch pipeline machinery, closing a security bypass to enforce CORS, CORP/COEP/DIP, and Local Network Access (LNA) checks.
+- **Executive Take:** CORS enforcement for Background Fetch is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
 
 ### Recommendations
-- Actionable Advice: Audit all `backgroundFetch.fetch()` requests to ensure remote media or data assets explicitly return appropriate `Access-Control-Allow-Origin` headers and comply with CORP/LNA policies. Background Fetch must remain guarded behind feature detection (`'BackgroundFetchManager' in self`) as progressive enhancement.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+- Community package available: [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch) (v3.6.20) for progressive enhancement.
 
-## 🔗 Inbound Citations & Reverse Links
+## Packages & Polyfills
 
-The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
-
-- [background-fetch/index.bs at main · WICG/background-fetch](https://github.com/WICG/background-fetch/blob/main/index.bs) *(github.com)* *(Cites: `https://wicg.github.io/background-fetch`)*
-  > background-fetch/index.bs at main · WICG/background-fetch · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your ses...
-- [Background Fetch · Issue #149 · WebKit/standards-positions](https://github.com/WebKit/standards-positions/issues/149) *(github.com · 2023-03-15T23:42:46)* *(Cites: `https://wicg.github.io/background-fetch`)*
-  > Background Fetch · Issue #149 · WebKit/standards-positions · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your se...
-- [Background Fetch · Issue #30 · mozilla/standards-positions](https://github.com/mozilla/standards-positions/issues/30) *(github.com · 2017-09-27T07:27:40)* *(Cites: `https://wicg.github.io/background-fetch`)*
-  > Background Fetch · Issue #30 · mozilla/standards-positions · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your se...
-- [content/files/en-us/web/api/background_fetch_api/index.md at main · mdn/content](https://github.com/mdn/content/blob/main/files/en-us/web/api/background_fetch_api/index.md?plain=1) *(github.com)* *(Cites: `https://wicg.github.io/background-fetch`)*
-  > content/files/en-us/web/api/background_fetch_api/index.md at main · mdn/content · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Relo...
-
-## 📚 Platform Documentation & Specifications
-
-- [background-fetch/index.bs at main · WICG/background-fetch](https://github.com/WICG/background-fetch/blob/main/index.bs) *(github.com)*
-- [Background Fetch · Issue #149 · WebKit/standards-positions](https://github.com/WebKit/standards-positions/issues/149) *(github.com)*
-- [Background Fetch · Issue #30 · mozilla/standards-positions](https://github.com/mozilla/standards-positions/issues/30) *(github.com)*
-- [content/files/en-us/web/api/background_fetch_api/index.md at main · mdn/content](https://github.com/mdn/content/blob/main/files/en-us/web/api/background_fetch_api/index.md?plain=1) *(github.com)*
-- [BackgroundFetchManager: fetch() method](https://developer.mozilla.org/en-US/docs/Web/API/BackgroundFetchManager/fetch) *(developer.mozilla.org)*
-- [Background Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Background_Fetch_API) *(developer.mozilla.org)*
-- [BackgroundFetchRegistration](https://developer.mozilla.org/en-US/docs/Web/API/BackgroundFetchRegistration) *(developer.mozilla.org)*
+- [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch) `v3.6.20` — A window.fetch polyfill.
+- [react-native-background-fetch](https://www.npmjs.com/package/react-native-background-fetch) `v4.4.2` — iOS & Android BackgroundFetch API implementation for React Native
+- [expo-background-fetch](https://www.npmjs.com/package/expo-background-fetch) `v57.0.14` — Expo universal module for BackgroundFetch API
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 30 result(s) found across 6 planned queries — **4 verified relevant**
+- **Brave Search:** 25 result(s) found across 6 planned queries — **0 verified relevant**
   - `"chromestatus.com/feature/6210300985606144" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
   - `"wicg.github.io/background-fetch" -site:wicg.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (6 returned)
-  - `"CORS enforcement for Background Fetch" API` — *Core feature API query* (0 returned)
-  - `"CORS enforcement for Background Fetch" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
-  - `"wicg.github" OR "fetch.spec" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
-  - `"CORS enforcement for Background Fetch" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
+  - `"Background Fetch" CORS enforcement ("Chrome 154" OR Chromium OR "Intent to Ship")` — *Finds official Chromium release notes, Intent to Ship threads, and developer ecosystem announcements about CORS enforcement in Background Fetch.* (3 returned)
+  - `"backgroundFetch.fetch" ("mode: 'cors'" OR "cross-origin" OR "Access-Control-Allow-Origin")` — *Surfaces real-world JavaScript and Service Worker code implementations showing cross-origin request configurations for the Background Fetch API.* (0 returned)
+  - `"Background Fetch API" CORS OR "Cross-Origin" (tutorial OR guide OR migration)` — *Discovers developer blog posts, tutorials, and migration guides explaining how to handle CORS headers and fetch policies with Background Fetch.* (8 returned)
+  - `"Background Fetch" (bypass OR "crbug.com" OR "Local Network Access" OR CORP OR COEP) CORS` — *Uncovers developer discussions, bug reports, and web security analyses discussing the Background Fetch security bypass and its remediation.* (8 returned)
 - **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
+- **Twitter / X API v2:** *found 0 tweet(s)*
 - **Dev.to Community Blogs:** 8 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 item(s) inspected
 - **Engine Bug Trackers:** 0 item(s) inspected
 - **Baseline (baseline.dev):** *untracked*
-- **NPM Registry:** 6 result(s) found — **0 verified relevant**
+- **NPM Registry:** 6 result(s) found — **3 verified relevant**
 - **Web Platform Tests (wpt.fyi):** 18 item(s) inspected
 
 ### Content Inspected

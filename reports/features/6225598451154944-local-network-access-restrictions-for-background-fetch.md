@@ -1,6 +1,6 @@
 # Local Network Access restrictions for Background Fetch
 
-> **Report Week:** 2026-W35 | **Milestone:** Chrome 154 | **Category:** Enabled by default
+> **Report Week:** 2026-W36 | **Milestone:** Chrome 154 | **Category:** Enabled by default
 
 ## Overview
 
@@ -21,13 +21,13 @@ This fixes a security issue where Background Fetch unintentionally bypasses secu
 
 ## Ecosystem Status
 
-- **Momentum:** High (120 points)
+- **Momentum:** High (110 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Positive
-- **Executive Take:** Chromium is closing a notable security bypass by enforcing Local Network Access (LNA) restrictions on the Background Fetch API starting in Chrome 154, ensuring requests to private or loopback addresses honor the same permission checks as standard Fetch. This change strictly aligns Background Fetch with the WHATWG Fetch specification and prevents web origins from circumventing local network boundaries. Cross-engine consensus strongly supports hardening the boundary between public web contexts and local intranets, even as broader LNA specification details continue to mature across standards bodies.
+- **Executive Take:** Chromium 154 closes a security bypass by enforcing Local Network Access (LNA) restrictions on the Background Fetch API, ensuring service workers require appropriate permissions before initiating requests to private or loopback IP spaces. This change aligns Chromium's implementation with the Fetch and Background Fetch specifications, treating background network activity under standard security boundaries. Broad cross-browser interoperability remains limited because Background Fetch is primarily supported only in Chromium-based engines, though the general LNA security framework continues to advance across standards bodies.
 
 ### Recommendations
-- Actionable Advice: Audit existing service worker implementations using Background Fetch to verify whether they target local network or loopback endpoints, and ensure required LNA preflight headers and origin permissions are configured. Enterprise environments should leverage policies such as `LocalNetworkAccessAllowedForUrls` or `LocalNetworkAccessRestrictionsTemporaryOptOut` to manage trusted internal origins prior to the rollout.
+- Actionable Advice: Audit service worker implementations using Background Fetch to verify whether they target local network or loopback resources, and update applications to acquire the required LNA permissions or handle fetch errors defensively. Enterprise environments relying on legacy intranet workflows should configure policies like `LocalNetworkAccessAllowedForUrls` or `LocalNetworkAccessRestrictionsTemporaryOptOut` while migrating.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Standards Activity (WebKit): Latest discussion from @christhompson: "We aren't sure about venue yet but it has been on my mind some. Some parts will just be merged into the various relevant specifications, but there def..."
 - Standards Activity (Mozilla): Latest discussion from @dveditz: "We're presumably "positive" on this since we've implemented most of it and enabled it on Nightly. What are the formal steps needed at this point?..."
@@ -45,18 +45,16 @@ This fixes a security issue where Background Fetch unintentionally bypasses secu
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [google.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF_12jbl3KoIJnG22RaFc9BxXnW4dwtzg2hyuSGLMrEPVVa3_ZZ0ATD1iGIgOUKZzhT-L1W9Y2BA2eDYUhcxyGIpFZf4MuvoNY6H4vB6dlHFQLrAR2ODdXUgSWuMF1qVlsMCmi3xuOrJqnVPa83c9P7Uf7zccsN1Ev0nQiu6348dnnEemOD_rY=) *(vertexaisearch.cloud.google.com)*
+- [google.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4Xzpzso2UoA6yVFi74eWsDfEjJD1N6KgHBPsogVezt4Y0dfMQ5fRSjtDIY_Pz-aW_naWDy9xyoxpw1iKCj4M00Js95ov-4HiWNp_EPrmksQazcYaOjjTehiXq0f58m4TyoR8i6WAzlLczJRt4ZQi6wy7LmcuHb4hq80Nnzh2tf00De0pgfQ==) *(vertexaisearch.cloud.google.com)*
   > Intent to Ship: Local Network Access restrictions for Background Fetch Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Ship: Local Network A...
-- [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHWoDqUaH-H7kwJPtmOKjuj3BAkV1O0VLcXjPcy-UEOlGUr90ydrQ4M2ppyOqdqr2Y3pLxanduaVAr7dHR7yZYudn2sMl34Wwq-05FdG4XFfNeF_xz-gG7Dr9ICCZ2ay9Iz3i6llS_VF_h4v8sqjUSw0G3Ok5UWcDN9fs-vVZfbzGJ9vQTNBDaCR4T7uacjMzlT_7NXDKLcQj31PMSK9MOh) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Web Platform Feature  Chromium's implementation of the **Background Fetch API** is closing a security loophole by enforcing **Local Network Access (LNA)** restrictions and standard Fetch specification security policies.   Historica
-- [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrcJLFAiV8ubTap7qoMjLp2d4vpj4QJZlyIIXzrTTdFIKFyVGX_1tHLixlZYx9aA76Zih57m0KPIufHtJ2oMiRJHZUgNcVaK58p9fDF3HB6lHZcEaC0IVynoYo5R-tmdzGlqSehiuH2tzWYe8jc-QACUkcqLQU6_BB0rNPJO9g) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Web Platform Feature  Chromium's implementation of the **Background Fetch API** is closing a security loophole by enforcing **Local Network Access (LNA)** restrictions and standard Fetch specification security policies.   Historica
-- [steeleobrienconsulting.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE8Y3lcdZnu0fOh4cl8cTRJIIKJEn9wDo9h4peTNM_3U6MS8ulArnP8_OXrvIUNIuzrmkdw_2t2GqmG6M_UiVBidRbqL7RWzOdoaV5UxvPY09PpKiq6fsQVF4NYKpf8QVGriwoA2HLviR748C_tS_iv3oaITBEnl6RNtA==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Web Platform Feature  Chromium's implementation of the **Background Fetch API** is closing a security loophole by enforcing **Local Network Access (LNA)** restrictions and standard Fetch specification security policies.   Historica
-- [chromeenterprise.google](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFCZjWOWfBHZgvO0agsj4cGfVwTHmgS_vbNyq5WpEbPzck2W79tIW1V_wbAA6P7eduF0iU8KIDzWy-kGhIFEyHCcjnPvS1RA4yUtKPfUySr-YfGLiTB1AXpmGFPS6XtE-wS8hZI1VEUxUf-8SRZ34d4iteU6TR6C2Zec77IKbKqZqnFfn0sFXaY_hMZBWmXL_8=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Web Platform Feature  Chromium's implementation of the **Background Fetch API** is closing a security loophole by enforcing **Local Network Access (LNA)** restrictions and standard Fetch specification security policies.   Historica
-- [google.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEPyBj2-AsPefJCuovLRYkfLamPb98cmUB62Czv1gAyyZM882_ZgSPrj3umlvLwMJdQAYvUUCBXWqb9uHvSLcXYMDX0oZ60wzbMxQzz170x1qJe6xwdRDLRY5ZRbgrJO8emmcMhrDH1jlPgkxb-3IUXqCNH2nNROPp3sbgZ8LgmVeb7oT9biIdejCatiIREPyOT0cs8B4IVSrhsRN_zGC_Wn2CDfvUNXQVy4e-beA==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Web Platform Feature  Chromium's implementation of the **Background Fetch API** is closing a security loophole by enforcing **Local Network Access (LNA)** restrictions and standard Fetch specification security policies.   Historica
+- [mozaic.fm](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGfgtYQXlfiPHlTRLxR5JKXDg7Wk0KjeO7Ngr7eJIPjugMXIlJYmblU3hv4-x-b_aLQQSudcmcVhDH0Z7IBZXkpxdcekLyZvJNCUdvnYCwIaGNFc_UxnEh3Kn3I05s71H7pgjgVmF1mlXeBYLZEJomA) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **Local Network Access (LNA) restrictions for Background Fetch** enforces that any requests initiated via the [Background Fetch API](https://wicg.github.io/background-fetch/) are subject to the same Local Network Access se
+- [github.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHQWhi_fYPWTFvV7MUmuuR7at8AKpzt17NzdDTVMLlH64BnrtTdEzRpOktzUeBRY8SBQrKLvCIZAGYhihwnwo3lbEVrhM9LQoCJD5ZKoWdkyoVP4-i41pmdvA==) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **Local Network Access (LNA) restrictions for Background Fetch** enforces that any requests initiated via the [Background Fetch API](https://wicg.github.io/background-fetch/) are subject to the same Local Network Access se
+- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHL64pv7D17QH_dSMCHCQ6DUXFT-w0im8BYWXsQTh-W-ZBNgk1U6gT9Yn2ws1dlrVvFL90fVaE4X6OU0UE44rycJO6yDjO7QzS5s34q_mtFmZvnqyLHlSp4rl2TPMpmJWzDB_-Tl-ovsWSqJQ8qhOIWP5hR1ojkXhhzERJUWboINrQwXEUlzuPJ37yek5yVUvFK5SjZ8_qPr3Iq-_HTGzXPmsWAVfP8MfvMtA==) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **Local Network Access (LNA) restrictions for Background Fetch** enforces that any requests initiated via the [Background Fetch API](https://wicg.github.io/background-fetch/) are subject to the same Local Network Access se
+- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE6AgaMOgV4vLgMtjbwOnMLleuqzaqmY2xPNgjMLNaQU8FT3nJtHbVdRD5czlqZKwE3ouiUgA3XhMl_w3eKnwlZsljTSyuEy-anb6AUfpZFupxTF5Mh3Rn8UHvvSOSPoy1kgaX8848ETwSGvewyI1vUJnW6Pe84hJY=) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **Local Network Access (LNA) restrictions for Background Fetch** enforces that any requests initiated via the [Background Fetch API](https://wicg.github.io/background-fetch/) are subject to the same Local Network Access se
 - [Re: [blink-dev] Re: Intent to Ship: Local Network Access restrictions for Background Fetch](http://www.mail-archive.com/blink-dev@chromium.org/msg17224.html) *(mail-archive.com)*
   > &gt;&gt; &gt;&gt; *Link to entry on the Chrome ... by Chrome Platform Status &gt;&gt; &lt;https://chromestatus.com&gt;. &gt;&gt; &gt; -- &gt; <strong>You received this message because you are subscribed to the Google Groups &gt; &quot;blink-dev&quot;...
 - [[blink-dev] Intent to Ship: Local Network Access restrictions for Background Fetch](http://www.mail-archive.com/blink-dev@chromium.org/msg17180.html) *(mail-archive.com)*
@@ -88,8 +86,9 @@ The following external publications and discussions explicitly link to or cite t
   - `"Local Network Access restrictions for Background Fetch" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"wicg.github" OR "fetch.spec" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Local Network Access restrictions for Background Fetch" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
-- **Google Search Grounding (gemini-3.7-flash):** 12 result(s) found — **6 verified relevant**
-- **Dev.to Community Blogs:** 8 result(s) found — **10 verified relevant**
+- **Google Search Grounding (gemini-3.7-flash):** 12 result(s) found — **5 verified relevant**
+- **Twitter / X API v2:** *found 0 tweet(s)*
+- **Dev.to Community Blogs:** 8 result(s) found — **9 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 2 item(s) inspected
 - **Engine Bug Trackers:** 2 item(s) inspected
@@ -102,7 +101,7 @@ The following external publications and discussions explicitly link to or cite t
 - **Specification:** ✔ Formally verified
 - **Explainers:** 0 document(s) analyzed
 - **Standards Discussion Comments:** 8 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 7 page(s)
+- **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links
 
