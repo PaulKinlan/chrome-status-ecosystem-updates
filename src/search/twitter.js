@@ -29,9 +29,16 @@ export async function searchTwitter(feature) {
   const queryClauses = [];
   if (cleanName) {
     queryClauses.push(`"${cleanName}"`);
+    // If name is long, also add concise technical anchor phrase
+    if (cleanName.length > 30) {
+      const words = cleanName.split(/\s+/).filter(w => w.length >= 4);
+      if (words.length >= 2) {
+        queryClauses.push(`(${words.slice(0, 3).join(' ')})`);
+      }
+    }
   }
   if (feature.id) {
-    queryClauses.push(`url:"chromestatus.com/feature/${feature.id}"`);
+    queryClauses.push(`"chromestatus.com/feature/${feature.id}"`);
   }
 
   // Optional WebIDL anchor e.g. `navigator.install` or `window.setResizable`
@@ -40,7 +47,7 @@ export async function searchTwitter(feature) {
     queryClauses.push(`"${idlMatch[1]}"`);
   }
 
-  const query = `(${queryClauses.join(' OR ')}) -is:retweet lang:en`;
+  const query = `(${queryClauses.join(' OR ')}) -is:retweet`;
   const cacheKey = `twitter_${query}`;
   if (cache.has(cacheKey)) return cache.get(cacheKey);
 

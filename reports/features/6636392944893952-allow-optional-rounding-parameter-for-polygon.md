@@ -1,6 +1,6 @@
 # Allow optional rounding parameter for `polygon()`
 
-> **Report Week:** 2026-W35 | **Milestone:** Chrome 150 | **Category:** Enabled by default
+> **Report Week:** 2026-W36 | **Milestone:** Chrome 150 | **Category:** Enabled by default
 
 ## Overview
 
@@ -45,7 +45,8 @@ Rounded polygons are a common design pattern on the web. Without this feature, d
 ### Searches Executed
 
 - **Brave Search:** *Inactive (BRAVE_SEARCH_API_KEY not configured)*
-- **Dev.to Community Blogs:** 8 result(s) found — **0 verified relevant**
+- **Twitter / X API v2:** *Inactive (TWITTER_BEARER_TOKEN not configured)*
+- **Dev.to Community Blogs:** 1 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 2 item(s) inspected
 - **Engine Bug Trackers:** 0 item(s) inspected
@@ -58,7 +59,7 @@ Rounded polygons are a common design pattern on the web. Without this feature, d
 - **Specification:** ✔ Formally verified
 - **Explainers:** 0 document(s) analyzed
 - **Standards Discussion Comments:** 1 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 8 page(s)
+- **Web Page Excerpts Ingested:** 4 page(s)
 
 ## Useful Links
 

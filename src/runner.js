@@ -129,7 +129,7 @@ export async function runEcosystemReport(options = {}) {
 
     // 3. Compute week-over-week deltas
     const prevHistory = history.features?.[detailedFeature.id];
-    const delta = computeFeatureDelta(detailedFeature, ecosystemData, prevHistory);
+    const delta = computeFeatureDelta(detailedFeature, ecosystemData, prevHistory, analysis);
 
     // 4. Update history record
     updatedHistoryFeatures[detailedFeature.id] = buildFeatureHistoryEntry(

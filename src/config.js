@@ -42,8 +42,8 @@ export const config = {
   chromeStatusApiUrl: process.env.CHROMESTATUS_API_URL || 'https://chromestatus.com',
   chromeStatusLiteUrl: process.env.CHROMESTATUSLITE_URL || 'https://chromestatuslite.com',
 
-  // Target milestones: comma-separated list or 'auto' (targets current beta release)
-  targetMilestones: process.env.TARGET_MILESTONES || 'auto',
+  // Target milestones: comma-separated list, range ('150-154'), or 'last-5' (defaults to last 5 Chrome releases)
+  targetMilestones: process.env.TARGET_MILESTONES || 'last-5',
 
   // Feature status types to inspect: enabled, origin-trial, flagged, deprecated, removed
   featureStatuses: (process.env.FEATURE_STATUSES || 'enabled,origin-trial,flagged,deprecated')

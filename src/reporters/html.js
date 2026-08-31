@@ -561,11 +561,22 @@ export function generateDashboardHtml(reportData) {
         <div class="num" id="stat-contested" style="color: var(--danger);">0</div>
         <div class="label">Contested / Concerns</div>
       </div>
+      <div class="stat-card" id="stat-card-deltas" style="cursor: pointer;" onclick="toggleDeltaFilter()" title="Click to view features with week-over-week changes">
+        <div class="num" id="stat-deltas" style="color: var(--purple);">0</div>
+        <div class="label">⚡ Week Changes (Deltas)</div>
+      </div>
     </div>
 
     <div class="controls-bar">
       <div class="search-row">
         <input type="text" id="search-input" class="search-input" placeholder="Search features by name, API, CSS property, or keywords...">
+      </div>
+      <div class="filters-row">
+        <span class="filter-label">Activity:</span>
+        <button class="filter-btn active" data-filter-type="activity" data-filter-val="all">All Features</button>
+        <button class="filter-btn" data-filter-type="activity" data-filter-val="deltas">⚡ What's New This Week</button>
+        <button class="filter-btn" data-filter-type="activity" data-filter-val="new">✨ Newly Tracked</button>
+        <button class="filter-btn" data-filter-type="activity" data-filter-val="status-change">🔄 Status Changed</button>
       </div>
       ${milestones && milestones.length > 1 ? `
       <div class="filters-row">
@@ -608,6 +619,7 @@ export function generateDashboardHtml(reportData) {
     let currentMilestone = 'all';
     let currentStatus = 'all';
     let currentMomentum = 'all';
+    let currentActivity = 'all';
     let currentSearch = '';
 
     function updateStats() {
@@ -619,6 +631,9 @@ export function generateDashboardHtml(reportData) {
       document.getElementById('stat-high').textContent = activeSubset.filter(f => f.analysis.momentumLevel === 'High').length;
       document.getElementById('stat-consensus').textContent = activeSubset.filter(f => f.analysis.consensus === 'Multi-Engine Consensus').length;
       document.getElementById('stat-contested').textContent = activeSubset.filter(f => f.analysis.consensus.includes('Contested') || f.analysis.consensus.includes('Concerns')).length;
+
+      const deltasCount = activeSubset.filter(item => item.delta && (item.delta.isNewFeature || item.delta.statusChanged || item.delta.momentumChanged || item.delta.newArticlesCount > 0 || item.delta.newDiscussionsCount > 0)).length;
+      document.getElementById('stat-deltas').textContent = deltasCount;
     }
 
     function renderFeatures() {
@@ -632,6 +647,15 @@ export function generateDashboardHtml(reportData) {
         if (currentMilestone !== 'all' && String(f.milestone) !== String(currentMilestone)) return false;
         if (currentStatus !== 'all' && f.statusType !== currentStatus) return false;
         if (currentMomentum !== 'all' && a.momentumLevel !== currentMomentum) return false;
+
+        if (currentActivity === 'deltas') {
+          const hasDelta = item.delta && (item.delta.isNewFeature || item.delta.statusChanged || item.delta.momentumChanged || item.delta.newArticlesCount > 0 || item.delta.newDiscussionsCount > 0);
+          if (!hasDelta) return false;
+        } else if (currentActivity === 'new') {
+          if (!item.delta?.isNewFeature) return false;
+        } else if (currentActivity === 'status-change') {
+          if (!item.delta?.statusChanged) return false;
+        }
 
         if (currentSearch) {
           const q = currentSearch.toLowerCase();
@@ -713,6 +737,26 @@ export function generateDashboardHtml(reportData) {
         const docCount = (eco.docs || []).length;
         const pkgCount = (eco.packages || []).length;
 
+        const delta = item.delta;
+        let deltaBadges = '';
+        if (delta) {
+          if (delta.statusChanged) {
+            deltaBadges += \`<span class="badge badge-primary" title="Status updated this week">🔄 Moved to \${escapeHtml(f.category)}</span>\`;
+          }
+          if (delta.isNewFeature) {
+            deltaBadges += \`<span class="badge badge-warning" title="Newly tracked feature this week">✨ Newly Tracked</span>\`;
+          }
+          if (delta.momentumChanged) {
+            deltaBadges += \`<span class="badge badge-purple" title="Momentum shift">🚀 \${escapeHtml(a.momentumLevel)} (was \${escapeHtml(delta.previousMomentum || '')})</span>\`;
+          }
+          if (delta.newArticlesCount > 0 || delta.newDiscussionsCount > 0) {
+            const parts = [];
+            if (delta.newArticlesCount > 0) parts.push(\`+\${delta.newArticlesCount} articles\`);
+            if (delta.newDiscussionsCount > 0) parts.push(\`+\${delta.newDiscussionsCount} msgs\`);
+            deltaBadges += \`<span class="badge badge-success" title="New ecosystem activity discovered this week">⚡ \${parts.join(', ')}</span>\`;
+          }
+        }
+
         return \`
           <article class="feature-card" id="card-\${f.id}">
             <div class="feature-header">
@@ -723,6 +767,7 @@ export function generateDashboardHtml(reportData) {
                 <span class="badge">Chrome \${escapeHtml(f.milestone || '')}</span>
                 <span class="badge \${momentumBadgeClass}">\${escapeHtml(a.momentumLevel)} Momentum</span>
                 <span class="badge \${consensusBadgeClass}">\${escapeHtml(a.consensus)}</span>
+                \${deltaBadges}
                 \${baselineBadge}
                 \${polyfillBadge}
                 \${a.isGroundedWithGoogleSearch ? '<span class="badge badge-primary" title="Grounded with live Google Search via Gemini">🌐 Google Search Grounded</span>' : ''}
@@ -793,6 +838,19 @@ export function generateDashboardHtml(reportData) {
             </button>
 
             <div class="expander-body" id="details-\${f.id}">
+              \${delta && (delta.newArticlesCount > 0 || delta.newDiscussionsCount > 0 || delta.statusChanged || delta.isNewFeature || delta.momentumChanged) ? \`
+                <div style="background: rgba(147, 51, 234, 0.08); border-left: 3px solid var(--purple); border-radius: 6px; padding: 0.85rem 1.1rem; margin-bottom: 1.25rem;">
+                  <strong style="color: var(--purple);">⚡ What Happened This Week (Delta):</strong>
+                  <ul style="margin: 0.4rem 0 0 1.2rem; font-size: 0.88rem; color: var(--text);">
+                    \${delta.isNewFeature ? '<li>✨ <strong>Newly Tracked:</strong> First time appearing in ecosystem tracking</li>' : ''}
+                    \${delta.statusChanged ? \`<li>🔄 <strong>Status Transition:</strong> Moved from <em>\${escapeHtml(delta.previousStatus || 'N/A')}</em> to <strong>\${escapeHtml(f.category)}</strong></li>\` : ''}
+                    \${delta.momentumChanged ? \`<li>🚀 <strong>Momentum Shift:</strong> Shifted from <em>\${escapeHtml(delta.previousMomentum || 'N/A')}</em> to <strong>\${escapeHtml(a.momentumLevel)}</strong></li>\` : ''}
+                    \${delta.newArticlesCount > 0 ? \`<li>📰 <strong>\${delta.newArticlesCount} new article(s)/tutorial(s)</strong> discovered</li>\` : ''}
+                    \${delta.newDiscussionsCount > 0 ? \`<li>💬 <strong>\${delta.newDiscussionsCount} new community discussion(s)</strong> surfaced</li>\` : ''}
+                  </ul>
+                </div>
+              \` : ''}
+
               \${a.takeaways && a.takeaways.length ? \`
                 <div class="section-title">💡 Key Recommendations & Analysis:</div>
                 <ul style="margin-left: 1.5rem; margin-bottom: 1.25rem;">
@@ -974,10 +1032,16 @@ export function generateDashboardHtml(reportData) {
         if (type === 'milestone') currentMilestone = val;
         if (type === 'status') currentStatus = val;
         if (type === 'momentum') currentMomentum = val;
+        if (type === 'activity') currentActivity = val;
         updateStats();
         renderFeatures();
       });
     });
+
+    function toggleDeltaFilter() {
+      const btn = document.querySelector('[data-filter-type="activity"][data-filter-val="deltas"]');
+      if (btn) btn.click();
+    }
 
     document.getElementById('search-input').addEventListener('input', (e) => {
       currentSearch = e.target.value.trim();

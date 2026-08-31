@@ -83,14 +83,20 @@ export async function resolveTargetMilestones(targetInput = 'auto') {
       .sort((a, b) => a - b);
   }
 
-  // 5. Default 'auto' -> single upcoming Beta milestone
+  // 5. Default ('auto', 'last-5', empty) -> Last 5 Chrome releases (e.g. 150-154)
   const channels = await fetchChannels();
-  const betaMilestone = channels.beta?.mstone;
-  const stableMilestone = channels.stable?.mstone;
+  const latest = channels.beta?.mstone || channels.stable?.mstone || 154;
 
-  if (betaMilestone) return [betaMilestone];
-  if (stableMilestone) return [stableMilestone];
-  return [154]; // Fallback
+  if (inputStr === 'single' || inputStr === 'beta') {
+    return [latest];
+  }
+  if (inputStr === 'stable') {
+    return [channels.stable?.mstone || 153];
+  }
+
+  // Default to last 5 releases
+  const count = 5;
+  return Array.from({ length: count }, (_, i) => latest - count + 1 + i);
 }
 
 /**

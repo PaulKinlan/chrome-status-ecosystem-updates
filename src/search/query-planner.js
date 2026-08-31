@@ -130,6 +130,13 @@ export async function planEcosystemQueries(feature, context = {}) {
       'ecosystem-adoption',
       'Ecosystem adoption and developer sentiment'
     );
+
+    // Twitter / X social discussions and developer buzz
+    addQuery(
+      `"${feature.name}" (site:x.com OR site:twitter.com)`,
+      'social-discussions',
+      'Twitter / X developer sentiment and commentary'
+    );
   }
 
   logger.debug(`[Query Planner] Generated ${plannedQueries.length} search queries for "${feature.name}" (${plannedQueries.filter(q => q.isReverseLink).length} reverse-link citations)`);

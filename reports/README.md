@@ -1,1069 +1,68 @@
 # 🌐 Chrome Web Platform Ecosystem Report — 2026-W36
 
-> **Generated on:** 2026-08-31 | **Target Milestones:** Chrome 154
-> **Search Engine:** Gemini (Google Grounded) + BRAVE | **Analysis Model:** Google Gemini (gemini-3.7-flash)
+> **Generated on:** 2026-08-31 | **Target Milestones:** Chrome 150, 151, 152, 153, 154
+> **Search Engine:** auto | **Analysis Model:** Heuristic Engine
 
 ## 📊 Executive Snapshot
 
 | Metric | Count | Description |
 | :--- | :--- | :--- |
-| **Features Tracked** | `22` | APIs & platform features analyzed across milestones |
-| **High Ecosystem Momentum** | `13` | Features with active community discussions & publications |
+| **Features Tracked** | `3` | APIs & platform features analyzed across milestones |
+| **High Ecosystem Momentum** | `0` | Features with active community discussions & publications |
 | **Multi-Engine Consensus** | `0` | Broad alignment across Chromium, Gecko, and WebKit |
-| **Contested / Concerns** | `1` | Features with open vendor or security/privacy objections |
-| **New Mentions This Week** | `243` | Net new articles, discussions, or standards updates |
+| **Contested / Concerns** | `0` | Features with open vendor or security/privacy objections |
+| **New Mentions This Week** | `6` | Net new articles, discussions, or standards updates |
+
+## ⚡ Week-over-Week Ecosystem Deltas
+
+### ✨ Newly Tracked Features
+
+- [Allow optional rounding parameter for `polygon()`](#6636392944893952-allow-optional-rounding-parameter-for-polygon) (Chrome 150, Enabled by default)
+- [AccentColor and AccentColorText system colors](#5068127364186112-accentcolor-and-accentcolortext-system-colors) (Chrome 150, Enabled by default)
+- [Animatable zoom](#5183671737909248-animatable-zoom) (Chrome 150, Enabled by default)
+
+---
 
 ## 📋 Features Index
 
-| Feature | Milestone | Category | Momentum | Consensus | Developer Pulse |
+| Feature | Milestone | Category | Momentum | Consensus | Week Delta |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| [Light dismiss improvements for popovers and dialogs](#6209615938322432-light-dismiss-improvements-for-popovers-and-dialogs) | Chrome 154 | `Enabled by default` | **High** | Chromium-Led | Positive |
-| [CSS scroll-marker-group modes](#5109685301673984-css-scroll-marker-group-modes) | Chrome 154 | `Enabled by default` | **High** | Chromium-Led | Cautiously Optimistic |
-| [Algorithm Updates in WebCrypto](#5198951632470016-algorithm-updates-in-webcrypto) | Chrome 154 | `Enabled by default` | **High** | Chromium-Led | Neutral |
-| [Fetch API: Forward reason from AbortController to fetch Response](#5158507786665984-fetch-api-forward-reason-from-abortcontroller-to-fetch-response) | Chrome 154 | `Enabled by default` | **High** | Chromium-Led | Positive / High Interest |
-| [Private Verification Tokens](#6210457816924160-private-verification-tokens) | Chrome 154 | `Origin trial` | **High** | Chromium-Led | Positive / High Interest |
-| [CSS Symbols()](#5146996093616128-css-symbols) | Chrome 154 | `Enabled by default` | **High** | Partial Multi-Engine Interest | Cautiously Optimistic |
-| [Local Network Access restrictions for Background Fetch](#6225598451154944-local-network-access-restrictions-for-background-fetch) | Chrome 154 | `Enabled by default` | **High** | Chromium-Led | Positive |
-| [Support for specialized WebHID devices on Android](#5172464636133376-support-for-specialized-webhid-devices-on-android) | Chrome 154 | `In developer trial (Behind a flag)` | **High** | Contested / Concerns Raised | Mixed / Skeptical |
-| [Window Shape API](#5075144470036480-window-shape-api) | Chrome 154 | `Enabled by default` | **High** | Chromium-Led | Positive / High Interest |
-| [Responsively-sized &lt;iframe&gt;](#5108373464547328-responsively-sized-iframe) | Chrome 154 | `Enabled by default` | **High** | Chromium-Led | Positive / High Interest |
-| [CSS4 text-decoration-skip-spaces](#4832783806627840-css4-text-decoration-skip-spaces) | Chrome 154 | `Enabled by default` | **High** | Chromium-Led | Cautiously Optimistic |
-| [Renewed HTML insertion&streaming methods](#5054329641893888-renewed-html-insertionstreaming-methods) | Chrome 154 | `Enabled by default` | **High** | Partial Multi-Engine Interest | Positive / High Interest |
-| [WebGPU: WGSL Fragment Depth](#5663304168112128-webgpu-wgsl-fragment-depth) | Chrome 154 | `Enabled by default` | **High** | Partial Multi-Engine Interest | Positive / High Interest |
-| [CSS text-decoration-inset](#5178263526834176-css-text-decoration-inset) | Chrome 154 | `Enabled by default` | **Moderate** | Chromium-Led | Positive |
-| [Add options bag to WebSocket constructor](#5080055102439424-add-options-bag-to-websocket-constructor) | Chrome 154 | `Enabled by default` | **Moderate** | Chromium-Led | Cautiously Optimistic |
-| [FontFace width attribute and font-width descriptor](#5145402365050880-fontface-width-attribute-and-font-width-descriptor) | Chrome 154 | `Enabled by default` | **Moderate** | Chromium-Led | Cautiously Optimistic |
-| [Iterator Includes](#5205192866922496-iterator-includes) | Chrome 154 | `Enabled by default` | **Moderate** | Chromium-Led | Positive |
-| [Secure Payment Confirmation: Locale Validation](#5126146013396992-secure-payment-confirmation-locale-validation) | Chrome 154 | `Enabled by default` | **Moderate** | Chromium-Led | Cautiously Optimistic |
-| [CORS enforcement for Background Fetch](#6210300985606144-cors-enforcement-for-background-fetch) | Chrome 154 | `Enabled by default` | **Emerging** | Chromium-Led | Neutral |
-| [Expose CSSStyleValue hierarchy to Worker contexts](#5114591051907072-expose-cssstylevalue-hierarchy-to-worker-contexts) | Chrome 154 | `Enabled by default` | **Emerging** | Chromium-Led | Positive |
-| [Support targetAddressSpace option for WebSockets](#4779920606756864-support-targetaddressspace-option-for-websockets) | Chrome 154 | `Enabled by default` | **Emerging** | Chromium-Led | Neutral |
-| [WebTransport headers and responseHeaders](#5194104408506368-webtransport-headers-and-responseheaders) | Chrome 154 | `Enabled by default` | **Quiet** | Chromium-Led | Positive |
+| [Allow optional rounding parameter for `polygon()`](#6636392944893952-allow-optional-rounding-parameter-for-polygon) | Chrome 150 | `Enabled by default` | **Emerging** | Chromium-Led | ✨ New |
+| [AccentColor and AccentColorText system colors](#5068127364186112-accentcolor-and-accentcolortext-system-colors) | Chrome 150 | `Enabled by default` | **Emerging** | Chromium-Led | ✨ New |
+| [Animatable zoom](#5183671737909248-animatable-zoom) | Chrome 150 | `Enabled by default` | **Emerging** | Chromium-Led | ✨ New |
 
 ---
 
 ## 🔍 Feature Ecosystem Deep Dives
 
-<a id="6209615938322432-light-dismiss-improvements-for-popovers-and-dialogs"></a>
-### [Light dismiss improvements for popovers and dialogs](https://chromestatus.com/feature/6209615938322432)
+<a id="6636392944893952-allow-optional-rounding-parameter-for-polygon"></a>
+### [Allow optional rounding parameter for `polygon()`](https://chromestatus.com/feature/6636392944893952)
 
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/6209615938322432](https://chromestatus.com/feature/6209615938322432) · [chromestatuslite.com/feature/6209615938322432](https://chromestatuslite.com/feature/6209615938322432)
-- **Specification:** [https://github.com/whatwg/html/pull/11536](https://github.com/whatwg/html/pull/11536)
-- **Chromium Bug:** [https://issues.chromium.org/issues/408010435](https://issues.chromium.org/issues/408010435)
+- **Milestone:** Chrome 150 (Enabled by default)
+- **ChromeStatus:** [chromestatus.com/feature/6636392944893952](https://chromestatus.com/feature/6636392944893952) · [chromestatuslite.com/feature/6636392944893952](https://chromestatuslite.com/feature/6636392944893952)
+- **Specification:** [https://drafts.csswg.org/css-shapes-1/#funcdef-basic-shape-polygon](https://drafts.csswg.org/css-shapes-1/#funcdef-basic-shape-polygon)
+- **Chromium Bug:** [https://issues.chromium.org/issues/329302249](https://issues.chromium.org/issues/329302249)
 - **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `No signal`
 
 #### 📝 Overview
 
-Improves and simplifies the light dismiss behavior for popovers and dialogs to fix a few bugs. "Light dismiss" is the behavior where clicking outside of a popover or dialog closes it. The fixed bugs include making scrolling gestures on touch screens no longer trigger light dismiss and making right clicks no longer trigger light dismiss.
+Allows an optional corner-rounding parameter in the polygon() CSS shape function. Developers can specify a length value to round polygon corners without manually computing bezier curves.
 
-The underlying mechanism of this change is that the browser will use click events to trigger light dismiss instead of a combination of pointerdown and pointerup events.
+Interactive demo: https://codepen.io/yisi/pen/NPRLEQN
+CSSWG issue: https://github.com/w3c/csswg-drafts/issues/9843
 
-> **Motivation:** We need to fix these bugs with light dismiss:
-https://issues.chromium.org/issues/408010435
-https://issues.chromium.org/issues/425579196
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **High** (Activity Score: 460)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Positive**
-- **Google Search Grounding:** Enabled via Gemini
-- **Search Queries:** `""light dismiss" "popover" "dialog" "click" "pointerdown" whatwg html"`, `""github.com/whatwg/html/pull/11536""`, `""Light dismiss improvements for popovers and dialogs" Chrome"`, `"site:chromestatus.com "Light dismiss" popover dialog"`
-- **Analysis:** Light dismiss improvements for popovers and dialogs refactor the light dismiss trigger mechanism from pointerdown/pointerup combinations to standard click events in WHATWG HTML (PR #11536). Enabled by default starting in Chrome 154, this update eliminates long-standing mobile usability bugs, preventing touch-scrolling gestures and right-click context menus from inadvertently dismissing open overlays. Standardized across the WHATWG HTML and OpenUI working groups, this refinement brings predictable behavior to native HTML popovers and dialogs with the closedby attribute.
-
-**Key Recommendations & Takeaways:**
-- Actionable Advice: Web developers can rely on default light dismiss behavior without implementing custom pointer event suppression or backdrop drag-detection workarounds. Continue testing overlay touch interactions in mobile environments and remove legacy JavaScript hacks previously needed to prevent touch-scroll dismissals.
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **49 new articles/tutorials** published
-
-#### 📦 Polyfills & NPM Ecosystem
-
-- [@inertiaui/vanilla](https://www.npmjs.com/package/@inertiaui/vanilla) `v1.3.1` — A lightweight vanilla TypeScript library providing UI utilities for dialogs, animations, focus management, menu navigation, click outside detection, floating element positioning, and common helper functions. Framework-agnostic and designed to integrate se
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHff6_TP9YmDWtf2J_n-Br7e61o5GEqtvV67C7M1aamOs9oluDrleelPEekOS2Ago7yXffdAur9aXrLKl-_Z5aCmmUyxkBiFGLJo99vbQv5LBUfJS-M9ZSkeoLRo-JGvEO5N0U=) *(vertexaisearch.cloud.google.com)*
-  > Popover = hint | Blog | Chrome for Developers 跳至主要內容 / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংল...
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH24bd0q0cU7693e89JOCRCGwIur6ymyEtUAlBOEMavuziJAtMuZnIQRBtg17ZcLHPTE_bE9F7AgE2PMGGWLEmPwMpyGnTfgHu625ddNyKV2lysmt7QMc7BYGw2iPsZgg9Ni2ZF0KZy46BNFccBCdbrjtfgFC1Lkw0PKn0trvOdljzsPZHvBk3SaJE=) *(vertexaisearch.cloud.google.com)*
-  > popover HTML global attribute - HTML | MDN Skip to main content Skip to search Toggle sidebar Web HTML Reference Global attributes popover Theme OS default Light Dark English (US) Remember language Learn more Deutsch Eng...
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9efqgPQ1J2n83NUgH8gH-TFjkqf9pDz1qVkmZpPYayFv18-xgHSqgckNXZmRAhMKNxsEt8pzvWClOWhhvdHpMeB0pUGVNQ4RV6IqSqMutSucS5iHaH7G9kvdFEPoyM3mWuMNmLg8=) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [modern-css.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGZB7PthnA5xlE5Ep0Tk1_8Ogm7KraErpjynId2lp1qKf0ZEw29DC7UWSxWSWqWSYQ2mXLRGU5fPinnGARvjJtK65cFKmnezjzANB0Lc21VAh1FnuMHpBjCrsbSx6dRjPh5Ip-Fj6rvM9-yk9Mm8nF5KBatlX4QGkoDWwYUnFXJgKU=) *(vertexaisearch.cloud.google.com)*
-  > CSS Dialog Light Dismiss with closedby Attribute Explore All snippets CSS snippets HTML snippets CSS Tools CSS Blocks Articles Cheatsheet Resources AI Tools UI Terms CSS Reference Overview Properties Selectors At-rules F...
-- [chromestatuslite.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGvQiv8eJkDQHfUYvMjjHkyKJu6lONfh4-GbgETR8bdiLUf7RGE1oOdFHiFPd2BPBeqd15gn2m1ZjGRTCDsVIC0_gGAz1ETDH_pZ4K1k3PEWZBsKw==) *(vertexaisearch.cloud.google.com)*
-  > Chrome Release 154 Chrome Release Summary Chrome version: 154 153 152 151 150 149 148 147 +147 146 145 144 143 142 141 140 139 138 137 136 135 134 133 132 131 130 129 128 127 126 125 124 123 122 121 120 119 118 117 116 1...
-- [chromium.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFgdIhm9HC2UAyFbyZ6UJn2p8DgRgwKxGXawAHbLr7Y4TI5SNQYboT1aHuQJ35DMS46pbhKFeRIFz9eTyi3ZMGsA2vfvAMQ7qXgwyCsSIbB9UuwyWNmY4YaT619CoTef4drLQ==) *(vertexaisearch.cloud.google.com)*
-  > Chromium Sign in
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [[blink-dev] Web-Facing Change PSA: Light dismiss improvements for popovers and dialogs](http://www.mail-archive.com/blink-dev@chromium.org/msg17139.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/6209615938322432`)*
-  > *No information provided* ... on Android 145 Shipping on WebView 153 *Link to entry on the Chrome Platform Status* https://<strong>chromestatus.com/feature/6209615938322432</strong> This intent message was generated by C...
-- [Weekly github digest (HTML specs) from W3C Webmaster via GitHub API on 2026-08-17 (public-html@w3.org from August 2026)](https://lists.w3.org/Archives/Public/public-html/2026Aug/0002.html) *(lists.w3.org)* *(Cites: `https://github.com/whatwg/html/pull/11536`)*
-  > (4 by emilio, josepharhar) ... Expand disabled form control event handling spec text (1 by josepharhar) https://github.com/whatwg/html/pull/12219 [agenda+] - #11536 Change light dismiss to use click events (1 by josephar...
-
-#### 📚 Platform Documentation & References
-
-- [Weekly github digest (HTML specs) from W3C Webmaster via GitHub API on 2026-08-17 (public-html@w3.org from August 2026)](https://lists.w3.org/Archives/Public/public-html/2026Aug/0002.html) *(lists.w3.org)*
-- [Add light dismiss functionality to `<dialog>` · Issue #9373 · whatwg/html](https://github.com/whatwg/html/issues/9373) *(github.com)*
-- [Using the Popover API - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using) *(developer.mozilla.org)*
-- [Add popover light dismiss integration by josepharhar · Pull Request #460 · w3c/pointerevents](https://github.com/w3c/pointerevents/pull/460) *(github.com)*
-- [1804567 - [wpt-sync] Sync PR 37389 - Add WPT for popover light dismiss pointer events](https://bugzilla.mozilla.org/show_bug.cgi?id=1804567) *(bugzilla.mozilla.org)*
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=light-dismiss-improvements-for-popovers-and-dialogs) (0 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (30 found across 7 planned queries, 28 verified) · `Google Search Grounding (gemini-3.7-flash)` (15 found, 15 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 27 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (0 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 1 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 0
-
----
-
-<a id="5109685301673984-css-scroll-marker-group-modes"></a>
-### [CSS scroll-marker-group modes](https://chromestatus.com/feature/5109685301673984)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5109685301673984](https://chromestatus.com/feature/5109685301673984) · [chromestatuslite.com/feature/5109685301673984](https://chromestatuslite.com/feature/5109685301673984)
-- **Specification:** [https://drafts.csswg.org/css-overflow-5/#scroll-marker-modes](https://drafts.csswg.org/css-overflow-5/#scroll-marker-modes)
-- **Chromium Bug:** [https://issues.chromium.org/issues/425931511](https://issues.chromium.org/issues/425931511)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `No signal`
-
-#### 📝 Overview
-
-The scroll-marker-group property is enhaced to support modes:
-1) 'links' - The generated ::scroll-marker-group operates in "links" mode, functioning like a navigation list. This is the default mode if omitted.
-2) 'tabs' - The generated ::scroll-marker-group operates in "tabs" mode, functioning like a tablist.
-
-Each mode changes focus order and accessibility behavior of ::scroll-marker-group and ::scroll-markers, following WAI-ARIA patterns.
-
-More details:
-# The links mode (default)
-This mode is designed to mimic standard Navigation Landmarks combined with fragment anchors.
-
-## Semantic roles
-The ::scroll-marker-group takes on the navigation role, and the ::scroll-marker elements take on the link role. This perfectly maps to the <nav> + <a> structural pattern.
-
-## Keyboard navigation
-All ::scroll-marker elements are sequential tab stops, natively acting like a list of standard anchor links.
-
-## Unaffected targets
-The originating elements do not get forced into any role, leaving the document's natural semantic structure intact.
-
-## Activation focus management
-When a link marker is activated, it sets the sequential focus navigation starting point to the target element (the originating element), and focus is lost from the marker. This mimics the native behavior of clicking a standard internal <a href="#target"> link.
-
-# The tabs mode
-This mode is designed to natively replicate the Tabs Pattern and serves as the interactive foundation for the Tabbed Carousel Pattern.
-
-## Semantic roles
-The ::scroll-marker-group is implicitly assigned the tablist role, ::scroll-marker elements act as tab roles, and their originating elements get the tabpanel role. This mirrors the required WAI-ARIA Tabs structure.
-
-## Keyboard navigation (roving tabindex)
-It follows the complex keyboard interactions outlined in standard practices. Only the active ::scroll-marker acts as a tab stop. Users use arrow keys to navigate the focusgroup (switching between markers), preventing the "tab trap" of having to tab through 20 carousel dots.
-
-## Focus scope management
-The marker acts as a focus navigation scope owner. Pressing Tab from the active marker moves focus directly into the active tabpanel content, matching the specification for tabbed interfaces.
-
-## Tree pruning
-Content from inactive tabs is explicitly hidden from the accessibility tree. This mimics the expected behavior of aria-hidden="true" or inert on inactive tab panels, saving developers from manually scripting state changes.
-
-## Activation focus
-When a marker is activated, focus is retained on the marker, which is exactly how standard tabs operate.
+> **Motivation:** Rounded polygons are a common design pattern on the web. Without this feature, developers who want rounded corners on a polygon shape must manually compute bezier control points or use workarounds such as SVG clip paths. The polygon() round parameter makes this directly expressible in CSS, reducing complexity and improving maintainability.
 
 #### 💡 Ecosystem Intelligence & Analysis
 
-- **Momentum:** **High** (Activity Score: 340)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Cautiously Optimistic**
-- **Google Search Grounding:** Enabled via Gemini
-- **Search Queries:** `""scroll-marker-group" modes site:github.com/w3c/csswg-drafts"`, `""scroll-marker-group" "tabs" "links" css overflow 5"`
-- **Analysis:** CSS `scroll-marker-group` modes (`links` and `tabs`) extend the CSS Overflow Module Level 5 specification to provide declarative, built-in WAI-ARIA roles and keyboard focus management for carousels and tabbed interfaces. While Chromium has pushed implementation to default enablement to simplify accessible UI construction, the feature remains experimental without Baseline indexing or implementation in Gecko and WebKit. Cross-engine consensus continues to evolve as the working group refines accessibility semantics and focus scope rules.
-
-**Key Recommendations & Takeaways:**
-- Actionable Advice: Treat `scroll-marker-group` modes as an emerging progressive enhancement or evaluate them in Chromium canary/previews. For production multi-browser environments, continue relying on established, accessible JavaScript-driven tabs and carousel patterns until full cross-browser interoperability is achieved.
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @danielsakhapov: "FYI, we've update scroll-marker-group property to support modes to better comply with WCAG patterns - https://chromestatus.com/feature/510968530167398..."
-- Standards Activity (Mozilla): Latest discussion from @jcsteh: "I have some significant accessibility concerns regarding CSS inert specifically. See https://github.com/w3ctag/design-reviews/issues/1055#issuecomment..."
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **39 new articles/tutorials** published
-
-#### 🏛️ Browser Standards Positions
-
-- **WebKit:** [CSS Overflow Navigation Controls](https://github.com/WebKit/standards-positions/issues/447) [open] `topic: css`, `concerns: internationalization`, `venue: W3C CSS WG`, `from: Google`, `concerns: accessibility`
-  > *Latest discussion from @danielsakhapov: "FYI, we've update scroll-marker-group property to support modes to better comply with WCAG patterns - https://chromestatus.com/feature/510968530167398..."*
-- **Mozilla:** [CSS Overflow Navigation Controls](https://github.com/mozilla/standards-positions/issues/1161) [open] `venue: W3C`, `topic: CSS`, `team: Layout`, `team: Accessibility`
-  > *Latest discussion from @jcsteh: "I have some significant accessibility concerns regarding CSS inert specifically. See https://github.com/w3ctag/design-reviews/issues/1055#issuecomment..."*
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGZahzkoW6kwEjiICvJWaocIjZS7Yvb7rRdan5lKUj8q8FlPc3xUpwqUoiHtm5Bh4pv2R3U7qvigG0nZBSpsqrjR-E9Uq14d_RYmhgJDN5zNJhFp-eYHNIFg6iDLmbon9hqYw20xjirHKCs-ZaVhty4qKN4gVc_vZXxgISm3A==) *(vertexaisearch.cloud.google.com)*
-  > Description of the new scorll-marker-group modes for ARIAWG · GitHub Skip to content --> Search Gists Search Gists Sign in Sign up You signed in with another tab or window. Reload to refresh your session. You signed out ...
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGU7ohwsecv8Zhtc1IXK31oUDRzWFRv4R2hdn2ZTENFiGnzB9IKqjLaQlMyjbVUogyeh9jsy7f5TSE5U_Y0fT2oNBTJGPGlmbloQH6sdYgxpFkZEdQ-6XpEx7RQeN4XJzcL4IUEWoicMx0bVA==) *(vertexaisearch.cloud.google.com)*
-  > Make accessible carousels | Blog | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית ...
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGGESYsHZhvBIvmBcC8ULC5VHnQXez-5-hPVms1UiqFUXzwDqXtxeeuU2hqmnYnXi35Vcz0YV4URZ-rrB8cRw1SRljmkGleYymS9XD8lD52t72mI9nm2WgR0ZNbGoYsApEIRrklhkix) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [github.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQETyplQvUSFe05gXS-94GOfy4Wub7SfYTJQMUD7TCP6IdTaiH-wR43qLtlizK5VL1HYlHy5bIqZa6kKFq7ez2RgoRB9bJrvpUkYBa7aaMlM8TTIuuqi3-PoL8h9XN1L8yAvxbpLxrRE3yEEQCaTLidCH3t9IVuGe2VU) *(vertexaisearch.cloud.google.com)*
-  > Scroll marker group type Scroll marker group type By setting the scroll-marker-group type you can switch between tabs and links. The two examples below show use cases where you would want to use one or the other. Tabs In...
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFcdleBJCEQ2rf1E0lBq96sPxrQKq193jYHTbHRDecUSr62sYA3sofs9DuM1RGdFwUX-UuOoD3XaR6_52Uvk4eKGjVbSgh29sOxwZW1up5UTzeQ43fsUhcZSs8_I8PMODcnSMO21OQ=) *(vertexaisearch.cloud.google.com)*
-  > [css-overflow-5] Discrete versus navigation scroll marker mode · Issue #12122 · w3c/csswg-drafts · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signe...
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQETQib8ZlX3PGRKAp1VXrjQCVSWqz_X73E6hyGIx3bz3zBkiD6uWLsivnEhDgDjiQy-PxOf5KBMzTzs3zAUZyGjDlRkRE3MkkpGmibJoVh3_kBcONtHNLKFxvoxJP4uDFoArqtdsMZR1DhR7RfM7Nq9TjgCGmavUAAChFRYjjoKi6RucYz5Pq1mZiAivtF38w==) *(vertexaisearch.cloud.google.com)*
-  > scroll-marker-group CSS property - CSS | MDN Skip to main content Skip to search Toggle sidebar Web CSS Reference Properties scroll-marker-group Theme OS default Light Dark English (US) Remember language Learn more Deuts...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [RE: [blink-dev] Intent to Ship: CSS scroll-marker-group modes](http://www.mail-archive.com/blink-dev@chromium.org/msg16999.html) *(mail-archive.com)* *(Cites: `https://gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3`)*
-  > Thanks, Dan From: [email protected] ... modes Contact emails [email protected]&lt;mailto:[email protected]&gt; Explainer https://<strong>gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3</strong> Specificat...
-- [[blink-dev] Intent to Ship: CSS scroll-marker-group modes](http://www.mail-archive.com/blink-dev@chromium.org/msg16979.html) *(mail-archive.com)* *(Cites: `https://gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3`)*
-  > Explainer https://<strong>gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3</strong> Specification https://drafts.csswg.org/css-overflow-5/#scroll-marker-modes Summary The scroll-marker-group property is en...
-- [csswg-drafts/css-overflow-5/Overview.bs at main · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/blob/main/css-overflow-5/Overview.bs) *(github.com)* *(Cites: `https://drafts.csswg.org/css-overflow-5/#scroll-marker-modes`)*
-  > &lt;!-- Abstract: <strong>This module contains the features of CSS relating to new mechanisms of overflow handling in visual media</strong> (e.g., screen or paper).  In interactive media, it describes features that allow...
-- [Support CSS Overflow Module Level 5 · Issue #1184 · parcel-bundler/lightningcss](https://github.com/parcel-bundler/lightningcss/issues/1184) *(github.com · 2026-03-16T06:55:52)* *(Cites: `https://drafts.csswg.org/css-overflow-5/#scroll-marker-modes`)*
-  > Support CSS Overflow Module Level 5#1184 · Feature · Copy link · yisibl · opened · on Mar 16, 2026 · Issue body actions · https://<strong>drafts.csswg.org/css-overflow-5</strong> · scroll-marker-group · ::scroll-marker-g...
-- [CSS Overflow Navigation Controls · Issue #1161 · mozilla/standards-positions](https://github.com/mozilla/standards-positions/issues/1161) *(github.com · 2025-01-09T15:58:35)* *(Cites: `https://drafts.csswg.org/css-overflow-5/#scroll-marker-modes`)*
-  > Request for Mozilla Position on an Emerging Web Specification Specification title: CSS Overflow Navigation Controls Specification or proposal URL (if available): https://<strong>drafts.csswg.org/css-overflow-5</strong>/#...
-
-#### 📚 Platform Documentation & References
-
-- [csswg-drafts/css-overflow-5/Overview.bs at main · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/blob/main/css-overflow-5/Overview.bs) *(github.com)*
-- [Support CSS Overflow Module Level 5 · Issue #1184 · parcel-bundler/lightningcss](https://github.com/parcel-bundler/lightningcss/issues/1184) *(github.com)*
-- [CSS Overflow Navigation Controls · Issue #1161 · mozilla/standards-positions](https://github.com/mozilla/standards-positions/issues/1161) *(github.com)*
-- [`scroll-marker-group` CSS property flagged as 'Unknown property' · Issue #120 · microsoft/vscode-custom-data](https://github.com/microsoft/vscode-custom-data/issues/120) *(github.com)*
-- [scroll-marker-group CSS property - CSS | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scroll-marker-group) *(developer.mozilla.org)*
-
-#### 🧪 Interactive Demos & Samples
-
-- [CSS scroll-marker-group modes Demo](https://codepen.io/Daniil-Sakhapov/pen/ogzQQYZ)
-- [CSS scroll-marker-group modes Demo](https://codepen.io/Daniil-Sakhapov/pen/ZYpmmJE)
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=css-scroll-marker-group-modes) (0 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (29 found across 7 planned queries, 24 verified) · `Google Search Grounding (gemini-3.7-flash)` (10 found, 10 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 25 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (2 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 6
-
----
-
-<a id="5198951632470016-algorithm-updates-in-webcrypto"></a>
-### [Algorithm Updates in WebCrypto](https://chromestatus.com/feature/5198951632470016)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5198951632470016](https://chromestatus.com/feature/5198951632470016) · [chromestatuslite.com/feature/5198951632470016](https://chromestatuslite.com/feature/5198951632470016)
-- **Specification:** [https://wicg.github.io/webcrypto-modern-algos](https://wicg.github.io/webcrypto-modern-algos)
-- **Chromium Bug:** [https://issues.chromium.org/issues/450627017](https://issues.chromium.org/issues/450627017)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `Neutral` · Safari: `Neutral`
-
-#### 📝 Overview
-
-Add post-quantum cryptography and a common symmetric AEAD to the set of cryptographic algorithms available in the Web Cryptography API. This will enable developers to have access browser-provided implementations of common quantum-resistant cryptographic algorithms standardized by NIST.
-
-* ML-KEM - 768, 1024
-* ML-DSA - 44, 65, 87
-* ChaCha20-Poly1305
-* X-Wing
-
-> **Motivation:** Web Crypto exposes various low-level primitives, however none of the public/private key cryptography is currently quantum-resistant 
-
-Adding quantum-resistant cryptography as a primitive to the existing WebCrypto APIs allows Javascript cryptography libraries to automatically use browser-provided cryptography (which may be more securely implemented ...
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **High** (Activity Score: 320)
+- **Momentum:** **Emerging** (Activity Score: 30)
 - **Consensus:** **Chromium-Led**
 - **Developer Sentiment:** **Neutral**
-- **Analysis:** Algorithm Updates in WebCrypto is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and neutral developer pulse.
+- **Analysis:** Allow optional rounding parameter for `polygon()` is currently Enabled by default in Chrome 150. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
 
 **Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @twiss: "Hi :wave: Apologies for the late response, I was OOO until now.  And, thanks for the standards position!  Regarding Argon2: I think it would be reason..."
-- Standards Activity (Mozilla): Latest discussion from @martinthomson: "We generally view this neutrally.  The cryptographic primitives in this set are broadly good, though we have little cause to implement some of those i..."
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **25 new articles/tutorials** published
-
-#### 🏛️ Browser Standards Positions
-
-- **WebKit:** [Modern Algorithms in WebCrypto](https://github.com/WebKit/standards-positions/issues/641) [closed] `position: neutral`, `venue: WICG`
-  > *Latest discussion from @twiss: "Hi :wave: Apologies for the late response, I was OOO until now.  And, thanks for the standards position!  Regarding Argon2: I think it would be reason..."*
-- **Mozilla:** [Request for Mozilla Position on Modern Algorithms in WebCrypto](https://github.com/mozilla/standards-positions/issues/1282) [closed] `venue: W3C CG`, `position: neutral`, `concerns: compatibility`, `concerns: venue`, `concerns: interoperability`, `concerns: performance`, `concerns: usability`, `concerns: API design`
-  > *Latest discussion from @martinthomson: "We generally view this neutrally.  The cryptographic primitives in this set are broadly good, though we have little cause to implement some of those i..."*
-
-#### 🐛 Engine Bug Trackers (Bugzilla)
-
-- **WebKit (Safari):** [Bug #133122: [META] [GTK] Implement WebCrypto SubtleCrypto interface](https://bugs.webkit.org/show_bug.cgi?id=133122) `[REOPENED]`
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [Re: [blink-dev] Intent to Experiment: Algorithm Updates in WebCrypto](http://www.mail-archive.com/blink-dev@chromium.org/msg16786.html) *(mail-archive.com)*
-  > Re: [blink-dev] Intent to Experiment: Algorithm Updates in WebCrypto Skip to site navigation (Press enter) Re: [blink-dev] Intent to Experiment: Algorithm Updates in WebCrypto Mike Taylor Wed, 17 Jun 2026 06:48:25 -0700 ...
-- [Intent to Prototype: Algorithm Updates in WebCrypto](https://groups.google.com/a/chromium.org/g/blink-dev/c/KluNhawvzgM/m/moAiFVVRBgAJ) *(groups.google.com · 2025-10-10T00:00:00)*
-  > Intent to Prototype: Algorithm Updates in WebCrypto Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Prototype:...
-- [[blink-dev] Intent to Prototype: Algorithm Updates in WebCrypto](https://www.mail-archive.com/blink-dev@chromium.org/msg14813.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Prototype: Algorithm Updates in WebCrypto Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Algorithm Updates in WebCrypto Chromestatus Fri, 17 Oct 2025 21:11:04 -0700 Contact e...
-- [Web Crypto API | Node.js v26.8.1 Documentation](https://nodejs.org/api/webcrypto.html) *(nodejs.org)*
-  > subtle.generateKey(), subtle.exportKey(), subtle.importKey(), and subtle.getPublicKey() support &#x27;ECDH&#x27;, &#x27;ECDSA&#x27;, &#x27;Ed25519&#x27;, &#x27;Ed448&#x27;5, &#x27;ML-DSA-44&#x27;4, &#x27;ML-DSA-65&#x27;4...
-- [Web Crypto API - Node.js](https://www.mintlify.com/nodejs/node/api/webcrypto) *(mintlify.com · 2026-03-04T11:11:01)*
-  > const { publicKey, privateKey } = await subtle.generateKey({ name: &#x27;ML-KEM-768&#x27;, }, true, [&#x27;encapsulateBits&#x27;, &#x27;decapsulateBits&#x27;]); const { sharedSecret, ciphertext } = await subtle.encapsula...
-- [Node.js v24.7.0 Released – Post-Quantum Cryptography, Modern WebCrypto, and More - DEV Community](https://dev.to/zaheetdev/nodejs-v2470-released-post-quantum-cryptography-modern-webcrypto-and-more-1df9) *(dev.to · 2025-08-29T16:26:17)*
-  > ChaCha20-Poly1305 (modern, fast AEAD cipher) SHA-3 &amp; SHAKE digests · ML-KEM &amp; ML-DSA (post-quantum cryptography for WebCrypto) subtle.getPublicKey() – Extract a public key from a CryptoKey · SubtleCrypto.supports...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [Re: [blink-dev] Intent to Experiment: Algorithm Updates in WebCrypto](http://www.mail-archive.com/blink-dev@chromium.org/msg16786.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5198951632470016`)*
-  > Re: [blink-dev] Intent to Experiment: Algorithm Updates in WebCrypto Skip to site navigation (Press enter) Re: [blink-dev] Intent to Experiment: Algorithm Updates in WebCrypto Mike Taylor Wed, 17 Jun 2026 06:48:25 -0700 ...
-- [Intent to Prototype: Algorithm Updates in WebCrypto](https://groups.google.com/a/chromium.org/g/blink-dev/c/KluNhawvzgM/m/moAiFVVRBgAJ) *(groups.google.com · 2025-10-10T00:00:00)* *(Cites: `https://chromestatus.com/feature/5198951632470016`)*
-  > Intent to Prototype: Algorithm Updates in WebCrypto Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Prototype:...
-- [[blink-dev] Intent to Prototype: Algorithm Updates in WebCrypto](https://www.mail-archive.com/blink-dev@chromium.org/msg14813.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5198951632470016`)*
-  > [blink-dev] Intent to Prototype: Algorithm Updates in WebCrypto Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Algorithm Updates in WebCrypto Chromestatus Fri, 17 Oct 2025 21:11:04 -0700 Contact e...
-- [Request for Mozilla Position on Modern Algorithms in WebCrypto · Issue #1282 · mozilla/standards-positions](https://github.com/mozilla/standards-positions/issues/1282) *(github.com · 2025-08-06T12:55:07)* *(Cites: `https://wicg.github.io/webcrypto-modern-algos`)*
-  > Request for Mozilla Position on Modern Algorithms in WebCrypto · Issue #1282 · mozilla/standards-positions · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings...
-- [script: Implement encrypt and decrypt operations of AES-OCB by kkoyung · Pull Request #41829 · servo/servo](https://github.com/servo/servo/pull/41829) *(github.com)* *(Cites: `https://wicg.github.io/webcrypto-modern-algos`)*
-  > script: Implement encrypt and decrypt operations of AES-OCB by kkoyung · Pull Request #41829 · servo/servo · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings...
-
-#### 📚 Platform Documentation & References
-
-- [Request for Mozilla Position on Modern Algorithms in WebCrypto · Issue #1282 · mozilla/standards-positions](https://github.com/mozilla/standards-positions/issues/1282) *(github.com)*
-- [script: Implement encrypt and decrypt operations of AES-OCB by kkoyung · Pull Request #41829 · servo/servo](https://github.com/servo/servo/pull/41829) *(github.com)*
-- [script: Implement WebCrypto encapsulation and decapsulation with ML-KEM by kkoyung · Pull Request #41617 · servo/servo](https://github.com/servo/servo/pull/41617) *(github.com)*
-- [script: Implement generate key operation of ML-KEM by kkoyung · Pull Request #41615 · servo/servo](https://github.com/servo/servo/pull/41615) *(github.com)*
-- [script: Implement TurboSHAKE algorithm in WebCrypto by kkoyung · Pull Request #43551 · servo/servo](https://github.com/servo/servo/pull/43551) *(github.com)*
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=algorithm-updates-in-webcrypto) (0 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (33 found across 6 planned queries, 30 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 16 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (2 items) · `Engine Bug Trackers` (1 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 6
-
----
-
-<a id="5158507786665984-fetch-api-forward-reason-from-abortcontroller-to-fetch-response"></a>
-### [Fetch API: Forward reason from AbortController to fetch Response](https://chromestatus.com/feature/5158507786665984)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5158507786665984](https://chromestatus.com/feature/5158507786665984) · [chromestatuslite.com/feature/5158507786665984](https://chromestatuslite.com/feature/5158507786665984)
-- **Specification:** [https://fetch.spec.whatwg.org](https://fetch.spec.whatwg.org)
-- **Chromium Bug:** [https://issues.chromium.org/issues/502133195](https://issues.chromium.org/issues/502133195)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `Shipped/Shipping` · Safari: `Closed Without a Position`
-
-#### 📝 Overview
-
-Surfaces the abort reason, if one is provided, to the methods of the Response object and its ReadableStream, rather than just the fetch promise. This fills a gap in our compliance with the standard, surfacing the developer-supplied abort reason everywhere it is intended to.
-
-> **Motivation:** An AbortController can be passed into fetch to allow a request to be aborted. This is already supported; see https://chromestatus.com/feature/5631483679080448.
-
-When calling abort, you can optionally pass in an "abort reason", and the original fetch promise, if it hasn't already resolved, should be rejected with that reason. This is currently worki...
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **High** (Activity Score: 270)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Positive / High Interest**
-- **Analysis:** Fetch API: Forward reason from AbortController to fetch Response is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
-
-**Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @annevk: "Yes, definitely. Thanks for the bug and tests!..."
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **17 new articles/tutorials** published
-
-#### 🏛️ Browser Standards Positions
-
-- **WebKit:** [Fetch API: Forward abort reason to Response](https://github.com/WebKit/standards-positions/issues/711) [closed] `invalid`
-  > *Latest discussion from @annevk: "Yes, definitely. Thanks for the bug and tests!..."*
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [[blink-dev] Re: Intent to Ship: Fetch API: Forward reason from AbortController to fetch Response](http://www.mail-archive.com/blink-dev@chromium.org/msg17136.html) *(mail-archive.com)*
-  > [blink-dev] Re: Intent to Ship: Fetch API: Forward reason from AbortController to fetch Response Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: Fetch API: Forward reason from AbortController to fet...
-- [Spec reads #1: [fetch](https://fetch.spec.whatwg.org/) / Tom MacWright | Observable](https://observablehq.com/@tmcw/spec-reads-1-fetch) *(observablehq.com · 2018-03-23T20:48:52)*
-  > Spec reads #1: [fetch](https://fetch.spec.whatwg.org/) / Tom MacWright | Observable Tom MacWright hi! Workspace Fork Published By Tom MacWright Edited 8 star s
-- [Fetch Standard (Pull Request Snapshot #632)](https://s3.amazonaws.com/pr-preview/whatwg/fetch/8ab040a...46984f2.html) *(s3.amazonaws.com · 2017-11-15T00:00:00)*
-  > Fetch Standard (Pull Request Snapshot #632) Fetch ( PR #626 #632 ) Commit Snapshot — Last Updated 6 15 November 2017 Participate: GitHub whatwg/fetch ( file an issue , open issues ) IRC: #whatwg on Freenode Commits: GitH...
-- [[blink-dev] Intent to Ship: Fetch API: Forward reason from AbortController to fetch Response](http://www.mail-archive.com/blink-dev@chromium.org/msg17127.html) *(mail-archive.com)*
-  > Yes https://wpt.fyi/results/fetch/api/abort/general.any.html Specifically the tests: * response.arrayBuffer() rejects with abort reason if already aborted (and other response methods such as body()) * Stream errors once ...
-- [Re: [blink-dev] Re: Intent to Ship: Fetch API: Forward reason from AbortController to fetch Response](http://www.mail-archive.com/blink-dev@chromium.org/msg17242.html) *(mail-archive.com)*
-  > Thanks, Dan On Wednesday, August ... https://chromestatus.com/feature/5631483679080448 <strong>When calling abort, you can optionally pass in an &quot;abort reason&quot;, and the original fetch promise if it hasn&#x27;t ...
-- [[blink-dev] Re: Intent to Ship: Fetch API: Forward reason from AbortController to fetch Response](http://www.mail-archive.com/blink-dev@chromium.org/msg17191.html) *(mail-archive.com)*
-  > &gt;&gt; &gt;&gt; Thanks, &gt;&gt; Dan &gt;&gt; &gt;&gt; On ...m/feature/5631483679080448 When calling abort, &gt;&gt;&gt; <strong>you can optionally pass in an &quot;abort reason&quot;, and the original fetch &gt;&gt;&g...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [[blink-dev] Re: Intent to Ship: Fetch API: Forward reason from AbortController to fetch Response](http://www.mail-archive.com/blink-dev@chromium.org/msg17136.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5158507786665984`)*
-  > [blink-dev] Re: Intent to Ship: Fetch API: Forward reason from AbortController to fetch Response Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: Fetch API: Forward reason from AbortController to fet...
-- [GitHub - fis-components/whatwg-fetch: Fork from https://github.com/github/fetch.git · GitHub](https://github.com/fis-components/whatwg-fetch) *(github.com)* *(Cites: `https://fetch.spec.whatwg.org`)*
-  > GitHub - fis-components/whatwg-fetch: Fork from https://github.com/github/fetch.git · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with ano...
-- [whatwg-fetch/README.md at master · fis-components/whatwg-fetch](https://github.com/fis-components/whatwg-fetch/blob/master/README.md) *(github.com)* *(Cites: `https://fetch.spec.whatwg.org`)*
-  > whatwg-fetch/README.md at master · fis-components/whatwg-fetch · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. R...
-- [Spec reads #1: [fetch](https://fetch.spec.whatwg.org/) / Tom MacWright | Observable](https://observablehq.com/@tmcw/spec-reads-1-fetch) *(observablehq.com · 2018-03-23T20:48:52)* *(Cites: `https://fetch.spec.whatwg.org`)*
-  > Spec reads #1: [fetch](https://fetch.spec.whatwg.org/) / Tom MacWright | Observable Tom MacWright hi! Workspace Fork Published By Tom MacWright Edited 8 star s
-- [Fetch Standard (Pull Request Snapshot #632)](https://s3.amazonaws.com/pr-preview/whatwg/fetch/8ab040a...46984f2.html) *(s3.amazonaws.com · 2017-11-15T00:00:00)* *(Cites: `https://fetch.spec.whatwg.org`)*
-  > Fetch Standard (Pull Request Snapshot #632) Fetch ( PR #626 #632 ) Commit Snapshot — Last Updated 6 15 November 2017 Participate: GitHub whatwg/fetch ( file an issue , open issues ) IRC: #whatwg on Freenode Commits: GitH...
-
-#### 📚 Platform Documentation & References
-
-- [GitHub - fis-components/whatwg-fetch: Fork from https://github.com/github/fetch.git · GitHub](https://github.com/fis-components/whatwg-fetch) *(github.com)*
-- [whatwg-fetch/README.md at master · fis-components/whatwg-fetch](https://github.com/fis-components/whatwg-fetch/blob/master/README.md) *(github.com)*
-- [Implement `Blob `stream()`, `text()`, and `arrayBuffer()` · Issue #2555 · jsdom/jsdom](https://github.com/jsdom/jsdom/issues/2555) *(github.com)*
-- [Response: blob() method - Web APIs - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Response/blob) *(developer.mozilla.org)*
-- [Using the Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) *(developer.mozilla.org)*
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=fetch-api%3A-forward-reason-from-abortcontroller-to-fetch-response) (0 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (30 found across 6 planned queries, 25 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 21 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (1 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 3
-
----
-
-<a id="6210457816924160-private-verification-tokens"></a>
-### [Private Verification Tokens](https://chromestatus.com/feature/6210457816924160)
-
-- **Milestone:** Chrome 154 (Origin trial)
-- **ChromeStatus:** [chromestatus.com/feature/6210457816924160](https://chromestatus.com/feature/6210457816924160) · [chromestatuslite.com/feature/6210457816924160](https://chromestatuslite.com/feature/6210457816924160)
-- **Chromium Bug:** [https://crbug.com/500396188](https://crbug.com/500396188)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `No signal`
-
-#### 📝 Overview
-
-Automated traffic is increasing across the web, and many websites have responded with more user friction in the form of CAPTCHAs and other challenges to combat unwanted traffic. This degrades the web user experience for all users, with a particularly outsized impact to users in private browsing modes.
-
-Private Verification Tokens (PVT) is a low entropy mechanism that allows websites to transfer the trust that their users have established in regular browsing into private browsing mode to reduce their experienced user friction. PVTs are issued during a regular browsing session and redeemed in private browsing mode.
-
-> **Motivation:** Due to the significant increase in automation over the past 1-2 years, driven largely by AI, websites have responded by adding more challenges to determine if clients are likely to be human.  In particular, this has had an outsized impact on users in private browsing mode, who tend to have similar client characteristics as automated clients, such a...
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **High** (Activity Score: 220)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Positive / High Interest**
-- **Analysis:** Private Verification Tokens is currently Origin trial in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
-
-**Key Recommendations & Takeaways:**
-- In active Origin Trial in Chrome 154. Validate API ergonomics in staging/pilot environments before general availability.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-- Verified community discussion on Hacker News: "Explainer for the Private Verification Tokens" (2 points, 0 comments).
-
-#### ⚡ What Happened This Week
-
-- 💬 **3 new community discussions** found
-- 📰 **12 new articles/tutorials** published
-
-#### 💬 Community Discussions & Developer Reactions
-
-- 💬 [Explainer for the Private Verification Tokens](https://news.ycombinator.com/item?id=47760044) — *Hacker News (2 pts, 0 comments)*
-- 💬 [Cloudflare announces Private Access Tokens – verification without CAPTCHAs](https://news.ycombinator.com/item?id=31684232) — *Hacker News (3 pts, 0 comments)*
-- 💬 [Show HN: Agent Passport – OAuth-like identity verification for AI agents](https://news.ycombinator.com/item?id=47096131) — *Hacker News (14 pts, 15 comments)*
-- 💬 [Show HN: Google Authenticator Compatible Hardware Token](https://news.ycombinator.com/item?id=8962378) — *Hacker News (1 pts, 0 comments)*
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [Cloudflare announces Private Access Tokens – verification without CAPTCHAs](https://www.neowin.net/news/cloudflare-announces-private-access-tokens---verification-without-captchas) *(neowin.net · 2022-06-09T17:34:49Z)*
-- [Re: [blink-dev] Intent to Experiment: Private Verification Tokens](http://www.mail-archive.com/blink-dev@chromium.org/msg17231.html) *(mail-archive.com)*
-  > Re: [blink-dev] Intent to Experiment: Private Verification Tokens Skip to site navigation (Press enter) Re: [blink-dev] Intent to Experiment: Private Verification Tokens Alex Russell Wed, 19 Aug 2026 08:35:03 -0700 Becau...
-- [[blink-dev] Intent to Experiment: Private Verification Tokens](http://www.mail-archive.com/blink-dev@chromium.org/msg17179.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Experiment: Private Verification Tokens Skip to site navigation (Press enter) [blink-dev] Intent to Experiment: Private Verification Tokens Chromestatus Fri, 14 Aug 2026 13:41:33 -0700 Contact email...
-- [[blink-dev] Intent to Prototype: Private Verification Tokens](http://www.mail-archive.com/blink-dev@chromium.org/msg16306.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Prototype: Private Verification Tokens Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Private Verification Tokens Chromestatus Thu, 09 Apr 2026 13:02:30 -0700 Contact emails ...
-- [Re: [blink-dev] Intent to Experiment: Private Verification Tokens](http://www.mail-archive.com/blink-dev@chromium.org/msg17207.html) *(mail-archive.com)*
-  > Re: [blink-dev] Intent to Experiment: Private Verification Tokens Skip to site navigation (Press enter) Re: [blink-dev] Intent to Experiment: Private Verification Tokens Yoav Weiss (@Shopify) Tue, 18 Aug 2026 06:20:39 -0...
-- [Private State Token API](https://wicg.github.io/trust-token-api) *(wicg.github.io · 2024-07-18T00:00:00)*
-  > Private State Token API Private State Token API Draft Community Group Report , 18 July 2024 This version: https://wicg.github.io/trust-token-api/ Issue Tracking: GitHub Editors: Aykut Bulut ( Google ) Steven Valdez ( Goo...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [Re: [blink-dev] Intent to Experiment: Private Verification Tokens](http://www.mail-archive.com/blink-dev@chromium.org/msg17231.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/6210457816924160`)*
-  > Re: [blink-dev] Intent to Experiment: Private Verification Tokens Skip to site navigation (Press enter) Re: [blink-dev] Intent to Experiment: Private Verification Tokens Alex Russell Wed, 19 Aug 2026 08:35:03 -0700 Becau...
-- [[blink-dev] Intent to Experiment: Private Verification Tokens](http://www.mail-archive.com/blink-dev@chromium.org/msg17179.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/6210457816924160`)*
-  > [blink-dev] Intent to Experiment: Private Verification Tokens Skip to site navigation (Press enter) [blink-dev] Intent to Experiment: Private Verification Tokens Chromestatus Fri, 14 Aug 2026 13:41:33 -0700 Contact email...
-- [[blink-dev] Intent to Prototype: Private Verification Tokens](http://www.mail-archive.com/blink-dev@chromium.org/msg16306.html) *(mail-archive.com)* *(Cites: `https://github.com/explainers-by-googlers/private-verification-tokens`)*
-  > [blink-dev] Intent to Prototype: Private Verification Tokens Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Private Verification Tokens Chromestatus Thu, 09 Apr 2026 13:02:30 -0700 Contact emails ...
-- [Re: [blink-dev] Intent to Experiment: Private Verification Tokens](http://www.mail-archive.com/blink-dev@chromium.org/msg17207.html) *(mail-archive.com)* *(Cites: `https://github.com/explainers-by-googlers/private-verification-tokens`)*
-  > Re: [blink-dev] Intent to Experiment: Private Verification Tokens Skip to site navigation (Press enter) Re: [blink-dev] Intent to Experiment: Private Verification Tokens Yoav Weiss (@Shopify) Tue, 18 Aug 2026 06:20:39 -0...
-
-#### 📚 Platform Documentation & References
-
-- [Private State Tokens (formerly Trust Tokens) · Issue #780 · w3ctag/design-reviews](https://github.com/w3ctag/design-reviews/issues/780) *(github.com)*
-- [Private Access Tokens · Issue #954 · mozilla/standards-positions](https://github.com/mozilla/standards-positions/issues/954) *(github.com)*
-- [MIME type verification](https://developer.mozilla.org/en-US/docs/Web/Security/Practical_implementation_guides/MIME_types) *(developer.mozilla.org)*
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=private-verification-tokens) (0 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (27 found across 6 planned queries, 14 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 13 verified) · `Hacker News Algolia` (8 found, 4 verified) · `Standards Positions` (0 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (7 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ○ · Explainers: 1 · Standards Comments Read: 0
-
----
-
-<a id="5146996093616128-css-symbols"></a>
-### [CSS Symbols()](https://chromestatus.com/feature/5146996093616128)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5146996093616128](https://chromestatus.com/feature/5146996093616128) · [chromestatuslite.com/feature/5146996093616128](https://chromestatuslite.com/feature/5146996093616128)
-- **Specification:** [https://drafts.csswg.org/css-counter-styles-3/#symbols-function](https://drafts.csswg.org/css-counter-styles-3/#symbols-function)
-- **Chromium Bug:** [https://issues.chromium.org/issues/40747844](https://issues.chromium.org/issues/40747844)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `Shipped/Shipping` · Safari: `Positive`
-
-#### 📝 Overview
-
-The CSS symbols() function lets authors define a counter style inline instead of first declaring a named @counter-style at-rule.
-It builds an anonymous counter style from a list of string symbols plus an optional counting system (cyclic, numeric, alphabetic, symbolic, or fixed), and is accepted as the counter style in list-style-type, the list-style shorthand, and counter() / counters().
-
-> **Motivation:** Defining a custom list marker in CSS today requires authoring a named  @counter-style  rule and referencing it by name, which is needlessly verbose for one-off, anonymous markers. The symbols() function lets authors define the same counter style inline, without inventing or managing a global name. It works wherever a counter style is accepted, spec...
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **High** (Activity Score: 110)
-- **Consensus:** **Partial Multi-Engine Interest**
-- **Developer Sentiment:** **Cautiously Optimistic**
-- **Google Search Grounding:** Enabled via Gemini
-- **Search Queries:** `""symbols()" "css-counter-styles" webkit gecko blink"`, `""CSS symbols()" function Chrome 154 or Safari WebKit"`
-- **Analysis:** The CSS `symbols()` function provides a streamlined syntax for defining anonymous, inline counter styles without the overhead of declaring global `@counter-style` at-rules. With Chrome shipping default support alongside Firefox's long-standing implementation, it resolves a major decade-old interoperability gap on the web. However, full cross-browser Baseline availability remains gated on Safari/WebKit implementation.
-
-**Key Recommendations & Takeaways:**
-- Actionable Advice: Use `symbols()` progressively by supplying standard fallback `list-style-type` values or wrapping definitions in `@supports (list-style-type: symbols('*'))`. Continue relying on `@counter-style` or pseudo-element marker fallbacks for production code requiring strict Safari compatibility.
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **10 new articles/tutorials** published
-
-#### 🏛️ Browser Standards Positions
-
-- **WebKit:** [[css-counter-styles-3] CSS symbols() function](https://github.com/WebKit/standards-positions/issues/714) [open] 
-
-#### 🐛 Engine Bug Trackers (Bugzilla)
-
-- **Mozilla (Gecko):** [Bug #1071436: Support image symbols in symbols()](https://bugzilla.mozilla.org/show_bug.cgi?id=1071436) `[NEW]`
-- **WebKit (Safari):** [Bug #22339: Support Indian web sites with EOT by on-the-fly transcoding to Unicode](https://bugs.webkit.org/show_bug.cgi?id=22339) `[NEW]`
-- **WebKit (Safari):** [Bug #299922: [css-counter-styles] Support CSS `symbols()` function](https://bugs.webkit.org/show_bug.cgi?id=299922) `[NEW]`
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGGUYYB-v7IcFw3IKsp4McCRrbdl6MQoZXXXdNEb5pBt1z8ugbsgWJaDQiNnSDr2Do2imBFiosnTu1xpsELuKO48ZSgJ7tRae1TTU2i9ruXRDApWr0hfxWkMVVauZnDNfQ0hkbohPPpA_xIsEnfu7LrCWImKdEoPz-2hZCItI1X) *(vertexaisearch.cloud.google.com)*
-  > symbols() CSS function - CSS | MDN Skip to main content Skip to search Toggle sidebar Web CSS Reference Values symbols() Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) Français...
-- [css-tricks.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHCpFxVoC_zJtWEcCoDAtinW_Ccoru8g0C-egfQl8OQ5nrIY9PoxkqqGiLcnve7C3iEQ9oGFjqKHiZdjyKYnIpIfxjc7kn3W8WXODbkHR62uIPnrgzfTioWGNadMZjdE-Z0o_7fOJ-v0g8=) *(vertexaisearch.cloud.google.com)*
-  > symbols() | CSS-Tricks Skip to main content CSS-Tricks Since 2007 counters CSS Almanac &rarr; Functions &rarr; S &rarr; symbols() symbols() Juan Diego Rodríguez on Jan 30, 2025 The CSS symbols() function defines a counte...
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHuFS9JQTjjfXxUiZpeQ8rpo1-itodD3IIsvsKcfM1nBjI5rxeY-fPmbusgIZIBm4GqU-v2JOu4E5pHWplCaeFjBHvQMeYv7JfTE4PVow5cL2x7_QVUC6zPZlc00NxhBRSFM1pKqEEK6madOHQ9qUfl6OJkGK2gflDPpg6z5sa4) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of CSS `symbols()`  The CSS **`symbols()`** functional notation (defined in the *CSS Counter Styles Level 3* specification) enables developers to create **inline, anonymous counter styles** without having to ...
-- [chromium.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE6axukLFNGDdFFBaUJx7ySveVjlXXE7ALXqoumnYjry_vrxbRhUFPpWXXlxdOjc3alkViEGdhQpWxtpQ1JZIFfyFK4qJMOk1gDTHQ7q7uxmcMAQ_CZnVO57BgG) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of CSS `symbols()`  The CSS **`symbols()`** functional notation (defined in the *CSS Counter Styles Level 3* specification) enables developers to create **inline, anonymous counter styles** without having to ...
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFP86pCeQuc-ilM1BWieOw-BfLHxhb2bFVAXGx0naOD0BUGftm64XkcNhU95ZeY8YIPXbU2t8AViin7IB7dc6LUbgz_EpBrv_sjHeucvIU-3bYRE5d3Yv4eJsZYPH-KJI78L7uB2HaoFeKjA5rKKZRWSnFtsraI8rFwG4nh) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of CSS `symbols()`  The CSS **`symbols()`** functional notation (defined in the *CSS Counter Styles Level 3* specification) enables developers to create **inline, anonymous counter styles** without having to ...
-- [appspot.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGR3Dbm-YAVN9SI-idPhmYfcrYra40Q6laUuKBC9WrE-XBEYehOkaN1-lY3J1i7G8WgHFvEjaIcJ686UxBMvZFyZoUHWxNLXr8fXHIycw2mCM7Peii_gNCgbXJbpIZ_rDUP7NRU-eX3b5rD8lQ=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of CSS `symbols()`  The CSS **`symbols()`** functional notation (defined in the *CSS Counter Styles Level 3* specification) enables developers to create **inline, anonymous counter styles** without having to ...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [[blink-dev] Intent to Prototype: CSS symbols() function](http://www.mail-archive.com/blink-dev@chromium.org/msg17092.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5146996093616128`)*
-  > Search tags: css, counter-style, ... Platform Status: https://chromestatus.com/feature/5146996093616128 -- <strong>You received this message because you are subscribed to the Google Groups &quot;blink-dev&quot; group</st...
-- [[blink-dev] Intent to Ship: CSS Symbols()](http://www.mail-archive.com/blink-dev@chromium.org/msg17319.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5146996093616128`)*
-  > Link to entry on the Chrome Platform Status https://<strong>chromestatus.com/feature/5146996093616128</strong>?gate=5558436461936640 Links to previous Intent discussions Intent to Prototype: https://groups.google.com/a/c...
-
-#### 📚 Platform Documentation & References
-
-- [symbols() CSS function](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/symbols) *(developer.mozilla.org)*
-
-#### 🧪 Interactive Demos & Samples
-
-- [CSS Symbols() Demo](https://developer.mozilla.org/en-US/docs/Web/CSS/symbols)
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=symbols) (41 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (31 found across 7 planned queries, 4 verified) · `Google Search Grounding (gemini-3.7-flash)` (6 found, 6 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 10 verified) · `Hacker News Algolia` (8 found, 0 verified) · `Standards Positions` (1 items) · `Engine Bug Trackers` (3 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (8 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (41 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 0
-
----
-
-<a id="6225598451154944-local-network-access-restrictions-for-background-fetch"></a>
-### [Local Network Access restrictions for Background Fetch](https://chromestatus.com/feature/6225598451154944)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/6225598451154944](https://chromestatus.com/feature/6225598451154944) · [chromestatuslite.com/feature/6225598451154944](https://chromestatuslite.com/feature/6225598451154944)
-- **Specification:** [https://wicg.github.io/background-fetch](https://wicg.github.io/background-fetch)
-- **Chromium Bug:** [https://crbug.com/455486148](https://crbug.com/455486148)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `Shipped/Shipping` · Safari: `No signal`
-
-#### 📝 Overview
-
-Background Fetch requests will soon require that the service worker's origin has the necessary Local Network Access (LNA) permission in order to send requests to local or loopback servers.
-
-This aligns Chromium's implementation with the intent of the Background Fetch spec, which states that such requests go through the Fetch spec and have the same security policies applied to them, in this case LNA checks. This prevents sites from bypassing LNA checks by using [Background Fetch spec](https://wicg.github.io/background-fetch/) instead of regular [Fetch](https://fetch.spec.whatwg.org/).
-
-For enterprises, you can use existing LNA enterprise policies in the same way you previously would have for regular Fetch API requests from service workers:
-- [LocalNetworkAccessRestrictionsTemporaryOptOut](https://chromeenterprise.google/policies/#LocalNetworkAccessRestrictionsTemporaryOptOut)
-- [LocalNetworkAccessAllowedForUrls](https://chromeenterprise.google/policies/#LocalNetworkAccessAllowedForUrls)
-- [LoopbackNetworkAllowedForUrls](https://chromeenterprise.google/policies/#LoopbackNetworkAllowedForUrls)
-- [LocalNetworkAccessPermissionsPolicyDefaultEnabled](https://chromeenterprise.google/policies/#LocalNetworkAccessPermissionsPolicyDefaultEnabled)
-- [LocalNetworkAccessIpAddressSpaceOverrides](https://chromeenterprise.google/policies/#LocalNetworkAccessIpAddressSpaceOverrides)).
-
-> **Motivation:** This fixes a security issue where Background Fetch unintentionally bypasses security policies such as Local Network Access checks.
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **High** (Activity Score: 110)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Positive**
-- **Google Search Grounding:** Enabled via Gemini
-- **Search Queries:** `""Local Network Access restrictions for Background Fetch""`, `""Local Network Access" "Background Fetch" blink-dev"`
-- **Analysis:** Chromium 154 closes a security bypass by enforcing Local Network Access (LNA) restrictions on the Background Fetch API, ensuring service workers require appropriate permissions before initiating requests to private or loopback IP spaces. This change aligns Chromium's implementation with the Fetch and Background Fetch specifications, treating background network activity under standard security boundaries. Broad cross-browser interoperability remains limited because Background Fetch is primarily supported only in Chromium-based engines, though the general LNA security framework continues to advance across standards bodies.
-
-**Key Recommendations & Takeaways:**
-- Actionable Advice: Audit service worker implementations using Background Fetch to verify whether they target local network or loopback resources, and update applications to acquire the required LNA permissions or handle fetch errors defensively. Enterprise environments relying on legacy intranet workflows should configure policies like `LocalNetworkAccessAllowedForUrls` or `LocalNetworkAccessRestrictionsTemporaryOptOut` while migrating.
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @christhompson: "We aren't sure about venue yet but it has been on my mind some. Some parts will just be merged into the various relevant specifications, but there def..."
-- Standards Activity (Mozilla): Latest discussion from @dveditz: "We're presumably "positive" on this since we've implemented most of it and enabled it on Nightly. What are the formal steps needed at this point?..."
-- Community package available: [react-native-fetch-api](https://www.npmjs.com/package/react-native-fetch-api) (v3.0.0) for progressive enhancement.
-
-#### ⚡ What Happened This Week
-
-- 📰 **8 new articles/tutorials** published
-
-#### 🏛️ Browser Standards Positions
-
-- **WebKit:** [Request for Position: Local Network Access](https://github.com/WebKit/standards-positions/issues/520) [open] `topic: networking`, `venue: WICG`, `topic: meaningful user consent`, `concerns: venue`, `from: Google`
-  > *Latest discussion from @christhompson: "We aren't sure about venue yet but it has been on my mind some. Some parts will just be merged into the various relevant specifications, but there def..."*
-- **Mozilla:** [Local Network Access](https://github.com/mozilla/standards-positions/issues/1260) [open] `venue: W3C CG`, `team: Networking`
-  > *Latest discussion from @dveditz: "We're presumably "positive" on this since we've implemented most of it and enabled it on Nightly. What are the formal steps needed at this point?..."*
-
-#### 🐛 Engine Bug Trackers (Bugzilla)
-
-- **WebKit (Safari):** [Bug #154916: WKWebView needs feature to allow file:// subresources](https://bugs.webkit.org/show_bug.cgi?id=154916) `[NEW]`
-- **WebKit (Safari):** [Bug #171934: Don't treat loopback addresses (127.0.0.0/8, ::1/128, localhost, .localhost) as mixed content](https://bugs.webkit.org/show_bug.cgi?id=171934) `[NEW]`
-
-#### 📦 Polyfills & NPM Ecosystem
-
-- [is-network-error](https://www.npmjs.com/package/is-network-error) `v1.3.2` — Check if a value is a Fetch network error
-- [react-native-fetch-api](https://www.npmjs.com/package/react-native-fetch-api) `v3.0.0` *(Verified Polyfill)* — A fetch API polyfill for React Native with text streaming support.
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [google.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4Xzpzso2UoA6yVFi74eWsDfEjJD1N6KgHBPsogVezt4Y0dfMQ5fRSjtDIY_Pz-aW_naWDy9xyoxpw1iKCj4M00Js95ov-4HiWNp_EPrmksQazcYaOjjTehiXq0f58m4TyoR8i6WAzlLczJRt4ZQi6wy7LmcuHb4hq80Nnzh2tf00De0pgfQ==) *(vertexaisearch.cloud.google.com)*
-  > Intent to Ship: Local Network Access restrictions for Background Fetch Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; I...
-- [mozaic.fm](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGfgtYQXlfiPHlTRLxR5JKXDg7Wk0KjeO7Ngr7eJIPjugMXIlJYmblU3hv4-x-b_aLQQSudcmcVhDH0Z7IBZXkpxdcekLyZvJNCUdvnYCwIaGNFc_UxnEh3Kn3I05s71H7pgjgVmF1mlXeBYLZEJomA) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature  **Local Network Access (LNA) restrictions for Background Fetch** enforces that any requests initiated via the [Background Fetch API](https://wicg.github.io/background-fetch/) are subject to th...
-- [github.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHQWhi_fYPWTFvV7MUmuuR7at8AKpzt17NzdDTVMLlH64BnrtTdEzRpOktzUeBRY8SBQrKLvCIZAGYhihwnwo3lbEVrhM9LQoCJD5ZKoWdkyoVP4-i41pmdvA==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature  **Local Network Access (LNA) restrictions for Background Fetch** enforces that any requests initiated via the [Background Fetch API](https://wicg.github.io/background-fetch/) are subject to th...
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHL64pv7D17QH_dSMCHCQ6DUXFT-w0im8BYWXsQTh-W-ZBNgk1U6gT9Yn2ws1dlrVvFL90fVaE4X6OU0UE44rycJO6yDjO7QzS5s34q_mtFmZvnqyLHlSp4rl2TPMpmJWzDB_-Tl-ovsWSqJQ8qhOIWP5hR1ojkXhhzERJUWboINrQwXEUlzuPJ37yek5yVUvFK5SjZ8_qPr3Iq-_HTGzXPmsWAVfP8MfvMtA==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature  **Local Network Access (LNA) restrictions for Background Fetch** enforces that any requests initiated via the [Background Fetch API](https://wicg.github.io/background-fetch/) are subject to th...
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE6AgaMOgV4vLgMtjbwOnMLleuqzaqmY2xPNgjMLNaQU8FT3nJtHbVdRD5czlqZKwE3ouiUgA3XhMl_w3eKnwlZsljTSyuEy-anb6AUfpZFupxTF5Mh3Rn8UHvvSOSPoy1kgaX8848ETwSGvewyI1vUJnW6Pe84hJY=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature  **Local Network Access (LNA) restrictions for Background Fetch** enforces that any requests initiated via the [Background Fetch API](https://wicg.github.io/background-fetch/) are subject to th...
-- [Re: [blink-dev] Re: Intent to Ship: Local Network Access restrictions for Background Fetch](http://www.mail-archive.com/blink-dev@chromium.org/msg17224.html) *(mail-archive.com)*
-  > &gt;&gt; &gt;&gt; *Link to entry on the Chrome ... by Chrome Platform Status &gt;&gt; &lt;https://chromestatus.com&gt;. &gt;&gt; &gt; -- &gt; <strong>You received this message because you are subscribed to the Google Gro...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [Re: [blink-dev] Re: Intent to Ship: Local Network Access restrictions for Background Fetch](http://www.mail-archive.com/blink-dev@chromium.org/msg17224.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/6225598451154944`)*
-  > &gt;&gt; &gt;&gt; *Link to entry on the Chrome ... by Chrome Platform Status &gt;&gt; &lt;https://chromestatus.com&gt;. &gt;&gt; &gt; -- &gt; <strong>You received this message because you are subscribed to the Google Gro...
-- [[blink-dev] Intent to Ship: Local Network Access restrictions for Background Fetch](http://www.mail-archive.com/blink-dev@chromium.org/msg17180.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/6225598451154944`)*
-  > This brings Chromium&#x27;s implementation into alignment with the intent of the Background Fetch spec (which delegates security policy enforcement to the Fetch spec). Link to entry on the Chrome Platform Status https://...
-- [[blink-dev] Re: Intent to Ship: Local Network Access restrictions for Background Fetch](http://www.mail-archive.com/blink-dev@chromium.org/msg17193.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/6225598451154944`)*
-  > &gt; &gt; *Link to entry on the Chrome ... generated by Chrome Platform Status &gt; &lt;https://chromestatus.com&gt;. &gt; -- <strong>You received this message because you are subscribed to the Google Groups &quot;blink-...
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=background-fetch) (18 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (33 found across 6 planned queries, 4 verified) · `Google Search Grounding (gemini-3.7-flash)` (12 found, 5 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 9 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (2 items) · `Engine Bug Trackers` (2 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (6 found, 2 verified) · `Web Platform Tests (wpt.fyi)` (18 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 8
-
----
-
-<a id="5172464636133376-support-for-specialized-webhid-devices-on-android"></a>
-### [Support for specialized WebHID devices on Android](https://chromestatus.com/feature/5172464636133376)
-
-- **Milestone:** Chrome 154 (In developer trial (Behind a flag))
-- **ChromeStatus:** [chromestatus.com/feature/5172464636133376](https://chromestatus.com/feature/5172464636133376) · [chromestatuslite.com/feature/5172464636133376](https://chromestatuslite.com/feature/5172464636133376)
-- **Specification:** [https://wicg.github.io/webhid/index.html](https://wicg.github.io/webhid/index.html)
-- **Chromium Bug:** [http://crbug.com/40628009](http://crbug.com/40628009)
-- **Browser Signals:** Chrome: `Enabled by default` · Firefox: `Negative` · Safari: `Negative`
-
-#### 📝 Overview
-
-WebHID now allows web applications to interact with a wider range of devices. Standard Human Interface Device (HID) examples include mice, keyboards, touchscreens, and gamepads. Those are accessible with high-level input events. However, specialized HID devices and features (for example, custom keyboards, game controllers, and call control headsets) require extended access. 
-
-WebHID allows web applications to request access, send and receive HID reports, and retrieve information about the report descriptor. This feature was previously launched on desktop platforms (Windows, macOS, Linux, and ChromeOS). Support on Android is planned for Chrome 157. To read more, see [Connect to uncommon HID devices](https://developer.chrome.com/docs/extensions/how-to/web-platform/webhid).
-
-This feature can be controlled by the following enterprise policies: 
-* [DefaultWebHidGuardSetting](https://chromeenterprise.google/policies/#DefaultWebHidGuardSetting)
-* [WebHidAllowAllDevicesForUrls](https://chromeenterprise.google/policies/#WebHidAllowAllDevicesForUrls)
-* [WebHidAllowDevicesForUrls](https://chromeenterprise.google/policies/#WebHidAllowDevicesForUrls)
-* [WebHidAllowDevicesWithHidUsagesForUrls](https://chromeenterprise.google/policies/#WebHidAllowDevicesWithHidUsagesForUrls)
-* [WebHidAskForUrls](https://chromeenterprise.google/policies/#WebHidAskForUrls)
-* [WebHidBlockedForUrls](https://chromeenterprise.google/policies/#WebHidBlockedForUrls)
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **High** (Activity Score: 110)
-- **Consensus:** **Contested / Concerns Raised**
-- **Developer Sentiment:** **Mixed / Skeptical**
-- **Google Search Grounding:** Enabled via Gemini
-- **Search Queries:** `""WebHID" site:github.com/WebKit/standards-positions OR site:github.com/mozilla/standards-positions"`, `""WebHID on Android" OR "WebHID" Android "Chrome""`
-- **Analysis:** WebHID support on Android expands low-level communication with specialized Human Interface Devices (such as game controllers, custom keyboards, and enterprise headsets) beyond desktop platforms, currently in developer trial in Chrome 154. While this closes a long-standing mobile capability gap for Chromium-based browsers, it remains unstandardized across the broader web platform. Mozilla and WebKit remain firmly opposed to exposing direct hardware interfaces to web content over privacy, security, and fingerprinting concerns.
-
-**Key Recommendations & Takeaways:**
-- Actionable Advice: Use WebHID on Android strictly as a progressive enhancement gated by `'hid' in navigator` checks while experimenting with flag-enabled builds ahead of the planned Chrome 157 release. Always provide fallback flows or native companion paths for Safari, Firefox, and iOS environments.
-- Standards Activity (Mozilla): Latest discussion from @scheib: "I'd like to address dmitriid@'s and beaufortfrancois@ comments with a personal opinion.  I work on Chrome adding these capabilities.  We do strive to ..."
-- Community package available: [@devicefarmer/adbkit](https://www.npmjs.com/package/@devicefarmer/adbkit) (v3.3.9) for progressive enhancement.
-
-#### ⚡ What Happened This Week
-
-- 📰 **15 new articles/tutorials** published
-
-#### 🏛️ Browser Standards Positions
-
-- **Mozilla:** [WebHID (Human Interface Device) API](https://github.com/mozilla/standards-positions/issues/459) [closed] `venue: W3C CG`, `position: negative`
-  > *Latest discussion from @scheib: "I'd like to address dmitriid@'s and beaufortfrancois@ comments with a personal opinion.  I work on Chrome adding these capabilities.  We do strive to ..."*
-
-#### 📦 Polyfills & NPM Ecosystem
-
-- [native-run](https://www.npmjs.com/package/native-run) `v2.0.3` — A CLI for running apps on iOS/Android devices and simulators/emulators
-- [@devicefarmer/adbkit](https://www.npmjs.com/package/@devicefarmer/adbkit) `v3.3.9` *(Verified Polyfill)* — A Typescript client for the Android Debug Bridge.
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [Intent to Prototype: WebHID on Android](https://groups.google.com/a/chromium.org/g/blink-dev/c/aEsVkIFFYPE) *(groups.google.com · 2026-08-13T07:55:05)*
-  > Intent to Prototype: WebHID on Android Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Prototype: WebHID on An...
-- [[blink-dev] Re: Intent to Prototype: WebHID on Android](http://www.mail-archive.com/blink-dev@chromium.org/msg17213.html) *(mail-archive.com)*
-  > [blink-dev] Re: Intent to Prototype: WebHID on Android Skip to site navigation (Press enter) [blink-dev] Re: Intent to Prototype: WebHID on Android Matt Reynolds Tue, 18 Aug 2026 12:47:09 -0700 Sure, let's upgrade this t...
-- [Connect to uncommon HID devices | Capabilities | Chrome for Developers](https://developer.chrome.com/docs/capabilities/hid) *(developer.chrome.com · 2020-09-15T00:00:00)*
-  > For this, you can either <strong>prompt the user to select a device by calling navigator.hid.requestDevice(),</strong> or pick one from navigator.hid.getDevices() which returns a list of devices the website has been gran...
-- [WebHID API](https://wicg.github.io/webhid) *(wicg.github.io · 2024-09-13T00:00:00)*
-  > If document is null or document is not allowed to use the policy-controlled feature named &quot;hid&quot;, reject promise with a &quot;SecurityError&quot; DOMException and return promise. ... Let devices be an empty sequ...
-- [[blink-dev] Intent to Prototype: WebHID on Android](http://www.mail-archive.com/blink-dev@chromium.org/msg17170.html) *(mail-archive.com)*
-  > True Tracking bug http://crbug.com/40628009 Launch bug https://launch.corp.google.com/4459414 Estimated milestones Shipping on desktop 89 Origin trial desktop first 86 Origin trial desktop last 88 Shipping on Android 157...
-- [[blink-dev] Re: Intent to Prototype: WebHID on Android](http://www.mail-archive.com/blink-dev@chromium.org/msg17195.html) *(mail-archive.com)*
-  > On Thursday, August 13, 2026 at ... https://web.dev/hid-examples/ &gt; &gt; Summary &gt; &gt; <strong>Enables web applications to interact with human interface devices (HIDs) &gt; other than the standard supported device...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [Intent to Prototype: WebHID on Android](https://groups.google.com/a/chromium.org/g/blink-dev/c/aEsVkIFFYPE) *(groups.google.com · 2026-08-13T07:55:05)* *(Cites: `https://chromestatus.com/feature/5172464636133376`)*
-  > Intent to Prototype: WebHID on Android Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Prototype: WebHID on An...
-- [[blink-dev] Re: Intent to Prototype: WebHID on Android](http://www.mail-archive.com/blink-dev@chromium.org/msg17213.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/webhid/blob/master/EXPLAINER.md`)*
-  > [blink-dev] Re: Intent to Prototype: WebHID on Android Skip to site navigation (Press enter) [blink-dev] Re: Intent to Prototype: WebHID on Android Matt Reynolds Tue, 18 Aug 2026 12:47:09 -0700 Sure, let's upgrade this t...
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=index) (2147 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (28 found across 7 planned queries, 9 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 9 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (1 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (7 found, 2 verified) · `Web Platform Tests (wpt.fyi)` (2147 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 5
-
----
-
-<a id="5075144470036480-window-shape-api"></a>
-### [Window Shape API](https://chromestatus.com/feature/5075144470036480)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5075144470036480](https://chromestatus.com/feature/5075144470036480) · [chromestatuslite.com/feature/5075144470036480](https://chromestatuslite.com/feature/5075144470036480)
-- **Specification:** [https://explainers-by-googlers.github.io/chromeos-iwa-apis](https://explainers-by-googlers.github.io/chromeos-iwa-apis)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `No signal`
-
-#### 📝 Overview
-
-Window Shape API enables allowlisted [Isolated Web Apps](https://chromeos.dev/en/web/isolated-web-apps) on ChromeOS to have a customized window shape. By enabling non-rectangular and non-contiguous window layouts, developers can implement unique user experiences (such as widgets, floating panels, and overlays) that match the look-and-feel of native applications. The `window.setShape` API requires the window to be in _unframed_ display mode and requires the window-management permission to be granted.
-
-Administrators can manage this feature with existing policies for window management:  
-- [DefaultWindowManagementSetting](https://chromeenterprise.google/policies/#DefaultWindowManagementSetting) configures the default state for the window management for all apps. The policies below can override this default.  
-- [WindowManagementAllowedForUrls](https://chromeenterprise.google/policies/#WindowManagementAllowedForUrls) allows IWAs with specified origins to enter unframed mode and set custom window shapes without any user interaction.  
-- [WindowManagementBlockedForUrls](https://chromeenterprise.google/policies/#WindowManagementBlockedForUrls) blocks the permission for specified origins, forcing Chrome to remove any custom window shapes and fallback to other available display modes.
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **High** (Activity Score: 110)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Positive / High Interest**
-- **Analysis:** Window Shape API is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
-
-**Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (Mozilla): Latest discussion from @morsssss: "Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've..."
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **5 new articles/tutorials** published
-
-#### 🏛️ Browser Standards Positions
-
-- **Mozilla:** [Window Management](https://github.com/mozilla/standards-positions/issues/542) [open] 
-  > *Latest discussion from @morsssss: "Like Mike says - thanks for offering this feedback!  As you can imagine, quite a bit of work has happened since I posted this request last June. We've..."*
-
-#### 🐛 Engine Bug Trackers (Bugzilla)
-
-- **WebKit (Safari):** [Bug #6148: WebKit doesn't shape characters (like Arabic) across style changes](https://bugs.webkit.org/show_bug.cgi?id=6148) `[NEW]`
-- **WebKit (Safari):** [Bug #35211: SVG should support full-scene antialiasing](https://bugs.webkit.org/show_bug.cgi?id=35211) `[UNCONFIRMED]`
-- **WebKit (Safari):** [Bug #59693: [Feature Request] Need SpellCheck API](https://bugs.webkit.org/show_bug.cgi?id=59693) `[REOPENED]`
-- **WebKit (Safari):** [Bug #81270: FileApi does not handle files with NFD encoded umlaut in file name](https://bugs.webkit.org/show_bug.cgi?id=81270) `[UNCONFIRMED]`
-- **WebKit (Safari):** [Bug #129333: WaveShaperNode interpolation does not match specification](https://bugs.webkit.org/show_bug.cgi?id=129333) `[NEW]`
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [[blink-dev] Intent to Ship: Window shape API](http://www.mail-archive.com/blink-dev@chromium.org/msg16945.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Ship: Window shape API Skip to site navigation (Press enter) [blink-dev] Intent to Ship: Window shape API Chromestatus Wed, 08 Jul 2026 09:58:24 -0700 Contact emails [email&#160;protected] , [email&...
-- [Re: [blink-dev] Re: Intent to Ship: Window shape API](http://www.mail-archive.com/blink-dev@chromium.org/msg16974.html) *(mail-archive.com)*
-  > Re: [blink-dev] Re: Intent to Ship: Window shape API Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: Window shape API Chris Harrelson Wed, 15 Jul 2026 09:17:30 -0700 LGTM1 This is a very specifi...
-- [[blink-dev] Re: Intent to Ship: Window shape API](http://www.mail-archive.com/blink-dev@chromium.org/msg16965.html) *(mail-archive.com)*
-  > &gt; &gt; Best, &gt; &gt; Alex &gt; &gt; On Wednesday, July 8, 2026 at 9:58:26 AM UTC-7 Chromestatus wrote: &gt; &gt;&gt; *Contact emails* &gt;&gt; [email protected], [email protected] &gt;&gt; &gt;&gt; *Explainer* &gt;&...
-- [Re: [blink-dev] Intent to Ship: Window shape API](http://www.mail-archive.com/blink-dev@chromium.org/msg17269.html) *(mail-archive.com)*
-  > &gt;&gt;&gt; &gt;&gt;&gt; Thanks, &gt;&gt;&gt; Rick &gt;&gt;&gt; &gt;&gt;&gt; &gt;&gt;&gt; On Mon, Jul 20, 2026 at 5:17 PM edmanp via Chromestatus &lt; &gt;&gt;&gt; [email protected]&gt; wrote: &gt;&gt;&gt; &gt;&gt;&gt; ...
-- [[blink-dev] Re: Intent to Ship: Window shape API](http://www.mail-archive.com/blink-dev@chromium.org/msg16964.html) *(mail-archive.com)*
-  > Best, Alex On Wednesday, July 8, 2026 at 9:58:26 AM UTC-7 Chromestatus wrote: &gt; *Contact emails* &gt; [email protected], [email protected] &gt; &gt; *Explainer* &gt; &gt; https://github.com/explainers-by-googlers/chro...
-- [Re: [blink-dev] Re: Intent to Ship: Window shape API](http://www.mail-archive.com/blink-dev@chromium.org/msg16977.html) *(mail-archive.com)*
-  > The &gt;&gt;&gt;&gt; policies below can override this default. - &gt;&gt;&gt;&gt; [WindowManagementAllowedForUrls]( &gt;&gt;&gt;&gt; https://chromeenterprise.google/policies/#WindowManagementAllowedForUrls) &gt;&gt;&gt;&...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [[blink-dev] Intent to Ship: Window shape API](http://www.mail-archive.com/blink-dev@chromium.org/msg16945.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5075144470036480`)*
-  > [blink-dev] Intent to Ship: Window shape API Skip to site navigation (Press enter) [blink-dev] Intent to Ship: Window shape API Chromestatus Wed, 08 Jul 2026 09:58:24 -0700 Contact emails [email&#160;protected] , [email&...
-- [Re: [blink-dev] Re: Intent to Ship: Window shape API](http://www.mail-archive.com/blink-dev@chromium.org/msg16974.html) *(mail-archive.com)* *(Cites: `https://github.com/explainers-by-googlers/chromeos-iwa-apis/blob/main/window-shape-explainer.md`)*
-  > Re: [blink-dev] Re: Intent to Ship: Window shape API Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: Window shape API Chris Harrelson Wed, 15 Jul 2026 09:17:30 -0700 LGTM1 This is a very specifi...
-- [[blink-dev] Re: Intent to Ship: Window shape API](http://www.mail-archive.com/blink-dev@chromium.org/msg16965.html) *(mail-archive.com)* *(Cites: `https://github.com/explainers-by-googlers/chromeos-iwa-apis/blob/main/window-shape-explainer.md`)*
-  > &gt; &gt; Best, &gt; &gt; Alex &gt; &gt; On Wednesday, July 8, 2026 at 9:58:26 AM UTC-7 Chromestatus wrote: &gt; &gt;&gt; *Contact emails* &gt;&gt; [email protected], [email protected] &gt;&gt; &gt;&gt; *Explainer* &gt;&...
-- [Re: [blink-dev] Intent to Ship: Window shape API](http://www.mail-archive.com/blink-dev@chromium.org/msg17269.html) *(mail-archive.com)* *(Cites: `https://github.com/explainers-by-googlers/chromeos-iwa-apis/blob/main/window-shape-explainer.md`)*
-  > &gt;&gt;&gt; &gt;&gt;&gt; Thanks, &gt;&gt;&gt; Rick &gt;&gt;&gt; &gt;&gt;&gt; &gt;&gt;&gt; On Mon, Jul 20, 2026 at 5:17 PM edmanp via Chromestatus &lt; &gt;&gt;&gt; [email protected]&gt; wrote: &gt;&gt;&gt; &gt;&gt;&gt; ...
-- [[blink-dev] Re: Intent to Ship: Window shape API](http://www.mail-archive.com/blink-dev@chromium.org/msg16964.html) *(mail-archive.com)* *(Cites: `https://explainers-by-googlers.github.io/chromeos-iwa-apis`)*
-  > Best, Alex On Wednesday, July 8, 2026 at 9:58:26 AM UTC-7 Chromestatus wrote: &gt; *Contact emails* &gt; [email protected], [email protected] &gt; &gt; *Explainer* &gt; &gt; https://github.com/explainers-by-googlers/chro...
-
-#### 🧪 Interactive Demos & Samples
-
-- [Window Shape API Demo](https://github.com/paulinagacek/Set-Shape-demo)
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=window-shape-api) (0 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (11 found across 8 planned queries, 11 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 11 verified) · `Hacker News Algolia` (8 found, 0 verified) · `Standards Positions` (1 items) · `Engine Bug Trackers` (5 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (7 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 5
-
----
-
-<a id="5108373464547328-responsively-sized-iframe"></a>
-### [Responsively-sized &lt;iframe&gt;](https://chromestatus.com/feature/5108373464547328)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5108373464547328](https://chromestatus.com/feature/5108373464547328) · [chromestatuslite.com/feature/5108373464547328](https://chromestatuslite.com/feature/5108373464547328)
-- **Specification:** [https://drafts.csswg.org/css-sizing-4/#responsive-iframes](https://drafts.csswg.org/css-sizing-4/#responsive-iframes)
-- **Chromium Bug:** [https://issues.chromium.org/issues/418397278](https://issues.chromium.org/issues/418397278)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `No signal`
-
-#### 📝 Overview
-
-Allow sites to opt into iframes having responsive sizing (sizing the <iframe> element in the parent document to the iframe document's layout overflow sizing, so that scrolling in the child document is avoided).
-
-> **Motivation:** This is a natural feature to have for iframes, when the site wants to
-render the iframe content so that it looks seamless with the parent frame and avoids scrollbars.
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **High** (Activity Score: 90)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Positive / High Interest**
-- **Analysis:** Responsively-sized <iframe> is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
-
-**Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (Mozilla): Latest discussion from @emilio: "For context, a lot of the discussions here:   * https://github.com/w3c/csswg-drafts/issues/1771  * https://github.com/w3c/csswg-drafts/issues/13584  *..."
-- Standards Activity (W3C TAG): Latest discussion from @dandclark: "Thanks for sending this to the TAG! We had a few points of feedback.  One is that the opt-in from the iframe isn't scoped in any way. The explainer [p..."
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **4 new articles/tutorials** published
-
-#### 🏛️ Browser Standards Positions
-
-- **WebKit:** [Responsively-sized iframes](https://github.com/WebKit/standards-positions/issues/653) [open] `venue: W3C CSS WG`, `topic: frames`, `from: Google`
-- **Mozilla:** [Responsively-sized iframes](https://github.com/mozilla/standards-positions/issues/1394) [open] 
-  > *Latest discussion from @emilio: "For context, a lot of the discussions here:   * https://github.com/w3c/csswg-drafts/issues/1771  * https://github.com/w3c/csswg-drafts/issues/13584  *..."*
-- **W3C TAG:** [Other Spec Review: Responsively-sized iframes](https://github.com/w3ctag/design-reviews/issues/1223) [open] `Progress: pending external feedback`, `Review type: later review`, `Topic: CSS`, `Venue: CSS WG`
-  > *Latest discussion from @dandclark: "Thanks for sending this to the TAG! We had a few points of feedback.  One is that the opt-in from the iframe isn't scoped in any way. The explainer [p..."*
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [[blink-dev] Re: Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13733.html) *(mail-archive.com)*
-  > [blink-dev] Re: Intent to Prototype: Responsive iframes Skip to site navigation (Press enter) [blink-dev] Re: Intent to Prototype: Responsive iframes Jake Archibald Tue, 20 May 2025 00:05:50 -0700 I think the "one shot" ...
-- [Intent to Prototype: Responsive iframes](https://groups.google.com/a/chromium.org/g/blink-dev/c/QirdSBIvM1k/m/rZdHOE59AQAJ) *(groups.google.com)*
-  > Intent to Prototype: Responsive iframes Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Prototype: Responsive ...
-- [Re: [blink-dev] Re: Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13784.html) *(mail-archive.com)*
-  > Re: [blink-dev] Re: Intent to Prototype: Responsive iframes Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Prototype: Responsive iframes Chris Harrelson Fri, 23 May 2025 09:37:23 -0700 I filed a spec...
-- [[blink-dev] Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13731.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Prototype: Responsive iframes Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Responsive iframes Chromestatus Mon, 19 May 2025 15:43:14 -0700 Contact emails [email&#160;protec...
-- [r/webdev on Reddit: Responsive iframes?](https://www.reddit.com/r/webdev/comments/1j5e8w9/responsive_iframes) *(reddit.com · 2025-03-07T03:31:09)*
-  > I thought aspect-ratio would work. My content has a definite aspect ratio... if the iframe had width=100% and the aspect-ratio was set to match the content... nope, not included in the allowlist.
-- [Reframe.js – Responsive iFrames | Hacker News](https://news.ycombinator.com/item?id=12500235) *(news.ycombinator.com · 2016-09-18T17:17:14)*
-  > In addition, I think you may be overloading the word &quot;responsive.&quot; This is not a post-message base iFrame resizer, it makes iFrames scale like images. This maintains an aspect ratio which is very desirable in m...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [[blink-dev] Re: Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13733.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5108373464547328`)*
-  > [blink-dev] Re: Intent to Prototype: Responsive iframes Skip to site navigation (Press enter) [blink-dev] Re: Intent to Prototype: Responsive iframes Jake Archibald Tue, 20 May 2025 00:05:50 -0700 I think the "one shot" ...
-- [Intent to Prototype: Responsive iframes](https://groups.google.com/a/chromium.org/g/blink-dev/c/QirdSBIvM1k/m/rZdHOE59AQAJ) *(groups.google.com)* *(Cites: `https://chromestatus.com/feature/5108373464547328`)*
-  > Intent to Prototype: Responsive iframes Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Prototype: Responsive ...
-- [Responsively-sized <iframe> · Issue #4036 · web-platform-dx/web-features](https://github.com/web-platform-dx/web-features/issues/4036) *(github.com · 2026-05-14T09:39:56)* *(Cites: `https://chromestatus.com/feature/5108373464547328`)*
-  > Responsively-sized <iframe> · Issue #4036 · web-platform-dx/web-features · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or...
-- [Re: [blink-dev] Re: Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13784.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md`)*
-  > Re: [blink-dev] Re: Intent to Prototype: Responsive iframes Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Prototype: Responsive iframes Chris Harrelson Fri, 23 May 2025 09:37:23 -0700 I filed a spec...
-- [[blink-dev] Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13731.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md`)*
-  > [blink-dev] Intent to Prototype: Responsive iframes Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Responsive iframes Chromestatus Mon, 19 May 2025 15:43:14 -0700 Contact emails [email&#160;protec...
-
-#### 📚 Platform Documentation & References
-
-- [Responsively-sized <iframe> · Issue #4036 · web-platform-dx/web-features](https://github.com/web-platform-dx/web-features/issues/4036) *(github.com)*
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=responsively-sized-%3Ciframe%3E) (0 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (12 found across 7 planned queries, 9 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 8 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (3 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 5
-
----
-
-<a id="4832783806627840-css4-text-decoration-skip-spaces"></a>
-### [CSS4 text-decoration-skip-spaces](https://chromestatus.com/feature/4832783806627840)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/4832783806627840](https://chromestatus.com/feature/4832783806627840) · [chromestatuslite.com/feature/4832783806627840](https://chromestatuslite.com/feature/4832783806627840)
-- **Specification:** [https://drafts.csswg.org/css-text-decor-4/#text-decoration-skip-spaces-property](https://drafts.csswg.org/css-text-decor-4/#text-decoration-skip-spaces-property)
-- **Chromium Bug:** [https://issues.chromium.org/issues/40862777](https://issues.chromium.org/issues/40862777)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `No signal`
-
-#### 📝 Overview
-
-The text-decoration-skip-spaces CSS property controls whether text decoration lines (underlines, overlines, line-throughs, etc.) skip over whitespace characters. This allows authors to prevent decorations from being drawn under spaces, which is often more visually appealing.
-
-> **Motivation:** Currently there is no web standard way to control whether text decorations (underlines, overlines, line-throughs) appear over whitespace characters. Authors commonly want to suppress the underline under leading/trailing spaces in inline elements, but CSS provides no mechanism for this. The `text-decoration-skip-spaces` property fills this gap, allo...
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **High** (Activity Score: 80)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Cautiously Optimistic**
-- **Google Search Grounding:** Enabled via Gemini
-- **Search Queries:** `""text-decoration-skip-spaces" webkit mozilla standards-positions"`, `""text-decoration-skip-spaces" OR "text-decoration-skip: spaces" blink-dev"`, `""text-decoration-skip-spaces" css wg w3c github"`
-- **Analysis:** CSS4 text-decoration-skip-spaces provides granular control over whether text decorations (like underlines and line-throughs) skip over whitespace characters. Shipping enabled by default in Chrome 154, it addresses a long-standing typographic request to avoid unwanted decoration artifacts on leading, trailing, or inter-word spaces. While specified in CSS Text Decoration Module Level 4, it currently lacks full cross-browser interoperability as other major engines have not yet shipped the dedicated longhand.
-
-**Key Recommendations & Takeaways:**
-- Actionable Advice: Adopt this property immediately as a purely visual progressive enhancement, as unsupported browsers simply fall back to default continuous text decoration without breaking layouts. You can optionally guard custom design rules using @supports (text-decoration-skip-spaces: none).
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **12 new articles/tutorials** published
-
-#### 📦 Polyfills & NPM Ecosystem
-
-- [@csstools/postcss-text-decoration-shorthand](https://www.npmjs.com/package/@csstools/postcss-text-decoration-shorthand) `v5.0.5` — Use text-decoration in it's shorthand form in CSS
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [w3.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFy_ErbrYPApJ_ia2Sc3psTe-iI6thRczVZtbfPRNk2YtrVEKBV2T8rHW0yFBoIVJGgTtqY7x7JvFDbnJuhoq9-u6IOLGa-2sqx3JFTH5Jxm52I9AIxW-FaHV4-ChE=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary & Background  In the **CSS Text Decoration Module Level 4** specification, the W3C decoupled the original, broad `text-decoration-skip` shorthand into distinct, granular properties (such as `text-decoration-s...
-- [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGooomH6yX1YXomclprrdzJY3Xi_4Y5ad1UT7ATo9wNsfIV7rURDyLm643TrW7S8-6EFsVYiGwywH9LV84fskDGml4FLLu-Fa3F3NTQlXL4uzGVoROfIiiJ1R1jZnOACMqtbQINzA47WP4XROO7XkojnVTbcV8fwzHrQ2mwWfE1mkXEYeO9P1xd0VrpHg==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary & Background  In the **CSS Text Decoration Module Level 4** specification, the W3C decoupled the original, broad `text-decoration-skip` shorthand into distinct, granular properties (such as `text-decoration-s...
-- [letorey.co.uk](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFfWJue1oFFOj1M2iD_XceQGbVsmROl7-OAD0hdrLbuD8-UmzQEpAs_gapmZZsvNzaU56SRR42uY1N2BaJbs7bIw5EGpdPnE3vsdF2LTMmI3PrWC-hZmsW1NxD0zFH9oIB2Tcf9bGElDd4=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary & Background  In the **CSS Text Decoration Module Level 4** specification, the W3C decoupled the original, broad `text-decoration-skip` shorthand into distinct, granular properties (such as `text-decoration-s...
-- [css-tricks.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFG9-Z0_Izi9DiMIzPuLLuBnPLZaXWvovAfGSI9GfBrLbJRolxLO2_rtgxOyqcutqtwgFFIxJbf05M4Mvc0p2Hp8LJH7pI2sfpMcVgHHateGy18Vv-McmJCAdfTw6MPbYxUkryVg_7QIER2aT014oSBF_rjEftKEVx1) *(vertexaisearch.cloud.google.com)*
-  > ### Summary & Background  In the **CSS Text Decoration Module Level 4** specification, the W3C decoupled the original, broad `text-decoration-skip` shorthand into distinct, granular properties (such as `text-decoration-s...
-- [[blink-dev] Re: Intent to Ship: CSS4 text-decoration-skip-spaces](http://www.mail-archive.com/blink-dev@chromium.org/msg17159.html) *(mail-archive.com)*
-  > Thanks, Dan On Tuesday, August ... CSS property controls whether text &gt; decoration lines (underlines, overlines, line-throughs, etc.) <strong>skip over &gt; whitespace characters</strong>....
-- [[blink-dev] Ready for Developer Testing: CSS4 text-decoration-skip-spaces](http://www.mail-archive.com/blink-dev@chromium.org/msg16534.html) *(mail-archive.com)*
-  > False Tracking bug https://iss...a/chromium.org/d/msgid/blink-dev/69d8f543.050a0220.1c79a0.1352.GAE@google.com This intent message was <strong>generated by Chrome Platform Status</strong>....
-
-#### 🧪 Interactive Demos & Samples
-
-- [CSS4 text-decoration-skip-spaces Demo](http://wpt.live/css/css-text-decor/text-decoration-skip-spaces-001.html)
-- [CSS4 text-decoration-skip-spaces Demo](http://wpt.live/css/css-text-decor/text-decoration-skip-spaces-002.html)
-- [CSS4 text-decoration-skip-spaces Demo](http://wpt.live/css/css-text-decor/text-decoration-skip-spaces-003.html)
-- [CSS4 text-decoration-skip-spaces Demo](http://wpt.live/css/css-text-decor/text-decoration-skip-spaces-004.html)
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=css4-text-decoration-skip-spaces) (0 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (27 found across 6 planned queries, 4 verified) · `Google Search Grounding (gemini-3.7-flash)` (9 found, 4 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 8 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (0 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 1 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 0
-
----
-
-<a id="5054329641893888-renewed-html-insertionstreaming-methods"></a>
-### [Renewed HTML insertion&streaming methods](https://chromestatus.com/feature/5054329641893888)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5054329641893888](https://chromestatus.com/feature/5054329641893888) · [chromestatuslite.com/feature/5054329641893888](https://chromestatuslite.com/feature/5054329641893888)
-- **Specification:** [https://github.com/WICG/declarative-partial-updates/blob/main/dynamic-markup-revamped-explainer.md#resulting-api](https://github.com/WICG/declarative-partial-updates/blob/main/dynamic-markup-revamped-explainer.md#resulting-api)
-- **Chromium Bug:** [https://issues.chromium.org/issues/491743369](https://issues.chromium.org/issues/491743369)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `Positive` · Safari: `No signal`
-
-#### 📝 Overview
-
-Expose multiple HTML setting methods that provide a coherent story for dynamically inserting markup into an existing document.
-
-- Positional methods (before/after/append/prepend/replaceWith) that take HTML as argument, effectively replacing insertAdjacentHTML.
-- Streaming methods (stream{Append}HTML{Unsafe}) which return a WritableStream
-- Passing {runScripts} as part of SetHTMLUnsafeOptions, mimicking createContextualFragment behavior.
-- Supporting createParserOptions in trusted types, allowing trusted types to override scripting mode and sanitizer.
-
-> **Motivation:** Updating HTML dynamically from script has multiple disjointed API, each with its own subtle differences.
-Developers can partially update an element using insertAdjacentHTML, use sanitizer with setHTML, execute scripts with createContextualFragment, stream with detached documents. 
-
-This can be confusing and frustrating to web developers, as well as...
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **High** (Activity Score: 80)
-- **Consensus:** **Partial Multi-Engine Interest**
-- **Developer Sentiment:** **Positive / High Interest**
-- **Analysis:** Renewed HTML insertion&streaming methods is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Partial Multi-Engine Interest standards alignment and positive / high interest developer pulse.
-
-**Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (Mozilla): Latest discussion from @zcorpan: "Generally we want 7 days to pass. This has happened here. 🙂..."
+- Shipping enabled by default in Chrome 150. Developers can begin adopting in production with progressive feature detection.
+- Standards Activity (WebKit): Latest discussion from @smfr: "Seems OK but there's certainly some implementation complexity...."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 #### ⚡ What Happened This Week
@@ -1072,376 +71,115 @@ This can be confusing and frustrating to web developers, as well as...
 
 #### 🏛️ Browser Standards Positions
 
-- **WebKit:** [HTML streaming & revamped DOM parsing](https://github.com/WebKit/standards-positions/issues/629) [open] `topic: html`, `venue: WHATWG HTML Workstream`, `from: Google`
-- **Mozilla:** [HTML streaming & revamped DOM parsing](https://github.com/mozilla/standards-positions/issues/1370) [closed] `venue: WHATWG`, `position: positive`, `topic: API`
-  > *Latest discussion from @zcorpan: "Generally we want 7 days to pass. This has happened here. 🙂..."*
+- **WebKit:** [CSS Shapes: vertex rounding for polygon()](https://github.com/WebKit/standards-positions/issues/474) [open] `topic: css`, `venue: W3C CSS WG`
+  > *Latest discussion from @smfr: "Seems OK but there's certainly some implementation complexity...."*
+- **Mozilla:** [CSS Shapes: vertex rounding for polygon()](https://github.com/mozilla/standards-positions/issues/1197) [open] `venue: W3C`, `topic: CSS`
 
-#### 📰 Ecosystem Blogs & Articles
+#### 📦 Polyfills & NPM Ecosystem
 
-- [[blink-dev] Intent to Ship: Renewed HTML insertion&streaming methods](http://www.mail-archive.com/blink-dev@chromium.org/msg16984.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Ship: Renewed HTML insertion&streaming methods Skip to site navigation (Press enter) [blink-dev] Intent to Ship: Renewed HTML insertion&streaming methods Chromestatus Thu, 16 Jul 2026 08:40:50 -0700...
-- [[blink-dev] Ready for Developer Testing: Renewed HTML insertion&streaming methods](http://www.mail-archive.com/blink-dev@chromium.org/msg16159.html) *(mail-archive.com)*
-  > [blink-dev] Ready for Developer Testing: Renewed HTML insertion&streaming methods Skip to site navigation (Press enter) [blink-dev] Ready for Developer Testing: Renewed HTML insertion&streaming methods Chromestatus Tue, ...
-- [Out-of-Order Streaming HTML Is Coming To A Browser Near You](https://modernwebweekly.substack.com/p/out-of-order-streaming-html-is-coming) *(modernwebweekly.substack.com · 2026-06-05T12:58:50)*
-  > Using streamAppendHTML()results in empty HTML and doesn’t work. Also notice that the streaming methods are required to use templates and markers. When you use non-streaming methods, like appendHTMLUnsafe() for example, t...
-- [How Declarative Partial Updates Work in HTML](https://www.freecodecamp.org/news/how-declarative-partial-updates-work-in-html) *(freecodecamp.org · 2026-05-29T20:20:47)*
-  > Instead of remembering how innerHTML, outerHTML, insertAdjacentHTML, and createContextualFragment() differ, the method name describes the action.
-- [Declarative partial updates | Blog | Chrome for Developers](https://developer.chrome.com/blog/declarative-partial-updates) *(developer.chrome.com · 2026-05-19T00:00:00)*
-  > That means that inserting HTML using these methods cannot modify existing DOM, and the patching happens &quot;in place&quot; inside the fragment. However, when streaming using methods like streamHTMLUnsafe (that we&#x27;...
-- [html-setters-polyfill - npm](https://www.npmjs.com/package/html-setters-polyfill) *(npmjs.com)*
-  > Insertion Unsafe variants: setHTMLUnsafe, appendHTMLUnsafe, prependHTMLUnsafe, beforeHTMLUnsafe, afterHTMLUnsafe, replaceWithHTMLUnsafe. Streaming variants: steamHTML, streamHTMLUnsafe, streamBeforeHTML...etc. return a W...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [[blink-dev] Intent to Ship: Renewed HTML insertion&streaming methods](http://www.mail-archive.com/blink-dev@chromium.org/msg16984.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/declarative-partial-updates/blob/main/dynamic-markup-revamped-explainer.md`)*
-  > [blink-dev] Intent to Ship: Renewed HTML insertion&streaming methods Skip to site navigation (Press enter) [blink-dev] Intent to Ship: Renewed HTML insertion&streaming methods Chromestatus Thu, 16 Jul 2026 08:40:50 -0700...
-- [[blink-dev] Ready for Developer Testing: Renewed HTML insertion&streaming methods](http://www.mail-archive.com/blink-dev@chromium.org/msg16159.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/declarative-partial-updates/blob/main/dynamic-markup-revamped-explainer.md`)*
-  > [blink-dev] Ready for Developer Testing: Renewed HTML insertion&streaming methods Skip to site navigation (Press enter) [blink-dev] Ready for Developer Testing: Renewed HTML insertion&streaming methods Chromestatus Tue, ...
+- [@turf/mask](https://www.npmjs.com/package/@turf/mask) `v7.4.0` — Takes polygons or multipolygons and an optional mask, and returns an exterior ring polygon with holes.
 
 #### 📚 Platform Documentation & References
 
-- [Coherent story for HTML-setting methods · Issue #11669 · whatwg/html](https://github.com/whatwg/html/issues/11669) *(github.com)*
+- [<polygon>](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/polygon) *(developer.mozilla.org)*
+- [polygon() CSS function](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/basic-shape/polygon) *(developer.mozilla.org)*
+- [optional_permissions](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/optional_permissions) *(developer.mozilla.org)*
 
 #### 🧪 Web Platform Tests (WPT)
 
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=renewed-html-insertion%26streaming-methods) (0 tests listed)
+- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=allow-optional-rounding-parameter-for-%60polygon%60) (0 tests listed)
 
 #### 🔍 Investigation Audit Trail
 
-- **Searches Run:** `Brave Search` (20 found across 6 planned queries, 8 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 7 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (2 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 5
+- **Searches Run:** `Brave Search` *(Inactive (BRAVE_SEARCH_API_KEY not configured))* · `Twitter / X API v2` *(Inactive (TWITTER_BEARER_TOKEN not configured))* · `Dev.to Community Blogs` (1 found, 0 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (2 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 1 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
+- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 1
 
 ---
 
-<a id="5663304168112128-webgpu-wgsl-fragment-depth"></a>
-### [WebGPU: WGSL Fragment Depth](https://chromestatus.com/feature/5663304168112128)
+<a id="5068127364186112-accentcolor-and-accentcolortext-system-colors"></a>
+### [AccentColor and AccentColorText system colors](https://chromestatus.com/feature/5068127364186112)
 
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5663304168112128](https://chromestatus.com/feature/5663304168112128) · [chromestatuslite.com/feature/5663304168112128](https://chromestatuslite.com/feature/5663304168112128)
-- **Specification:** [https://github.com/gpuweb/gpuweb/pull/6299](https://github.com/gpuweb/gpuweb/pull/6299)
-- **Chromium Bug:** [https://crbug.com/457993779](https://crbug.com/457993779)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `Positive`
+- **Milestone:** Chrome 150 (Enabled by default)
+- **ChromeStatus:** [chromestatus.com/feature/5068127364186112](https://chromestatus.com/feature/5068127364186112) · [chromestatuslite.com/feature/5068127364186112](https://chromestatuslite.com/feature/5068127364186112)
+- **Specification:** [https://www.w3.org/TR/css-color-4/#css-system-colors](https://www.w3.org/TR/css-color-4/#css-system-colors)
+- **Chromium Bug:** [https://issues.chromium.org/issues/40229450?pli=1](https://issues.chromium.org/issues/40229450?pli=1)
+- **Browser Signals:** Chrome: `In developer trial (Behind a flag)` · Firefox: `Shipped/Shipping` · Safari: `No signal`
 
 #### 📝 Overview
 
-Adds the ability to provide a `less` or `greater` modifier to the `@builtin(frag_depth)` in WGSL.
+The AccentColor and AccentColorText system colors can be used in CSS to access the system accent color specified on the user's device.
+This allows developers to apply native app like styling to their web content in contexts where users expect OS theme integration, such as an installed web application. Users must be in an installed web application on the initial profile to see the system accent color rendered.
 
-The current `@builtin(frag_depth)` can potentially introduce a performance penalty due to disabling the early-Z optimizations on a draw call. The new modifiers allow the explicit setting of the buffer mode and allow the early-Z optimizations to be applied.
-
-> **Motivation:** In the current WGSL specification, the mere act of writing to @builtin(frag_depth) often incurs a significant performance penalty because driver heuristics cannot guarantee that the fragment shader output will adhere to the depth written by the rasterizer's interpolated depth. Consequently, writing to frag_depth typically forces the GPU to disable ...
+> **Motivation:** Without access to system accent colors, developers must hardcode theme values or implement non‑native design patterns, resulting in web applications that visually diverge from user‑configured platform settings. This is especially noticeable in installed web apps, where users expect a level of OS‑level visual integration comparable to native applica...
 
 #### 💡 Ecosystem Intelligence & Analysis
 
-- **Momentum:** **High** (Activity Score: 80)
-- **Consensus:** **Partial Multi-Engine Interest**
-- **Developer Sentiment:** **Positive / High Interest**
-- **Analysis:** WebGPU: WGSL Fragment Depth is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Partial Multi-Engine Interest standards alignment and positive / high interest developer pulse.
+- **Momentum:** **Emerging** (Activity Score: 20)
+- **Consensus:** **Chromium-Led**
+- **Developer Sentiment:** **Neutral**
+- **Analysis:** AccentColor and AccentColorText system colors is currently Enabled by default in Chrome 150. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
 
 **Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Shipping enabled by default in Chrome 150. Developers can begin adopting in production with progressive feature detection.
+- Standards Activity (WebKit): Latest discussion from @o-t-w: "The fact that it isn't dynamic severely limits its [usefulness](https://fullystacked.net/posts/accentcolor/).  Chromium and Firefox managed to impleme..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 #### ⚡ What Happened This Week
 
 - 📰 **2 new articles/tutorials** published
 
-#### 📰 Ecosystem Blogs & Articles
+#### 🏛️ Browser Standards Positions
 
-- [Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17296.html) *(mail-archive.com)*
-  > Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth 'Ashley Gullen' via blink-dev Wed, 26 Aug 2026 01:02:4...
-- [[blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17276.html) *(mail-archive.com)*
-  > [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Alex Russell Mon, 24 Aug 2026 11:54:22 -0700 Are there really ...
-- [[blink-dev] Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17263.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) [blink-dev] Intent to Ship: WebGPU: WGSL Fragment Depth Chromestatus Mon, 24 Aug 2026 09:03:27 -0700 Contact emails [email&#16...
-- [Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17301.html) *(mail-archive.com)*
-  > Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Vladimir Levin Wed, 26 Aug 2026 07:55:09 -0700 LGTM3 O...
-- [[blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17283.html) *(mail-archive.com)*
-  > [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth 'dan sinclair' via blink-dev Mon, 24 Aug 2026 20:15:11 -0700 T...
-- [Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17300.html) *(mail-archive.com)*
-  > Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Daniel Bratell Wed, 26 Aug 2026 07:53:18 -0700 LGTM2 /...
+- **WebKit:** [CSS AccentColor and AccentColorText system colors](https://github.com/WebKit/standards-positions/issues/136) [open] `topic: css`, `concerns: privacy`, `venue: W3C CSS WG`
+  > *Latest discussion from @o-t-w: "The fact that it isn't dynamic severely limits its [usefulness](https://fullystacked.net/posts/accentcolor/).  Chromium and Firefox managed to impleme..."*
 
-#### 🔗 Inbound Citations & Reverse Links
+#### 🐛 Engine Bug Trackers (Bugzilla)
 
-- [Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17296.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5663304168112128`)*
-  > Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth 'Ashley Gullen' via blink-dev Wed, 26 Aug 2026 01:02:4...
-- [[blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17276.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5663304168112128`)*
-  > [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Alex Russell Mon, 24 Aug 2026 11:54:22 -0700 Are there really ...
-- [[blink-dev] Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17263.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5663304168112128`)*
-  > [blink-dev] Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) [blink-dev] Intent to Ship: WebGPU: WGSL Fragment Depth Chromestatus Mon, 24 Aug 2026 09:03:27 -0700 Contact emails [email&#16...
-- [Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17301.html) *(mail-archive.com)* *(Cites: `https://github.com/gpuweb/gpuweb/blob/main/proposals/fragment-depth.md`)*
-  > Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Vladimir Levin Wed, 26 Aug 2026 07:55:09 -0700 LGTM3 O...
-- [[blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17283.html) *(mail-archive.com)* *(Cites: `https://github.com/gpuweb/gpuweb/blob/main/proposals/fragment-depth.md`)*
-  > [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth 'dan sinclair' via blink-dev Mon, 24 Aug 2026 20:15:11 -0700 T...
+- **WebKit (Safari):** [Bug #245631: Audit new CSS Color 4 system colors to determine if OS overrides are useful](https://bugs.webkit.org/show_bug.cgi?id=245631) `[NEW]`
+
+#### 📦 Polyfills & NPM Ecosystem
+
+- [@radix-ui/colors](https://www.npmjs.com/package/@radix-ui/colors) `v3.0.0` — [![Radix Colors Logo](colors.png)](https://radix-ui.com/colors)
+- [@colors/colors](https://www.npmjs.com/package/@colors/colors) `v1.6.0` — get colors in your node.js console
+- [ansi-colors](https://www.npmjs.com/package/ansi-colors) `v4.1.3` — Easily add ANSI colors to your text and symbols in the terminal. A faster drop-in replacement for chalk, kleur and turbocolor (without the dependencies and rendering bugs).
 
 #### 📚 Platform Documentation & References
 
-- [WGSL Proposal for fragment depth (less, greater, any) · Issue #5342 · gpuweb/gpuweb](https://github.com/gpuweb/gpuweb/issues/5342) *(github.com)*
-- [GPU Web 2026‐01‐06 WGSL](https://github.com/gpuweb/gpuweb/wiki/GPU-Web-2026%E2%80%9001%E2%80%9006-WGSL) *(github.com)*
+- [Accent](https://developer.mozilla.org/en-US/docs/Glossary/Accent) *(developer.mozilla.org)*
+- [<system-color> CSS type](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/system-color) *(developer.mozilla.org)*
 
 #### 🧪 Web Platform Tests (WPT)
 
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=webgpu%3A-wgsl-fragment-depth) (0 tests listed)
+- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=css-color-4) (151 tests listed)
 
 #### 🔍 Investigation Audit Trail
 
-- **Searches Run:** `Brave Search` (21 found across 7 planned queries, 8 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 6 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (0 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 0
+- **Searches Run:** `Brave Search` *(Inactive (BRAVE_SEARCH_API_KEY not configured))* · `Twitter / X API v2` *(Inactive (TWITTER_BEARER_TOKEN not configured))* · `Dev.to Community Blogs` (0 found, 0 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (1 items) · `Engine Bug Trackers` (1 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 3 verified) · `Web Platform Tests (wpt.fyi)` (151 items)
+- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 5
 
 ---
 
-<a id="5178263526834176-css-text-decoration-inset"></a>
-### [CSS text-decoration-inset](https://chromestatus.com/feature/5178263526834176)
+<a id="5183671737909248-animatable-zoom"></a>
+### [Animatable zoom](https://chromestatus.com/feature/5183671737909248)
 
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5178263526834176](https://chromestatus.com/feature/5178263526834176) · [chromestatuslite.com/feature/5178263526834176](https://chromestatuslite.com/feature/5178263526834176)
-- **Specification:** [https://drafts.csswg.org/css-text-decor-4/#propdef-text-decoration-inset](https://drafts.csswg.org/css-text-decor-4/#propdef-text-decoration-inset)
-- **Chromium Bug:** [https://issues.chromium.org/issues/468928416](https://issues.chromium.org/issues/468928416)
+- **Milestone:** Chrome 150 (Enabled by default)
+- **ChromeStatus:** [chromestatus.com/feature/5183671737909248](https://chromestatus.com/feature/5183671737909248) · [chromestatuslite.com/feature/5183671737909248](https://chromestatuslite.com/feature/5183671737909248)
+- **Chromium Bug:** [https://issues.chromium.org/u/2/issues/393810951](https://issues.chromium.org/u/2/issues/393810951)
 - **Browser Signals:** Chrome: `Proposed` · Firefox: `Shipped/Shipping` · Safari: `Shipped/Shipping`
 
 #### 📝 Overview
 
-CSS text-decoration-inset controls how far underlines, overlines, and line-through decorations are inset from or extended beyond text run edges. It supports auto, length, and percentage values, including one-value and two-value syntax for setting the start and end offsets. This lets developers adjust decoration spacing and create reveal effects with native text decorations instead of background gradients or additional elements.
-
-
-sampler: https://static.januschka.com/i-468928416/?asddsaasd
-MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-decoration-inset
-
-CL: https://chromium-review.googlesource.com/c/chromium/src/+/7748204
-
-> **Motivation:** This change implements CSS text-decoration-inset (CSS Text Decoration Level 4), including percentage values. It gives authors direct control over decoration inset and reduces the need for wrapper/pseudo-element workarounds used to fine-tune underline/overline/line-through rendering.
-
-
-
-sampler: https://static.januschka.com/i-468928416/?asddsaasd
-MD...
+The CSS zoom property is animatable and interpolates as a <number>. Developers can transition and animate zoom to smoothly scale elements and their layout, complementing existing transform-based scaling.
 
 #### 💡 Ecosystem Intelligence & Analysis
 
-- **Momentum:** **Moderate** (Activity Score: 70)
+- **Momentum:** **Emerging** (Activity Score: 10)
 - **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Positive**
-- **Google Search Grounding:** Enabled via Gemini
-- **Search Queries:** `"text-decoration-inset webkit safari bugzilla firefox"`, `"text-decoration-inset CSS"`, `"text decoration inset blink dev intent to ship"`
-- **Analysis:** CSS `text-decoration-inset` (part of CSS Text Decoration Module Level 4) standardizes fine-grained control over the start and end offsets of underlines, overlines, and line-through decorations using length and percentage values. With Chrome enabling it by default in milestone 154, the feature reaches broad engine availability alongside Firefox's existing implementation and WebKit's active preview support. The API successfully resolves long-standing typographic alignment issues without requiring pseudo-element or background-gradient workarounds.
+- **Developer Sentiment:** **Neutral**
+- **Analysis:** Animatable zoom is currently Enabled by default in Chrome 150. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
 
 **Key Recommendations & Takeaways:**
-- Actionable Advice: Adopt `text-decoration-inset` immediately as a progressive enhancement for refined typography and interactive link underlines, as unsupported browsers will simply display default line lengths without breaking layouts or semantics. If exact visual parity across older browsers is critical, pair it with standard `@supports (text-decoration-inset: 0)` checks before falling back to `::after` pseudo-elements.
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **9 new articles/tutorials** published
-
-#### 🐛 Engine Bug Trackers (Bugzilla)
-
-- **Mozilla (Gecko):** [Bug #1780887: [meta] [css-text-decor] implement text-decoration-inset to modify the length of underline etc](https://bugzilla.mozilla.org/show_bug.cgi?id=1780887) `[NEW]`
-- **Mozilla (Gecko):** [Bug #1981310: [Inactive CSS] Add text-decoration-inset in inactive CSS](https://bugzilla.mozilla.org/show_bug.cgi?id=1981310) `[NEW]`
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [css-tricks.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGks9FvXzzSEZ_-4U1M66JLM6MXbzuPbySTzlOPvXdEpGq5QHGRROSn5cpIHbIBNI69fOJjynW6H9lJBZxQj-mcLi_NgeYCmyXQL_E3tZAkgb1KsQVWzjoLwRMb-pJAbQJo6cBxWVxXHm13EyqgTsv7HbIyHx_8kFe-UtR2Hx9bbHYOAWd3466F) *(vertexaisearch.cloud.google.com)*
-  > text-decoration-inset is Like Padding for Text Decorations | CSS-Tricks Skip to main content CSS-Tricks Since 2007 typography text-decoration-inset is Like Padding for Text Decorations Daniel Schwarz on Dec 22, 2025 The ...
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHBzv95c9Krl1exiZ5OKzxSjUq1N6fVGtdix4twdKZgO-eTZSfMi-BGgStUYauSWIlU15cxqZj-vKE19dGuS1VfwNa45RrFL6OkHCQJMsCpDY7GukTYe7oHbUs9eL6eH9GwLxScYeHDm9cDZrS5ig9pDIFt9KhRiBU9qdwSmF_GcwfhF4OVV1Z5_scOnh0yvDKs) *(vertexaisearch.cloud.google.com)*
-  > text-decoration-inset CSS property - CSS | MDN Skip to main content Skip to search Toggle sidebar Web CSS Reference Properties text-decoration-inset Theme OS default Light Dark English (US) Remember language Learn more D...
-- [medianic.co.uk](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF-L2Yt3VatCmp4QkeIVvPW0S3g8DKx4RXCtbhjEZ7Fa6o9pKgsK01FADMYl0wd8w2AIBWlFMgHIdc0HCdb-ySEq0DOLRUW2HNgCZKunoYKUQzHgWxR38yGgov4FgyzcOSN1k5zTzx73lImi5xKKk_lIRqPHM19A3-YkX8aj2iUsHuALSpKMElafQ43zBHTPMtTSz-DvYqpZAJT0A==) *(vertexaisearch.cloud.google.com)*
-  > text-decoration-inset: The CSS Trick for Perfect Text Alignment Skip to content text-decoration-inset: The CSS Trick for Perfect Text Alignment By Medianic / 29th January 2026 The `text-decoration-inset` property in CSS ...
-- [Re: [blink-dev] Intent to Ship: CSS text-decoration-inset](http://www.mail-archive.com/blink-dev@chromium.org/msg17259.html) *(mail-archive.com)*
-  > Re: [blink-dev] Intent to Ship: CSS text-decoration-inset Skip to site navigation (Press enter) Re: [blink-dev] Intent to Ship: CSS text-decoration-inset Mike Taylor Mon, 24 Aug 2026 06:36:24 -0700 On 8/23/26 9:43 a.m., ...
-- [[blink-dev] Intent to Ship: CSS text-decoration-inset](http://www.mail-archive.com/blink-dev@chromium.org/msg17255.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Ship: CSS text-decoration-inset Skip to site navigation (Press enter) [blink-dev] Intent to Ship: CSS text-decoration-inset Helmut Januschka Sun, 23 Aug 2026 07:20:14 -0700 *Contact emails* [email&#...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [Re: [blink-dev] Intent to Ship: CSS text-decoration-inset](http://www.mail-archive.com/blink-dev@chromium.org/msg17259.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5178263526834176`)*
-  > Re: [blink-dev] Intent to Ship: CSS text-decoration-inset Skip to site navigation (Press enter) Re: [blink-dev] Intent to Ship: CSS text-decoration-inset Mike Taylor Mon, 24 Aug 2026 06:36:24 -0700 On 8/23/26 9:43 a.m., ...
-- [[blink-dev] Intent to Ship: CSS text-decoration-inset](http://www.mail-archive.com/blink-dev@chromium.org/msg17255.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5178263526834176`)*
-  > [blink-dev] Intent to Ship: CSS text-decoration-inset Skip to site navigation (Press enter) [blink-dev] Intent to Ship: CSS text-decoration-inset Helmut Januschka Sun, 23 Aug 2026 07:20:14 -0700 *Contact emails* [email&#...
-- [csswg-drafts/css-text-decor-4/Overview.bs at main · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/blob/main/css-text-decor-4/Overview.bs) *(github.com)* *(Cites: `https://drafts.csswg.org/css-text-decor-4/#propdef-text-decoration-inset`)*
-  > csswg-drafts/css-text-decor-4/Overview.bs at main · w3c/csswg-drafts · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or win...
-
-#### 📚 Platform Documentation & References
-
-- [csswg-drafts/css-text-decor-4/Overview.bs at main · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/blob/main/css-text-decor-4/Overview.bs) *(github.com)*
-- [text-decoration-inset CSS property](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-decoration-inset) *(developer.mozilla.org)*
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=text-decoration-inset) (40 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (31 found across 6 planned queries, 3 verified) · `Google Search Grounding (gemini-3.7-flash)` (5 found, 3 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 5 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (0 items) · `Engine Bug Trackers` (2 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (7 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (40 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 0
-
----
-
-<a id="5080055102439424-add-options-bag-to-websocket-constructor"></a>
-### [Add options bag to WebSocket constructor](https://chromestatus.com/feature/5080055102439424)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5080055102439424](https://chromestatus.com/feature/5080055102439424) · [chromestatuslite.com/feature/5080055102439424](https://chromestatuslite.com/feature/5080055102439424)
-- **Specification:** [https://github.com/whatwg/websockets/pull/76](https://github.com/whatwg/websockets/pull/76)
-- **Chromium Bug:** [https://crbug.com/542670554](https://crbug.com/542670554)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `No signal`
-
-#### 📝 Overview
-
-Add support for passing an option bag (WebSocketInit dictionary) as the second argument to the WebSocket constructor. The option bag will initially support a "protocols" option, allowing developers to specify subprotocols (mirroring the existing protocols argument), and also serves as an extension point for future options.
-
-Before, this would be written `const socket = new WebSocket("wss://example.com:8080", "soap")`. After, this could also be written `const socket = new WebSocket("wss://example.com:8080", { protocols: "soap" })`.
-
-See https://github.com/whatwg/websockets/issues/42 and spec PR https://github.com/whatwg/websockets/pull/76 for this change.
-
-> **Motivation:** There is a demand for extensibility of options on the WebSocket constructor, to mirror the "option bag" approach that the Fetch API has. https://github.com/whatwg/websockets/issues/42 is requested by a number of implementors and users, and Chromium wants this as a means to add a `targetAddressSpace` option matching the one added to Fetch for Local ...
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **Moderate** (Activity Score: 60)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Cautiously Optimistic**
-- **Analysis:** Add options bag to WebSocket constructor is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
-
-**Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **4 new articles/tutorials** published
-
-#### 🏛️ Browser Standards Positions
-
-- **WebKit:** [Supporting options bag in WebSocket constructor](https://github.com/WebKit/standards-positions/issues/708) [open] `topic: networking`, `venue: WHATWG HTML Workstream`, `from: Google`
-  > *Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."*
-- **Mozilla:** [Supporting options bag in WebSocket constructor](https://github.com/mozilla/standards-positions/issues/1444) [open] 
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFT0aCRa62YWmc1hNrcjo4jG4bnuT4dMfjeLLtwP4eQ7HSFe7BQn_FWDadMSi4Znyywz6aVsgyNbSHZrkcWJ6ougZDfV3cDjLxb3Ap0RDDG_8TMWVqSODwuIVGwzOoXmC4R0FV0TpUIgCaxqZYy3Ux190PRkhQIydibeAFcGN3mZnLVDsRIolM=) *(vertexaisearch.cloud.google.com)*
-  > Here is a summary of the feature, along with key announcements, developer articles, and ecosystem context regarding adding an options bag to the `WebSocket` constructor.  ---  ### **Feature Summary**  * **Specification**...
-- [mozaic.fm](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFyVdvShBPzGJ-ZeQcSuBVjrRhonE5mr1vvDe4bCDPIOOM5Ol14tjgRssjpcXmRdpxohpEoqoEy0i37rlrulu8NBfRmZYkjyvBRTzAxKESOS082CLJ5wdXxKRqBLxxRKtbRGK68_AefNhyUwMnHGOeL2w==) *(vertexaisearch.cloud.google.com)*
-  > Here is a summary of the feature, along with key announcements, developer articles, and ecosystem context regarding adding an options bag to the `WebSocket` constructor.  ---  ### **Feature Summary**  * **Specification**...
-- [[blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets](http://www.mail-archive.com/blink-dev@chromium.org/msg17125.html) *(mail-archive.com)*
-  > The user must grant the site the ... it will be blocked). This builds on https://chromestatus.com/feature/5080055102439424 which <strong>adds an options bag to the WebSocket constructor</strong>....
-- [Intent to Prototype: Add options bag to WebSocket constructor](https://groups.google.com/a/chromium.org/g/blink-dev/c/YwkXWzPUJ7U) *(groups.google.com · 2026-08-05T00:00:00)*
-  > Link to entry on the Chrome Platform Status https://<strong>chromestatus.com/feature/5080055102439424</strong>?gate=5087234207383552
-- [[blink-dev] Intent to Prototype: Add options bag to WebSocket constructor](http://www.mail-archive.com/blink-dev@chromium.org/msg17124.html) *(mail-archive.com)*
-  > Explainer https://github.com/whatwg/websockets/issues/42 https://github.com/whatwg/websockets/pull/76 Specification https://github.com/whatwg/websockets/pull/76 Summary <strong>Add support for passing an option bag (WebS...
-- [Local Network Access](https://wicg.github.io/local-network-access) *(wicg.github.io · 2026-08-07T00:00:00)*
-  > One minor difference between the Fetch API and the WebSockets API is that WebSockets does not have an equivalent to fetch’s RequestInit, and so there is no place to put in a targetAddressSpace option to bypass mixed cont...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [[blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets](http://www.mail-archive.com/blink-dev@chromium.org/msg17125.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5080055102439424`)*
-  > The user must grant the site the ... it will be blocked). This builds on https://chromestatus.com/feature/5080055102439424 which <strong>adds an options bag to the WebSocket constructor</strong>....
-- [Intent to Prototype: Add options bag to WebSocket constructor](https://groups.google.com/a/chromium.org/g/blink-dev/c/YwkXWzPUJ7U) *(groups.google.com · 2026-08-05T00:00:00)* *(Cites: `https://chromestatus.com/feature/5080055102439424`)*
-  > Link to entry on the Chrome Platform Status https://<strong>chromestatus.com/feature/5080055102439424</strong>?gate=5087234207383552
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=add-options-bag-to-websocket-constructor) (0 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (6 found across 7 planned queries, 4 verified) · `Google Search Grounding (gemini-3.7-flash)` (9 found, 2 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 6 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (2 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (8 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 2 · Standards Comments Read: 1
-
----
-
-<a id="5145402365050880-fontface-width-attribute-and-font-width-descriptor"></a>
-### [FontFace width attribute and font-width descriptor](https://chromestatus.com/feature/5145402365050880)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5145402365050880](https://chromestatus.com/feature/5145402365050880) · [chromestatuslite.com/feature/5145402365050880](https://chromestatuslite.com/feature/5145402365050880)
-- **Specification:** [https://drafts.csswg.org/css-fonts-4/#font-width-prop](https://drafts.csswg.org/css-fonts-4/#font-width-prop)
-- **Chromium Bug:** [https://issues.chromium.org/issues/543938492](https://issues.chromium.org/issues/543938492)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `Shipped/Shipping` · Safari: `No signal`
-
-#### 📝 Overview
-
-Exposes the width attribute on FontFace and the @font-face font-width descriptor as aliases for stretch and font-stretch. Aligns Chromium with the updated CSS Font Loading and CSS Fonts 4 specifications. Developers can now inspect or initialize font face widths using FontFace.width and CSS font-width interchangeably with stretch and font-stretch.
-
-> **Motivation:** CSS Font Loading and CSS Fonts 4 define width as the primary FontFace descriptor attribute and @font-face descriptor, while retaining stretch as a legacy alias. Chromium previously ignored the width constructor member and font-width descriptor, causing Web Platform Tests to fail. Exposing width aligns Chromium with the updated specification.
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **Moderate** (Activity Score: 60)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Cautiously Optimistic**
-- **Analysis:** FontFace width attribute and font-width descriptor is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Moderate with Chromium-Led standards alignment and cautiously optimistic developer pulse.
-
-**Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **2 new articles/tutorials** published
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [Re: [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17223.html) *(mail-archive.com)*
-  > Re: [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor Chris Ha...
-- [[blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17203.html) *(mail-archive.com)*
-  > [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor Michael Reeves M...
-- [[blink-dev] Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17165.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Ship: FontFace width attribute and font-width descriptor Skip to site navigation (Press enter) [blink-dev] Intent to Ship: FontFace width attribute and font-width descriptor Chromestatus Wed, 12 Aug...
-- [[blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17196.html) *(mail-archive.com)*
-  > &gt; &gt; *Adoption expectation* &gt; Feature ... font face width &gt; descriptors within 12 months of reaching Web Platform baseline. &gt; &gt; *Adoption plan* &gt; Web Platform Tests (WPT) have been added to ensure cro...
-- [Re: [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17205.html) *(mail-archive.com)*
-  > &gt; &gt;&gt; False &gt; &gt;&gt; &gt; &gt;&gt; Tracking bug ... in Chrome. &gt; &gt;&gt; &gt; &gt;&gt; Adoption expectation &gt; &gt;&gt; <strong>Feature is considered a best practice for configuring font face width &gt...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [Re: [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17223.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5145402365050880`)*
-  > Re: [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor Chris Ha...
-- [[blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17203.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5145402365050880`)*
-  > [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: FontFace width attribute and font-width descriptor Michael Reeves M...
-- [[blink-dev] Intent to Ship: FontFace width attribute and font-width descriptor](http://www.mail-archive.com/blink-dev@chromium.org/msg17165.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5145402365050880`)*
-  > [blink-dev] Intent to Ship: FontFace width attribute and font-width descriptor Skip to site navigation (Press enter) [blink-dev] Intent to Ship: FontFace width attribute and font-width descriptor Chromestatus Wed, 12 Aug...
-
-#### 📚 Platform Documentation & References
-
-- [font-width - CSS - MDN Web Docs - Mozilla](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@font-face/font-width) *(developer.mozilla.org)*
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=fontface-width-attribute-and-font-width-descriptor) (0 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (33 found across 6 planned queries, 6 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 5 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (0 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 0
-
----
-
-<a id="5205192866922496-iterator-includes"></a>
-### [Iterator Includes](https://chromestatus.com/feature/5205192866922496)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5205192866922496](https://chromestatus.com/feature/5205192866922496) · [chromestatuslite.com/feature/5205192866922496](https://chromestatuslite.com/feature/5205192866922496)
-- **Specification:** [https://tc39.es/proposal-iterator-includes](https://tc39.es/proposal-iterator-includes)
-- **Chromium Bug:** [https://issues.chromium.org/issues/504886973](https://issues.chromium.org/issues/504886973)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `Shipped/Shipping` · Safari: `In development`
-
-#### 📝 Overview
-
-A TC39 proposal to allow the developer to ask whether an iterator yields a given value. Analogue to `Array.prototype.includes`.
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **Moderate** (Activity Score: 40)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Positive**
-- **Analysis:** Iterator Includes (`Iterator.prototype.includes`) is a Stage 3 TC39 proposal bringing ergonomic parity between JavaScript Iterators and `Array.prototype.includes`. Chrome is enabling the feature by default starting in Chrome 154, with Mozilla Gecko actively tracking its implementation in Bugzilla (#2025773) and WebKit following general TC39 Stage 3 alignment. Because it is not yet indexed in Baseline or broadly available across all stable engines, it represents an emerging ergonomic upgrade rather than an universally safe default.
-
-**Key Recommendations & Takeaways:**
-- Actionable Advice: Use standard polyfills (such as `core-js`) or fallback to existing methods like `iterator.some(x => Object.is(x, target))` or `for...of` loops in production environments until cross-browser baseline support is reached. Teams targeting cutting-edge Chromium runtimes or using transpilation toolchains can safely adopt the method today.
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
+- Shipping enabled by default in Chrome 150. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
@@ -1449,331 +187,18 @@ A TC39 proposal to allow the developer to ask whether an iterator yields a given
 
 - 📰 **1 new articles/tutorials** published
 
-#### 🐛 Engine Bug Trackers (Bugzilla)
-
-- **Mozilla (Gecko):** [Bug #2025773: [meta] Iterator includes proposal](https://bugzilla.mozilla.org/show_bug.cgi?id=2025773) `[NEW]`
-- **WebKit (Safari):** [Bug #6274: text repainting does not account for glyphs which draw outside the typographic bounds of the font](https://bugs.webkit.org/show_bug.cgi?id=6274) `[REOPENED]`
-- **WebKit (Safari):** [Bug #16735: keyboard events created with DOM have keyCode and charCode of 0; thus they aren't handled correctly internally](https://bugs.webkit.org/show_bug.cgi?id=16735) `[NEW]`
-- **WebKit (Safari):** [Bug #111179: [Cairo] Surface pointer passed to asNewNativeImage() might be freed.](https://bugs.webkit.org/show_bug.cgi?id=111179) `[NEW]`
-- **WebKit (Safari):** [Bug #131637: Clean up unnecessary methods in the BackForwardClient interface](https://bugs.webkit.org/show_bug.cgi?id=131637) `[NEW]`
-- **WebKit (Safari):** [Bug #138348: Some words are placed on top of each other in complex text layout](https://bugs.webkit.org/show_bug.cgi?id=138348) `[REOPENED]`
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [Re: [blink-dev] Intent to Ship: Iterator Includes](http://www.mail-archive.com/blink-dev@chromium.org/msg17275.html) *(mail-archive.com)*
-  > Re: [blink-dev] Intent to Ship: Iterator Includes Skip to site navigation (Press enter) Re: [blink-dev] Intent to Ship: Iterator Includes 'Dan Clark' via blink-dev Mon, 24 Aug 2026 11:53:07 -0700 LGTM3 On Monday, August ...
-- [[blink-dev] Intent to Ship: Iterator Includes](http://www.mail-archive.com/blink-dev@chromium.org/msg17264.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Ship: Iterator Includes Skip to site navigation (Press enter) [blink-dev] Intent to Ship: Iterator Includes Chromestatus Mon, 24 Aug 2026 09:07:18 -0700 Contact emails [email&#160;protected] , [emai...
-- [TC39 Advances Temporal to Stage 4 Alongside Several ECMAScript Proposals | Socket](https://socket.dev/blog/tc39-advances-temporal-to-stage-4) *(socket.dev · 2026-03-16T03:51:58)*
-  > The Error stack accessor proposal ... specification-level consistency. The Iterator includes proposal <strong>introduces a convenience method for iterators that mirrors the behavior of Array</strong>.prototype.includes.....
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [Re: [blink-dev] Intent to Ship: Iterator Includes](http://www.mail-archive.com/blink-dev@chromium.org/msg17275.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5205192866922496`)*
-  > Re: [blink-dev] Intent to Ship: Iterator Includes Skip to site navigation (Press enter) Re: [blink-dev] Intent to Ship: Iterator Includes 'Dan Clark' via blink-dev Mon, 24 Aug 2026 11:53:07 -0700 LGTM3 On Monday, August ...
-- [[blink-dev] Intent to Ship: Iterator Includes](http://www.mail-archive.com/blink-dev@chromium.org/msg17264.html) *(mail-archive.com)* *(Cites: `https://github.com/tc39/proposal-iterator-includes`)*
-  > [blink-dev] Intent to Ship: Iterator Includes Skip to site navigation (Press enter) [blink-dev] Intent to Ship: Iterator Includes Chromestatus Mon, 24 Aug 2026 09:07:18 -0700 Contact emails [email&#160;protected] , [emai...
-
 #### 📚 Platform Documentation & References
 
-- [Iterator.prototype.includes() - JavaScript - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator/includes) *(developer.mozilla.org)*
+- [Animatable CSS properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Animations/Animatable_properties) *(developer.mozilla.org)*
 
 #### 🧪 Web Platform Tests (WPT)
 
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=iterator-includes) (0 tests listed)
+- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=animatable-zoom) (0 tests listed)
 
 #### 🔍 Investigation Audit Trail
 
-- **Searches Run:** `Brave Search` (32 found across 7 planned queries, 4 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 3 verified) · `Hacker News Algolia` (8 found, 0 verified) · `Standards Positions` (0 items) · `Engine Bug Trackers` (6 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (6 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 0
-
----
-
-<a id="5126146013396992-secure-payment-confirmation-locale-validation"></a>
-### [Secure Payment Confirmation: Locale Validation](https://chromestatus.com/feature/5126146013396992)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5126146013396992](https://chromestatus.com/feature/5126146013396992) · [chromestatuslite.com/feature/5126146013396992](https://chromestatuslite.com/feature/5126146013396992)
-- **Specification:** [https://w3c.github.io/secure-payment-confirmation/#dom-securepaymentconfirmationrequest-locale](https://w3c.github.io/secure-payment-confirmation/#dom-securepaymentconfirmationrequest-locale)
-- **Chromium Bug:** [https://crbug.com/535278878](https://crbug.com/535278878)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `No signal`
-
-#### 📝 Overview
-
-Updates Secure Payment Confirmation's `locale` data field to return a Not Supported DOMException if none of the language tags provided in the field match the language used by the Secure Payment Confirmation's dialog. If the field is not set or empty, this validation is skipped.
-
-This helps web developers with matching the language of the data that they are supplying to Secure Payment Confirmation with the dialog.
-
-> **Motivation:** This feature amends Secure Payment Confirmation so that web developers can align the language of data elements that they supply to Secure Payment Confirmation with the language used by the Secure Payment Confirmation dialog.
-
-Currently web developers can provide a list of language tags for Secure Payment Confirmation to use in their dialog. But Sec...
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **Moderate** (Activity Score: 40)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Cautiously Optimistic**
-- **Google Search Grounding:** Enabled via Gemini
-- **Search Queries:** `""Secure Payment Confirmation" WebKit Mozilla standards position"`, `""Secure Payment Confirmation" "locale" validation"`, `""Secure Payment Confirmation" locale "NotSupportedError" OR "Not Supported""`
-- **Analysis:** Secure Payment Confirmation (SPC) Locale Validation updates the `SecurePaymentConfirmationRequest` dictionary to reject with a `NotSupportedError` DOMException if none of the provided BCP 47 language tags match the browser's dialog UI language. This enables payment authenticators to negotiate and align merchant-supplied transaction data strings with browser-rendered prompt languages. While shipping enabled by default in Chrome 154, SPC and its extensions remain largely Chromium-driven without cross-engine standardization.
-
-**Key Recommendations & Takeaways:**
-- Actionable Advice: Use SPC strictly as a progressive enhancement with appropriate capability checks and fallbacks to standard 3DS challenge flows. If specifying the `locale` field in `SecurePaymentConfirmationRequest`, handle `NotSupportedError` exceptions during `PaymentRequest.show()` to either retry with secondary localized strings or gracefully degrade.
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @gsnedders: "Am I right in understanding that the primary goal here is to replace 3-D Secure with something that's browser mediated?..."
-- Standards Activity (Mozilla): Latest discussion from @stephenmcgruer: "Hi folks. I know that Mozilla's position on SPC is outstanding, however we wanted to let you know of a notable additional feature to SPC that we are c..."
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **14 new articles/tutorials** published
-
-#### 🏛️ Browser Standards Positions
-
-- **WebKit:** [Secure Payment Confirmation (SPC)](https://github.com/WebKit/standards-positions/issues/30) [open] `topic: payments`, `concerns: integration`, `venue: W3C Web Payments WG`, `from: Google`
-  > *Latest discussion from @gsnedders: "Am I right in understanding that the primary goal here is to replace 3-D Secure with something that's browser mediated?..."*
-- **Mozilla:** [Secure Payment Confirmation](https://github.com/mozilla/standards-positions/issues/570) [open] 
-  > *Latest discussion from @stephenmcgruer: "Hi folks. I know that Mozilla's position on SPC is outstanding, however we wanted to let you know of a notable additional feature to SPC that we are c..."*
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [w3.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEac5K1zwVJAjWXeCJW8_KZ-IG6lLBUQjFMJsWhUJ7s5BfVRs5b2xRGjvHuoBxl3Cd2rx1PjWi6sbnFoWzCBdiGDqHOEcIN3AvNQdfNs12edAVGId9EvptKk31qS_3sqzNnu0960vWMvQ==) *(vertexaisearch.cloud.google.com)*
-  > ### Overview & Summary  **Secure Payment Confirmation (SPC): Locale Validation** updates the handling of the `locale` field within the `SecurePaymentConfirmationRequest` dictionary.   * **Behavior**: When a web applicati...
-- [w3.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1jlz7NMBN7pvSQPD4b9YeAwg2nSRtfB42mGFZ0Tqdfy9Tyzl8AJzXWENi4VlJQl0blaNnED5rEGp8GC99ilr0m9jw_T4coOmua5tdpw9MK4GoFkruzmPnatMT9MP6AbPtKQmh9fv3bKSRoIdrJ6bgs3czWo6cdxwF) *(vertexaisearch.cloud.google.com)*
-  > ### Overview & Summary  **Secure Payment Confirmation (SPC): Locale Validation** updates the handling of the `locale` field within the `SecurePaymentConfirmationRequest` dictionary.   * **Behavior**: When a web applicati...
-- [mozaic.fm](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFE8AxiF3UXA4Cxi9ZiNdsbGGma-A0YE3KjOWHWyXy_BNxnwfQmhCa2X-Ei014vrZcPatj6m3uZyg21RG4epYNgmyxfRIpn1Say3XVfo02NktJkTzUI3gsYBlrdV1bbprYz_gnkZ2wOD0YE5s6_j64CZA==) *(vertexaisearch.cloud.google.com)*
-  > ### Overview & Summary  **Secure Payment Confirmation (SPC): Locale Validation** updates the handling of the `locale` field within the `SecurePaymentConfirmationRequest` dictionary.   * **Behavior**: When a web applicati...
-- [[blink-dev] Intent to Prototype: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17162.html) *(mail-archive.com)*
-  > Availability expectation The locale validation for Secure Payment Confirmation will only be available in Chromium browsers for the foreseeable future. Estimated milestones Shipping on desktop 154 Shipping on Android 154 ...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [[blink-dev] Intent to Prototype: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17162.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5126146013396992`)*
-  > Availability expectation The locale validation for Secure Payment Confirmation will only be available in Chromium browsers for the foreseeable future. Estimated milestones Shipping on desktop 154 Shipping on Android 154 ...
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=secure-payment-confirmation) (20 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (25 found across 7 planned queries, 1 verified) · `Google Search Grounding (gemini-3.7-flash)` (8 found, 3 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 4 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (2 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (6 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (20 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 9
-
----
-
-<a id="6210300985606144-cors-enforcement-for-background-fetch"></a>
-### [CORS enforcement for Background Fetch](https://chromestatus.com/feature/6210300985606144)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/6210300985606144](https://chromestatus.com/feature/6210300985606144) · [chromestatuslite.com/feature/6210300985606144](https://chromestatuslite.com/feature/6210300985606144)
-- **Specification:** [https://wicg.github.io/background-fetch](https://wicg.github.io/background-fetch)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `No signal`
-
-#### 📝 Overview
-
-Starting in Chrome 154, the Background Fetch API will enforce Cross-Origin Resource Sharing (CORS). 
-This update aligns Chromium's implementation with the intent of the [Background Fetch spec](https://wicg.github.io/background-fetch/). This ensures that Background Fetch requests are subject to the same security policies, such as Local Network Access checks. 
-This update prevents sites from bypassing CORS (and other security policy checks) by using Background Fetch instead of regular [Fetch](https://fetch.spec.whatwg.org/).
-
-> **Motivation:** This fixes a security issue where Background Fetch unintentionally bypasses security policies such as CORS (and CORP/COEP/DIP).
-
-(crbug.com/515243254 is our meta bug tracking all of the different web platform security issues with Background Fetch.)
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **Emerging** (Activity Score: 20)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Neutral**
-- **Analysis:** CORS enforcement for Background Fetch is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
-
-**Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- Community package available: [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch) (v3.6.20) for progressive enhancement.
-
-#### 📦 Polyfills & NPM Ecosystem
-
-- [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch) `v3.6.20` *(Verified Polyfill)* — A window.fetch polyfill.
-- [react-native-background-fetch](https://www.npmjs.com/package/react-native-background-fetch) `v4.4.2` — iOS & Android BackgroundFetch API implementation for React Native
-- [expo-background-fetch](https://www.npmjs.com/package/expo-background-fetch) `v57.0.14` — Expo universal module for BackgroundFetch API
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=background-fetch) (18 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (25 found across 6 planned queries, 0 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 0 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (0 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (6 found, 3 verified) · `Web Platform Tests (wpt.fyi)` (18 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 0
-
----
-
-<a id="5114591051907072-expose-cssstylevalue-hierarchy-to-worker-contexts"></a>
-### [Expose CSSStyleValue hierarchy to Worker contexts](https://chromestatus.com/feature/5114591051907072)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5114591051907072](https://chromestatus.com/feature/5114591051907072) · [chromestatuslite.com/feature/5114591051907072](https://chromestatuslite.com/feature/5114591051907072)
-- **Specification:** [https://www.w3.org/TR/css-typed-om-1/#stylevalue-subclasses](https://www.w3.org/TR/css-typed-om-1/#stylevalue-subclasses)
-- **Chromium Bug:** [https://issues.chromium.org/issues/534781956](https://issues.chromium.org/issues/534781956)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `Shipped/Shipping` · Safari: `Shipped/Shipping`
-
-#### 📝 Overview
-
-The CSS Typed OM spec exposes the CSSStyleValue hierarchy to worker global scopes ([Exposed=(Window, Worker, PaintWorklet, LayoutWorklet)]), but Blink only exposed CSSStyleValue, CSSKeywordValue, CSSNumericValue, CSSUnitValue and CSSUnparsedValue to Window and the worklets. As a result these constructors were undefined in Workers, unlike in Firefox and Safari.
-
-> **Motivation:** Aligns Chrome with the spec's [Exposed] set and removes a cross‑thread inconsistency (these constructors are currently undefined in workers); enables off‑main‑thread CSS value manipulation
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **Emerging** (Activity Score: 20)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Positive**
-- **Google Search Grounding:** Enabled via Gemini
-- **Search Queries:** `"CSSStyleValue Worker Typed OM Safari Firefox"`, `""Expose CSSStyleValue hierarchy to Worker contexts""`
-- **Analysis:** Exposing the CSSStyleValue hierarchy to Worker contexts in Chrome 154 resolves a long-standing engine omission by aligning Blink with the CSS Typed Object Model Level 1 specification. Previously, subclasses like CSSKeywordValue and CSSNumericValue were accessible in Window and CSS Worklets but remained undefined in standard Web Workers. With this update, multi-threaded applications can construct and manipulate typed CSS values off the main thread without string serialization workarounds.
-
-**Key Recommendations & Takeaways:**
-- Actionable Advice: Teams performing off-main-thread styling calculations can safely migrate to standard Typed OM constructors in Web Workers as Chrome 154 rolls out. For backward compatibility across older browser versions, maintain a simple feature-check (e.g., `'CSSNumericValue' in self`) and fall back to raw numeric/string representations where necessary.
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **3 new articles/tutorials** published
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [[blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17113.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Skip to site navigation (Press enter) [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker context...
-- [Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17119.html) *(mail-archive.com)*
-  > Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Skip to site navigation (Press enter) Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [[blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17113.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5114591051907072`)*
-  > [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Skip to site navigation (Press enter) [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker context...
-- [Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17119.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5114591051907072`)*
-  > Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Skip to site navigation (Press enter) Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker...
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=expose-cssstylevalue-hierarchy-to-worker-contexts) (0 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (11 found across 6 planned queries, 2 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 2 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (0 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (7 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 0
-
----
-
-<a id="4779920606756864-support-targetaddressspace-option-for-websockets"></a>
-### [Support targetAddressSpace option for WebSockets](https://chromestatus.com/feature/4779920606756864)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/4779920606756864](https://chromestatus.com/feature/4779920606756864) · [chromestatuslite.com/feature/4779920606756864](https://chromestatuslite.com/feature/4779920606756864)
-- **Specification:** [https://github.com/WICG/local-network-access/pull/125](https://github.com/WICG/local-network-access/pull/125)
-- **Chromium Bug:** [https://crbug.com/517413738](https://crbug.com/517413738)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `No signal`
-
-#### 📝 Overview
-
-Add support for passing a targetAddressSpace option in the WebSocket constructor. This allows developers to specify that a WebSocket connection to a public hostname should be treated as going to a "local" or "loopback" destination, matching the existing support on the Fetch API. The main use case is to offer an escape hatch to bypass mixed content restrictions for connecting to local servers that cannot yet support HTTPS (as Local Network Access permissions require a secure context).
-
-Example: A public site that connects to a local server can use a hostname to avoid needing manual configuration of the exact private IP address in use:
-
-`const ws = new WebSocket("ws://local-server.example", { targetAddressSpace: "local"}`
-
-This will flag the WebSocket connection as going to a local address, bypassing mixed content blocking when run in a secure context. The user must grant the site the local network permission for the WebSocket connection to succeed, and the hostname must resolve to a local IP address (otherwise it will be blocked).
-
-This builds on https://chromestatus.com/feature/5080055102439424 which adds an options bag to the WebSocket constructor.
-
-> **Motivation:** To avoid mixed content blocking for local network WebSockets requests, web developers have relied on having their users manually configure their local network IP addresses, which is awkward at best. Adding support for the targetAddressSpace option in WebSockets aligns it with the Fetch API. This has also been requested by developers (e.g., https://...
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **Emerging** (Activity Score: 10)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Neutral**
-- **Analysis:** Support targetAddressSpace option for WebSockets is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
-
-**Key Recommendations & Takeaways:**
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### 🏛️ Browser Standards Positions
-
-- **WebKit:** [Supporting options bag in WebSocket constructor](https://github.com/WebKit/standards-positions/issues/708) [open] `topic: networking`, `venue: WHATWG HTML Workstream`, `from: Google`
-  > *Latest discussion from @annevk: "I suggest we resolve this as "position: support" one week from now. This is a straightforward addition that allows us to enhance WebSockets more easil..."*
-- **Mozilla:** [Supporting options bag in WebSocket constructor](https://github.com/mozilla/standards-positions/issues/1444) [open] 
-
-#### 📰 Ecosystem Blogs & Articles
-
-- [[blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets](http://www.mail-archive.com/blink-dev@chromium.org/msg17125.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets Chromestatus Wed, ...
-
-#### 🔗 Inbound Citations & Reverse Links
-
-- [[blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets](http://www.mail-archive.com/blink-dev@chromium.org/msg17125.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/local-network-access/issues/126`)*
-  > [blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Support targetAddressSpace option for WebSockets Chromestatus Wed, ...
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=125) (128 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (24 found across 7 planned queries, 1 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 1 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (2 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (128 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 1 · Standards Comments Read: 1
-
----
-
-<a id="5194104408506368-webtransport-headers-and-responseheaders"></a>
-### [WebTransport headers and responseHeaders](https://chromestatus.com/feature/5194104408506368)
-
-- **Milestone:** Chrome 154 (Enabled by default)
-- **ChromeStatus:** [chromestatus.com/feature/5194104408506368](https://chromestatus.com/feature/5194104408506368) · [chromestatuslite.com/feature/5194104408506368](https://chromestatuslite.com/feature/5194104408506368)
-- **Specification:** [https://www.w3.org/TR/webtransport/#dom-webtransportoptions-headers](https://www.w3.org/TR/webtransport/#dom-webtransportoptions-headers)
-- **Chromium Bug:** [https://issues.chromium.org/issues/551850821](https://issues.chromium.org/issues/551850821)
-- **Browser Signals:** Chrome: `Proposed` · Firefox: `No signal` · Safari: `In development`
-
-#### 📝 Overview
-
-Adds support for passing custom HTTP request headers via WebTransportOptions and inspecting server response headers through the WebTransport instance. This allows web applications to supply metadata, authentication tokens, and custom parameters during the initial CONNECT handshake and access server-provided headers once the connection is established.
-
-> **Motivation:** The WebTransport constructor requires support for custom HTTP request headers to address several technical limitations in authentication, routing, and capability negotiation.
-
-Without custom headers, developers must pass authentication tokens in URL query strings, which exposes credentials in server logs and telemetry, or authenticate over an initi...
-
-#### 💡 Ecosystem Intelligence & Analysis
-
-- **Momentum:** **Quiet** (Activity Score: 0)
-- **Consensus:** **Chromium-Led**
-- **Developer Sentiment:** **Positive**
-- **Google Search Grounding:** Enabled via Gemini
-- **Search Queries:** `""WebTransport" custom headers bugzilla mozilla webkit"`, `""WebTransportOptions" "headers" "responseHeaders""`, `""WebTransport" "headers" "responseHeaders" chromestatus OR "intent to ship""`
-- **Analysis:** WebTransport custom request headers and `responseHeaders` resolve critical architectural limitations by allowing HTTP headers during the initial `CONNECT` handshake. This eliminates the need to expose authentication tokens in query strings or introduce stream-level handshakes, receiving strong consensus across browser working groups. With shipping in Chromium (Chrome 154) and active implementation underway in WebKit (Bug 311299) and Gecko, cross-browser alignment is progressing rapidly.
-
-**Key Recommendations & Takeaways:**
-- Actionable Advice: Teams deploying WebTransport in production should start migrating authentication and routing tokens from query parameters or first-stream payloads to `WebTransportOptions.headers`. Ensure a server-side fallback or query-param authentication bridge remains in place until non-Chromium stable runtimes fully expose the `headers` and `responseHeaders` properties.
-- Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-#### ⚡ What Happened This Week
-
-- 📰 **6 new articles/tutorials** published
-
-#### 🧪 Web Platform Tests (WPT)
-
-- View cross-browser test results on [wpt.fyi](https://wpt.fyi/results/?q=webtransport) (106 tests listed)
-
-#### 🔍 Investigation Audit Trail
-
-- **Searches Run:** `Brave Search` (32 found across 6 planned queries, 0 verified) · `Google Search Grounding (gemini-3.7-flash)` (0 found, 0 verified) · `Twitter / X API v2` *(found 0 tweet(s))* · `Dev.to Community Blogs` (8 found, 0 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (0 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (6 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (106 items)
-- **Content Inspected:** Spec: ✔ · Explainers: 0 · Standards Comments Read: 0
+- **Searches Run:** `Brave Search` *(Inactive (BRAVE_SEARCH_API_KEY not configured))* · `Twitter / X API v2` *(Inactive (TWITTER_BEARER_TOKEN not configured))* · `Dev.to Community Blogs` (0 found, 0 verified) · `Hacker News Algolia` (0 found, 0 verified) · `Standards Positions` (0 items) · `Engine Bug Trackers` (0 items) · `Baseline (baseline.dev)` *(untracked)* · `NPM Registry` (5 found, 0 verified) · `Web Platform Tests (wpt.fyi)` (0 items)
+- **Content Inspected:** Spec: ○ · Explainers: 0 · Standards Comments Read: 0
 
 ---
 

@@ -51,7 +51,7 @@ jobs:
       - name: Run Ecosystem Intelligence Crawler
         if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.skip_crawl)
         env:
-          TARGET_MILESTONES: ${{ github.event.inputs.milestone || 'auto' }}
+          TARGET_MILESTONES: ${{ github.event.inputs.milestone || 'last-5' }}
           MAX_FEATURES: ${{ github.event.inputs.limit || '' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GOOGLE_SEARCH_API_KEY: ${{ secrets.GOOGLE_SEARCH_API_KEY }}

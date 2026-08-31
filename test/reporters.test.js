@@ -157,3 +157,33 @@ test('generateWeeklyMarkdown renders Twitter discussions with author and bird ic
   assert.ok(md.includes('Twitter / X by @ChromiumDev'));
   assert.ok(md.includes('25 likes/RTs, 5 replies'));
 });
+
+test('generateWeeklyMarkdown and generateDashboardHtml render Week-over-Week Deltas', () => {
+  const dataWithDelta = {
+    ...mockReportData,
+    features: [
+      {
+        ...mockReportData.features[0],
+        delta: {
+          isNewFeature: false,
+          statusChanged: true,
+          previousStatus: 'Origin Trial',
+          momentumChanged: true,
+          previousMomentum: 'Quiet',
+          newArticlesCount: 3,
+          newDiscussionsCount: 1,
+          hasDelta: true,
+        },
+      },
+    ],
+  };
+
+  const md = generateWeeklyMarkdown(dataWithDelta);
+  assert.ok(md.includes('## ⚡ Week-over-Week Ecosystem Deltas'), 'Includes deltas section');
+  assert.ok(md.includes('Moved from *Origin Trial* to **Enabled by default**'), 'Includes status transition');
+  assert.ok(md.includes('Shifted from *Quiet* to **High** momentum'), 'Includes momentum shift');
+
+  const html = generateDashboardHtml(dataWithDelta);
+  assert.ok(html.includes('⚡ Week Changes (Deltas)'), 'Includes delta stat card in HTML');
+  assert.ok(html.includes('data-filter-val="deltas"'), 'Includes deltas filter button in HTML');
+});

@@ -54,16 +54,72 @@ export function generateWeeklyMarkdown(reportData) {
   md += `| **Contested / Concerns** | \`${contested.length}\` | Features with open vendor or security/privacy objections |\n`;
   md += `| **New Mentions This Week** | \`${newActivityCount}\` | Net new articles, discussions, or standards updates |\n\n`;
 
+  // Week-over-Week Deltas Rollup
+  const statusChanges = features.filter(f => f.delta?.statusChanged);
+  const momentumShifts = features.filter(f => f.delta?.momentumChanged);
+  const newFeatures = features.filter(f => f.delta?.isNewFeature);
+  const newActivityFeatures = features.filter(f => !f.delta?.isNewFeature && ((f.delta?.newArticlesCount || 0) > 0 || (f.delta?.newDiscussionsCount || 0) > 0));
+
+  if (statusChanges.length > 0 || momentumShifts.length > 0 || newFeatures.length > 0 || newActivityFeatures.length > 0) {
+    md += `## ⚡ Week-over-Week Ecosystem Deltas\n\n`;
+
+    if (statusChanges.length > 0) {
+      md += `### 🔄 Status Transitions\n\n`;
+      for (const item of statusChanges) {
+        md += `- [${escapeMarkdown(item.feature.name)}](#${item.feature.slug}): Moved from *${item.delta.previousStatus || 'N/A'}* to **${item.feature.category}** in Chrome ${item.feature.milestone || ''}\n`;
+      }
+      md += `\n`;
+    }
+
+    if (momentumShifts.length > 0) {
+      md += `### 🚀 Momentum Shifts\n\n`;
+      for (const item of momentumShifts) {
+        md += `- [${escapeMarkdown(item.feature.name)}](#${item.feature.slug}): Shifted from *${item.delta.previousMomentum}* to **${item.analysis.momentumLevel}** momentum\n`;
+      }
+      md += `\n`;
+    }
+
+    if (newActivityFeatures.length > 0) {
+      md += `### 📰 Net New Publications & Discussions\n\n`;
+      for (const item of newActivityFeatures.slice(0, 10)) {
+        const parts = [];
+        if (item.delta.newArticlesCount > 0) parts.push(`${item.delta.newArticlesCount} article(s)`);
+        if (item.delta.newDiscussionsCount > 0) parts.push(`${item.delta.newDiscussionsCount} discussion(s)`);
+        md += `- [${escapeMarkdown(item.feature.name)}](#${item.feature.slug}): +${parts.join(', ')}\n`;
+      }
+      md += `\n`;
+    }
+
+    if (newFeatures.length > 0) {
+      md += `### ✨ Newly Tracked Features\n\n`;
+      for (const item of newFeatures.slice(0, 10)) {
+        md += `- [${escapeMarkdown(item.feature.name)}](#${item.feature.slug}) (Chrome ${item.feature.milestone || ''}, ${item.feature.category})\n`;
+      }
+      md += `\n`;
+    }
+
+    md += `---\n\n`;
+  }
+
   // Quick Navigation Table
   md += `## 📋 Features Index\n\n`;
-  md += `| Feature | Milestone | Category | Momentum | Consensus | Developer Pulse |\n`;
+  md += `| Feature | Milestone | Category | Momentum | Consensus | Week Delta |\n`;
   md += `| :--- | :--- | :--- | :--- | :--- | :--- |\n`;
 
   for (const item of features) {
     const f = item.feature;
     const a = item.analysis;
+    const delta = item.delta;
     const anchor = `#${f.slug}`;
-    md += `| [${escapeMarkdown(f.name)}](${anchor}) | Chrome ${f.milestone || ''} | \`${f.category}\` | **${a.momentumLevel}** | ${a.consensus} | ${a.sentiment} |\n`;
+    let deltaSummary = '—';
+    if (delta) {
+      if (delta.isNewFeature) deltaSummary = '✨ New';
+      else if (delta.statusChanged) deltaSummary = `🔄 ${f.category}`;
+      else if (delta.newArticlesCount > 0 || delta.newDiscussionsCount > 0) {
+        deltaSummary = `⚡ +${delta.newArticlesCount} art / +${delta.newDiscussionsCount} msgs`;
+      }
+    }
+    md += `| [${escapeMarkdown(f.name)}](${anchor}) | Chrome ${f.milestone || ''} | \`${f.category}\` | **${a.momentumLevel}** | ${a.consensus} | ${deltaSummary} |\n`;
   }
   md += `\n---\n\n`;
 

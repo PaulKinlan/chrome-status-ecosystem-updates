@@ -92,4 +92,11 @@ test('resolveTargetMilestones parses last-N, ranges, lists, and numbers', async 
   for (let i = 1; i < smallNum.length; i++) {
     assert.strictEqual(smallNum[i], smallNum[i - 1] + 1);
   }
+
+  // Test default and auto resolve to last 5 milestones
+  const autoResult = await resolveTargetMilestones('auto');
+  assert.strictEqual(autoResult.length, 5);
+
+  const defaultResult = await resolveTargetMilestones();
+  assert.strictEqual(defaultResult.length, 5);
 });

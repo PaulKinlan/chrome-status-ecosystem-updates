@@ -174,10 +174,29 @@ export async function gatherEcosystemData(feature) {
   }
 
   // Merge web search candidates, developer blog articles, and MDN docs
+  const tweetsFromWeb = [];
   for (const item of [...rawWebResults, ...devToResults, ...mdnResult]) {
     const cleaned = cleanUrl(item.url);
-    if (cleaned && !seenUrls.has(cleaned)) {
-      seenUrls.add(cleaned);
+    if (!cleaned || seenUrls.has(cleaned)) continue;
+    seenUrls.add(cleaned);
+
+    const isTwitterUrl = cleaned.includes('twitter.com') || cleaned.includes('x.com');
+    if (isTwitterUrl) {
+      const match = cleaned.match(/https?:\/\/(?:twitter\.com|x\.com)\/([A-Za-z0-9_]+)\/status\/(\d+)/i);
+      tweetsFromWeb.push({
+        source: 'Twitter / X',
+        type: 'discussion',
+        id: match ? match[2] : null,
+        title: item.title,
+        content: item.snippet || item.title,
+        snippet: item.snippet || item.title,
+        url: cleaned,
+        author: match ? `@${match[1]}` : null,
+        points: item.points || 0,
+        commentsCount: item.commentsCount || 0,
+        createdAt: item.publishedAt || null,
+      });
+    } else {
       candidateArticles.push(item);
     }
   }
@@ -197,8 +216,8 @@ export async function gatherEcosystemData(feature) {
     );
   }
 
-  // Combine discussions from Hacker News and Twitter
-  const candidateDiscussions = [...rawHnResults, ...twitterResult];
+  // Combine discussions from Hacker News, Twitter API, and web-indexed Tweets
+  const candidateDiscussions = [...rawHnResults, ...twitterResult, ...tweetsFromWeb];
 
   // PRIMARY RELEVANCE VERIFICATION (Using LLM with dynamic NLP token fallback)
   logger.substep('Relevance Verification', `Testing ${candidateDiscussions.length} discussion(s), ${candidateArticles.length} article(s), ${rawNpmResults.length} package(s)`);
@@ -303,7 +322,7 @@ export async function gatherEcosystemData(feature) {
       rawFound: 0,
       verified: 0,
     }]),
-    { type: 'devto_blogs', provider: 'Dev.to Community Blogs', query: feature.name, rawFound: devToResults.length, verified: verifiedBlogs.length },
+    { type: 'devto_blogs', provider: 'Dev.to Community Blogs', query: feature.name, rawFound: devToResults.length, verified: verifiedBlogs.filter(b => b.source === 'Dev.to Community' || (b.domain || '').includes('dev.to')).length },
     { type: 'hackernews', provider: 'Hacker News Algolia', query: feature.name, rawFound: rawHnResults.length, verified: verifiedDiscussions.filter(d => d.source.includes('Hacker News')).length },
     { type: 'standards', provider: 'Standards Positions', count: standards.length, vendors: standards.map(s => s.vendor) },
     { type: 'bugzilla', provider: 'Engine Bug Trackers', count: bugsResult.length, vendors: bugsResult.map(b => b.vendor) },

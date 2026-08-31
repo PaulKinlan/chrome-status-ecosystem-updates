@@ -1,6 +1,6 @@
 # AccentColor and AccentColorText system colors
 
-> **Report Week:** 2026-W35 | **Milestone:** Chrome 150 | **Category:** Enabled by default
+> **Report Week:** 2026-W36 | **Milestone:** Chrome 150 | **Category:** Enabled by default
 
 ## Overview
 
@@ -43,7 +43,8 @@ Without access to system accent colors, developers must hardcode theme values or
 ### Searches Executed
 
 - **Brave Search:** *Inactive (BRAVE_SEARCH_API_KEY not configured)*
-- **Dev.to Community Blogs:** 8 result(s) found — **0 verified relevant**
+- **Twitter / X API v2:** *Inactive (TWITTER_BEARER_TOKEN not configured)*
+- **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 1 item(s) inspected
 - **Engine Bug Trackers:** 1 item(s) inspected
@@ -56,7 +57,7 @@ Without access to system accent colors, developers must hardcode theme values or
 - **Specification:** ✔ Formally verified
 - **Explainers:** 0 document(s) analyzed
 - **Standards Discussion Comments:** 5 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 8 page(s)
+- **Web Page Excerpts Ingested:** 3 page(s)
 
 ## Useful Links
 
