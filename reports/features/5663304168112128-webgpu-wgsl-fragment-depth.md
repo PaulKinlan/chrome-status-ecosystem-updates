@@ -1,6 +1,6 @@
 # WebGPU: WGSL Fragment Depth
 
-> **Report Week:** 2026-W36 | **Milestone:** Chrome 154 | **Category:** Enabled by default
+> **Report Week:** 2026-W37 | **Milestone:** Chrome 154 | **Category:** Enabled by default
 
 ## Overview
 
@@ -16,7 +16,7 @@ The introduction of a new depth_mode built-in parameter for the @builtin(frag_de
 
 ## Ecosystem Status
 
-- **Momentum:** High (80 points)
+- **Momentum:** High (130 points)
 - **Standards Alignment:** Partial Multi-Engine Interest
 - **Sentiment:** Positive / High Interest
 - **Executive Take:** WebGPU: WGSL Fragment Depth is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Partial Multi-Engine Interest standards alignment and positive / high interest developer pulse.
@@ -39,6 +39,12 @@ The introduction of a new depth_mode built-in parameter for the @builtin(frag_de
   > [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth 'dan sinclair' via blink-dev Mon, 24 Aug 2026 20:15:11 -0700 There are signals, but indirect...
 - [Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth](http://www.mail-archive.com/blink-dev@chromium.org/msg17300.html) *(mail-archive.com)*
   > Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: WebGPU: WGSL Fragment Depth Daniel Bratell Wed, 26 Aug 2026 07:53:18 -0700 LGTM2 /Daniel On 2026-08-26 12:21, Yo...
+- [WebGPU Shading Language](https://mehmetoguzderin.github.io/webgpu/wgsl.html) *(mehmetoguzderin.github.io)*
+  > Fixed-function stages consume a fragment output, possibly updating external state such as color attachments and depth and stencil buffers. The WebGPU specification describes pipelines in greater detail. WGSL defines three shader stages, corresponding...
+- [The Depth Buffer | Learn Wgpu](https://sotrh.github.io/learn-wgpu/beginner/tutorial8-depth) *(sotrh.github.io · 2026-07-21T00:00:00)*
+  > #[repr(C)] #[derive(Copy, Clone, Debug, Hash, Eq, PartialEq)] #[cfg_attr(feature = &quot;serde&quot;, derive(Serialize, Deserialize))] pub enum CompareFunction { Undefined = 0, Never = 1, Less = 2, Equal = 3, LessEqual = 4, Greater = 5, NotEqual = 6,...
+- [Does WebGPU Support 'Early Fragment Test'?](https://groups.google.com/g/webgl-dev-list/c/nG7yEjCHxGI) *(groups.google.com · 2024-09-16T00:00:00)*
+  > ... Either email addresses are anonymous for this group or you need the view member email addresses permission to view the original message ... Yes, WebGPU will do early Z rejection by default. <strong>This is disabled if the fragment shader alters t...
 
 ## 🔗 Inbound Citations & Reverse Links
 
@@ -60,23 +66,25 @@ The following external publications and discussions explicitly link to or cite t
 ## 📚 Platform Documentation & Specifications
 
 - [WGSL Proposal for fragment depth (less, greater, any) · Issue #5342 · gpuweb/gpuweb](https://github.com/gpuweb/gpuweb/issues/5342) *(github.com)*
-- [GPU Web 2026‐01‐06 WGSL](https://github.com/gpuweb/gpuweb/wiki/GPU-Web-2026%E2%80%9001%E2%80%9006-WGSL) *(github.com)*
+- [Support for conservative depth · Issue #3961 · gfx-rs/wgpu](https://github.com/gfx-rs/wgpu/issues/3961) *(github.com)*
+- [Guarantees about early-z fragment discard · Issue #4878 · gpuweb/gpuweb](https://github.com/gpuweb/gpuweb/issues/4878) *(github.com)*
+- [GPU: wgslLanguageFeatures property](https://developer.mozilla.org/en-US/docs/Web/API/GPU/wgslLanguageFeatures) *(developer.mozilla.org)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 21 result(s) found across 7 planned queries — **8 verified relevant**
+- **Brave Search:** 13 result(s) found across 7 planned queries — **12 verified relevant**
   - `"chromestatus.com/feature/5663304168112128" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (3 returned)
   - `"github.com/gpuweb/gpuweb/blob/main/proposals/fragment-depth.md" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (3 returned)
-  - `"github.com/gpuweb/gpuweb/pull/6299" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Specification* (2 returned)
-  - `"@builtin(frag_depth)" ("less" OR "greater") WGSL (WebGPU OR shader)` — *Finds code snippets and syntax examples showing the new frag_depth modifier usage in WGSL fragment shaders.* (8 returned)
-  - `WebGPU WGSL "frag_depth" ("early-z" OR "early depth test" OR "early-fragment-tests") performance` — *Surfaces technical articles, tutorials, and performance guides discussing early-Z optimizations and depth buffer behavior in WebGPU.* (8 returned)
-  - `"frag_depth" ("depth_mode" OR modifier) (Chrome OR Chromium OR Dawn OR wgpu OR Firefox) WebGPU` — *Identifies implementation status, browser release notes, engine support (Dawn/wgpu), and rollout announcements.* (8 returned)
-  - `site:github.com/gpuweb/gpuweb ("frag_depth" OR "fragment-depth") ("early-Z" OR "less" OR "greater")` — *Targets working group discussions, issue threads, and design feedback around conservative fragment depth in the W3C GPU for the Web group.* (3 returned)
+  - `"github.com/gpuweb/gpuweb/pull/6299" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Specification* (3 returned)
+  - `"@builtin(frag_depth)" ("less" OR "greater" OR "depth_mode") wgsl` — *Finds exact WGSL syntax examples and shader implementations using the new fragment depth modifier keywords.* (8 returned)
+  - `webgpu wgsl "frag_depth" ("early-Z" OR "early depth") optimization` — *Surfaces developer guides, graphics programming articles, and performance tutorials on mitigating early-Z pipeline stalls in WebGPU.* (8 returned)
+  - `"WebGPU" "frag_depth" ("conservative depth" OR "depth_mode") (Chrome OR Dawn OR "Release Notes")` — *Discovers engine adoption announcements, browser implementation status updates, and release notes across Chromium/Dawn/WebKit.* (0 returned)
+  - `site:github.com/gpuweb/gpuweb ("frag_depth" OR "fragment-depth") ("less" OR "greater")` — *Retrieves specification discussions, WGSL working group meeting notes, and pull request feedback on the fragment depth mode proposal.* (2 returned)
 - **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 8 result(s) found — **6 verified relevant**
+- **Dev.to Community Blogs:** 4 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 item(s) inspected
 - **Engine Bug Trackers:** 0 item(s) inspected

@@ -1,6 +1,6 @@
 # CORS enforcement for Background Fetch
 
-> **Report Week:** 2026-W36 | **Milestone:** Chrome 154 | **Category:** Enabled by default
+> **Report Week:** 2026-W37 | **Milestone:** Chrome 154 | **Category:** Enabled by default
 
 ## Overview
 
@@ -16,7 +16,7 @@ This fixes a security issue where Background Fetch unintentionally bypasses secu
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (20 points)
+- **Momentum:** Emerging (10 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Neutral
 - **Executive Take:** CORS enforcement for Background Fetch is currently Enabled by default in Chrome 154. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.
@@ -24,33 +24,39 @@ This fixes a security issue where Background Fetch unintentionally bypasses secu
 ### Recommendations
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- Community package available: [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch) (v3.6.20) for progressive enhancement.
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
-## Packages & Polyfills
+## 🔗 Inbound Citations & Reverse Links
 
-- [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch) `v3.6.20` — A window.fetch polyfill.
-- [react-native-background-fetch](https://www.npmjs.com/package/react-native-background-fetch) `v4.4.2` — iOS & Android BackgroundFetch API implementation for React Native
-- [expo-background-fetch](https://www.npmjs.com/package/expo-background-fetch) `v57.0.14` — Expo universal module for BackgroundFetch API
+The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
+
+- [background-fetch/index.bs at main · WICG/background-fetch](https://github.com/WICG/background-fetch/blob/main/index.bs) *(github.com)* *(Cites: `https://wicg.github.io/background-fetch`)*
+  > background-fetch/index.bs at main · WICG/background-fetch · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your ses...
+
+## 📚 Platform Documentation & Specifications
+
+- [background-fetch/index.bs at main · WICG/background-fetch](https://github.com/WICG/background-fetch/blob/main/index.bs) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 25 result(s) found across 6 planned queries — **0 verified relevant**
+- **Brave Search:** 38 result(s) found across 7 planned queries — **1 verified relevant**
   - `"chromestatus.com/feature/6210300985606144" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
   - `"wicg.github.io/background-fetch" -site:wicg.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (6 returned)
-  - `"Background Fetch" CORS enforcement ("Chrome 154" OR Chromium OR "Intent to Ship")` — *Finds official Chromium release notes, Intent to Ship threads, and developer ecosystem announcements about CORS enforcement in Background Fetch.* (3 returned)
-  - `"backgroundFetch.fetch" ("mode: 'cors'" OR "cross-origin" OR "Access-Control-Allow-Origin")` — *Surfaces real-world JavaScript and Service Worker code implementations showing cross-origin request configurations for the Background Fetch API.* (0 returned)
-  - `"Background Fetch API" CORS OR "Cross-Origin" (tutorial OR guide OR migration)` — *Discovers developer blog posts, tutorials, and migration guides explaining how to handle CORS headers and fetch policies with Background Fetch.* (8 returned)
-  - `"Background Fetch" (bypass OR "crbug.com" OR "Local Network Access" OR CORP OR COEP) CORS` — *Uncovers developer discussions, bug reports, and web security analyses discussing the Background Fetch security bypass and its remediation.* (8 returned)
+  - `"CORS enforcement for Background Fetch" API` — *Core feature API query* (0 returned)
+  - `"CORS enforcement for Background Fetch" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
+  - `"wicg.github" OR "fetch.spec" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
+  - `"CORS enforcement for Background Fetch" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
+  - `"CORS enforcement for Background Fetch" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
 - **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 8 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 item(s) inspected
 - **Engine Bug Trackers:** 0 item(s) inspected
 - **Baseline (baseline.dev):** *untracked*
-- **NPM Registry:** 6 result(s) found — **3 verified relevant**
+- **NPM Registry:** 6 result(s) found — **0 verified relevant**
 - **Web Platform Tests (wpt.fyi):** 18 item(s) inspected
 
 ### Content Inspected
@@ -58,7 +64,7 @@ This fixes a security issue where Background Fetch unintentionally bypasses secu
 - **Specification:** ✔ Formally verified
 - **Explainers:** 0 document(s) analyzed
 - **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 8 page(s)
+- **Web Page Excerpts Ingested:** 7 page(s)
 
 ## Useful Links
 

@@ -1,6 +1,6 @@
 # Expose CSSStyleValue hierarchy to Worker contexts
 
-> **Report Week:** 2026-W36 | **Milestone:** Chrome 154 | **Category:** Enabled by default
+> **Report Week:** 2026-W37 | **Milestone:** Chrome 154 | **Category:** Enabled by default
 
 ## Overview
 
@@ -12,23 +12,25 @@ Aligns Chrome with the spec's [Exposed] set and removes a cross‑thread inconsi
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (20 points)
+- **Momentum:** Emerging (30 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Positive
-- **Executive Take:** Exposing the CSSStyleValue hierarchy to Worker contexts in Chrome 154 resolves a long-standing engine omission by aligning Blink with the CSS Typed Object Model Level 1 specification. Previously, subclasses like CSSKeywordValue and CSSNumericValue were accessible in Window and CSS Worklets but remained undefined in standard Web Workers. With this update, multi-threaded applications can construct and manipulate typed CSS values off the main thread without string serialization workarounds.
+- **Executive Take:** Chrome 154 completes alignment with the CSS Typed OM specification by exposing the full CSSStyleValue constructor hierarchy (`CSSStyleValue`, `CSSKeywordValue`, `CSSNumericValue`, `CSSUnitValue`, and `CSSUnparsedValue`) within Worker global scopes. This resolves a long-standing cross-thread discrepancy where worker contexts lacked these constructors despite existing support in Worklets and Window. The change establishes full cross-engine consistency, matching preexisting implementations across Gecko and WebKit.
 
 ### Recommendations
-- Actionable Advice: Teams performing off-main-thread styling calculations can safely migrate to standard Typed OM constructors in Web Workers as Chrome 154 rolls out. For backward compatibility across older browser versions, maintain a simple feature-check (e.g., `'CSSNumericValue' in self`) and fall back to raw numeric/string representations where necessary.
+- Actionable Advice: Developers performing heavy CSS computations or value transformations in worker threads can now reliably use Typed OM constructors natively across all major browser engines. For legacy browser support, check for constructor existence (e.g., `typeof CSSNumericValue !== 'undefined'`) within the worker before instantiating.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 ## 📰 Ecosystem Blogs & Articles
 
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGIca8F2xaI6pwUTdwu6t_eOwv-PcTWRnjeyjh4xCDNoW-R5xoR1x5DS2GFfI6LwH4vPT_-a1H3QhH_s5nyTtYo2BKzRE1VcP5Si9a-U2q3zjTdfO2aF2N60d4x4evi7VXTj1THtsQ=) *(vertexaisearch.cloud.google.com)*
+  > Chrome 154 beta | Blog | Chrome for Developers Skip to main content / English Nederlands Русский فارسی বাংলা Sign in Blog Chrome for Developers Blog Chrome 154 beta Stay organized with collections Save and categorize content based on your preferences...
 - [[blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17113.html) *(mail-archive.com)*
   > [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Skip to site navigation (Press enter) [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Javier Fernandez Tue, 04 Aug...
-- [Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17119.html) *(mail-archive.com)*
-  > Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Skip to site navigation (Press enter) Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Alex Russell Wed, 05...
+- [Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17118.html) *(mail-archive.com)*
+  > Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Skip to site navigation (Press enter) Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Daniel Bratell Wed, ...
 
 ## 🔗 Inbound Citations & Reverse Links
 
@@ -36,23 +38,23 @@ The following external publications and discussions explicitly link to or cite t
 
 - [[blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17113.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5114591051907072`)*
   > [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Skip to site navigation (Press enter) [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Javier Fernandez T...
-- [Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17119.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5114591051907072`)*
-  > Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Skip to site navigation (Press enter) Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Alex Russe...
+- [Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts](http://www.mail-archive.com/blink-dev@chromium.org/msg17118.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5114591051907072`)*
+  > Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Skip to site navigation (Press enter) Re: [blink-dev] Intent to Prototype and Ship: Expose CSSStyleValue hierarchy to Worker contexts Daniel Bra...
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 11 result(s) found across 6 planned queries — **2 verified relevant**
+- **Brave Search:** 25 result(s) found across 6 planned queries — **2 verified relevant**
   - `"chromestatus.com/feature/5114591051907072" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (2 returned)
   - `"www.w3.org/TR/css-typed-om-1" -site:www.w3.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (1 returned)
-  - `"CSS Typed OM" ("Web Worker" OR "Workers") ("CSSNumericValue" OR "CSSStyleValue")` — *Finds technical blog posts, guides, and articles demonstrating how to use CSS Typed OM constructors off the main thread in Web Workers.* (1 returned)
-  - `("CSSNumericValue.parse" OR "CSS.px" OR "new CSSUnitValue") ("Worker" OR "DedicatedWorkerGlobalScope" OR "postMessage")` — *Locates real-world JavaScript code snippets and examples executing CSS Typed OM value creation and parsing inside Worker scripts.* (8 returned)
-  - `"CSSStyleValue" "Worker" ("Intent to Ship" OR "Chrome Platform Status" OR "Blink-dev")` — *Discovers Chrome platform announcements, Intent to Ship threads, and browser release notes regarding Typed OM worker exposure.* (2 returned)
-  - `"CSSStyleValue" ("Exposed=(Window, Worker" OR "DedicatedWorkerGlobalScope") site:github.com/w3c/csswg-drafts OR site:github.com/web-platform-tests/wpt` — *Surfaces specification discussions, Web Platform Tests (WPT), and standards tracking for Typed OM interface exposure across worker global scopes.* (0 returned)
-- **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
+  - `"Expose CSSStyleValue hierarchy to Worker contexts" API` — *Core feature API query* (2 returned)
+  - `"Expose CSSStyleValue hierarchy to Worker contexts" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
+  - `"Expose CSSStyleValue hierarchy to Worker contexts" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
+  - `"Expose CSSStyleValue hierarchy to Worker contexts" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (6 returned)
+- **Google Search Grounding (gemini-3.7-flash):** 6 result(s) found — **1 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 8 result(s) found — **2 verified relevant**
+- **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 item(s) inspected
 - **Engine Bug Trackers:** 0 item(s) inspected
