@@ -12,7 +12,9 @@
     "report": "node bin/cli.js run",
     "report:feature": "node bin/cli.js inspect",
     "serve": "node bin/cli.js serve",
-    "test": "node --test test/**/*.test.js"
+    "test": "node --test",
+    "test:coverage": "node --test --experimental-test-coverage",
+    "test:integration": "INTEGRATION=1 node --test"
   },
   "keywords": [
     "chromestatus",

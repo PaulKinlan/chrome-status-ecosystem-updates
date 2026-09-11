@@ -1,17 +1,12 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { config } from '../config.js';
+import { escapeMarkdown, escapeMarkdownCell, markdownUrl, escapeHtml } from './escape.js';
+import { toFeatureView } from './viewmodel.js';
 
 /**
  * Escapes HTML tags and markdown table pipes to prevent raw HTML elements (like <iframe>)
  */
-export function escapeMarkdown(text) {
-  if (!text) return '';
-  return String(text)
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/\|/g, '\\|');
-}
 
 /**
  * Returns ISO week string e.g. "2026-W35"
@@ -34,7 +29,7 @@ export function generateWeeklyMarkdown(reportData) {
   const totalFeatures = features.length;
   const highMomentum = features.filter(f => f.analysis.momentumLevel === 'High');
   const multiEngine = features.filter(f => f.analysis.consensus === 'Multi-Engine Consensus');
-  const contested = features.filter(f => f.analysis.consensus.includes('Contested') || f.analysis.consensus.includes('Concerns'));
+  const contested = features.filter(f => (f.analysis.consensus || '').includes('Contested') || (f.analysis.consensus || '').includes('Concerns'));
   const newActivityCount = features.reduce((acc, f) => acc + (f.delta?.newArticlesCount || 0) + (f.delta?.newDiscussionsCount || 0), 0);
 
   let md = `# 🌐 Chrome Web Platform Ecosystem Report — ${weekString}\n\n`;
@@ -66,7 +61,7 @@ export function generateWeeklyMarkdown(reportData) {
     if (statusChanges.length > 0) {
       md += `### 🔄 Status Transitions\n\n`;
       for (const item of statusChanges) {
-        md += `- [${escapeMarkdown(item.feature.name)}](#${item.feature.slug}): Moved from *${item.delta.previousStatus || 'N/A'}* to **${item.feature.category}** in Chrome ${item.feature.milestone || ''}\n`;
+        md += `- [${escapeMarkdown(item.feature.name)}](#${toFeatureView(item).slug}): Moved from *${item.delta.previousStatus || 'N/A'}* to **${item.feature.category}** in Chrome ${item.feature.milestone || ''}\n`;
       }
       md += `\n`;
     }
@@ -74,7 +69,7 @@ export function generateWeeklyMarkdown(reportData) {
     if (momentumShifts.length > 0) {
       md += `### 🚀 Momentum Shifts\n\n`;
       for (const item of momentumShifts) {
-        md += `- [${escapeMarkdown(item.feature.name)}](#${item.feature.slug}): Shifted from *${item.delta.previousMomentum}* to **${item.analysis.momentumLevel}** momentum\n`;
+        md += `- [${escapeMarkdown(item.feature.name)}](#${toFeatureView(item).slug}): Shifted from *${item.delta.previousMomentum}* to **${item.analysis.momentumLevel}** momentum\n`;
       }
       md += `\n`;
     }
@@ -85,7 +80,7 @@ export function generateWeeklyMarkdown(reportData) {
         const parts = [];
         if (item.delta.newArticlesCount > 0) parts.push(`${item.delta.newArticlesCount} article(s)`);
         if (item.delta.newDiscussionsCount > 0) parts.push(`${item.delta.newDiscussionsCount} discussion(s)`);
-        md += `- [${escapeMarkdown(item.feature.name)}](#${item.feature.slug}): +${parts.join(', ')}\n`;
+        md += `- [${escapeMarkdown(item.feature.name)}](#${toFeatureView(item).slug}): +${parts.join(', ')}\n`;
       }
       md += `\n`;
     }
@@ -93,7 +88,7 @@ export function generateWeeklyMarkdown(reportData) {
     if (newFeatures.length > 0) {
       md += `### ✨ Newly Tracked Features\n\n`;
       for (const item of newFeatures.slice(0, 10)) {
-        md += `- [${escapeMarkdown(item.feature.name)}](#${item.feature.slug}) (Chrome ${item.feature.milestone || ''}, ${item.feature.category})\n`;
+        md += `- [${escapeMarkdown(item.feature.name)}](#${toFeatureView(item).slug}) (Chrome ${item.feature.milestone || ''}, ${item.feature.category})\n`;
       }
       md += `\n`;
     }
@@ -107,19 +102,11 @@ export function generateWeeklyMarkdown(reportData) {
   md += `| :--- | :--- | :--- | :--- | :--- | :--- |\n`;
 
   for (const item of features) {
-    const f = item.feature;
-    const a = item.analysis;
-    const delta = item.delta;
-    const anchor = `#${f.slug}`;
-    let deltaSummary = '—';
-    if (delta) {
-      if (delta.isNewFeature) deltaSummary = '✨ New';
-      else if (delta.statusChanged) deltaSummary = `🔄 ${f.category}`;
-      else if (delta.newArticlesCount > 0 || delta.newDiscussionsCount > 0) {
-        deltaSummary = `⚡ +${delta.newArticlesCount} art / +${delta.newDiscussionsCount} msgs`;
-      }
-    }
-    md += `| [${escapeMarkdown(f.name)}](${anchor}) | Chrome ${f.milestone || ''} | \`${f.category}\` | **${a.momentumLevel}** | ${a.consensus} | ${deltaSummary} |\n`;
+    const view = toFeatureView(item);
+    const { f, a, eco, delta, blogs, docs, deltaSummary, sliceLimits } = view;
+    
+    const anchor = `#${view.slug}`;
+        md += `| [${escapeMarkdown(f.name)}](${anchor}) | Chrome ${f.milestone || ''} | \`${f.category}\` | **${escapeMarkdownCell(a.momentumLevel)}** | ${escapeMarkdownCell(a.consensus)} | ${escapeMarkdownCell(deltaSummary)} |\n`;
   }
   md += `\n---\n\n`;
 
@@ -127,30 +114,30 @@ export function generateWeeklyMarkdown(reportData) {
   md += `## 🔍 Feature Ecosystem Deep Dives\n\n`;
 
   for (const item of features) {
-    const f = item.feature;
-    const eco = item.ecosystem;
-    const a = item.analysis;
-    const delta = item.delta;
+    const view = toFeatureView(item);
+    const { f, a, eco, delta, blogs, docs, deltaSummary, sliceLimits } = view;
 
-    md += `<a id="${f.slug}"></a>\n`;
-    md += `### [${escapeMarkdown(f.name)}](${f.chromeStatusUrl})\n\n`;
+    // This is a raw HTML anchor embedded in Markdown, so it needs HTML
+    // attribute encoding rather than Markdown backslash escaping.
+    md += `<a id="${escapeHtml(view.slug)}"></a>\n`;
+    md += `### [${escapeMarkdown(f.name)}](${markdownUrl(f.chromeStatusUrl)})\n\n`;
 
     // Metadata Bar
     md += `- **Milestone:** Chrome ${f.milestone || 'N/A'} (${f.category})\n`;
-    md += `- **ChromeStatus:** [chromestatus.com/feature/${f.id}](${f.chromeStatusUrl}) · [chromestatuslite.com/feature/${f.id}](${f.chromeStatusLiteUrl})\n`;
-    if (f.specUrl) md += `- **Specification:** [${f.specUrl}](${f.specUrl})\n`;
-    if (f.bugUrl) md += `- **Chromium Bug:** [${f.bugUrl}](${f.bugUrl})\n`;
+    md += `- **ChromeStatus:** [chromestatus.com/feature/${f.id}](${markdownUrl(f.chromeStatusUrl)}) · [chromestatuslite.com/feature/${f.id}](${markdownUrl(f.chromeStatusLiteUrl)})\n`;
+    if (f.specUrl) md += `- **Specification:** [${escapeMarkdown(f.specUrl)}](${markdownUrl(f.specUrl)})\n`;
+    if (f.bugUrl) md += `- **Chromium Bug:** [${escapeMarkdown(f.bugUrl)}](${markdownUrl(f.bugUrl)})\n`;
     md += `- **Browser Signals:** Chrome: \`${f.browsers?.chrome?.status || 'Active'}\` · Firefox: \`${f.browsers?.firefox?.view || 'No signal'}\` · Safari: \`${f.browsers?.safari?.view || 'No signal'}\`\n`;
     if (eco.baseline) {
-      md += `- **Baseline Interoperability:** [${eco.baseline.statusLabel}](${eco.baseline.url}) (Chrome: \`${eco.baseline.browserSupport?.chrome || '—'}\`, Firefox: \`${eco.baseline.browserSupport?.firefox || '—'}\`, Safari: \`${eco.baseline.browserSupport?.safari || '—'}\`)\n`;
+      md += `- **Baseline Interoperability:** [${escapeMarkdown(eco.baseline.statusLabel)}](${markdownUrl(eco.baseline.url)}) (Chrome: \`${eco.baseline.browserSupport?.chrome || '—'}\`, Firefox: \`${eco.baseline.browserSupport?.firefox || '—'}\`, Safari: \`${eco.baseline.browserSupport?.safari || '—'}\`)\n`;
     }
     md += `\n`;
 
     // Summary & Motivation
     md += `#### 📝 Overview\n\n`;
-    md += `${f.summary}\n\n`;
+    md += `${escapeMarkdown(f.summary)}\n\n`;
     if (f.motivation) {
-      md += `> **Motivation:** ${f.motivation.slice(0, 350)}${f.motivation.length > 350 ? '...' : ''}\n\n`;
+      md += `> **Motivation:** ${escapeMarkdown(f.motivation.slice(0, 350))}${f.motivation.length > 350 ? '...' : ''}\n\n`;
     }
 
     // Ecosystem Analysis
@@ -164,12 +151,12 @@ export function generateWeeklyMarkdown(reportData) {
     if (a.groundedQueries && a.groundedQueries.length > 0) {
       md += `- **Search Queries:** ${a.groundedQueries.map(q => `\`"${q}"\``).join(', ')}\n`;
     }
-    md += `- **Analysis:** ${a.executiveSummary}\n\n`;
+    md += `- **Analysis:** ${escapeMarkdown(a.executiveSummary)}\n\n`;
 
     if (a.takeaways && a.takeaways.length > 0) {
       md += `**Key Recommendations & Takeaways:**\n`;
       for (const t of a.takeaways) {
-        md += `- ${t}\n`;
+        md += `- ${escapeMarkdown(t)}\n`;
       }
       md += `\n`;
     }
@@ -192,13 +179,13 @@ export function generateWeeklyMarkdown(reportData) {
     // Community Discussions (HN / Twitter / Forums)
     if (eco.discussions && eco.discussions.length > 0) {
       md += `#### 💬 Community Discussions & Developer Reactions\n\n`;
-      for (const disc of eco.discussions.slice(0, 8)) {
+      for (const disc of eco.discussions.slice(0, sliceLimits.discussions)) {
         const icon = (disc.source || '').includes('Twitter') ? '🐦' : '💬';
         const authorSuffix = disc.author ? ` by ${disc.author}` : '';
         const metricsStr = (disc.source || '').includes('Twitter')
           ? `${disc.points || 0} likes/RTs, ${disc.commentsCount || 0} replies`
           : `${disc.points || 0} pts, ${disc.commentsCount || 0} comments`;
-        md += `- ${icon} [${escapeMarkdown(disc.title)}](${disc.discussionUrl || disc.url}) — *${disc.source}${authorSuffix} (${metricsStr})*\n`;
+        md += `- ${icon} [${escapeMarkdown(disc.title)}](${markdownUrl(disc.discussionUrl || disc.url)}) — *${escapeMarkdown(disc.source)}${authorSuffix} (${metricsStr})*\n`;
       }
       md += `\n`;
     }
@@ -208,7 +195,7 @@ export function generateWeeklyMarkdown(reportData) {
       md += `#### 🏛️ Browser Standards Positions\n\n`;
       for (const std of eco.standards) {
         const labelsStr = (std.labels || []).length > 0 ? `\`${std.labels.join('`, `')}\`` : '';
-        md += `- **${std.vendor}:** [${std.title}](${std.url}) [${std.state}] ${labelsStr}\n`;
+        md += `- **${escapeMarkdown(std.vendor)}:** [${escapeMarkdown(std.title)}](${markdownUrl(std.url)}) [${std.state}] ${labelsStr}\n`;
         if (std.commentSummary) {
           md += `  > *${std.commentSummary}*\n`;
         }
@@ -220,7 +207,7 @@ export function generateWeeklyMarkdown(reportData) {
     if (eco.bugs && eco.bugs.length > 0) {
       md += `#### 🐛 Engine Bug Trackers (Bugzilla)\n\n`;
       for (const bug of eco.bugs) {
-        md += `- **${bug.vendor}:** [Bug #${bug.id}: ${bug.title}](${bug.url}) \`[${bug.status}${bug.resolution ? ` (${bug.resolution})` : ''}]\`\n`;
+        md += `- **${escapeMarkdown(bug.vendor)}:** [Bug #${escapeMarkdown(bug.id)}: ${escapeMarkdown(bug.title)}](${markdownUrl(bug.url)}) \`[${bug.status}${bug.resolution ? ` (${bug.resolution})` : ''}]\`\n`;
       }
       md += `\n`;
     }
@@ -236,12 +223,12 @@ export function generateWeeklyMarkdown(reportData) {
     }
 
     // Ecosystem Blogs & Articles
-    const blogs = eco.blogs || (eco.articles || []).filter(a => a.isBlog || (a.domain && !a.domain.includes('mozilla.org') && !a.domain.includes('w3.org')));
+    
     if (blogs.length > 0) {
       md += `#### 📰 Ecosystem Blogs & Articles\n\n`;
-      for (const art of blogs.slice(0, 6)) {
+      for (const art of blogs.slice(0, sliceLimits.blogs)) {
         const meta = [art.domain, art.author, art.publishedAt].filter(Boolean).join(' · ');
-        md += `- [${art.title}](${art.url}) ${meta ? `*(${meta})*` : ''}\n`;
+        md += `- [${escapeMarkdown(art.title)}](${markdownUrl(art.url)}) ${meta ? `*(${meta})*` : ''}\n`;
         const snippet = (art.contentExcerpt || art.snippet || '').trim();
         if (snippet) {
           md += `  > ${snippet.slice(0, 220).replace(/\r?\n/g, ' ')}${snippet.length > 220 ? '...' : ''}\n`;
@@ -253,10 +240,10 @@ export function generateWeeklyMarkdown(reportData) {
     // Inbound Citations & Reverse Links
     if (eco.reverseLinks && eco.reverseLinks.length > 0) {
       md += `#### 🔗 Inbound Citations & Reverse Links\n\n`;
-      for (const link of eco.reverseLinks.slice(0, 5)) {
+      for (const link of eco.reverseLinks.slice(0, sliceLimits.reverseLinks)) {
         const meta = [link.domain, link.author, link.publishedAt].filter(Boolean).join(' · ');
         const targetLabel = link.reverseLinkedTo ? `*(Cites: \`${link.reverseLinkedTo}\`)*` : '';
-        md += `- [${link.title}](${link.url}) ${meta ? `*(${meta})*` : ''} ${targetLabel}\n`;
+        md += `- [${escapeMarkdown(link.title)}](${markdownUrl(link.url)}) ${meta ? `*(${meta})*` : ''} ${targetLabel}\n`;
         const snippet = (link.contentExcerpt || link.snippet || '').trim();
         if (snippet) {
           md += `  > ${snippet.slice(0, 220).replace(/\r?\n/g, ' ')}${snippet.length > 220 ? '...' : ''}\n`;
@@ -266,11 +253,11 @@ export function generateWeeklyMarkdown(reportData) {
     }
 
     // Platform Documentation & References
-    const docs = eco.docs || (eco.articles || []).filter(a => !blogs.includes(a));
+    
     if (docs.length > 0) {
       md += `#### 📚 Platform Documentation & References\n\n`;
-      for (const doc of docs.slice(0, 5)) {
-        md += `- [${doc.title}](${doc.url}) ${doc.domain ? `*(${doc.domain})*` : ''}\n`;
+      for (const doc of docs.slice(0, sliceLimits.docs)) {
+        md += `- [${escapeMarkdown(doc.title)}](${markdownUrl(doc.url)}) ${doc.domain ? `*(${doc.domain})*` : ''}\n`;
       }
       md += `\n`;
     }
@@ -280,7 +267,7 @@ export function generateWeeklyMarkdown(reportData) {
     if (demos.length > 0) {
       md += `#### 🧪 Interactive Demos & Samples\n\n`;
       for (const demo of demos) {
-        md += `- [${demo.title}](${demo.url})\n`;
+        md += `- [${escapeMarkdown(demo.title)}](${markdownUrl(demo.url)})\n`;
       }
       md += `\n`;
     }
@@ -288,7 +275,9 @@ export function generateWeeklyMarkdown(reportData) {
     // Web Platform Tests
     if (eco.wpt?.url) {
       md += `#### 🧪 Web Platform Tests (WPT)\n\n`;
-      md += `- View cross-browser test results on [wpt.fyi](${eco.wpt.url}) (${eco.wpt.testCount} tests listed)\n\n`;
+      // The count is however many WPT test paths matched `queryUsed`, not a
+      // curated per-feature suite, so name the query that produced it.
+      md += `- View cross-browser test results on [wpt.fyi](${markdownUrl(eco.wpt.url)}) (${eco.wpt.testCount} test path(s) matching \`${escapeMarkdown(eco.wpt.queryUsed || '')}\`)\n\n`;
     }
 
     // Investigation Audit Trail
@@ -302,7 +291,7 @@ export function generateWeeklyMarkdown(reportData) {
         return `\`${name}\` (${countStr})`;
       });
       md += `- **Searches Run:** ${searchSummaries.join(' · ')}\n`;
-      md += `- **Content Inspected:** Spec: ${eco.auditTrail.contentInspected.hasSpec ? '✔' : '○'} · Explainers: ${eco.auditTrail.contentInspected.explainerCount} · Standards Comments Read: ${eco.auditTrail.contentInspected.standardsCommentsRead}\n\n`;
+      md += `- **Content Inspected:** Spec: ${eco.auditTrail.contentInspected?.hasSpec ? '✔' : '○'} · Explainers: ${eco.auditTrail.contentInspected?.explainerCount} · Standards Comments Read: ${eco.auditTrail.contentInspected?.standardsCommentsRead}\n\n`;
     }
 
     md += `---\n\n`;
@@ -348,13 +337,12 @@ export async function writeMarkdownReports(reportData) {
  * Generates an individual feature Markdown page
  */
 function generateSingleFeatureMarkdown(item, weekString) {
-  const f = item.feature;
-  const eco = item.ecosystem;
-  const a = item.analysis;
+  const view = toFeatureView(item);
+  const { f, a, eco, delta, blogs: singleBlogs, docs: singleDocs, deltaSummary, sliceLimits } = view;
 
   let md = `# ${escapeMarkdown(f.name)}\n\n`;
   md += `> **Report Week:** ${weekString} | **Milestone:** Chrome ${f.milestone || 'N/A'} | **Category:** ${f.category}\n\n`;
-  md += `## Overview\n\n${f.summary}\n\n`;
+  md += `## Overview\n\n${escapeMarkdown(f.summary)}\n\n`;
   if (f.motivation) {
     md += `### Motivation\n\n${f.motivation}\n\n`;
   }
@@ -363,18 +351,18 @@ function generateSingleFeatureMarkdown(item, weekString) {
   md += `- **Momentum:** ${a.momentumLevel} (${a.momentumScore} points)\n`;
   md += `- **Standards Alignment:** ${a.consensus}\n`;
   md += `- **Sentiment:** ${a.sentiment}\n`;
-  md += `- **Executive Take:** ${a.executiveSummary}\n\n`;
+  md += `- **Executive Take:** ${escapeMarkdown(a.executiveSummary)}\n\n`;
 
   if (a.takeaways && a.takeaways.length > 0) {
     md += `### Recommendations\n`;
-    for (const t of a.takeaways) md += `- ${t}\n`;
+    for (const t of a.takeaways) md += `- ${escapeMarkdown(t)}\n`;
     md += `\n`;
   }
 
   if (eco.standards?.length > 0) {
     md += `## Standards Positions\n\n`;
     for (const s of eco.standards) {
-      md += `- **${s.vendor}:** [${s.title}](${s.url}) [${s.state}]\n`;
+      md += `- **${escapeMarkdown(s.vendor)}:** [${escapeMarkdown(s.title)}](${markdownUrl(s.url)}) [${s.state}]\n`;
     }
     md += `\n`;
   }
@@ -387,7 +375,7 @@ function generateSingleFeatureMarkdown(item, weekString) {
       const metricsStr = (d.source || '').includes('Twitter')
         ? `${d.points || 0} likes/RTs, ${d.commentsCount || 0} replies`
         : `${d.points || 0} pts, ${d.commentsCount || 0} comments`;
-      md += `- ${icon} **${d.source || 'Discussion'}:** [${escapeMarkdown(d.title)}](${d.discussionUrl || d.url}) — *${authorSuffix ? authorSuffix.trim() + ', ' : ''}${metricsStr}*\n`;
+      md += `- ${icon} **${escapeMarkdown(d.source || 'Discussion')}:** [${escapeMarkdown(d.title)}](${markdownUrl(d.discussionUrl || d.url)}) — *${authorSuffix ? authorSuffix.trim() + ', ' : ''}${metricsStr}*\n`;
     }
     md += `\n`;
   }
@@ -400,12 +388,12 @@ function generateSingleFeatureMarkdown(item, weekString) {
     md += `\n`;
   }
 
-  const singleBlogs = eco.blogs || (eco.articles || []).filter(a => a.isBlog || (a.domain && !a.domain.includes('mozilla.org') && !a.domain.includes('w3.org')));
+  
   if (singleBlogs.length > 0) {
     md += `## 📰 Ecosystem Blogs & Articles\n\n`;
     for (const art of singleBlogs) {
       const meta = [art.domain, art.author, art.publishedAt].filter(Boolean).join(' · ');
-      md += `- [${art.title}](${art.url}) ${meta ? `*(${meta})*` : ''}\n`;
+      md += `- [${escapeMarkdown(art.title)}](${markdownUrl(art.url)}) ${meta ? `*(${meta})*` : ''}\n`;
       const snippet = (art.contentExcerpt || art.snippet || '').trim();
       if (snippet) {
         md += `  > ${snippet.slice(0, 250).replace(/\r?\n/g, ' ')}${snippet.length > 250 ? '...' : ''}\n`;
@@ -420,7 +408,7 @@ function generateSingleFeatureMarkdown(item, weekString) {
     for (const link of eco.reverseLinks) {
       const meta = [link.domain, link.author, link.publishedAt].filter(Boolean).join(' · ');
       const targetLabel = link.reverseLinkedTo ? `*(Cites: \`${link.reverseLinkedTo}\`)*` : '';
-      md += `- [${link.title}](${link.url}) ${meta ? `*(${meta})*` : ''} ${targetLabel}\n`;
+      md += `- [${escapeMarkdown(link.title)}](${markdownUrl(link.url)}) ${meta ? `*(${meta})*` : ''} ${targetLabel}\n`;
       const snippet = (link.contentExcerpt || link.snippet || '').trim();
       if (snippet) {
         md += `  > ${snippet.slice(0, 240).replace(/\r?\n/g, ' ')}${snippet.length > 240 ? '...' : ''}\n`;
@@ -429,11 +417,11 @@ function generateSingleFeatureMarkdown(item, weekString) {
     md += `\n`;
   }
 
-  const singleDocs = eco.docs || (eco.articles || []).filter(a => !singleBlogs.includes(a));
+  
   if (singleDocs.length > 0) {
     md += `## 📚 Platform Documentation & Specifications\n\n`;
     for (const doc of singleDocs) {
-      md += `- [${doc.title}](${doc.url}) ${doc.domain ? `*(${doc.domain})*` : ''}\n`;
+      md += `- [${escapeMarkdown(doc.title)}](${markdownUrl(doc.url)}) ${doc.domain ? `*(${doc.domain})*` : ''}\n`;
     }
     md += `\n`;
   }
@@ -466,10 +454,10 @@ function generateSingleFeatureMarkdown(item, weekString) {
   }
 
   md += `## Useful Links\n\n`;
-  md += `- [ChromeStatus](${f.chromeStatusUrl})\n`;
-  md += `- [ChromeStatusLite](${f.chromeStatusLiteUrl})\n`;
-  if (f.specUrl) md += `- [Specification](${f.specUrl})\n`;
-  if (f.bugUrl) md += `- [Chromium Tracking Bug](${f.bugUrl})\n`;
+  md += `- [ChromeStatus](${markdownUrl(f.chromeStatusUrl)})\n`;
+  md += `- [ChromeStatusLite](${markdownUrl(f.chromeStatusLiteUrl)})\n`;
+  if (f.specUrl) md += `- [Specification](${markdownUrl(f.specUrl)})\n`;
+  if (f.bugUrl) md += `- [Chromium Tracking Bug](${markdownUrl(f.bugUrl)})\n`;
 
   return md;
 }

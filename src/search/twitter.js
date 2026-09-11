@@ -1,23 +1,30 @@
 import { config } from '../config.js';
 import { logger } from '../logger.js';
+import { fetchWithTimeout } from '../http.js';
 
 const cache = new Map();
 
 /**
  * Searches Twitter / X for developer feedback, announcements, and sentiment
  * when TWITTER_BEARER_TOKEN is configured.
+ *
+ * Returns `{ items, audit }`. The audit used to be attached as a property on
+ * the returned array, which meant it silently vanished the moment any caller
+ * did `.filter()`, `.map()`, `[...spread]` or `JSON.stringify()` — so the
+ * provider status quietly disappeared from the report's audit trail.
  */
 export async function searchTwitter(feature) {
   const token = config.twitterBearerToken;
   if (!token) {
-    const empty = [];
-    empty.audit = {
-      provider: 'Twitter / X API v2',
-      status: 'Inactive (TWITTER_BEARER_TOKEN not configured)',
-      rawFound: 0,
-      verified: 0,
+    return {
+      items: [],
+      audit: {
+        provider: 'Twitter / X API v2',
+        status: 'Inactive (TWITTER_BEARER_TOKEN not configured)',
+        rawFound: 0,
+        verified: 0,
+      },
     };
-    return empty;
   }
 
   // Clean feature name to remove characters that trigger Twitter query syntax errors
@@ -59,7 +66,9 @@ export async function searchTwitter(feature) {
     url.searchParams.set('expansions', 'author_id');
     url.searchParams.set('user.fields', 'username,name');
 
-    const res = await fetch(url, {
+    const res = await fetchWithTimeout(url, {
+      label: 'Twitter / X',
+      timeoutMs: 8_000,
       headers: {
         'Authorization': `Bearer ${token}`,
         'User-Agent': 'chrome-status-ecosystem-tracker/1.0',
@@ -82,15 +91,10 @@ export async function searchTwitter(feature) {
         logger.debug(`[Twitter / X] API error HTTP ${res.status}: ${errorText}`);
       }
 
-      const empty = [];
-      empty.audit = {
-        provider: 'Twitter / X API v2',
-        query,
-        status: errorMsg,
-        rawFound: 0,
-        verified: 0,
+      return {
+        items: [],
+        audit: { provider: 'Twitter / X API v2', query, status: errorMsg, rawFound: 0, verified: 0 },
       };
-      return empty;
     }
 
     const data = await res.json();
@@ -118,25 +122,23 @@ export async function searchTwitter(feature) {
     });
 
     logger.debug(`[Twitter / X] Discovered ${tweets.length} tweet(s) for "${feature.name}"`);
-    tweets.audit = {
-      provider: 'Twitter / X API v2',
-      query,
-      rawFound: tweets.length,
-      status: `found ${tweets.length} tweet(s)`,
+    const result = {
+      items: tweets,
+      audit: {
+        provider: 'Twitter / X API v2',
+        query,
+        rawFound: tweets.length,
+        status: `found ${tweets.length} tweet(s)`,
+      },
     };
 
-    cache.set(cacheKey, tweets);
-    return tweets;
+    cache.set(cacheKey, result);
+    return result;
   } catch (err) {
     logger.debug(`[Twitter / X] Search error: ${err.message}`);
-    const empty = [];
-    empty.audit = {
-      provider: 'Twitter / X API v2',
-      query,
-      status: `Error: ${err.message}`,
-      rawFound: 0,
-      verified: 0,
+    return {
+      items: [],
+      audit: { provider: 'Twitter / X API v2', query, status: `Error: ${err.message}`, rawFound: 0, verified: 0 },
     };
-    return empty;
   }
 }

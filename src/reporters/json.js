@@ -11,11 +11,15 @@ export async function writeJsonReports(reportData) {
 
   // 1. Weekly snapshot JSON
   const weeklyPath = path.join(weeklyDir, `${weekString}.json`);
-  await fs.writeFile(weeklyPath, jsonStr, 'utf-8');
+  const weeklyTmp = `${weeklyPath}.tmp`;
+  await fs.writeFile(weeklyTmp, jsonStr, 'utf-8');
+  await fs.rename(weeklyTmp, weeklyPath);
 
   // 2. Latest pointer JSON
   const latestPath = path.join(config.reportsDir, 'latest.json');
-  await fs.writeFile(latestPath, jsonStr, 'utf-8');
+  const latestTmp = `${latestPath}.tmp`;
+  await fs.writeFile(latestTmp, jsonStr, 'utf-8');
+  await fs.rename(latestTmp, latestPath);
 
   return { weeklyPath, latestPath };
 }

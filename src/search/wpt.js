@@ -1,34 +1,65 @@
 import { logger } from '../logger.js';
+import { fetchWithTimeout } from '../http.js';
 
 const cache = new Map();
 
+// Words that appear in almost every feature title and match thousands of
+// unrelated WPT paths, so they are never useful on their own.
+const WPT_STOPWORDS = new Set([
+  'api', 'web', 'css', 'the', 'for', 'and', 'new', 'support', 'attribute',
+  'property', 'element', 'method', 'interface', 'feature', 'update', 'value',
+]);
+
 /**
- * Generates candidate search terms for wpt.fyi based on feature name and spec
+ * Generates candidate search terms for wpt.fyi, most likely to match first.
+ *
+ * wpt.fyi's `q` matches against test *file paths* (`/css/css-anchor-position/...`),
+ * which are named after spec shortnames and directories rather than prose
+ * titles. The previous version tried the hyphenated feature name first
+ * ("web-install-api"), which matches no path in the repository, so the very
+ * common case was that the first query returned nothing and the reported test
+ * count was 0 for almost every feature.
  */
 function generateWptQueries(feature) {
   const queries = new Set();
 
-  const nameClean = feature.name
-    .toLowerCase()
-    .replace(/[()]/g, '')
-    .trim();
-
-  queries.add(nameClean.replace(/\s+/g, '-'));
-  queries.add(nameClean.replace(/^(css|web|api)\s+/i, '').replace(/\s+/g, '-'));
-
-  // Extract from spec URL if available
+  // 1. Spec shortname. WPT directories are conventionally named after it, so
+  //    this is by far the strongest signal.
   if (feature.specUrl) {
     try {
       const u = new URL(feature.specUrl);
       const parts = u.pathname.split('/').filter(Boolean);
-      if (parts.length > 0) {
-        queries.add(parts[parts.length - 1].replace(/\.html?$/, ''));
+      const last = (parts[parts.length - 1] || '').replace(/\.html?$/, '');
+      if (last && !/^index$/i.test(last)) {
+        queries.add(last);
+        // Levelled specs ("css-anchor-position-1") map to unlevelled dirs.
+        queries.add(last.replace(/-\d+$/, ''));
+      }
+      // csswg-drafts style: /css-anchor-position-1/ sits under the host root,
+      // while WHATWG specs put the shortname in the hostname.
+      const host = u.hostname.split('.')[0];
+      if (host && host !== 'www' && host !== 'w3c' && host !== 'github') {
+        queries.add(host);
       }
     } catch {}
   }
 
+  const nameClean = feature.name.toLowerCase().replace(/[()]/g, '').trim();
+
+  // 2. Individual significant words. A single distinctive token ("popover",
+  //    "scrollend") is what actually appears in a WPT path.
+  const tokens = nameClean
+    .split(/[^a-z0-9]+/)
+    .filter(t => t.length >= 4 && !WPT_STOPWORDS.has(t));
+  for (const t of tokens) queries.add(t);
+
+  // 3. Hyphenated forms, last, as a best-effort exact directory match.
+  queries.add(nameClean.replace(/^(css|web|api)\s+/i, '').replace(/\s+/g, '-'));
+  queries.add(nameClean.replace(/\s+/g, '-'));
+
   return Array.from(queries).filter(q => q.length >= 3);
 }
+
 
 /**
  * Web Platform Tests (wpt.fyi) client
@@ -44,17 +75,15 @@ export async function searchWpt(feature) {
   for (const q of queries) {
     try {
       const apiUrl = `https://wpt.fyi/api/search?q=${encodeURIComponent(q)}`;
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 4000);
 
-      const res = await fetch(apiUrl, {
-        signal: controller.signal,
+      const res = await fetchWithTimeout(apiUrl, {
+        label: 'WPT',
+        timeoutMs: 8_000,
         headers: {
           'Accept': 'application/json',
           'User-Agent': 'chrome-status-ecosystem-tracker/1.0',
         },
       });
-      clearTimeout(timer);
 
       if (!res.ok) continue;
 

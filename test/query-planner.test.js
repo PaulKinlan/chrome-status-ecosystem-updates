@@ -1,8 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import { planEcosystemQueries } from '../src/search/query-planner.js';
+import { clearProviderKeys } from './_support/fetch-mock.js';
 
-test('planEcosystemQueries generates reverse-link queries for ChromeStatus, explainers, and specs', async () => {
+// Clear keys BEFORE importing the planner (which transitively imports config.js)
+const restore = clearProviderKeys();
+const { planEcosystemQueries } = await import('../src/search/query-planner.js');
+
+test('planEcosystemQueries generates reverse-link queries for ChromeStatus, explainers, and specs', async (t) => {
+  t.after(restore);
   const feature = {
     id: 5201832664629248,
     name: 'Additional Windowing Controls',
@@ -33,7 +38,7 @@ test('planEcosystemQueries generates reverse-link queries for ChromeStatus, expl
   assert.ok(specReverse.query.includes('w3.org/TR/window-management'), 'Contains spec path');
 });
 
-test('planEcosystemQueries generates code syntax and tutorial queries as fallbacks', async () => {
+test('planEcosystemQueries generates code syntax and tutorial queries as fallbacks (offline deterministic)', async () => {
   const feature = {
     id: 99999,
     name: 'Web Install API',
@@ -41,6 +46,11 @@ test('planEcosystemQueries generates code syntax and tutorial queries as fallbac
   };
 
   const queries = await planEcosystemQueries(feature);
+  
+  // Assert heuristic branch was used (it produces 'core-api' and 'api-syntax' intents which LLM doesn't typically output in this exact deterministic structure)
+  const coreApiQuery = queries.find(q => q.intent === 'core-api');
+  assert.ok(coreApiQuery, 'Heuristic fallback was used: core-api query generated');
+
   const syntaxQuery = queries.find(q => q.intent === 'api-syntax' || q.query.includes('navigator.install'));
   assert.ok(syntaxQuery, 'Generates API syntax query');
 

@@ -1,6 +1,7 @@
 import { config } from '../config.js';
 import { callGeminiWithSearchGrounding } from './gemini-grounding.js';
 import { logger } from '../logger.js';
+import { fetchWithTimeout } from '../http.js';
 
 /**
  * Normalizes and strips tracking parameters from URLs for clean canonical deduplication
@@ -68,7 +69,9 @@ async function executeBraveQuery(queryObj, options = {}) {
   url.searchParams.set('q', queryStr);
   url.searchParams.set('count', String(options.limit || 8));
 
-  const res = await fetch(url, {
+  const res = await fetchWithTimeout(url, {
+    label: 'Brave Search',
+    timeoutMs: 15_000,
     headers: {
       'Accept': 'application/json',
       'X-Subscription-Token': config.braveSearchApiKey,
@@ -146,8 +149,10 @@ async function searchBrave(query, options = {}) {
     }
   }
 
-  allItems.queryAudits = queryAudits;
-  return allItems;
+  // Returned as a pair rather than as properties hung off the array: array
+  // properties are dropped by map/filter/spread/JSON.stringify, so the audit
+  // trail was being lost silently downstream.
+  return { items: allItems, queryAudits };
 }
 
 /**
@@ -162,7 +167,10 @@ async function searchGoogle(query, options = {}) {
     url.searchParams.set('q', query);
     url.searchParams.set('num', String(Math.min(options.limit || 8, 10)));
 
-    const res = await fetch(url);
+    const res = await fetchWithTimeout(url, {
+      label: 'Google Custom Search',
+      timeoutMs: 15_000,
+    });
     if (!res.ok) {
       logger.debug(`Google search failed with status ${res.status}`);
       return [];
@@ -184,6 +192,31 @@ async function searchGoogle(query, options = {}) {
 }
 
 /**
+ * The providers `searchWeb` actually implements a `switch` case for. Anything
+ * outside this set cannot produce results, so it must never be reported as active.
+ */
+const KNOWN_SEARCH_PROVIDERS = ['gemini', 'brave', 'google'];
+
+/** Whether the credentials a given provider needs are actually configured. */
+function hasCredentialsFor(provider) {
+  switch (provider) {
+    case 'gemini':
+      return !!config.geminiApiKey;
+    case 'brave':
+      return !!config.braveSearchApiKey;
+    case 'google':
+      return !!(config.googleSearchApiKey && config.googleSearchCx);
+    default:
+      return false;
+  }
+}
+
+/** Every known provider whose credentials are present. */
+function detectCredentialedProviders() {
+  return KNOWN_SEARCH_PROVIDERS.filter(hasCredentialsFor);
+}
+
+/**
  * Determines all active search providers based on configuration and available API keys.
  * Maximizes breadth by enabling all configured search engines concurrently.
  */
@@ -192,21 +225,27 @@ export function getActiveSearchProviders() {
 
   // If user explicitly configured a single provider that isn't 'auto', 'all', or 'multi'
   if (mode !== 'auto' && mode !== 'all' && mode !== 'multi') {
+    // This previously returned `[mode]` unconditionally, which created phantom
+    // providers: a documented-but-unimplemented value such as
+    // SEARCH_PROVIDER=ecosystem-only matched no case in searchWeb's switch and
+    // yielded nothing, yet was still counted as an executed provider in the run
+    // telemetry, making a silent no-op look like a search that found nothing.
+    if (!KNOWN_SEARCH_PROVIDERS.includes(mode)) {
+      logger.warn(`[Web Search] Unrecognised SEARCH_PROVIDER "${config.searchProvider}". Supported values are ${KNOWN_SEARCH_PROVIDERS.join(', ')} or auto/all/multi. Falling back to auto-detection.`);
+      return detectCredentialedProviders();
+    }
+
+    // A known provider without its API key is equally incapable of returning
+    // results, so report it as inactive rather than silently failing.
+    if (!hasCredentialsFor(mode)) {
+      logger.warn(`[Web Search] SEARCH_PROVIDER="${mode}" is selected but its API key is not configured; no web search provider is active.`);
+      return [];
+    }
+
     return [mode];
   }
 
-  const providers = [];
-  if (config.geminiApiKey) {
-    providers.push('gemini');
-  }
-  if (config.braveSearchApiKey) {
-    providers.push('brave');
-  }
-  if (config.googleSearchApiKey && config.googleSearchCx) {
-    providers.push('google');
-  }
-
-  return providers;
+  return detectCredentialedProviders();
 }
 
 /**
@@ -216,7 +255,10 @@ export function getActiveSearchProviders() {
 export async function searchWeb(query, options = {}) {
   const activeProviders = getActiveSearchProviders();
   if (activeProviders.length === 0) {
-    return [];
+    return {
+      items: [],
+      audit: { providersExecuted: [], successfulProviders: [], providerCounts: {}, braveQueryAudits: [] },
+    };
   }
 
   logger.debug(`Executing concurrent web searches across ${activeProviders.length} providers: [${activeProviders.join(', ')}]`);
@@ -227,13 +269,16 @@ export async function searchWeb(query, options = {}) {
       case 'gemini':
         return searchGemini(query, options.feature, options).then(items => ({ provider, items }));
       case 'brave':
-        return searchBrave(query, options).then(items => ({ provider, items }));
+        // Brave is the only provider that plans multiple queries, so it also
+        // reports which ones it ran.
+        return searchBrave(query, options).then(res => ({ provider, items: res.items, queryAudits: res.queryAudits }));
       case 'google':
         return searchGoogle(query, options).then(items => ({ provider, items }));
       default:
         return Promise.resolve({ provider, items: [] });
     }
   });
+
 
   const settled = await Promise.allSettled(searchTasks);
 
@@ -278,15 +323,15 @@ export async function searchWeb(query, options = {}) {
     }
   }
 
-  const allArticles = Array.from(mergedMap.values());
-  allArticles.providersExecuted = activeProviders;
-  allArticles.successfulProviders = successfulProviders;
-  allArticles.providerCounts = providerCounts;
-
   const braveResult = settled.find(s => s.status === 'fulfilled' && s.value?.provider === 'brave');
-  if (braveResult?.value?.items?.queryAudits) {
-    allArticles.braveQueryAudits = braveResult.value.items.queryAudits;
-  }
 
-  return allArticles;
+  return {
+    items: Array.from(mergedMap.values()),
+    audit: {
+      providersExecuted: activeProviders,
+      successfulProviders,
+      providerCounts,
+      braveQueryAudits: braveResult?.value?.queryAudits || [],
+    },
+  };
 }

@@ -1,5 +1,6 @@
 import { config } from '../config.js';
 import { fetchGitHubIssueComments, parseGitHubIssueUrl } from './content-fetcher.js';
+import { fetchWithTimeout } from '../http.js';
 
 function getGitHubHeaders() {
   const headers = {
@@ -21,7 +22,11 @@ async function fetchDirectIssue(issueUrl, vendorName) {
 
   try {
     const apiUrl = `https://api.github.com/repos/${parsed.owner}/${parsed.repo}/issues/${parsed.issueNumber}`;
-    const res = await fetch(apiUrl, { headers: getGitHubHeaders() });
+    const res = await fetchWithTimeout(apiUrl, {
+      label: 'GitHub Standards Position',
+      timeoutMs: 8_000,
+      headers: getGitHubHeaders(),
+    });
     if (!res.ok) return null;
 
     const data = await res.json();
@@ -60,7 +65,11 @@ async function searchRepoIssues(repo, query, vendorName) {
   try {
     const q = `repo:${repo} ${query}`;
     const url = `https://api.github.com/search/issues?q=${encodeURIComponent(q)}&per_page=3`;
-    const res = await fetch(url, { headers: getGitHubHeaders() });
+    const res = await fetchWithTimeout(url, {
+      label: 'GitHub Issue Search',
+      timeoutMs: 8_000,
+      headers: getGitHubHeaders(),
+    });
     if (!res.ok) return [];
 
     const data = await res.json();

@@ -11,7 +11,7 @@ on:
         required: false
         default: 'last-5'
       limit:
-        description: 'Max features to process (optional)'
+        description: 'Max features to process (optional, defaults to MAX_FEATURES below)'
         required: false
         default: ''
       skip_crawl:
@@ -25,34 +25,74 @@ on:
     paths:
       - 'reports/**'
       - '.github/workflows/weekly-report.yml'
+  pull_request:
+    branches:
+      - main
 
+# Least privilege by default; each job widens only what it needs.
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
 concurrency:
   group: 'weekly-ecosystem-report'
-  cancel-in-progress: true
+  # A crawl can run for the best part of an hour and ends in a commit+push.
+  # Cancelling mid-flight risks tearing between `git commit` and `git push`.
+  cancel-in-progress: false
+
+env:
+  # Hard ceiling for unattended runs. `last-5` can resolve to hundreds of
+  # features, each costing ~6 LLM calls, so scheduled runs are capped.
+  SCHEDULED_MAX_FEATURES: '150'
 
 jobs:
-  report:
+  test:
+    name: Test (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
-
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        # Lower bound must match `engines.node` in package.json.
+        node-version: ['20', '22', '24']
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: 22
+          node-version: ${{ matrix.node-version }}
+
+      # No lockfile and no runtime dependencies, so there is nothing to install.
+      - name: Run tests
+        run: npm test
+
+  report:
+    name: Crawl & build reports
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    # The crawl is network-bound and unattended; never let it burn the 6h default.
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
 
       - name: Run Ecosystem Intelligence Crawler
         if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.skip_crawl)
+        timeout-minutes: 50
         env:
-          TARGET_MILESTONES: ${{ github.event.inputs.milestone || 'last-5' }}
-          MAX_FEATURES: ${{ github.event.inputs.limit || '' }}
+          TARGET_MILESTONES: ${{ inputs.milestone || 'last-5' }}
+          MAX_FEATURES: ${{ inputs.limit || env.SCHEDULED_MAX_FEATURES }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GOOGLE_SEARCH_API_KEY: ${{ secrets.GOOGLE_SEARCH_API_KEY }}
           GOOGLE_SEARCH_CX: ${{ secrets.GOOGLE_SEARCH_CX }}
@@ -60,44 +100,72 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          node bin/cli.js run
+        run: node bin/cli.js run
 
       - name: Publish to Job Summary
-        if: hashFiles('reports/README.md') != ''
-        run: |
-          cat reports/README.md >> $GITHUB_STEP_SUMMARY
+        if: always() && hashFiles('reports/README.md') != ''
+        run: cat reports/README.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Ensure .nojekyll exists
-        run: |
-          touch reports/.nojekyll
+        if: always()
+        run: mkdir -p reports && touch reports/.nojekyll
+
+      # Uploaded BEFORE the commit step so that a push failure (e.g. a race with
+      # another commit to main) still produces a deployable artifact.
+      - name: Upload Pages Artifact
+        if: always()
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: 'reports/'
 
       - name: Commit and push reports & data history
-        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.skip_crawl)
+        if: always() && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && !inputs.skip_crawl))
         run: |
+          set -euo pipefail
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add reports/ data/
           if git diff --staged --quiet; then
             echo "No changes to commit."
-          else
-            WEEK_ID=$(date +'%Y-W%V')
-            git commit -m "chore(report): automated ecosystem update for $WEEK_ID [skip ci]"
-            git push
+            exit 0
           fi
-
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'reports/'
+          # %G (ISO week-numbering year) must pair with %V (ISO week), otherwise
+          # the ID disagrees with getIsoWeekString() around New Year.
+          WEEK_ID=$(date +'%G-W%V')
+          # NOTE: `[skip ci]` plus the fact that pushes made with the default
+          # GITHUB_TOKEN do not trigger workflows is what stops the
+          # `push: paths: reports/**` trigger from looping. If this is ever
+          # switched to a PAT or deploy key, that safeguard disappears.
+          git commit -m "chore(report): automated ecosystem update for $WEEK_ID [skip ci]"
+          # The crawl can take ~an hour, so main may have moved underneath us.
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push failed (attempt $attempt); rebasing onto origin/main and retrying..."
+            git pull --rebase --autostash origin main
+          done
+          echo "::error::Failed to push reports after 3 attempts."
+          exit 1
 
   deploy-pages:
+    name: Deploy to GitHub Pages
     needs: report
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    # GitHub recommends never cancelling an in-progress Pages deployment.
+    concurrency:
+      group: 'pages'
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

@@ -30,6 +30,19 @@ function loadDotenv(filePath) {
   }
 }
 
+/**
+ * Parses an integer environment variable, falling back to `fallback` when the
+ * value is missing, non-numeric, or out of range. Without this, a typo in the
+ * environment silently produces NaN, which then propagates into arithmetic
+ * (e.g. concurrency -> Array.from({ length: NaN }) -> zero workers).
+ */
+function intFromEnv(raw, fallback, { min = 1, max = Number.MAX_SAFE_INTEGER } = {}) {
+  if (raw === undefined || raw === null || String(raw).trim() === '') return fallback;
+  const parsed = Number.parseInt(String(raw).trim(), 10);
+  if (!Number.isFinite(parsed)) return fallback;
+  return Math.min(max, Math.max(min, parsed));
+}
+
 // Automatically resolve project root from module location
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
@@ -51,7 +64,12 @@ export const config = {
     .map(s => s.trim().toLowerCase()),
 
   // Max features to process (empty or 0 = all)
-  maxFeatures: process.env.MAX_FEATURES ? parseInt(process.env.MAX_FEATURES, 10) : null,
+  maxFeatures: process.env.MAX_FEATURES ? intFromEnv(process.env.MAX_FEATURES, null, { min: 1 }) : null,
+
+  // How many features to investigate in parallel. Each feature costs several
+  // LLM calls plus 25-40 HTTP round trips, so this is the main throughput and
+  // rate-limit dial. Capped to keep us from overwhelming upstream APIs.
+  concurrency: intFromEnv(process.env.CONCURRENCY, 4, { min: 1, max: 16 }),
 
   // Search provider: auto, gemini, brave, google, or ecosystem-only
   searchProvider: process.env.SEARCH_PROVIDER || 'auto',
@@ -67,10 +85,15 @@ export const config = {
   // Twitter / X developer search via Bearer Token (optional)
   twitterBearerToken: process.env.TWITTER_BEARER_TOKEN || process.env.X_BEARER_TOKEN || '',
 
-  // AI synthesis
+  // AI synthesis.
+  //
+  // NOTE: `aiProvider` is advisory only. The analyzer picks its provider from
+  // whichever key is actually present (Gemini first, then OpenAI), because a
+  // configured provider without credentials cannot do anything useful. It is
+  // surfaced in report telemetry so the output records what was asked for.
   aiProvider: process.env.AI_PROVIDER || 'gemini',
   geminiApiKey: process.env.GEMINI_API_KEY || '',
-  geminiModel: process.env.GEMINI_MODEL || 'gemini-3.7-flash',
+  geminiModel: process.env.GEMINI_MODEL || 'gemini-3.8-flash',
   openaiApiKey: process.env.OPENAI_API_KEY || '',
 
   // Output paths
@@ -78,6 +101,10 @@ export const config = {
   dataDir: path.resolve(projectRoot, 'data'),
   historyFilePath: path.resolve(projectRoot, 'data', 'history.json'),
 
-  // Preview server
-  port: parseInt(process.env.PORT || '3000', 10),
+  // Preview server. Binds loopback by default: this serves generated files from
+  // disk and has no authentication, so exposing it on all interfaces has to be
+  // a deliberate choice (HOST=0.0.0.0).
+  port: intFromEnv(process.env.PORT, 3000, { min: 1, max: 65535 }),
+  host: process.env.HOST || '127.0.0.1',
 };
+

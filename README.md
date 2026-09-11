@@ -69,7 +69,7 @@ No `npm install` required to get started — it uses Node's standard library!
 
 ### 1. Run the weekly ecosystem report
 ```bash
-# Target the current beta milestone automatically (default)
+# Target the last 5 Chrome releases (the default)
 node bin/cli.js run
 
 # Target the last 5 Chrome releases (e.g. Chrome 150–154)
@@ -84,6 +84,12 @@ node bin/cli.js run --last 5 --limit 10
 
 # Run and automatically start the preview web server
 node bin/cli.js run --serve
+
+# Control how many features are investigated in parallel (default 4)
+node bin/cli.js run --concurrency 8
+
+# Print the version
+node bin/cli.js --version
 ```
 
 ### 2. Inspect a single feature in your terminal
@@ -101,11 +107,16 @@ node bin/cli.js channels
 ```bash
 node bin/cli.js serve --port 3000
 # Open http://localhost:3000
+
+# The server binds to 127.0.0.1 by default. Expose it deliberately if needed:
+node bin/cli.js serve --host 0.0.0.0
 ```
 
 ### 5. Run the test suite
 ```bash
-npm test
+npm test              # offline unit tests (no network)
+npm run test:coverage # with coverage summary
+npm run test:integration  # additionally runs tests that hit live APIs
 ```
 
 ---
@@ -120,20 +131,30 @@ cp .env.example .env
 
 | Environment Variable | Description | Default |
 | :--- | :--- | :--- |
-| `TARGET_MILESTONES` | Milestones to crawl (`auto`, `last-5`, `150-154`, `150,151,152`) | `auto` |
+| `TARGET_MILESTONES` | Milestones to crawl (`last-5`, `auto`, `150-154`, `150,151,152`) | `last-5` |
 | `FEATURE_STATUSES` | Filter by status: `enabled,origin-trial,flagged,deprecated` | all |
 | `MAX_FEATURES` | Cap number of features processed per run | (unlimited) |
+| `CONCURRENCY` | Features investigated in parallel (1–16) | `4` |
 | `GITHUB_TOKEN` | GitHub Personal Access Token (boosts API limit from 60 to 5000/hr) | *(optional)* |
-| `SEARCH_PROVIDER` | Web search provider: `auto`, `gemini`, `brave`, `google`, `ecosystem-only` | `auto` |
+| `SEARCH_PROVIDER` | Web search provider: `auto`, `gemini`, `brave`, `google` | `auto` |
 | `GEMINI_API_KEY` | Google Gemini API key (enables native Google Search Grounding & synthesis) | *(optional)* |
-| `GEMINI_MODEL` | Gemini model version (defaults to `gemini-3.7-flash`) | `gemini-3.7-flash` |
+| `GEMINI_MODEL` | Gemini model version | `gemini-3.8-flash` |
 | `BRAVE_SEARCH_API_KEY` | Brave Search API key (independent web index) | *(optional)* |
-| `GOOGLE_SEARCH_API_KEY` | Google Custom Search API Key | *(optional)* |
+| `GOOGLE_SEARCH_API_KEY` | Google Custom Search API Key (needs `GOOGLE_SEARCH_CX` too) | *(optional)* |
 | `GOOGLE_SEARCH_CX` | Google Custom Search Engine ID | *(optional)* |
 | `TWITTER_BEARER_TOKEN` | Twitter / X Bearer Token (Twitter API v2 app-only search) | *(optional)* |
+| `AI_PROVIDER` | Advisory only — see note below | `gemini` |
 | `OPENAI_API_KEY` | OpenAI API key (alternative AI synthesis) | *(optional)* |
 | `REPORTS_DIR` | Directory where reports are saved | `./reports` |
 | `PORT` | Local preview server port | `3000` |
+| `HOST` | Local preview server interface | `127.0.0.1` |
+
+> [!NOTE]
+> `AI_PROVIDER` is recorded in report telemetry but does not select the engine.
+> The analyzer uses Gemini when `GEMINI_API_KEY` is set, otherwise OpenAI when
+> `OPENAI_API_KEY` is set, otherwise the built-in heuristic engine. Leave both
+> keys blank to force heuristics.
+
 
 > [!NOTE]
 > **Zero API Keys Required:** If no external search or AI keys are configured, the tool runs completely on free public ecosystem endpoints (Hacker News Algolia API, GitHub Standards Positions, NPM registry, WPT, ChromeStatus) and uses the smart rule-based Heuristic Analyzer!
@@ -183,10 +204,14 @@ chrome-status-ecosystem-updates/
 │   ├── storage/
 │   │   └── cache.js            # Week-over-week snapshot & delta tracker
 │   ├── reporters/
+│   │   ├── escape.js           # Shared HTML/Markdown/XML output encoding
+│   │   ├── viewmodel.js        # Shared presentation shape for a feature
 │   │   ├── markdown.js         # Weekly rollup & per-feature markdown generator
-│   │   ├── html.js             # Standalone interactive HTML dashboard
+│   │   ├── html.js             # Re-export of the dashboard renderer
+│   │   ├── html/               # Server-rendered dashboard (styles, client, card)
 │   │   ├── json.js             # Structured JSON export
 │   │   └── rss.js              # RSS 2.0 / Atom feed generator
+│   ├── http.js                 # Timeouts, retries & bounded concurrency
 │   ├── runner.js               # Pipeline orchestrator
 │   └── server.js               # Preview HTTP server
 ├── data/
@@ -204,4 +229,4 @@ chrome-status-ecosystem-updates/
 
 ## 📄 License
 
-Apache-2.0
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).

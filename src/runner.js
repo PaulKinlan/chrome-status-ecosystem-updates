@@ -18,6 +18,7 @@ import { writeDashboardHtml } from './reporters/html.js';
 import { writeJsonReports } from './reporters/json.js';
 import { writeRssFeed } from './reporters/rss.js';
 import { logger } from './logger.js';
+import { mapWithConcurrency } from './http.js';
 
 import { getActiveSearchProviders } from './search/web.js';
 
@@ -26,6 +27,10 @@ export async function runEcosystemReport(options = {}) {
   const targetInput = options.milestone || config.targetMilestones;
   const maxFeatures = options.limit !== undefined ? options.limit : config.maxFeatures;
   const allowedStatuses = options.statusTypes || config.featureStatuses;
+  // Features are independent, so overlapping them turns an hours-long serial
+  // crawl into something that fits inside a CI job. Kept low so the fan-out
+  // does not trip rate limits on GitHub, Bugzilla or the LLM provider.
+  const concurrency = options.concurrency || config.concurrency;
 
   logger.header('ChromeStatus Ecosystem Updates Crawler');
 
@@ -96,15 +101,24 @@ export async function runEcosystemReport(options = {}) {
     targetEntries = targetEntries.slice(0, maxFeatures);
   }
 
-  logger.info(`Starting investigation on ${targetEntries.length} Web Platform features...\n`);
+  logger.info(`Starting investigation on ${targetEntries.length} Web Platform features (concurrency: ${concurrency})...\n`);
 
   const processedFeatures = [];
-  let index = 0;
+  const failures = [];
+  let completed = 0;
 
-  for (const entry of targetEntries) {
-    index++;
+  /**
+   * Investigates a single feature.
+   *
+   * Every throw is contained here. Previously an error anywhere in this body
+   * propagated out of the loop and aborted the entire run: no reports written,
+   * no history saved, and in CI the deploy skipped too - discarding potentially
+   * an hour of crawling and hundreds of LLM calls because of one bad feature.
+   */
+  async function investigate(entry) {
     const f = entry.normalized;
-    logger.step(index, targetEntries.length, f.name, f.id, `Chrome ${f.milestone}, ${f.category}`);
+    const position = ++completed;
+    logger.step(position, targetEntries.length, f.name, f.id, `Chrome ${f.milestone}, ${f.category}`);
 
     // Fetch deep details if not already complete
     let detailedFeature = f;
@@ -119,7 +133,7 @@ export async function runEcosystemReport(options = {}) {
     const ecosystemData = await gatherEcosystemData(detailedFeature);
 
     // 2. Run analysis (heuristic + optional AI synthesis with search grounding)
-    logger.substep('Analysis & Synthesis', config.geminiApiKey ? `Gemini 3.7 Flash with Google Search Grounding` : 'Heuristic Engine');
+    logger.substep('Analysis & Synthesis', config.geminiApiKey ? `${config.geminiModel} with Google Search Grounding` : 'Heuristic Engine');
     const analysis = await analyzeFeature(detailedFeature, ecosystemData);
 
     logger.debug(`Momentum: ${analysis.momentumLevel} (score: ${analysis.momentumScore}) | Consensus: ${analysis.consensus} | Sentiment: ${analysis.sentiment}`);
@@ -138,12 +152,31 @@ export async function runEcosystemReport(options = {}) {
       analysis
     );
 
-    processedFeatures.push({
-      feature: detailedFeature,
-      ecosystem: ecosystemData,
-      analysis,
-      delta,
-    });
+    return { feature: detailedFeature, ecosystem: ecosystemData, analysis, delta };
+  }
+
+  const settled = await mapWithConcurrency(targetEntries, concurrency, investigate);
+
+  for (let i = 0; i < settled.length; i++) {
+    const outcome = settled[i];
+    if (outcome.value) {
+      processedFeatures.push(outcome.value);
+    } else if (outcome.error) {
+      const f = targetEntries[i].normalized;
+      logger.warn(`Skipped "${f.name}" (#${f.id}): ${outcome.error.message}`);
+      failures.push({ id: f.id, name: f.name, milestone: f.milestone, error: outcome.error.message });
+    }
+  }
+
+  if (failures.length > 0) {
+    logger.warn(`${failures.length} of ${targetEntries.length} feature(s) failed and were omitted from this report.`);
+  }
+
+  if (processedFeatures.length === 0 && targetEntries.length > 0) {
+    throw new Error(
+      `All ${targetEntries.length} features failed to process; refusing to overwrite reports with an empty run. ` +
+      `First error: ${failures[0]?.error || 'unknown'}`
+    );
   }
 
   // Sort: High momentum first, then enabled, then by name
@@ -167,8 +200,15 @@ export async function runEcosystemReport(options = {}) {
       aiProvider: config.geminiApiKey ? `Google Gemini (${config.geminiModel})` : config.openaiApiKey ? 'OpenAI gpt-4o-mini' : 'Heuristic Engine',
       isGeminiSearchGrounded: !!config.geminiApiKey,
       hasGithubToken: !!config.githubToken,
+      concurrency,
       featuresCount: processedFeatures.length,
+      // A partial run must be visible in the output. Without these, a week in
+      // which a third of the features failed looks exactly like a clean week.
+      featuresAttempted: processedFeatures.length + failures.length,
+      featuresFailed: failures.length,
+      failures: failures.map(fail => ({ id: fail.id, name: fail.name, error: fail.error })),
     },
+
     features: processedFeatures,
   };
 

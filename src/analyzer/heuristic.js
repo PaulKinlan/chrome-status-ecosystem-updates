@@ -6,12 +6,18 @@
 export function analyzeEcosystemData(feature, ecosystemData) {
   const { metrics, discussions, standards, packages, articles, resources, verifiedPolyfill } = ecosystemData;
 
-  // 1. Calculate Momentum Score based on verified signals
+  // 1. Calculate Momentum Score based on verified signals.
+  // These keys MUST match the metrics rollup in search/index.js - a typo here
+  // silently scores zero rather than throwing.
   let momentumScore = 0;
   momentumScore += (metrics.hnPoints || 0) * 1.5;
   momentumScore += (metrics.hnComments || 0) * 2;
+  // Social reach is noisy and heavy-tailed, so it is damped and capped rather
+  // than weighted linearly like the editorial signals below.
+  momentumScore += Math.min(20, (metrics.twitterLikes || 0) * 0.5);
+  momentumScore += Math.min(15, (metrics.twitterReplies || 0) * 1);
   momentumScore += (metrics.totalArticles || 0) * 10;
-  momentumScore += (metrics.totalStandardsPositions || 0) * 15;
+  momentumScore += (metrics.totalStandards || 0) * 15;
   momentumScore += (metrics.totalPackages || 0) * 10;
   if (metrics.hasPolyfill) momentumScore += 20;
   if (metrics.hasDemos) momentumScore += 15;
@@ -92,10 +98,11 @@ export function analyzeEcosystemData(feature, ecosystemData) {
     takeaways.push('No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.');
   }
 
-  // Verified discussions
+  // Verified discussions (may come from Hacker News or Twitter/X)
   if (discussions.length > 0) {
     const topDiscussion = discussions[0];
-    takeaways.push(`Verified community discussion on Hacker News: "${topDiscussion.title}" (${topDiscussion.points} points, ${topDiscussion.commentsCount} comments).`);
+    const source = topDiscussion.source || 'Community';
+    takeaways.push(`Verified community discussion on ${source}: "${topDiscussion.title}" (${topDiscussion.points || 0} points, ${topDiscussion.commentsCount || 0} comments).`);
   }
 
   return {

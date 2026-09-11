@@ -1,0 +1,8 @@
+chrome-status-ecosystem-updates
+Copyright 2026 Paul Kinlan
+
+This product includes software developed by Paul Kinlan.
+
+This project consumes data from third-party services (ChromeStatus, GitHub,
+Hacker News, npm, wpt.fyi, MDN, webstatus.dev, Bugzilla and others). Content
+retrieved from those services remains subject to their own licences and terms.

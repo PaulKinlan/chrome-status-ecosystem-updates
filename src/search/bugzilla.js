@@ -1,4 +1,5 @@
 import { logger } from '../logger.js';
+import { fetchWithTimeout } from '../http.js';
 
 const cache = new Map();
 
@@ -11,17 +12,15 @@ async function searchMozillaBugzilla(featureName) {
 
   try {
     const url = `https://bugzilla.mozilla.org/rest/bug?quicksearch=${encodeURIComponent(featureName)}&limit=5&include_fields=id,summary,status,resolution,last_change_time,assigned_to`;
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 4000);
 
-    const res = await fetch(url, {
-      signal: controller.signal,
+    const res = await fetchWithTimeout(url, {
+      label: 'Mozilla Bugzilla',
+      timeoutMs: 8_000,
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'chrome-status-ecosystem-tracker/1.0',
       },
     });
-    clearTimeout(timer);
 
     if (!res.ok) return [];
 
@@ -53,17 +52,15 @@ async function searchWebKitBugzilla(featureName) {
 
   try {
     const url = `https://bugs.webkit.org/rest/bug?quicksearch=${encodeURIComponent(featureName)}&limit=5&include_fields=id,summary,status,resolution,last_change_time,assigned_to`;
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 4000);
 
-    const res = await fetch(url, {
-      signal: controller.signal,
+    const res = await fetchWithTimeout(url, {
+      label: 'WebKit Bugzilla',
+      timeoutMs: 8_000,
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'chrome-status-ecosystem-tracker/1.0',
       },
     });
-    clearTimeout(timer);
 
     if (!res.ok) return [];
 

@@ -1,6 +1,7 @@
 import { config } from '../config.js';
 import { callGeminiWithSearchGrounding, extractJsonFromText } from '../search/gemini-grounding.js';
 import { logger } from '../logger.js';
+import { fetchWithTimeout } from '../http.js';
 
 /**
  * AI-assisted ecosystem synthesis using Google Gemini with native Google Search Grounding,
@@ -119,8 +120,10 @@ Instructions:
   // 2. OpenAI fallback (if configured)
   if (config.openaiApiKey) {
     try {
-      const res = await fetch('https://api.openai.com/v1/chat/completions', {
+      const res = await fetchWithTimeout('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
+        label: 'AI Synthesis (OpenAI)',
+        timeoutMs: 45_000,
         headers: {
           'Authorization': `Bearer ${config.openaiApiKey}`,
           'Content-Type': 'application/json',

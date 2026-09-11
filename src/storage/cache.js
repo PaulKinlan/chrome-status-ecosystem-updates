@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { config } from '../config.js';
 import { logger } from '../logger.js';
+import { cleanUrl } from '../search/web.js';
 
 const historySubdir = path.join(config.dataDir, 'history');
 
@@ -118,20 +119,60 @@ export async function saveHistory(historyData) {
 }
 
 /**
+ * Hosts that mint a fresh, expiring URL for every single request. Storing these
+ * in `knownUrls` makes every article look brand new on the next run, which
+ * permanently inflates the "What Happened This Week" section.
+ */
+const EPHEMERAL_URL_HOSTS = [
+  'vertexaisearch.cloud.google.com',
+  'googleusercontent.com',
+];
+
+function isEphemeralUrl(url) {
+  return EPHEMERAL_URL_HOSTS.some(host => String(url).includes(host));
+}
+
+/**
+ * Canonicalises a URL for identity comparison across runs, discarding any that
+ * cannot be compared meaningfully. Exported for testing.
+ */
+export function toComparableUrls(urls) {
+  const out = new Set();
+  for (const raw of urls) {
+    if (!raw || isEphemeralUrl(raw)) continue;
+    const cleaned = cleanUrl(raw);
+    if (cleaned) out.add(cleaned);
+  }
+  return out;
+}
+
+function isNewUrl(prevUrls, rawUrl) {
+  // An item with no comparable URL (or an ephemeral one) can never be matched
+  // against history, so treat it as not-new rather than perpetually new.
+  if (!rawUrl || isEphemeralUrl(rawUrl)) return false;
+  const cleaned = cleanUrl(rawUrl);
+  return cleaned ? !prevUrls.has(cleaned) : false;
+}
+
+/**
  * Calculates week-over-week deltas for a feature against previous snapshot
  */
 export function computeFeatureDelta(feature, ecosystemData, previousFeatureHistory, analysis = null) {
+  const articles = ecosystemData.articles || [];
+  const discussions = ecosystemData.discussions || [];
+  const standardsList = ecosystemData.standards || [];
+
   if (!previousFeatureHistory) {
     return {
       isNewFeature: true,
       statusChanged: false,
       momentumChanged: false,
-      newArticlesCount: ecosystemData.articles.length,
-      newDiscussionsCount: ecosystemData.discussions.length,
-      newStandardsCount: ecosystemData.standards.length,
-      newArticles: ecosystemData.articles,
-      newDiscussions: ecosystemData.discussions,
-      newStandards: ecosystemData.standards,
+      newArticlesCount: articles.length,
+      newDiscussionsCount: discussions.length,
+      newStandardsCount: standardsList.length,
+      newArticles: articles,
+      newDiscussions: discussions,
+      newStandards: standardsList,
       previousMilestone: null,
       previousStatus: null,
       previousMomentum: null,
@@ -139,11 +180,11 @@ export function computeFeatureDelta(feature, ecosystemData, previousFeatureHisto
     };
   }
 
-  const prevUrls = new Set(previousFeatureHistory.knownUrls || []);
+  const prevUrls = toComparableUrls(previousFeatureHistory.knownUrls || []);
 
-  const newArticles = ecosystemData.articles.filter(a => !prevUrls.has(a.url));
-  const newDiscussions = ecosystemData.discussions.filter(d => !prevUrls.has(d.url || d.discussionUrl));
-  const newStandards = ecosystemData.standards.filter(s => !prevUrls.has(s.url));
+  const newArticles = articles.filter(a => isNewUrl(prevUrls, a.url));
+  const newDiscussions = discussions.filter(d => isNewUrl(prevUrls, d.url || d.discussionUrl));
+  const newStandards = standardsList.filter(s => isNewUrl(prevUrls, s.url));
 
   const statusChanged =
     previousFeatureHistory.status !== feature.category ||
@@ -186,11 +227,11 @@ export function computeFeatureDelta(feature, ecosystemData, previousFeatureHisto
  */
 export function buildFeatureHistoryEntry(feature, ecosystemData, analysis) {
   const currentUrls = [
-    ...ecosystemData.articles.map(a => a.url),
-    ...ecosystemData.discussions.map(d => d.url || d.discussionUrl),
-    ...ecosystemData.standards.map(s => s.url),
-    ...ecosystemData.packages.map(p => p.url),
-  ].filter(Boolean);
+    ...(ecosystemData.articles || []).map(a => a.url),
+    ...(ecosystemData.discussions || []).map(d => d.url || d.discussionUrl),
+    ...(ecosystemData.standards || []).map(s => s.url),
+    ...(ecosystemData.packages || []).map(p => p.url),
+  ];
 
   return {
     id: feature.id,
@@ -198,7 +239,9 @@ export function buildFeatureHistoryEntry(feature, ecosystemData, analysis) {
     milestone: feature.milestone,
     status: feature.category,
     lastSeen: new Date().toISOString(),
-    knownUrls: Array.from(new Set(currentUrls)),
+    // Canonicalised and stripped of ephemeral redirects so that next week's
+    // diff compares like with like.
+    knownUrls: Array.from(toComparableUrls(currentUrls)),
     lastMomentumLevel: analysis.momentumLevel,
     lastConsensus: analysis.consensus,
   };

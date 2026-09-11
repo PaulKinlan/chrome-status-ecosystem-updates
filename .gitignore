@@ -1,6 +1,16 @@
 node_modules/
-.env
-.env.local
+
+# Ignore every local env file, but keep the checked-in template. Without the
+# glob, a stray `.env.production` or `.env.ci` holding real API keys would be
+# committed silently.
+.env*
+!.env.example
+
 .DS_Store
 .cache/
 *.log
+
+
+
+coverage/
+*.tmp

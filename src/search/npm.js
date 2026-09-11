@@ -1,4 +1,5 @@
 import { fetchNpmPackageDetails } from './content-fetcher.js';
+import { fetchWithTimeout } from '../http.js';
 
 /**
  * NPM Registry search client to detect community polyfills, packages, and typings
@@ -16,7 +17,9 @@ export async function searchNpmEcosystem(feature) {
     if (!q || q.length < 3) continue;
     try {
       const url = `https://registry.npmjs.org/-/v1/search?text=${encodeURIComponent(q)}&size=5`;
-      const res = await fetch(url, {
+      const res = await fetchWithTimeout(url, {
+        label: 'NPM Search',
+        timeoutMs: 8_000,
         headers: {
           'Accept': 'application/json',
           'User-Agent': 'chrome-status-ecosystem-tracker/1.0',

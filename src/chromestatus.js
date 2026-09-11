@@ -1,4 +1,5 @@
 import { config } from './config.js';
+import { fetchWithTimeout } from './http.js';
 
 /**
  * Strips the ChromeStatus API XSSI prevention prefix `)]}'\n`
@@ -12,7 +13,9 @@ export function stripXSSIPrefix(text) {
  */
 async function fetchChromeStatusJson(path) {
   const url = `${config.chromeStatusApiUrl}${path}`;
-  const response = await fetch(url, {
+  const response = await fetchWithTimeout(url, {
+    label: 'ChromeStatus',
+    timeoutMs: 15_000,
     headers: {
       'Accept': 'application/json',
       'User-Agent': 'chrome-status-ecosystem-updates/1.0',
@@ -36,6 +39,25 @@ export async function fetchChannels() {
 }
 
 /**
+ * Reads the newest known milestone from the channels payload.
+ *
+ * This used to fall back to a hardcoded `154`. That silently produced a report
+ * for the wrong five milestones whenever chromestatus was unreachable, and the
+ * constant rotted a little more with every Chrome release. There is no safe
+ * default here, so failure is surfaced instead.
+ */
+function latestMilestoneFrom(channels) {
+  const latest = channels?.beta?.mstone || channels?.stable?.mstone;
+  if (!Number.isFinite(Number(latest))) {
+    throw new Error(
+      'Could not determine the latest Chrome milestone from the chromestatus channels API. ' +
+      'Pass an explicit milestone (e.g. --milestone 150-154) to continue.'
+    );
+  }
+  return Number(latest);
+}
+
+/**
  * Resolves milestone numbers from 'auto', 'last-N', ranges ('150-154'), or explicit lists ('150,151,152')
  */
 export async function resolveTargetMilestones(targetInput = 'auto') {
@@ -50,7 +72,7 @@ export async function resolveTargetMilestones(targetInput = 'auto') {
   if (lastMatch) {
     const count = Math.max(1, parseInt(lastMatch[1], 10));
     const channels = await fetchChannels();
-    const latest = channels.beta?.mstone || channels.stable?.mstone || 154;
+    const latest = latestMilestoneFrom(channels);
     return Array.from({ length: count }, (_, i) => latest - count + 1 + i);
   }
 
@@ -59,7 +81,7 @@ export async function resolveTargetMilestones(targetInput = 'auto') {
     const num = parseInt(inputStr, 10);
     if (num <= 20) {
       const channels = await fetchChannels();
-      const latest = channels.beta?.mstone || channels.stable?.mstone || 154;
+      const latest = latestMilestoneFrom(channels);
       return Array.from({ length: num }, (_, i) => latest - num + 1 + i);
     }
     // Specific milestone e.g. 154
@@ -85,7 +107,7 @@ export async function resolveTargetMilestones(targetInput = 'auto') {
 
   // 5. Default ('auto', 'last-5', empty) -> Last 5 Chrome releases (e.g. 150-154)
   const channels = await fetchChannels();
-  const latest = channels.beta?.mstone || channels.stable?.mstone || 154;
+  const latest = latestMilestoneFrom(channels);
 
   if (inputStr === 'single' || inputStr === 'beta') {
     return [latest];

@@ -100,20 +100,20 @@ export async function gatherEcosystemData(feature) {
   logger.substep('Query Planner', `Planned ${queryPlan.length} queries (${reverseQueryCount} reverse citations, ${queryPlan.length - reverseQueryCount} semantic)`);
 
   const [
-    rawWebResults,
+    webResult,
     rawHnResults,
     devToResults,
     standardsResults,
     bugsResult,
     baselineResult,
     mdnResult,
-    twitterResult,
+    twitterSearch,
     rawNpmResults,
     wptResult,
   ] = await Promise.all([
     searchWeb(webQuery, { feature, queryPlan }).catch(err => {
       logger.debug(`Web search error: ${err.message}`);
-      return [];
+      return { items: [], audit: {} };
     }),
     searchHackerNews(feature.name).catch(err => {
       logger.debug(`HN search error: ${err.message}`);
@@ -141,7 +141,7 @@ export async function gatherEcosystemData(feature) {
     }),
     searchTwitter(feature).catch(err => {
       logger.debug(`Twitter search error: ${err.message}`);
-      return [];
+      return { items: [], audit: { status: `Error: ${err.message}` } };
     }),
     searchNpmEcosystem(feature).catch(err => {
       logger.debug(`NPM search error: ${err.message}`);
@@ -152,6 +152,15 @@ export async function gatherEcosystemData(feature) {
       return null;
     }),
   ]);
+
+  // searchWeb and searchTwitter return an explicit { items, audit } pair. They
+  // used to hang the audit metadata off the returned array as a property, which
+  // any map/filter/spread along the way silently discarded.
+  const rawWebResults = webResult?.items || [];
+  const webAudit = webResult?.audit || {};
+  const twitterResult = twitterSearch?.items || [];
+  const twitterAudit = twitterSearch?.audit || {};
+
 
   // Extract external articles and blog posts submitted to Hacker News
   for (const hn of rawHnResults) {
@@ -220,11 +229,24 @@ export async function gatherEcosystemData(feature) {
   const candidateDiscussions = [...rawHnResults, ...twitterResult, ...tweetsFromWeb];
 
   // PRIMARY RELEVANCE VERIFICATION (Using LLM with dynamic NLP token fallback)
-  logger.substep('Relevance Verification', `Testing ${candidateDiscussions.length} discussion(s), ${candidateArticles.length} article(s), ${rawNpmResults.length} package(s)`);
-  const [verifiedDiscussions, verifiedArticles, verifiedPackages] = await Promise.all([
+  //
+  // Standards positions and engine bugs are included here deliberately. They
+  // are keyword searches against shared issue trackers (mozilla/WebKit
+  // standards-positions, Bugzilla), so a query for a common word returns
+  // unrelated issues just as readily as a web search does. They used to skip
+  // verification entirely while still being fed to the AI prompt, which meant
+  // an unrelated bug could drive the cross-browser consensus verdict.
+  logger.substep(
+    'Relevance Verification',
+    `Testing ${candidateDiscussions.length} discussion(s), ${candidateArticles.length} article(s), ` +
+    `${rawNpmResults.length} package(s), ${standardsResults.length} standards position(s), ${bugsResult.length} bug(s)`
+  );
+  const [verifiedDiscussions, verifiedArticles, verifiedPackages, verifiedStandards, verifiedBugs] = await Promise.all([
     filterRelevantItems(feature, candidateDiscussions),
     filterRelevantItems(feature, candidateArticles),
     filterRelevantItems(feature, rawNpmResults),
+    filterRelevantItems(feature, standardsResults),
+    filterRelevantItems(feature, bugsResult),
   ]);
 
   // Partition verified articles into Ecosystem Blogs/Tutorials vs Reference Documentation
@@ -240,13 +262,14 @@ export async function gatherEcosystemData(feature) {
   const verifiedReverseLinks = verifiedArticles.filter(a => a.isReverseCitation);
 
   // Standards positions from WebKit/Mozilla/TAG issues
-  const standards = standardsResults;
+  const standards = verifiedStandards;
+
 
   // Identify true polyfills
   const verifiedPolyfill = verifiedPackages.find(p => p.isPolyfill) || null;
   const hasPolyfill = !!verifiedPolyfill;
 
-  const webProviderCounts = rawWebResults.providerCounts || {};
+  const webProviderCounts = webAudit.providerCounts || {};
 
   // Log verification audit summary
   if (activeSearchProviders.includes('brave')) {
@@ -264,13 +287,13 @@ export async function gatherEcosystemData(feature) {
   }
 
   if (config.twitterBearerToken) {
-    logger.audit('Twitter / X API v2', verifiedDiscussions.filter(d => (d.source || '').includes('Twitter')).length, twitterResult.length, twitterResult.audit?.status || '');
+    logger.audit('Twitter / X API v2', verifiedDiscussions.filter(d => (d.source || '').includes('Twitter')).length, twitterResult.length, twitterAudit.status || '');
   } else {
     logger.audit('Twitter / X API v2', 0, 0, 'disabled: TWITTER_BEARER_TOKEN not configured');
   }
 
   logger.audit('Standards Positions', standards.length, standards.length, `${standards.map(s => s.vendor).join(', ') || 'none'}`);
-  logger.audit('Engine Bug Trackers', bugsResult.length, bugsResult.length, `${bugsResult.map(b => b.vendor).join(', ') || 'none'}`);
+  logger.audit('Engine Bug Trackers', verifiedBugs.length, bugsResult.length, `${verifiedBugs.map(b => b.vendor).join(', ') || 'none'}`);
   if (baselineResult) {
     logger.audit('Baseline Status', 1, 1, `${baselineResult.statusLabel}`);
   }
@@ -294,7 +317,7 @@ export async function gatherEcosystemData(feature) {
       query: webQuery,
       rawFound: webProviderCounts.brave || 0,
       verified: verifiedArticles.filter(a => (a.providers || []).includes('brave')).length,
-      queryAudits: rawWebResults.braveQueryAudits || [],
+      queryAudits: webAudit.braveQueryAudits || [],
     }] : [{
       type: 'brave_search',
       provider: 'Brave Search',
@@ -311,10 +334,10 @@ export async function gatherEcosystemData(feature) {
     ...(config.twitterBearerToken ? [{
       type: 'twitter',
       provider: 'Twitter / X API v2',
-      query: twitterResult.audit?.query || `"${feature.name}"`,
+      query: twitterAudit.query || `"${feature.name}"`,
       rawFound: twitterResult.length,
       verified: verifiedDiscussions.filter(d => (d.source || '').includes('Twitter')).length,
-      status: twitterResult.audit?.status || (twitterResult.length === 0 ? '0 tweets returned' : undefined),
+      status: twitterAudit.status || (twitterResult.length === 0 ? '0 tweets returned' : undefined),
     }] : [{
       type: 'twitter',
       provider: 'Twitter / X API v2',
@@ -324,8 +347,8 @@ export async function gatherEcosystemData(feature) {
     }]),
     { type: 'devto_blogs', provider: 'Dev.to Community Blogs', query: feature.name, rawFound: devToResults.length, verified: verifiedBlogs.filter(b => b.source === 'Dev.to Community' || (b.domain || '').includes('dev.to')).length },
     { type: 'hackernews', provider: 'Hacker News Algolia', query: feature.name, rawFound: rawHnResults.length, verified: verifiedDiscussions.filter(d => d.source.includes('Hacker News')).length },
-    { type: 'standards', provider: 'Standards Positions', count: standards.length, vendors: standards.map(s => s.vendor) },
-    { type: 'bugzilla', provider: 'Engine Bug Trackers', count: bugsResult.length, vendors: bugsResult.map(b => b.vendor) },
+    { type: 'standards', provider: 'Standards Positions', rawFound: standardsResults.length, verified: standards.length, count: standards.length, vendors: standards.map(s => s.vendor) },
+    { type: 'bugzilla', provider: 'Engine Bug Trackers', rawFound: bugsResult.length, verified: verifiedBugs.length, count: verifiedBugs.length, vendors: verifiedBugs.map(b => b.vendor) },
     { type: 'baseline', provider: 'Baseline (baseline.dev)', status: baselineResult?.status || 'untracked', url: baselineResult?.url || null },
     { type: 'npm', provider: 'NPM Registry', rawFound: rawNpmResults.length, verified: verifiedPackages.length, polyfillFound: hasPolyfill },
     { type: 'wpt', provider: 'Web Platform Tests (wpt.fyi)', testCount: wptResult?.testCount || 0 },
@@ -354,13 +377,16 @@ export async function gatherEcosystemData(feature) {
     queryPlan,
     discussions: verifiedDiscussions,
     standards,
-    bugs: bugsResult,
+    bugs: verifiedBugs,
     baseline: baselineResult,
     packages: verifiedPackages,
     resources,
     wpt: wptResult,
     verifiedPolyfill,
     auditTrail,
+    // NOTE: these keys are a contract consumed by analyzer/heuristic.js.
+    // Renaming one silently zeroes part of the momentum score - see
+    // test/analyzer.test.js, which asserts the two stay in sync.
     metrics: {
       totalArticles: verifiedArticles.length,
       totalBlogs: verifiedBlogs.length,
@@ -368,7 +394,8 @@ export async function gatherEcosystemData(feature) {
       totalReverseLinks: verifiedReverseLinks.length,
       totalDiscussions: verifiedDiscussions.length,
       totalStandards: standards.length,
-      totalBugs: bugsResult.length,
+      totalBugs: verifiedBugs.length,
+      totalPackages: verifiedPackages.length,
       totalHnPoints,
       totalHnComments,
       hnPoints: totalHnPoints,
@@ -378,6 +405,8 @@ export async function gatherEcosystemData(feature) {
       twitterReplies: totalTwitterReplies,
       twitterCount: twitterDiscussions.length,
       hasPolyfill,
+      hasDemos: (feature.sampleUrls || []).length > 0,
+      wptTestCount: wptResult?.testCount || 0,
     },
   };
 }

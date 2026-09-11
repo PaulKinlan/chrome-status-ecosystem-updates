@@ -1,4 +1,5 @@
 import { logger } from '../logger.js';
+import { fetchWithTimeout } from '../http.js';
 
 const cache = new Map();
 
@@ -14,17 +15,15 @@ export async function searchMdn(feature) {
 
   try {
     const url = `https://developer.mozilla.org/api/v1/search?q=${encodeURIComponent(query)}&locale=en-US`;
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 4000);
 
-    const res = await fetch(url, {
-      signal: controller.signal,
+    const res = await fetchWithTimeout(url, {
+      label: 'MDN',
+      timeoutMs: 8_000,
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'chrome-status-ecosystem-tracker/1.0',
       },
     });
-    clearTimeout(timer);
 
     if (!res.ok) return [];
 

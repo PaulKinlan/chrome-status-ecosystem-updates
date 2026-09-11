@@ -1,4 +1,5 @@
 import { fetchHackerNewsItemDetails } from './content-fetcher.js';
+import { fetchWithTimeout } from '../http.js';
 
 /**
  * Hacker News Algolia Search API client (Free, public, no authentication required)
@@ -11,7 +12,9 @@ export async function searchHackerNews(query, options = {}) {
     const encodedQuery = encodeURIComponent(query);
     const url = `https://hn.algolia.com/api/v1/search?query=${encodedQuery}&tags=story&hitsPerPage=${limit}`;
 
-    const res = await fetch(url, {
+    const res = await fetchWithTimeout(url, {
+      label: 'Hacker News',
+      timeoutMs: 8_000,
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'chrome-status-ecosystem-tracker/1.0',

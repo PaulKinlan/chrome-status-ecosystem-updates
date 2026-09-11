@@ -1,6 +1,7 @@
 import { logger } from '../logger.js';
 import { cleanUrl, extractDomain } from './web.js';
 import { extractTechnicalAnchors } from './verifier.js';
+import { fetchWithTimeout } from '../http.js';
 
 const cache = new Map();
 
@@ -38,17 +39,14 @@ export async function searchDevToBlogs(feature) {
 
   for (const endpoint of endpoints) {
     try {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 4500);
-
-      const res = await fetch(endpoint, {
-        signal: controller.signal,
+      const res = await fetchWithTimeout(endpoint, {
+        label: 'Dev.to',
+        timeoutMs: 8_000,
         headers: {
           'Accept': 'application/json',
           'User-Agent': 'chrome-status-ecosystem-tracker/1.0',
         },
       });
-      clearTimeout(timer);
 
       if (!res.ok) continue;
 

@@ -7,6 +7,7 @@ import {
   normalizeFeature,
   resolveTargetMilestones,
 } from '../src/chromestatus.js';
+import { installFetchMock } from './_support/fetch-mock.js';
 
 test('stripXSSIPrefix removes )]}\' prefix correctly', () => {
   const input = ")]}'\n{\"status\": \"ok\"}";
@@ -62,7 +63,15 @@ test('normalizeFeature maps fields accurately', () => {
   assert.strictEqual(normalized.chromeStatusLiteUrl, 'https://chromestatuslite.com/feature/123456789');
 });
 
-test('resolveTargetMilestones parses last-N, ranges, lists, and numbers', async () => {
+test('resolveTargetMilestones parses last-N, ranges, lists, and numbers', async (t) => {
+  const { restore } = installFetchMock([
+    {
+      match: 'chromestatus.com/api/v0/channels',
+      text: ")]}'\n{\"stable\":{\"mstone\":130},\"beta\":{\"mstone\":131},\"dev\":{\"mstone\":132}}"
+    }
+  ]);
+  t.after(restore);
+
   // Test range
   const range = await resolveTargetMilestones('150-154');
   assert.deepStrictEqual(range, [150, 151, 152, 153, 154]);
@@ -82,21 +91,18 @@ test('resolveTargetMilestones parses last-N, ranges, lists, and numbers', async 
   // Test last-5
   const last5 = await resolveTargetMilestones('last-5');
   assert.strictEqual(last5.length, 5);
-  for (let i = 1; i < last5.length; i++) {
-    assert.strictEqual(last5[i], last5[i - 1] + 1);
-  }
+  // the mock has beta mstone 131, so last-5 should be 127, 128, 129, 130, 131
+  assert.deepStrictEqual(last5, [127, 128, 129, 130, 131]);
 
   // Test single number <= 20 as last N
   const smallNum = await resolveTargetMilestones(3);
   assert.strictEqual(smallNum.length, 3);
-  for (let i = 1; i < smallNum.length; i++) {
-    assert.strictEqual(smallNum[i], smallNum[i - 1] + 1);
-  }
+  assert.deepStrictEqual(smallNum, [129, 130, 131]);
 
   // Test default and auto resolve to last 5 milestones
   const autoResult = await resolveTargetMilestones('auto');
-  assert.strictEqual(autoResult.length, 5);
+  assert.deepStrictEqual(autoResult, [127, 128, 129, 130, 131]);
 
   const defaultResult = await resolveTargetMilestones();
-  assert.strictEqual(defaultResult.length, 5);
+  assert.deepStrictEqual(defaultResult, [127, 128, 129, 130, 131]);
 });

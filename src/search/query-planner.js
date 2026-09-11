@@ -1,15 +1,15 @@
 import { config } from '../config.js';
 import { logger } from '../logger.js';
-import { extractJsonFromText } from './gemini-grounding.js';
+import { fetchWithTimeout } from '../http.js';
+import { extractJsonFromText, callGeminiJson } from './gemini-grounding.js';
 import { extractTechnicalAnchors } from './verifier.js';
 
 /**
  * Plans a diverse, high-yield set of search queries for a web platform feature,
  * combining:
  * 1. Reverse-link / inbound citation queries (ChromeStatus, Explainer, Spec, Standards issues)
- * 2. LLM-generated semantic queries (Gemini 3.7 Flash or OpenAI)
- * 3. Exact syntax and WebIDL method queries
- * 4. Developer community, tutorial, and adoption queries
+ * 2. Deterministic queries covering exact name, syntax, tutorials and adoption
+ * 3. LLM-generated semantic queries layered on top (when a provider is configured)
  */
 export async function planEcosystemQueries(feature, context = {}) {
   const plannedQueries = [];
@@ -92,57 +92,76 @@ export async function planEcosystemQueries(feature, context = {}) {
   }
 
   // =========================================================================
-  // 2. LLM-GENERATED SEMANTIC SEARCH QUERIES (Gemini / OpenAI)
-  // Gemini 3.7 Flash inspects API semantics, syntax, and developer intent to
-  // generate creative queries targeting blogs, tutorials, and real-world usage.
+  // 2. DETERMINISTIC BASELINE QUERIES
+  // These always run. Previously they lived in an `else` branch and were
+  // skipped entirely whenever the LLM planner succeeded, which meant the single
+  // most reliable query - the exact feature name - was only ever used when the
+  // LLM was unavailable.
+  // =========================================================================
+  const anchors = extractTechnicalAnchors(feature);
+
+  addQuery(`"${feature.name}" API`, 'core-api', 'Core feature API query');
+
+  addQuery(
+    `"${feature.name}" (blog OR tutorial OR guide OR "how to use")`,
+    'tutorials-blogs',
+    'Community tutorials and developer blogs'
+  );
+
+  const codeAnchors = anchors.filter(a => a.includes('.') || a.includes('-') || a.includes('('));
+  if (codeAnchors.length > 0) {
+    const syntaxSample = codeAnchors.slice(0, 2).map(a => `"${a}"`).join(' OR ');
+    addQuery(`${syntaxSample} (javascript OR web OR css)`, 'api-syntax', 'Code syntax and WebIDL method usage');
+  }
+
+  addQuery(
+    `"${feature.name}" (adoption OR shipping OR "developer preview" OR PWA)`,
+    'ecosystem-adoption',
+    'Ecosystem adoption and developer sentiment'
+  );
+
+  addQuery(
+    `"${feature.name}" (site:x.com OR site:twitter.com)`,
+    'social-discussions',
+    'Twitter / X developer sentiment and commentary'
+  );
+
+  // =========================================================================
+  // 3. LLM-GENERATED SEMANTIC SEARCH QUERIES (Gemini / OpenAI)
+  // Layered on top of the deterministic set to find phrasings and framings the
+  // heuristics would miss.
   // =========================================================================
   const llmQueries = await generateQueriesWithLLM(feature);
   if (llmQueries && llmQueries.length > 0) {
     for (const item of llmQueries) {
+      if (typeof item?.query !== 'string') continue;
       addQuery(item.query, item.intent || 'llm-semantic', item.description || 'LLM semantic discovery');
     }
-  } else {
-    // =======================================================================
-    // 3. HEURISTIC FALLBACK QUERIES (when LLM is not configured)
-    // =======================================================================
-    const anchors = extractTechnicalAnchors(feature);
-
-    // Exact name with web API context
-    addQuery(`"${feature.name}" API`, 'core-api', 'Core feature API query');
-
-    // Community blogs, tutorials, and deep-dives
-    addQuery(
-      `"${feature.name}" (blog OR tutorial OR guide OR "how to use")`,
-      'tutorials-blogs',
-      'Community tutorials and developer blogs'
-    );
-
-    // Real JavaScript method syntax / CSS properties
-    const codeAnchors = anchors.filter(a => a.includes('.') || a.includes('-') || a.includes('('));
-    if (codeAnchors.length > 0) {
-      const syntaxSample = codeAnchors.slice(0, 2).map(a => `"${a}"`).join(' OR ');
-      addQuery(`${syntaxSample} (javascript OR web OR css)`, 'api-syntax', 'Code syntax and WebIDL method usage');
-    }
-
-    // Developer adoption and release announcements
-    addQuery(
-      `"${feature.name}" (adoption OR shipping OR "developer preview" OR PWA)`,
-      'ecosystem-adoption',
-      'Ecosystem adoption and developer sentiment'
-    );
-
-    // Twitter / X social discussions and developer buzz
-    addQuery(
-      `"${feature.name}" (site:x.com OR site:twitter.com)`,
-      'social-discussions',
-      'Twitter / X developer sentiment and commentary'
-    );
   }
 
   logger.debug(`[Query Planner] Generated ${plannedQueries.length} search queries for "${feature.name}" (${plannedQueries.filter(q => q.isReverseLink).length} reverse-link citations)`);
 
   return plannedQueries;
 }
+
+const QUERY_PLAN_SCHEMA = {
+  type: 'object',
+  properties: {
+    queries: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          query: { type: 'string', description: 'Exact search query string' },
+          intent: { type: 'string' },
+          description: { type: 'string' },
+        },
+        required: ['query', 'intent', 'description'],
+      },
+    },
+  },
+  required: ['queries'],
+};
 
 /**
  * Calls Gemini (or OpenAI) to synthesize targeted, high-yield search queries
@@ -165,46 +184,28 @@ Target Feature:
 - Spec: ${feature.specUrl || 'N/A'}
 - Explainers: ${(feature.explainerUrls || []).join(', ') || 'N/A'}
 
-Return a JSON array of query objects conforming to this schema:
-[
-  {
-    "query": "exact search query string (use quotes and boolean operators like OR where helpful)",
-    "intent": "tutorials-blogs" | "api-syntax" | "ecosystem-adoption" | "community-discussion",
-    "description": "short description of what this query aims to find"
-  }
-]`;
+Valid intent values: "tutorials-blogs", "api-syntax", "ecosystem-adoption", "community-discussion".
+Use quotes and boolean operators like OR where helpful.`;
 
   if (config.geminiApiKey) {
-    try {
-      const model = config.geminiModel || 'gemini-3.7-flash';
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${config.geminiApiKey}`;
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.2 },
-        }),
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        const parsed = extractJsonFromText(text);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          logger.debug(`[Query Planner] Gemini generated ${parsed.length} tailored queries`);
-          return parsed;
-        }
-      }
-    } catch (err) {
-      logger.debug(`[Query Planner] Gemini query generation failed: ${err.message}`);
+    const result = await callGeminiJson(prompt, {
+      schema: QUERY_PLAN_SCHEMA,
+      temperature: 0.2,
+      label: 'Query Planner',
+    });
+    const queries = result?.parsed?.queries || (Array.isArray(result?.parsed) ? result.parsed : null);
+    if (Array.isArray(queries) && queries.length > 0) {
+      logger.debug(`[Query Planner] Gemini generated ${queries.length} tailored queries`);
+      return queries;
     }
   }
 
   if (config.openaiApiKey) {
     try {
-      const res = await fetch('https://api.openai.com/v1/chat/completions', {
+      const res = await fetchWithTimeout('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
+        label: 'Query Planner (OpenAI)',
+        timeoutMs: 30_000,
         headers: {
           'Authorization': `Bearer ${config.openaiApiKey}`,
           'Content-Type': 'application/json',
@@ -212,19 +213,20 @@ Return a JSON array of query objects conforming to this schema:
         body: JSON.stringify({
           model: 'gpt-4o-mini',
           messages: [
-            { role: 'system', content: 'You are a web search strategist. Return JSON array only.' },
+            { role: 'system', content: 'You are a web search strategist. Return JSON only.' },
             { role: 'user', content: prompt },
           ],
+          response_format: { type: 'json_object' },
           temperature: 0.2,
         }),
       });
 
       if (res.ok) {
         const data = await res.json();
-        const text = data.choices?.[0]?.message?.content;
-        const parsed = extractJsonFromText(text);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+        const parsed = extractJsonFromText(data.choices?.[0]?.message?.content);
+        const queries = Array.isArray(parsed) ? parsed : parsed?.queries;
+        if (Array.isArray(queries) && queries.length > 0) {
+          return queries;
         }
       }
     } catch (err) {
