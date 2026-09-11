@@ -4,31 +4,315 @@
     <title>Chrome Web Platform Ecosystem Updates</title>
     <link>https://chromestatuslite.com</link>
     <description>Weekly web intelligence on ChromeStatus features, web standards, and developer community pulse</description>
-    <lastBuildDate>Mon, 31 Aug 2026 14:51:41 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2026 13:56:55 GMT</lastBuildDate>
     <item>
-      <title>Allow optional rounding parameter for `polygon()` — Chrome 150 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/6636392944893952</link>
-      <guid isPermaLink="false">6636392944893952-2026-W36</guid>
-      <pubDate>Mon, 31 Aug 2026 14:51:41 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Allow optional rounding parameter for `polygon()`&lt;/strong&gt; (Chrome 150, Enabled by default)&lt;/p&gt;&lt;p&gt;Allows an optional corner-rounding parameter in the polygon() CSS shape function. Developers can specify a length value to round polygon corners without manually computing bezier curves.
+      <title>Email Verification Protocol — Chrome 150 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5205725253074944</link>
+      <guid isPermaLink="false">5205725253074944-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Email Verification Protocol&lt;/strong&gt; (Chrome 150, Origin trial)&lt;/p&gt;&lt;p&gt;The EVP (email verification protocol) helps users create, access and recover accounts by providing cryptographic proof of ownership seamlessly rather than email OTPs manually.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; The Email Verification Protocol (EVP) is currently in an active Chrome Origin Trial (Chrome 150–156), aiming to replace high-friction magic links and one-time codes with browser-mediated, cryptographically signed tokens (SD-JWT+KB) from email identity issuers like Gmail. Cross-engine consensus remains far from established, as the protocol is still being incubated in WICG and the IETF without multi-engine implementation commitments.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Out of order streaming — Chrome 150 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5111042975465472</link>
+      <guid isPermaLink="false">5111042975465472-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Out of order streaming&lt;/strong&gt; (Chrome 150, Enabled by default)&lt;/p&gt;&lt;p&gt;Use &amp;lt;template for&amp;gt; and processing instruction ranges (&amp;lt;?marker&amp;gt;, &amp;lt;?start&amp;gt;, and &amp;lt;?end&amp;gt; to update existing parts of the document without JS.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Native out-of-order HTML streaming introduces `&amp;lt;template for&amp;gt;` paired with processing instructions (`&amp;lt;?marker&amp;gt;`, `&amp;lt;?start&amp;gt;`, `&amp;lt;?end&amp;gt;`) to enable declarative document patching directly during initial stream parsing without client JavaScript. Standardized via WHATWG HTML PR #11818 and shipping enabled by default in Chrome 150, the feature addresses server-rendered latency by allowing late-arriving content chunks to update earlier DOM slots natively. Cross-engine consensus is strong, establishing an official platform primitive for performance patterns previously locked behind framework-specific runtimes.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Deprecate and remove XSLT — Chrome 152 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/4709671889534976</link>
+      <guid isPermaLink="false">4709671889534976-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Deprecate and remove XSLT&lt;/strong&gt; (Chrome 152, Origin trial)&lt;/p&gt;&lt;p&gt;[XSLT v1.0](https://www.w3.org/TR/xslt-10/), which all browsers adhere to, was standardized in 1999. In the meantime, XSLT has evolved to v2.0 and v3.0, adding features, and growing apart from the old version frozen into browsers. This lack of advancement, coupled with the rise of JavaScript libraries and frameworks that offer more flexible and powerful DOM manipulation, has led to a significant decline in the use of client-side XSLT. Its role within the web browser has been largely superseded by JavaScript-based technologies, such as JSON and React.
 
-Interactive demo: https://codepen.io/yisi/pen/NPRLEQN
-CSSWG issue: https://github.com/w3c/csswg-drafts/issues/9843&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Allow optional rounding parameter for `polygon()` is currently Enabled by default in Chrome 150. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
+Chromium uses the **libxslt** library to process these transformations, and [libxslt was unmaintained](https://discourse.gnome.org/t/stepping-down-as-libxslt-maintainer/27615) for ~6 months of 2025. Libxslt is a complex, aging C codebase of the type notoriously susceptible to memory safety vulnerabilities like buffer overflows, which can lead to arbitrary code execution. Because client-side XSLT is now a niche, rarely-used feature, these libraries receive far less maintenance and security scrutiny than core JavaScript engines, yet they represent a direct, potent attack surface for processing untrusted web content. Indeed, XSLT is the source of several recent high-profile security exploits that continue to put browser users at risk. 
+
+For these reasons, Chromium (along with both other browser engines, Gecko and WebKit) plans to deprecate and remove XSLT from the web platform. The modern web is powered by three major browser engines: [Blink](https://www.chromium.org/blink/) (Chromium), [Gecko](https://firefox-source-docs.mozilla.org/overview/gecko.html) (Firefox), and [WebKit](https://webkit.org/) (Safari). They interpret code to render pages. 
+
+For more details, see this [Chrome for Developers article](https://developer.chrome.com/docs/web-platform/deprecating-xslt).&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Deprecate and remove XSLT is currently Origin trial in Chrome 152. Verified ecosystem momentum is High with Multi-Engine Consensus standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>AccentColor and AccentColorText system colors — Chrome 150 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5068127364186112</link>
-      <guid isPermaLink="false">5068127364186112-2026-W36</guid>
-      <pubDate>Mon, 31 Aug 2026 14:51:41 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;AccentColor and AccentColorText system colors&lt;/strong&gt; (Chrome 150, Enabled by default)&lt;/p&gt;&lt;p&gt;The AccentColor and AccentColorText system colors can be used in CSS to access the system accent color specified on the user&amp;apos;s device.
-This allows developers to apply native app like styling to their web content in contexts where users expect OS theme integration, such as an installed web application. Users must be in an installed web application on the initial profile to see the system accent color rendered.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; AccentColor and AccentColorText system colors is currently Enabled by default in Chrome 150. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
+      <title>Update text selection on mouseup before dispatching click event — Chrome 150 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5298387739082752</link>
+      <guid isPermaLink="false">5298387739082752-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Update text selection on mouseup before dispatching click event&lt;/strong&gt; (Chrome 150, In developer trial (Behind a flag))&lt;/p&gt;&lt;p&gt;Currently Chromium applies the default action of a mouseup event (e.g. collapsing or committing a drag-selection in a text input) after the click event has already been dispatched. This violates developer expectations: a click handler that reads selection state sees stale data from before the mouseup default action ran.
+This change moves the mouseup default-action step to run before the click event is dispatched, so that selection (and any other mouseup side effects) is already settled when click handlers execute.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Update text selection on mouseup before dispatching click event is currently In developer trial (Behind a flag) in Chrome 150. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Animatable zoom — Chrome 150 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5183671737909248</link>
-      <guid isPermaLink="false">5183671737909248-2026-W36</guid>
-      <pubDate>Mon, 31 Aug 2026 14:51:41 GMT</pubDate>
-      <description>&lt;p&gt;&lt;strong&gt;Animatable zoom&lt;/strong&gt; (Chrome 150, Enabled by default)&lt;/p&gt;&lt;p&gt;The CSS zoom property is animatable and interpolates as a &amp;lt;number&amp;gt;. Developers can transition and animate zoom to smoothly scale elements and their layout, complementing existing transform-based scaling.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Animatable zoom is currently Enabled by default in Chrome 150. Verified ecosystem momentum is Emerging with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
+      <title>Remove [LegacyNoInterfaceObject] from FontFaceSet IDL — Chrome 151 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5123999844663296</link>
+      <guid isPermaLink="false">5123999844663296-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Remove [LegacyNoInterfaceObject] from FontFaceSet IDL&lt;/strong&gt; (Chrome 151, Enabled by default)&lt;/p&gt;&lt;p&gt;Chromium&amp;apos;s FontFaceSet IDL previously used [LegacyNoInterfaceObject], which hid FontFaceSet as a global property and deleted the constructor property from its prototype. This deviated from the CSS Font Loading spec and differed from Safari and Firefox behavior. This change removes [LegacyNoInterfaceObject] from the FontFaceSet IDL, so FontFaceSet is properly exposed as a global property. Since no constructor() is defined in the IDL, calling new FontFaceSet() from JavaScript now throws TypeError: Illegal constructor, matching the spec. This also fixes the historical.html WPT, which was previously failing in Chromium.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Chromium&amp;apos;s removal of [LegacyNoInterfaceObject] from the FontFaceSet IDL aligns Blink with the CSS Font Loading specification and achieves parity with Gecko and WebKit. This change exposes FontFaceSet globally across Window and Worker scopes while ensuring direct invocation via new FontFaceSet() cleanly throws a TypeError due to the lack of an IDL constructor. Resolving 19 failing Web Platform Tests, the update achieves complete multi-engine consensus on interface visibility and prototype chain behavior.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CSS light-dark() with image values — Chrome 150 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5123253146353664</link>
+      <guid isPermaLink="false">5123253146353664-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;CSS light-dark() with image values&lt;/strong&gt; (Chrome 150, Enabled by default)&lt;/p&gt;&lt;p&gt;Extends the CSS light-dark() function to accept image values (url(), image-set(), none) in author stylesheets, allowing image properties like background-image, list-style-image, border-image-source, cursor, and content to automatically switch between images based on the user&amp;apos;s preferred color scheme. Previously this was only allowed in UA stylesheets. This aligns with the CSS Color 5 spec and matches Firefox&amp;apos;s existing implementation.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; CSS light-dark() with image values is currently Enabled by default in Chrome 150. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Opaque origin for data: URLs — Chrome 150 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/6290352295247872</link>
+      <guid isPermaLink="false">6290352295247872-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Opaque origin for data: URLs&lt;/strong&gt; (Chrome 150, Enabled by default)&lt;/p&gt;&lt;p&gt;Chrome 150 updates how Dedicated and Shared Workers handle [data: URLs](https://datatracker.ietf.org/doc/html/rfc2397). Rather than automatically inheriting the security origin of the script or page that created them, these workers will now be assigned a unique opaque origin.
+
+This alignment with the worker [HTML specification](https://www.w3.org/TR/2021/NOTE-workers-20210128/#worker) enhances security by isolating these workers from the creator&amp;apos;s same-origin state, preventing them from accessing sensitive data via mechanisms like `BroadcastChannel` or same-origin storage. To maintain correct isolation boundaries, these workers still reside within the same storage partition (for example, by preserving the top-level site or nonce) as their creator.
+
+This security adjustment is enabled by default across desktop and mobile platforms. Administrators can review or verify security boundaries using their centralized configurations. For technical implementation details and specification references, see Step 3 of the [HTML Living Standard Worker Settings](https://html.spec.whatwg.org/multipage/workers.html#script-settings-for-workers).&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Opaque origin for data: URLs is currently Enabled by default in Chrome 150. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Capability Elements &lt;usermedia&gt; MVP — Chrome 151 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/4926233538330624</link>
+      <guid isPermaLink="false">4926233538330624-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Capability Elements &lt;usermedia&gt; MVP&lt;/strong&gt; (Chrome 151, Enabled by default)&lt;/p&gt;&lt;p&gt;Usermedia Capability Element, is a declarative, user-activated control for accessing the starting and interacting with media streams.
+
+This addresses the long-standing problem of permission prompts being triggered directly from JavaScript without a strong signal of user intent. By embedding a browser-controlled element in the page, the user&amp;apos;s click provides a clear, intentional signal. This enables a much better prompt UX and, crucially, provides a simple recovery path for users who have previously denied the permission.
+
+Note: This feature was previously developed and tested in an Origin Trial as the more generic &amp;lt;permission&amp;gt; element. Based on feedback from developers and other browser vendors, it has evolved into capability-specific elements to provide a more tailored and powerful developer experience.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Chrome is shipping the declarative &amp;lt;usermedia&amp;gt; Capability Element in Chrome 151, evolving from the legacy PEPC (&amp;lt;permission&amp;gt;) initiative into a specialized, browser-controlled media control. The element couples user intent capture with media stream management to resolve permission-denial recovery hurdles, showing substantial permission grant improvements in enterprise video trials. However, the feature is currently Chromium-exclusive while standards discussions progress in the W3C WebRTC Working Group.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Deprecate and Remove: Related Website Sets (RWS) — Chrome 153 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5194473869017088</link>
+      <guid isPermaLink="false">5194473869017088-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Deprecate and Remove: Related Website Sets (RWS)&lt;/strong&gt; (Chrome 153, Deprecated)&lt;/p&gt;&lt;p&gt;Related Website Sets (RWS), formerly known as First Party Sets, provides a framework for developers to declare relationships among sites, to enable limited cross-site cookie access for specific, user-facing purposes. This is facilitated through the use of the Storage Access API (SAA) and requestStorageAccessFor (rSAFor). RWS was designed for use in a browser without third-party cookies. Following Chrome&amp;apos;s announcement that the current approach to third-party cookies will be maintained, we are now planning to deprecate and remove Related Website Sets (RWS). 
+
+
+Once RWS is deprecated; existing usage of SAA across contexts within a set will fall back to the API’s behavior outside of RWS as specified here. The difference in SAA behavior outside of RWS is well illustrated in our developer blogpost here.
+
+
+The companion rSAFor API will also be deprecated via a separate intent.  
+
+
+We also intend to deprecate RWS-related Chrome Enterprise policies, as well as the chrome.privacy.relatedWebsiteSetsEnabled extension API; and will follow the relevant processes.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Deprecate and Remove: Related Website Sets (RWS) is currently Deprecated in Chrome 153. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Algorithm Updates in WebCrypto — Chrome 150 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5198951632470016</link>
+      <guid isPermaLink="false">5198951632470016-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Algorithm Updates in WebCrypto&lt;/strong&gt; (Chrome 150, In developer trial (Behind a flag))&lt;/p&gt;&lt;p&gt;Add post-quantum cryptography and a common symmetric AEAD to the set of cryptographic algorithms available in the Web Cryptography API. This will enable developers to have access browser-provided implementations of common quantum-resistant cryptographic algorithms standardized by NIST.
+
+* ML-KEM - 768, 1024
+* ML-DSA - 44, 65, 87
+* ChaCha20-Poly1305
+* X-Wing&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; The &amp;apos;Algorithm Updates in WebCrypto&amp;apos; initiative integrates modern NIST-standardized Post-Quantum Cryptography (ML-KEM, ML-DSA, and X-Wing) along with ChaCha20-Poly1305 directly into the Web Cryptography API. Spearheaded by Chromium and ecosystem contributors from Proton and Okta, this effort replaces heavy pure-JavaScript and WebAssembly crypto fallbacks with secure, hardware-accelerated, browser-provided primitives. Although Chromium has advanced toward shipping in Chrome 154, broader cross-engine adoption remains cautious and fragmented.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Deprecate and remove: Attribution Reporting API — Chrome 153 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/6320639375966208</link>
+      <guid isPermaLink="false">6320639375966208-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Deprecate and remove: Attribution Reporting API&lt;/strong&gt; (Chrome 153, Deprecated)&lt;/p&gt;&lt;p&gt;The Attribution Reporting API is a privacy-preserving web API designed to measure ad conversions without third-party cookies or user tracking across sites.
+
+Following Chrome&amp;apos;s announcement that the current approach to third-party cookies will be maintained, we are now planning to deprecate and remove the Attribution Reporting API (along with other Privacy Sandbox APIs).
+
+[0]: https://privacysandbox.com/news/privacy-sandbox-next-steps/&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Deprecate and remove: Attribution Reporting API is currently Deprecated in Chrome 153. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Deprecate and Remove: Shared Storage API — Chrome 153 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5076349064708096</link>
+      <guid isPermaLink="false">5076349064708096-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Deprecate and Remove: Shared Storage API&lt;/strong&gt; (Chrome 153, Deprecated)&lt;/p&gt;&lt;p&gt;The Shared Storage API is a privacy-preserving web API to enable storage that is not partitioned by first-party site.
+
+Following Chrome&amp;apos;s announcement that the current approach to third-party cookies will be maintained, we are now planning to deprecate and remove the Shared Storage API (along with certain other Privacy Sandbox APIs, as outlined on the Privacy Sandbox feature status page).
+
+[0]: https://privacysandbox.com/news/privacy-sandbox-next-steps/&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; The Shared Storage API is being deprecated and removed in Chrome 153 as part of Google&amp;apos;s broader rollback and consolidation of Privacy Sandbox APIs following the decision to retain third-party cookies. Because the API never gained cross-browser adoption and usage dropped significantly once third-party cookie phase-out was no longer mandatory, Chromium is phasing out the unpartitioned worklet-based storage mechanism entirely.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Add options bag to WebSocket constructor — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5080055102439424</link>
+      <guid isPermaLink="false">5080055102439424-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Add options bag to WebSocket constructor&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Add support for passing an option bag (WebSocketInit dictionary) as the second argument to the WebSocket constructor. The option bag will initially support a &amp;quot;protocols&amp;quot; option, allowing developers to specify subprotocols (mirroring the existing protocols argument), and also serves as an extension point for future options.
+
+Before, this would be written `const socket = new WebSocket(&amp;quot;wss://example.com:8080&amp;quot;, &amp;quot;soap&amp;quot;)`. After, this could also be written `const socket = new WebSocket(&amp;quot;wss://example.com:8080&amp;quot;, { protocols: &amp;quot;soap&amp;quot; })`.
+
+See https://github.com/whatwg/websockets/issues/42 and spec PR https://github.com/whatwg/websockets/pull/76 for this change.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; The addition of an options bag (`WebSocketInit`) to the `WebSocket` constructor modernizes the API to align with ergonomic patterns found in modern Web APIs like `fetch()`. Shipping enabled by default in Chrome 154, it resolves a long-standing standards request (WHATWG WebSockets issue #42 / PR #76) and provides a crucial extension point for capabilities like Local Network Access (`targetAddressSpace`). Cross-engine consensus is strongly favorable, setting a clear path toward broader interoperability.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Comma-separated Container Queries — Chrome 150 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/6196591858941952</link>
+      <guid isPermaLink="false">6196591858941952-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Comma-separated Container Queries&lt;/strong&gt; (Chrome 150, Enabled by default)&lt;/p&gt;&lt;p&gt;Support multiple queries per @container rule. The @container rule applies if at least one of the queries matches.
+
+This makes it possible to have fallback queries for features which are not supported in all browsers, for instance.
+
+Example:
+
+@container --name1 not-supported(--foo: bar), --name2 (width &amp;gt; 600px) {}
+
+Along with the support for multiple queries, the object model is extended to support the &amp;apos;conditions&amp;apos; attribute on the CSSContainerRule API.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Comma-separated container queries bring `@container` rules into syntactic parity with `@media` query lists, allowing comma-delimited conditions that evaluate with logical OR semantics. Included as part of the Interop 2026 initiative, this feature enables clean feature-fallback queries and multi-breakpoint matching without stylesheet duplication. All major browser engines show strong positive consensus, with Firefox already shipping parsing and Chromium shipping by default in Chrome 150.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Fetch API: Forward reason from AbortController to fetch Response — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5158507786665984</link>
+      <guid isPermaLink="false">5158507786665984-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Fetch API: Forward reason from AbortController to fetch Response&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Surfaces the abort reason, if one is provided, to the methods of the Response object and its ReadableStream, rather than just the fetch promise. This fills a gap in our compliance with the standard, surfacing the developer-supplied abort reason everywhere it is intended to.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; This update fixes a long-standing Fetch specification compliance gap by ensuring custom abort reasons from AbortController.abort(reason) propagate to Response consumption methods (like .json(), .blob()) and Response.body streams, rather than falling back to generic AbortErrors once headers resolve. Firefox was already spec-compliant, and Chromium&amp;apos;s rollout in Chrome 154 brings majority engine parity. Developer consensus is strongly supportive, viewing it as an essential consistency enhancement for modern streaming and error-handling pipelines.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Iterator Join — Chrome 153 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5095183554314240</link>
+      <guid isPermaLink="false">5095183554314240-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Iterator Join&lt;/strong&gt; (Chrome 153, Enabled by default)&lt;/p&gt;&lt;p&gt;A TC39 proposal to add to JavaScript a means to concatenate the contents of an iterator into a string. The `join()` method of Iterator instances is similar to `Array.prototype.join()`: it returns a string that is the concatenation of all elements produced by the iterator, separated by commas or a specified separator string.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Iterator Join (`Iterator.prototype.join()`) is a Stage 3 TC39 proposal that enables developers to directly concatenate iterator elements into a delimited string without allocating intermediate arrays. The feature has strong multi-engine momentum, shipping enabled by default in Chrome 153 and Firefox 154, with implementation landing in Safari Technology Preview 251.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Local Network Access restrictions for Background Fetch — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/6225598451154944</link>
+      <guid isPermaLink="false">6225598451154944-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Local Network Access restrictions for Background Fetch&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Background Fetch requests will soon require that the service worker&amp;apos;s origin has the necessary Local Network Access (LNA) permission in order to send requests to local or loopback servers.
+
+This aligns Chromium&amp;apos;s implementation with the intent of the Background Fetch spec, which states that such requests go through the Fetch spec and have the same security policies applied to them, in this case LNA checks. This prevents sites from bypassing LNA checks by using [Background Fetch spec](https://wicg.github.io/background-fetch/) instead of regular [Fetch](https://fetch.spec.whatwg.org/).
+
+For enterprises, you can use existing LNA enterprise policies in the same way you previously would have for regular Fetch API requests from service workers:
+- [LocalNetworkAccessRestrictionsTemporaryOptOut](https://chromeenterprise.google/policies/#LocalNetworkAccessRestrictionsTemporaryOptOut)
+- [LocalNetworkAccessAllowedForUrls](https://chromeenterprise.google/policies/#LocalNetworkAccessAllowedForUrls)
+- [LoopbackNetworkAllowedForUrls](https://chromeenterprise.google/policies/#LoopbackNetworkAllowedForUrls)
+- [LocalNetworkAccessPermissionsPolicyDefaultEnabled](https://chromeenterprise.google/policies/#LocalNetworkAccessPermissionsPolicyDefaultEnabled)
+- [LocalNetworkAccessIpAddressSpaceOverrides](https://chromeenterprise.google/policies/#LocalNetworkAccessIpAddressSpaceOverrides)).&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Shipping enabled by default in Chrome 154, this update closes a security loophole by enforcing Local Network Access (LNA) checks on Background Fetch requests originating from service workers. Because Chromium previously considered deprecating Background Fetch due to low adoption, the team is now bringing its request pipeline in line with standard Fetch security invariants rather than maintaining disparate network execution paths. Cross-engine consensus on Local Network Access is progressing, though Background Fetch itself remains largely unique to Chromium.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>WebAudio: Configurable render quantum — Chrome 153 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5078190552907776</link>
+      <guid isPermaLink="false">5078190552907776-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;WebAudio: Configurable render quantum&lt;/strong&gt; (Chrome 153, Enabled by default)&lt;/p&gt;&lt;p&gt;Adds an optional renderSizeHint to AudioContext and OfflineAudioContext. This allows developers to customize the WebAudio render quantum size by passing a specific integer, use the default of 128 frames by omitting the hint or passing &amp;quot;default&amp;quot;, or request that the User-Agent select an optimal size by specifying &amp;quot;hardware&amp;quot;.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; WebAudio: Configurable render quantum is currently Enabled by default in Chrome 153. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>overscroll-behavior: chain — Chrome 150 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5176802466201600</link>
+      <guid isPermaLink="false">5176802466201600-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;overscroll-behavior: chain&lt;/strong&gt; (Chrome 150, Enabled by default)&lt;/p&gt;&lt;p&gt;overscroll-behavior currently has 3 values: none, auto, and contain. These values affect 2 independent effects: scroll propagation and local border effect (e.g. overscroll stretch).
+
+none: no propagation, no local effect
+auto: propagation, local effect
+contain: no propagation, local effect
+
+This feature tracks a new value to complete the set:
+chain: propagation, no local effect
+
+This is useful for effects like side menus implemented as scrollers. We want to bring the menu in and when it hits the edge it doesn&amp;apos;t overscroll (stretch/translate). However, it would then allow scroll chaining to the ancestor.
+
+Initial proposal:
+https://github.com/w3c/csswg-drafts/issues/13370&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; overscroll-behavior: chain is currently Enabled by default in Chrome 150. Verified ecosystem momentum is High with Chromium-Led standards alignment and neutral developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CSS text-decoration-inset — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5178263526834176</link>
+      <guid isPermaLink="false">5178263526834176-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;CSS text-decoration-inset&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;CSS text-decoration-inset controls how far underlines, overlines, and line-through decorations are inset from or extended beyond text run edges. It supports auto, length, and percentage values, including one-value and two-value syntax for setting the start and end offsets. This lets developers adjust decoration spacing and create reveal effects with native text decorations instead of background gradients or additional elements.
+
+
+sampler: https://static.januschka.com/i-468928416/?asddsaasd
+MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-decoration-inset
+
+CL: https://chromium-review.googlesource.com/c/chromium/src/+/7748204&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; CSS text-decoration-inset is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Declarative shadow DOM: shadowrootslotassignment attribute — Chrome 151 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5178682139344896</link>
+      <guid isPermaLink="false">5178682139344896-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Declarative shadow DOM: shadowrootslotassignment attribute&lt;/strong&gt; (Chrome 151, Enabled by default)&lt;/p&gt;&lt;p&gt;Adds the shadowrootslotassignment attribute to the &amp;lt;template&amp;gt; element, allowing declarative shadow roots to use manual slot assignment. Until now this option was only available imperatively, via attachShadow({slotAssignment: &amp;quot;manual&amp;quot;}), so components that rely on manual assignment could not create their shadow roots declaratively. The attribute accepts &amp;quot;named&amp;quot; (the default, preserving current behavior) and &amp;quot;manual&amp;quot;, and is reflected by the shadowRootSlotAssignment property on HTMLTemplateElement.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Declarative shadow DOM: shadowrootslotassignment attribute is currently Enabled by default in Chrome 151. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>FontFace width attribute and font-width descriptor — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5145402365050880</link>
+      <guid isPermaLink="false">5145402365050880-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;FontFace width attribute and font-width descriptor&lt;/strong&gt; (Chrome 154, Enabled by default)&lt;/p&gt;&lt;p&gt;Exposes the width attribute on FontFace and the @font-face font-width descriptor as aliases for stretch and font-stretch. Aligns Chromium with the updated CSS Font Loading and CSS Fonts 4 specifications. Developers can now inspect or initialize font face widths using FontFace.width and CSS font-width interchangeably with stretch and font-stretch.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; FontFace width attribute and font-width descriptor is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CSSPseudoElement support for ::backdrop, ::scroll-marker and ::view-transitions — Chrome 152 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/6516055192240128</link>
+      <guid isPermaLink="false">6516055192240128-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;CSSPseudoElement support for ::backdrop, ::scroll-marker and ::view-transitions&lt;/strong&gt; (Chrome 152, Enabled by default)&lt;/p&gt;&lt;p&gt;Support for CSSPseudoElement - which is currently only defined for ::after, ::before, and ::marker - is now being extended to include several new pseudo-elements:
+
+::backdrop: useful for closing a dialog when the backdrop is clicked, without interfering with clicks inside the dialog&amp;apos;s content. This eliminates the need for complex intersection logic to determine where the click occurred.
+
+::scroll-marker: can be used to collect click statistics.
+
+view transitions: enables geometry-aware view transitions.It also allows you to intercept a view transition mid-flight to start a new one, utilizing the coordinates of the currently animating element to avoid sudden visual jumps.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; CSSPseudoElement support for ::backdrop, ::scroll-marker and ::view-transitions is currently Enabled by default in Chrome 152. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CSS background-clip: border-area — Chrome 150 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/6234471210811392</link>
+      <guid isPermaLink="false">6234471210811392-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;CSS background-clip: border-area&lt;/strong&gt; (Chrome 150, Enabled by default)&lt;/p&gt;&lt;p&gt;Implements the border-area value for the CSS background-clip property, as defined in CSS Backgrounds Level 4. background-clip: border-area clips an element&amp;apos;s background to the area painted by its border strokes, taking border-width and border-style into account while ignoring transparency from border-color. This enables gradient borders without border-image. WebKit already ships this feature; this implementation brings Chromium to parity.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; CSS background-clip: border-area is currently Enabled by default in Chrome 150. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Relative Alpha Colors (CSS Color 5 alpha() function) — Chrome 152 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5070160203481088</link>
+      <guid isPermaLink="false">5070160203481088-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Relative Alpha Colors (CSS Color 5 alpha() function)&lt;/strong&gt; (Chrome 152, Enabled by default)&lt;/p&gt;&lt;p&gt;Relative alpha colors refer to an origin color, and only change the alpha channel. The meaning of alpha channels is defined in CSS Color 4 § 4.2 Representing Transparency in Colors: the &amp;lt;alpha-value&amp;gt; syntax.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Relative Alpha Colors (CSS Color 5 alpha() function) is currently Enabled by default in Chrome 152. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>PerformanceSoftNavigation and InteractionContentfulPaint performance entry — Chrome 151 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5144837209194496</link>
+      <guid isPermaLink="false">5144837209194496-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;PerformanceSoftNavigation and InteractionContentfulPaint performance entry&lt;/strong&gt; (Chrome 151, Enabled by default)&lt;/p&gt;&lt;p&gt;Adds &amp;quot;soft-navigation&amp;quot; and &amp;quot;interaction-contentful-paint&amp;quot; PerformanceEntry types to the web performance timeline to track interaction-driven page performance, including for &amp;quot;soft&amp;quot; navigations (JS-driven navigations in Single Page Apps (SPAs)). This work expands on metrics like Largest Contentful Paint (LCP) and Interaction to Next Paint (INP).
+
+The &amp;quot;interaction-contentful-paint&amp;quot; entry reports on new contentful paints within parts of the page modified by a user interaction, helping developers understand interaction loading latency. This proposal tracks the effects of interactions across async tasks (like fetch requests).
+
+The &amp;quot;soft-navigation&amp;quot; entry reports same-document history state changes initiated by interactions, establishing a new time origin to correctly attribute subsequent performance data to the active route rather than the initial document URL.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Shipping enabled by default in Chrome 151, the Soft Navigations and InteractionContentfulPaint APIs address a long-standing gap in web performance tooling by establishing standardized performance timeline slicing and LCP attribution for SPA route changes. While heavily championed by Google and incubated within the WICG, other browser engines have not yet committed to native implementations.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Connection Allowlists — Chrome 152 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5175745573945344</link>
+      <guid isPermaLink="false">5175745573945344-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Connection Allowlists&lt;/strong&gt; (Chrome 152, Enabled by default)&lt;/p&gt;&lt;p&gt;Connection Allowlists is a feature designed to provide explicit control over external endpoints by restricting connections initiated via the Fetch API or other web platform APIs from a document or worker.
+
+The proposed implementation involves the distribution of an authorized endpoint list from the server through an HTTP response header. Prior to the establishment of any connection by the user agent on behalf of a page, the agent will evaluate the destination against this allowlist; connections to verified endpoints will be permitted, while those failing to match the entries in the list will be blocked.
+
+More details on the proposal can be found here: https://github.com/WICG/connection-allowlists 
+
+Design doc: https://docs.google.com/document/d/1B3LERUObjVDAKBNLpdIxbk8LC96rWUn1q8vtP9pPIuA/edit?usp=sharing
+
+Implementation Design:
+https://source.chromium.org/chromium/chromium/src/+/main:docs/connection_allowlist_design.md&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Connection Allowlists introduces a dedicated HTTP response header (`Connection-Allowlist`) that acts as an egress firewall, restricting outbound network connections (Fetch, WebSockets, WebTransport, WebRTC, and navigations) directly at the network layer. Enabled by default in Chrome 152, the feature decouples outbound network exfiltration controls from the complex semantics of Content Security Policy (CSP). Cross-engine momentum is strong with Mozilla expressing a positive standard position and tracking Gecko implementation bugs, while WebKit remains actively engaged in discussions.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Joint Iteration — Chrome 153 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/6249068542164992</link>
+      <guid isPermaLink="false">6249068542164992-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Joint Iteration&lt;/strong&gt; (Chrome 153, Enabled by default)&lt;/p&gt;&lt;p&gt;A TC39 proposal to synchronise the advancement of multiple iterators, often called zip.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Joint Iteration is currently Enabled by default in Chrome 153. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Declarative Performance Observer — Chrome 151 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/6594955352080384</link>
+      <guid isPermaLink="false">6594955352080384-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Declarative Performance Observer&lt;/strong&gt; (Chrome 151, Origin trial)&lt;/p&gt;&lt;p&gt;The Declarative Performance Observer proposes a reliable browser-resident telemetry system that reports of performance metrics from navigation initiation to page termination. By using a declarative HTTP response header, it ensures that data is captured even in scenarios where the request failed due to the network error or the renderer process is killed by the OS.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Declarative Performance Observer introduces an out-of-band, browser-resident telemetry mechanism configured via HTTP response headers to capture end-to-end performance metrics—including early network dropouts and abrupt renderer crashes. Currently in Origin Trial starting in Chrome 151 (scheduled through Chrome 155), the feature is an experimental Chromium initiative incubated via the WICG. Cross-engine consensus remains at an early stage, with no formal positions or implementation commitments yet recorded from Mozilla Gecko or Apple WebKit.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Deprecate and remove: Private Aggregation API — Chrome 152 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/4683382919397376</link>
+      <guid isPermaLink="false">4683382919397376-2026-W37</guid>
+      <pubDate>Mon, 07 Sep 2026 13:56:55 GMT</pubDate>
+      <description>&lt;p&gt;&lt;strong&gt;Deprecate and remove: Private Aggregation API&lt;/strong&gt; (Chrome 152, Deprecated)&lt;/p&gt;&lt;p&gt;The Private Aggregation API is a generic mechanism for measuring aggregate, cross-site data in a privacy preserving manner. It was originally designed for a future without third-party cookies.
+
+Following Chrome&amp;apos;s announcement that the current approach to third-party cookies will be maintained, we are now planning to deprecate and remove the Private Aggregation API (along with certain other Privacy Sandbox APIs, as outlined on the Privacy Sandbox feature status page[0]). This API is only exposed via the Shared Storage and Protected Audience APIs, which are also planned to be deprecated and removed. So, no additional work will be required for Private Aggregation.
+
+[0]: https://privacysandbox.google.com/overview/status&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Ecosystem Analysis:&lt;/strong&gt; Deprecate and remove: Private Aggregation API is currently Deprecated in Chrome 152. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
