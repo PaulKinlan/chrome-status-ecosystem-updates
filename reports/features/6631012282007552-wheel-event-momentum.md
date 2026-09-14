@@ -1,6 +1,6 @@
 # Wheel event momentum
 
-> **Report Week:** 2026-W37 | **Milestone:** Chrome 151 | **Category:** Enabled by default
+> **Report Week:** 2026-W38 | **Milestone:** Chrome 151 | **Category:** Enabled by default
 
 ## Overview
 
@@ -8,15 +8,14 @@ Exposes a momentum attribute in wheel events to mark native platforms events for
 
 ## Ecosystem Status
 
-- **Momentum:** High (260 points)
+- **Momentum:** High (335 points)
 - **Standards Alignment:** Partial Multi-Engine Interest
-- **Sentiment:** Positive
-- **Executive Take:** The `WheelEvent.prototype.momentum` property standardizes a boolean flag to differentiate synthetic inertial scrolling (trackpad flings) from direct user touch/finger movement. Shipping enabled by default in Chrome 151, it resolves a longstanding web platform limitation in gesture handling. Cross-engine alignment is strong, with Mozilla officially adopting a positive position and WebKit reviewing standardization.
+- **Sentiment:** Positive / High Interest
+- **Executive Take:** Wheel event momentum is currently Enabled by default in Chrome 151. Verified ecosystem momentum is High with Partial Multi-Engine Interest standards alignment and positive / high interest developer pulse.
 
 ### Recommendations
-- Actionable Advice: Adopt `event.momentum` progressively by checking `'momentum' in event` to ignore or customize inertial flings. Maintain existing delta-decay or timeout heuristics as fallbacks for Firefox and Safari until interoperable engine support is fully realized.
 - Shipping enabled by default in Chrome 151. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (Mozilla): Latest discussion from @saschanaz: "Filed https://bugzilla.mozilla.org/show_bug.cgi?id=2050009..."
+- Standards Activity (Mozilla): Latest discussion from @saschanaz: "Filed https://bugzilla.mozilla.org/show\_bug.cgi?id=2050009..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 ## Standards Positions
@@ -24,28 +23,43 @@ Exposes a momentum attribute in wheel events to mark native platforms events for
 - **WebKit:** [Wheel event momentum](https://github.com/WebKit/standards-positions/issues/688) [open]
 - **Mozilla:** [Wheel event momentum](https://github.com/mozilla/standards-positions/issues/1425) [closed]
 
+## Packages & Polyfills
+
+- [wheel-gestures](https://www.npmjs.com/package/wheel-gestures) `v2.3.0` — wheel gestures and momentum detection
+- [wheel](https://www.npmjs.com/package/wheel) `v1.0.0` — Mouse wheel event unified for all browsers
+
 ## 📰 Ecosystem Blogs & Articles
 
 - [pointerevents - external/w3c/web-platform-tests - Git at Google](https://chromium.googlesource.com/external/w3c/web-platform-tests/+/refs/tags/merge_pr_52571/pointerevents) *(chromium.googlesource.com)*
   > pointerevents - external/w3c/web-platform-tests - Git at Google Sign in &#9681; Theme chromium / external / w3c / web-platform-tests / refs/tags/merge_pr_52571 / . / pointerevents tree: 1c1208e065265479f403499d11d0b1da8af25b62 compat/ html/ parsing/ ...
-- [macos - Detecting type of mouse scroll wheel (Smooth vs Notched) with javascript - Stack Overflow](https://stackoverflow.com/questions/50032909/detecting-type-of-mouse-scroll-wheel-smooth-vs-notched-with-javascript) *(stackoverflow.com)*
-  > &lt;h3&gt; scroll up is forward &lt;/h3&gt; &lt;div class=&quot;row&quot;&gt; &lt;div class=&quot;column&quot;&gt; &lt;div&gt; Video element: &lt;/div&gt; &lt;video controls height=&quot;120&quot; id=&quot;v&quot; tabindex=&quot;-1&quot; autobuffer=&...
-- [Trackpad and Magic Mouse momentum WheelEvents indistinguishable from user-initiated ones [40704952] - Chromium](https://issues.chromium.org/issues/40704952) *(issues.chromium.org)*
-  > Despite significant effort, such filters are far from perfect, and are especially weak in small-delta regimes where the trackpad shines as an input device. Furthermore, since the information is available to the browser, it makes sense to just pass it...
-- [javascript - Disable inertia scroll for "single-page" webapp - Stack Overflow](https://stackoverflow.com/questions/28103125/disable-inertia-scroll-for-single-page-webapp) *(stackoverflow.com)*
-  > Yes, this stops bounce effect (inertia) visually, but <strong>js wheel event is still called after the swipe on trackpad, cause of inertia</strong>.
-- [10 Best Momentum Scrolling Libraries In JavaScript (2026 Update) | jQuery Script](https://www.jqueryscript.net/blog/best-momentum-scrolling.html) *(jqueryscript.net · 2026-02-14T00:00:00)*
-  > <strong>A plain JavaScript library that applies a smooth momentum scrolling (also called inertial rolling) to any scrollable elements on the web</strong>. ... A tiny JavaScript library that replaces the native scroll events with a smooth scroll behav...
-- [What is a Kinetic Scrolling Device? - Alvaro Trigo's Blog](https://alvarotrigo.com/blog/kinetic-scrolling) *(alvarotrigo.com · 2024-02-05T19:15:07)*
-  > Kinetic scrolling devices are devices that enable users to do inertial scrolling. These include trackpads and some kinds of mice (like Apple Magic Mouse). With these devices, a single swipe lets you scroll multiple display lines. Depending on how str...
-- [scroll - Mousepad firing too many "wheel" events in JavaScript - Stack Overflow](https://stackoverflow.com/questions/54574747/mousepad-firing-too-many-wheel-events-in-javascript) *(stackoverflow.com)*
-  > Thanks Vajura. I tried implementing a similar code, the issues persists, and seems to arise from the way events are fired when using the trackpad: to simulate deceleration of scrolling, several events are fired subsequently, with a decreasing deltaY....
-- [Re: [blink-dev] Intent to Ship: Wheel event momentum](http://www.mail-archive.com/blink-dev@chromium.org/msg16814.html) *(mail-archive.com)*
-  > &gt;&gt;&gt; &gt;&gt;&gt; &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; On Tuesday, June 16, 2026 at 9:56:47 PM UTC+2 Mustaq Ahmed wrote: &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; On Tue, Jun 16, 2026 at 3:32 PM Mike Taylor &lt;[email protected]&gt; &gt;...
-- [[blink-dev] Intent to Ship: Wheel event momentum](http://www.mail-archive.com/blink-dev@chromium.org/msg16769.html) *(mail-archive.com)*
-  > Skip to site navigation (Press enter) · [blink-dev] Intent to Ship: Wheel event momentum · Chromestatus Tue, 16 Jun 2026 08:21:17 -0700 · Contact emails [email protected] · Specification https://w3c.github.io/pointerevents/#dom-wheelevent-momentum Su...
-- [stopping mousewheel event from happening twice in OSX](https://stackoverflow.com/questions/26326958/stopping-mousewheel-event-from-happening-twice-in-osx) *(stackoverflow.com)*
-  > 4 OSX inertia scrolling causing mousewheel.js to register multiple mousewheel events with the slightest scroll motion
+- [Wheel event momentum](https://chromestatus.com/feature/6631012282007552) *(chromestatus.com)*
+  > We cannot provide a description for this page right now
+- [\[blink-dev\] Intent to Ship: Wheel event momentum](http://www.mail-archive.com/blink-dev@chromium.org/msg16769.html) *(mail-archive.com)*
+  > Specification https://w3c.github.io/pointerevents/#dom-wheelevent-momentum Summary The wheel events on many native platforms <strong>simulate scrolling inertia</strong>: the events continue to fire for a while after the user has lifted the finger fro...
+- [Re: \[blink-dev\] Intent to Ship: Wheel event momentum](http://www.mail-archive.com/blink-dev@chromium.org/msg16812.html) *(mail-archive.com)*
+  > &gt; &gt; &gt;&gt; &gt;&gt;&gt; On Tuesday, June 16, 2026 at 9:56:47 PM UTC+2 Mustaq Ahmed wrote: &gt;&gt;&gt; &gt;&gt;&gt;&gt; On Tue, Jun 16, 2026 at 3:32 PM Mike Taylor &lt;[email protected]&gt; &gt;&gt;&gt;&gt; wrote: &gt;&gt;&gt;&gt; &gt;&gt;&gt...
+- [Wheel event momentum - Chrome Platform Status](https://2016-01-12-dot-cr-status.appspot.com/feature/6631012282007552) *(2016-01-12-dot-cr-status.appspot.com · 2026-06-05T00:00:00)*
+  > We cannot provide a description for this page right now
+- [The Ultimate Guide to Momentum Wheels](https://www.numberanalytics.com/blog/ultimate-guide-to-momentum-wheels) *(numberanalytics.com)*
+  > <strong>By accelerating or decelerating the wheel, the spacecraft&#x27;s attitude can be adjusted</strong>. The following sections will explore the principles of momentum wheel operation, control strategies, and integration with spacecraft attitude c...
+- [Mastering Momentum Wheels in Spacecraft](https://www.numberanalytics.com/blog/mastering-momentum-wheels-in-spacecraft) *(numberanalytics.com · 2025-06-11T10:12:26)*
+  > Reaction wheels are used to control the attitude of a spacecraft by applying a torque to the vehicle, whereas <strong>momentum wheels are used to store angular momentum and provide a bias to the spacecraft&#x27;s attitude</strong>.
+- [Momentum \| Droop Gauge V2 and Setup Wheels](https://www.yeahracing.com/blog/how-to-use-momentum-droop-gauge-v2-setup-wheels) *(yeahracing.com)*
+  > Momentum | Droop Gauge V2 and Setup Wheels By using these setup wheels you will be sure that the geometry will be as per racing conditions so you will get the most accurate readings possible! Used to measure camber and other things. Accurately measur...
+- [Mastering Momentum Wheels in Aerospace](https://www.numberanalytics.com/blog/mastering-momentum-wheels-in-aerospace) *(numberanalytics.com · 2025-06-23T00:00:00)*
+  > They work on the principle of conservation of angular momentum, where a rotating wheel&#x27;s angular momentum is used to generate a torque that stabilizes or maneuvers the spacecraft. The basic principle can be understood by considering the equation...
+- [How to Use Spin Wheel: Complete Beginner's Guide (2026)](https://engagewheel.com/blog/how-to-use-spin-wheel) *(engagewheel.com · 2026-01-25T00:00:00)*
+  > 💡 Teacher Tip: <strong>Project the wheel on your smartboard so all students can see</strong>. The visual excitement boosts engagement! Social Media Giveaways: Fair winner selection for Instagram/TikTok · Event Prizes: Random prize distribution at pa...
+- [Momentum Blog \| Momentum Bikes US](https://www.momentum-biking.com/us/momentum-blog) *(momentum-biking.com)*
+  > This is what we stand for - the chance to get on your bike and explore, commute and enjoy a greener way of life. Whether you&#x27;re just starting out or are a serious OG, we&#x27;ve got ideas, tips and inspo on repeat to keep you and your bike happy...
+- [Guide \| Momentum Mod Documentation](https://docs.momentum-mod.org/categories/guide) *(docs.momentum-mod.org)*
+  > Guide
+- [Momentum Trading Strategy: Complete Guide (2026) \| Quantum Algo](https://www.quantum-algo.com/blog/guides/momentum-trading-strategy-complete-guide) *(quantum-algo.com · 2026-08-24T00:00:00)*
+  > The momentum trader aims to identify and ride these strong moves — <strong>buying assets exhibiting strong upward momentum and selling or shorting those with strong downward momentum</strong> — profiting from the continuation of the move rather than ...
+- [Re: \[blink-dev\] Intent to Ship: Wheel event momentum](http://www.mail-archive.com/blink-dev@chromium.org/msg16774.html) *(mail-archive.com)*
+  > No *Flag name on about://flags* /No information provided/ *Finch feature name* WheelEventMomentum *Rollout plan* Will ship enabled for all users *Requires code in //chrome?* False *Tracking bug* https://crbug.com/40704952 *Estimated milestones* <stro...
+- [Progressive Web App (PWA) Development Ultimate Guide - Riseup Labs](https://riseuplabs.com/pwa-development-ultimate-guide) *(riseuplabs.com · 2025-12-10T05:24:22)*
+  > <strong>The birth of the PWA concept represented a significant milestone in the evolution of web technology</strong>. As the PWA model continues to gain momentum, it is poised to shape the future of web development, offering users seamless and engagi...
 
 ## 🔗 Inbound Citations & Reverse Links
 
@@ -63,10 +77,10 @@ The following external publications and discussions explicitly link to or cite t
   > Meta-issue: update WPT to cover Pointer Events Level 3 · Issue #445 · w3c/pointerevents · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or wind...
 - [Incorrect order of the events in process pending pointer capture section · Issue #39 · w3c/pointerevents](https://github.com/w3c/pointerevents/issues/39) *(github.com · 2016-03-08T19:01:19)* *(Cites: `https://w3c.github.io/pointerevents/#dom-wheelevent-momentum`)*
   > Incorrect order of the events in process pending pointer capture section · Issue #39 · w3c/pointerevents · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with an...
+- [content/files/en-us/web/api/pointer\_events/index.md at main · mdn/content](https://github.com/mdn/content/blob/main/files/en-us/web/api/pointer_events/index.md) *(github.com)* *(Cites: `https://w3c.github.io/pointerevents/#dom-wheelevent-momentum`)*
+  > content/files/en-us/web/api/pointer_events/index.md at main · mdn/content · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to ...
 - [touch-events/index.html at gh-pages · w3c/touch-events](https://github.com/w3c/touch-events/blob/gh-pages/index.html) *(github.com · 2024-07-09T00:00:00)* *(Cites: `https://w3c.github.io/pointerevents/#dom-wheelevent-momentum`)*
-  > touch-events/index.html at gh-pages · w3c/touch-events · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your sessio...
-- [Pointer Events WG -- 05 Aug 2020](https://www.w3.org/2020/08/05-pointerevents-minutes.html) *(w3.org)* *(Cites: `https://w3c.github.io/pointerevents/#dom-wheelevent-momentum`)*
-  > &lt;smaug&gt; https://<strong>w3c.github.io/pointerevents</strong>/#dom-pointerevent-pointerid · just seems that implementations don&#x27;t currently do it · Patrick: so we&#x27;ll leave this for next time, mustaq to look over the issue aga...
+  > The default value defined here for &lt;code&gt;altitudeAngle&lt;/code&gt; is 0. This differs from the &lt;a href=&quot;https://<strong>w3c.github.io/pointerevents</strong>/&quot;&gt;Pointer Events - Level 3&lt;/a&gt; [[POINTEREVENTS]] speci...
 
 ## 📚 Platform Documentation & Specifications
 
@@ -75,14 +89,10 @@ The following external publications and discussions explicitly link to or cite t
 - [wpt/pointerevents at master · web-platform-tests/wpt](https://github.com/web-platform-tests/wpt/tree/master/pointerevents) *(github.com)*
 - [Meta-issue: update WPT to cover Pointer Events Level 3 · Issue #445 · w3c/pointerevents](https://github.com/w3c/pointerevents/issues/445) *(github.com)*
 - [Incorrect order of the events in process pending pointer capture section · Issue #39 · w3c/pointerevents](https://github.com/w3c/pointerevents/issues/39) *(github.com)*
+- [content/files/en-us/web/api/pointer\_events/index.md at main · mdn/content](https://github.com/mdn/content/blob/main/files/en-us/web/api/pointer_events/index.md) *(github.com)*
 - [touch-events/index.html at gh-pages · w3c/touch-events](https://github.com/w3c/touch-events/blob/gh-pages/index.html) *(github.com)*
-- [Pointer Events WG -- 05 Aug 2020](https://www.w3.org/2020/08/05-pointerevents-minutes.html) *(w3.org)*
-- [GitHub - d4nyll/lethargy: Distinguish between scroll events initiated by the user, and those by inertial scrolling · GitHub](https://github.com/d4nyll/lethargy) *(github.com)*
 - [Wheel event momentum · Issue #1425 · mozilla/standards-positions](https://github.com/mozilla/standards-positions/issues/1425) *(github.com)*
 - [Wheel event momentum · Issue #688 · WebKit/standards-positions](https://github.com/WebKit/standards-positions/issues/688) *(github.com)*
-- [Expose 'inertial scrolling state' in wheel events · Issue #58 · w3c/uievents](https://github.com/w3c/uievents/issues/58) *(github.com)*
-- [Add flag to determine if wheel event delta is from direct interaction or momentum / inertia / kinetic scrolling · Issue #553 · w3c/pointerevents](https://github.com/w3c/pointerevents/issues/553) *(github.com)*
-- [osx inertia · Issue #36 · jquery/jquery-mousewheel](https://github.com/jquery/jquery-mousewheel/issues/36) *(github.com)*
 - [WheelEvent: WheelEvent() constructor](https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent/WheelEvent) *(developer.mozilla.org)*
 - [WheelEvent](https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent) *(developer.mozilla.org)*
 - [Element: wheel event](https://developer.mozilla.org/en-US/docs/Web/API/Element/wheel_event) *(developer.mozilla.org)*
@@ -91,22 +101,22 @@ The following external publications and discussions explicitly link to or cite t
 
 ### Searches Executed
 
-- **Brave Search:** 26 result(s) found across 6 planned queries — **23 verified relevant**
+- **Brave Search:** 38 result(s) found across 6 planned queries — **24 verified relevant**
   - `"chromestatus.com/feature/6631012282007552" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
   - `"w3c.github.io/pointerevents" -site:w3c.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (8 returned)
-  - `"WheelEvent" "momentum" ("addEventListener" OR "event.momentum")` — *Find real-world JavaScript code snippets and WebIDL implementations demonstrating how to inspect the momentum property on wheel events.* (1 returned)
-  - `"WheelEvent" ("momentum" OR "inertia") ("trackpad" OR "fling") "javascript"` — *Discover developer tutorials, blog posts, and guides discussing how to handle trackpad fling gestures and momentum scrolling in web apps.* (8 returned)
-  - `"WheelEvent" "momentum" ("intent to prototype" OR "intent to ship" OR "ChromeStatus" OR "webkit.org")` — *Track browser vendor implementation progress, standards sentiment, and Intent to Prototype/Ship announcements across Chromium and WebKit.* (3 returned)
-  - `(site:github.com OR site:stackoverflow.com) "WheelEvent" ("momentum" OR "inertia") trackpad (fling OR zoom OR scroll)` — *Locate developer discussions, issue tracker debates, and workarounds regarding distinguishing active trackpad input from simulated momentum events in custom UI components.* (8 returned)
-- **Google Search Grounding (gemini-3.7-flash):** 0 result(s) found — **0 verified relevant**
+  - `"Wheel event momentum" API` — *Core feature API query* (6 returned)
+  - `"Wheel event momentum" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
+  - `"Wheel event momentum" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
+  - `"Wheel event momentum" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
 - **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 3 result(s) found — **0 verified relevant**
-- **Standards Positions:** 2 item(s) inspected
-- **Engine Bug Trackers:** 6 item(s) inspected
+- **Standards Positions:** 2 result(s) found — **2 verified relevant**
+- **Engine Bug Trackers:** 6 result(s) found — **3 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
-- **NPM Registry:** 6 result(s) found — **0 verified relevant**
-- **Web Platform Tests (wpt.fyi):** 261 item(s) inspected
+- **NPM Registry:** 6 result(s) found — **2 verified relevant**
+- **Web Platform Tests (wpt.fyi):** 262 item(s) inspected
 
 ### Content Inspected
 
