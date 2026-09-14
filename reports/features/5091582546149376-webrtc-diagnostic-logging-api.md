@@ -1,14 +1,10 @@
 # WebRTC Diagnostic Logging API
 
-> **Report Week:** 2026-W37 | **Milestone:** Chrome 151 | **Category:** Origin trial
+> **Report Week:** 2026-W38 | **Milestone:** Chrome 151 | **Category:** Origin trial
 
 ## Overview
 
-Chrome 156 will introduce an API for [WebRTC](https://webrtc.org/) diagnostic logging. This API allows an application to opt in to diagnostic logging. These logs contain information about the WebRTC activity by the application and are useful for local debugging or to submit bugs.
-
-Logs can optionally be uploaded separately to the browser vendor and can be used for diagnosing bugs. The application gets an ID that can be attached to a bug report, similar to crashes.
-
-Diagnostic logs are enabled with the enterprise policy  [WebRtcDiagnosticLogCollectionAllowedForOrigins](https://chromeenterprise.google/policies/#WebRtcDiagnosticLogCollectionAllowedForOrigins).
+Chrome 156 will introduce an API for \[WebRTC\](https://webrtc.org/) diagnostic logging. This API allows an application to opt in to diagnostic logging. These logs contain information about the WebRTC activity by the application and are useful for local debugging or to submit bugs.  Logs can optionally be shared with the browser vendor and can be used for diagnosing bugs. The application gets an ID that can be attached to a bug report, similar to crashes.  Diagnostic logs are enabled with the enterprise policy  \[WebRtcDiagnosticLogCollectionAllowedForOrigins\](https://chromeenterprise.google/policies/#WebRtcDiagnosticLogCollectionAllowedForOrigins).
 
 ### Motivation
 
@@ -18,99 +14,101 @@ The WebRTC Web Diagnostic Logging API allows authorized web applications to trig
 
 ## Ecosystem Status
 
-- **Momentum:** High (190 points)
+- **Momentum:** High (200 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Positive / High Interest
-- **Executive Take:** WebRTC Diagnostic Logging API is currently Origin trial in Chrome 151. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** The WebRTC Diagnostic Logging API is currently an active WICG incubation being evaluated via a Chromium Origin Trial targeting general enterprise rollout around Chrome 156. It solves a critical production debugging bottleneck for real-time applications by capturing internal user-agent state without directly leaking private logs to web-exposed JavaScript. Cross-browser consensus is currently tentative, meaning the API remains far from Baseline inclusion.
 
 ### Recommendations
+- Actionable Advice: Teams managing enterprise WebRTC fleets should test the API during the Chrome/Edge Origin Trial using administrative policy controls to streamline browser bug reporting. For standard web apps, maintain standard \`RTCPeerConnection.getStats()\` pipelines for cross-browser analytics and treat this API strictly as an optional, feature-detected progressive enhancement.
 - In active Origin Trial in Chrome 151. Validate API ergonomics in staging/pilot environments before general availability.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
-- Community package available: [webrtc-adapter](https://www.npmjs.com/package/webrtc-adapter) (v9.0.6) for progressive enhancement.
+- Standards Activity (Mozilla): Latest discussion from @guidou: "&gt; So if I understand correctly, this API enables logging which stores the log in some local file on the user's system, and also optionally to upload t..."
+- No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
-## Packages & Polyfills
+## Standards Positions
 
-- [webrtc-issue-detector](https://www.npmjs.com/package/webrtc-issue-detector) `v1.17.3` — WebRTC diagnostic tool that detects issues with network or user devices
-- [@google-cloud/logging](https://www.npmjs.com/package/@google-cloud/logging) `v12.0.1` — Cloud Logging Client Library for Node.js
-- [webrtc-adapter](https://www.npmjs.com/package/webrtc-adapter) `v9.0.6` — A shim to insulate apps from WebRTC spec changes and browser prefix differences
+- **WebKit:** [WebRTC Diagnostic Logging](https://github.com/WebKit/standards-positions/issues/699) [open]
+- **Mozilla:** [WebRTC Diagnostic Logging](https://github.com/mozilla/standards-positions/issues/1436) [open]
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [github.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGbOyt8p8EqjOn0Eq3ewWzah4tVRPpyi5hEQ7grfhOhkNTVqs0tKVjlx7m-HGFZbUBdh4F7KxkOESuvWWMjKsHQXKi6uATMlHBg_agXzm4akdgXV50TfLYdHitqMSQZpt_o5J7v5I0=) *(vertexaisearch.cloud.google.com)*
-  > WebRTC Diagnostic Logging API WebRTC Diagnostic Logging API Draft Community Group Report , 3 September 2026 This version: https://wicg.github.io/webrtc-diagnostic-logging/ Issue Tracking: GitHub Editor: Guido Urdaneta ( Google ) Copyright © 2026 the ...
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEjbilhM190VEFfojxs-wNysaVYPipwpvG74UpbzYCGjIo1RpTQkv8ZM9OrXZDZVnQcq069APyx-NFH7idRygsHUkrncmxNtS2-SWn0YCDFGnV4JdSAbDdP07hdz7okfMsdUg==) *(vertexaisearch.cloud.google.com)*
-  > WebRTC Diagnostic Logging API · Issue #272 · WICG/proposals · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your session. Yo...
-- [github.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF9n0P0KeqIGkUx_lIimy3bQ-y2jC5skyJbqD43TdLm2Fwvf_jyhGGPlr653yKZC_5dmUHMABYtKhGOrjzoHunLNm35RU_Bit81s-mkwY_o8exeAhqXtQ8SLab0Jf7MguP3ouidnAUj) *(vertexaisearch.cloud.google.com)*
-  > WebRTC Diagnostic Logging API WebRTC Diagnostic Logging API Draft Community Group Report , 3 September 2026 This version: https://wicg.github.io/webrtc-diagnostic-logging/ Issue Tracking: GitHub Editor: Guido Urdaneta ( Google ) Copyright © 2026 the ...
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH1ZWkpjWkp8AIOTvb9_335xCQvnssZMCGjVq7JuetNiWMrM8vJePxBaWNCxgzvW6RYDH6PlnHPkNEvm8i_RHQ5gdnZUFkDPrkhiyxK02hd1F6ERmrwAMuV_r5BvnoZgfOX) *(vertexaisearch.cloud.google.com)*
-  > WebRTC Diagnostic Logging API · Issue #272 · WICG/proposals · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your session. Yo...
-- [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFOLgAr9zMJdL0LljlXHC2kvFamKkR0Vb8Cj0bGlX3SUlbw6HE-D9ePrcj3KXyCWeXfUZGTdmGkVui5DQ3yTVwU9cXAQDwN4im1EuoYq--IdtFxoFbWCyZIkD6dT0jT0NNNOXnCvnzjrn3gQNTR2OU3xodc7w7z0Mq_U7yq_ja2NR2Ez7Crafsz7NV1A0JG20GpXOVC4VQHDE741r39uw==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the WebRTC Diagnostic Logging API  The **WebRTC Diagnostic Logging API** is an emerging Web Platform capability designed to simplify troubleshooting for complex, real-world WebRTC issues (such as packet loss, media quality degradation,
-- [googleusercontent.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHoWWt7o7QEOr_Ld4OjJoNp90mbN3YNI2i30uQoOVi4lg75BZ0BzXUJ8N-M-bgcYz5ODFtStd_NPKWCKJbG7_Db2C6Gkvztj-5aiff7lvT7a2XFt2qVnJEOkzndGfgjEfjm9BYkbx9ONwmIUywqwNbhY9uNbrLkU_mbTBE26DztAbeYPsoz_Xdc) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the WebRTC Diagnostic Logging API  The **WebRTC Diagnostic Logging API** is an emerging Web Platform capability designed to simplify troubleshooting for complex, real-world WebRTC issues (such as packet loss, media quality degradation,
-- [chromeenterprise.google](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE40ByM2hQHl2UALN15H_x4xNAibGnZDTGy1F29CQbccScXYD-29UJ6ZfJaICfpASJkHNX6T4VM_fNUSCaydGcdwzRzZP8qbwMXA6cMRgmOH_x0D50rR1tmodGCy66RIXIFkoyG7OtvjGhMoiipZw==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the WebRTC Diagnostic Logging API  The **WebRTC Diagnostic Logging API** is an emerging Web Platform capability designed to simplify troubleshooting for complex, real-world WebRTC issues (such as packet loss, media quality degradation,
-- [chromeenterprise.google](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9RD-zU5k5po1Z78Vm85cRR4n7U8WglFKvTavwS9aUmcHQ4MLT8dUVLdlfacy-SnIlHFL3qTl43KsGI2Ig6DIvIq2P3TvhhgzraKy7x_6WPJOFuadDrTIJZcd-D00a0Ty0kxP4Rhmius5V7mhO) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the WebRTC Diagnostic Logging API  The **WebRTC Diagnostic Logging API** is an emerging Web Platform capability designed to simplify troubleshooting for complex, real-world WebRTC issues (such as packet loss, media quality degradation,
-- [webrtcweekly.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHioFvEOHQjsul_m7fCZ-gc8bmIgKLmI1bL3LCzqE_c1PGqPJr7rpgDfhA89_49wZbD1Sejg6rWy72IhP_sUpAIZbcqwBSC2oLGxwEiJucvO64IOXgwp-bo3iYimo6Ux0rFDcku8JJMhA==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the WebRTC Diagnostic Logging API  The **WebRTC Diagnostic Logging API** is an emerging Web Platform capability designed to simplify troubleshooting for complex, real-world WebRTC issues (such as packet loss, media quality degradation,
-- [webrtc-developers.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2IvPe-ynFm-8iBv71D-Hm3FcEj0zdr6z5whTrt-MBgK6RfCfp1xZS-zfuoyUFUneRnaiI7kPVdjD_ygdcWrqmll9IW4upF1R-rHwLtFPh3HOGIXHJbtU_tmS36zxJO8bhqYga1okOylmBFOK_tWvDrRJ4EYG4fmw=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the WebRTC Diagnostic Logging API  The **WebRTC Diagnostic Logging API** is an emerging Web Platform capability designed to simplify troubleshooting for complex, real-world WebRTC issues (such as packet loss, media quality degradation,
-- [polypane.app](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE06sAhEL4OAHy2a3k1C4-KU60HXgSizLu8-7J2nYdN6YtaSG-B_rxH-gvdvS1MrFHsLrU6oXCr32edjfjHGfUgNKzSCTt7GLOK6sN6Fep-iLMozE-m7zXWP8ObWeFAX534Hh3VXAURlF0c64Tdng==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the WebRTC Diagnostic Logging API  The **WebRTC Diagnostic Logging API** is an emerging Web Platform capability designed to simplify troubleshooting for complex, real-world WebRTC issues (such as packet loss, media quality degradation,
-- [ir.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG4_nVpUbiyO4ViHWNnevDtf3vHUGV84BYugY0tG5354jfS0NpcR-GxKaXjwxBvR4sP__CsYOI6tAVYu56bwUv5rbm4wzsJzqawnQQKIWk4wrrTrjoQH9m_EUS25KOHPKGr6YBYihhol2XH4Yo=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the WebRTC Diagnostic Logging API  The **WebRTC Diagnostic Logging API** is an emerging Web Platform capability designed to simplify troubleshooting for complex, real-world WebRTC issues (such as packet loss, media quality degradation,
-- [agilis.no](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFvZ1GtSArZ57touZXRxYrbp-DD-W35ysnuUckH2PYK61IS40eVvJkTo0OkKHGCtfT4hRypPoZJf8s57_BwZxCJwoEmhbD4_831Sp-297gt41WipNI8UTyZT-ktsODvEYFcl5RxB09Wi26tTBwX1GEKtnHPSdc47WbTeUjEA_bOUnHbQ-A=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the WebRTC Diagnostic Logging API  The **WebRTC Diagnostic Logging API** is an emerging Web Platform capability designed to simplify troubleshooting for complex, real-world WebRTC issues (such as packet loss, media quality degradation,
-- [[blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16867.html) *(mail-archive.com)*
-  > &gt;&gt; &gt;&gt; *Is this feature fully tested by web-platform-tests &gt;&gt; &lt;https://chromium.googlesource.com/chromium/src/+/main/docs/testing/web_platform_tests.md&gt;?* &gt;&gt; No &gt;&gt; &gt;&gt; &gt;&gt; *Flag name on about://flags* &gt;...
-- [[blink-dev] Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16832.html) *(mail-archive.com)*
-  > Explainer https://github.com/WICG/webrtc-diagnostic-logging/blob/main/explainer.md Specification https://wicg.github.io/webrtc-diagnostic-logging Summary API for WebRTC diagnostic logging. <strong>This API allows an application to opt in to diagnosti...
-- [[blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16865.html) *(mail-archive.com)*
-  > On Tue, Jun 23, 2026 at 1:09 PM Chromestatus &lt; [email protected]&gt; wrote: &gt; *Contact emails* &gt; [email protected] &gt; &gt; *Explainer* &gt; https://<strong>github.com/WICG/webrtc-diagnostic-logging/blob/main/explainer.md</strong> &gt; &gt;...
-- [Re: [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16877.html) *(mail-archive.com)*
-  > &gt;&gt; &gt;&gt; &gt;&gt; On Tue, Jun 23, 2026 at 1:09 PM Chromestatus &lt; &gt;&gt; [email protected]&gt; wrote: &gt;&gt; &gt;&gt;&gt; *Contact emails* &gt;&gt;&gt; [email protected] &gt;&gt;&gt; &gt;&gt;&gt; *Explainer* &gt;&gt;&gt; https://<stron...
+- [\[blink-dev\] Re: Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16867.html) *(mail-archive.com)*
+  > [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API Skip to site navigation (Press enter) [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API 'Guido Urdaneta' via blink-dev Thu, 25 Jun 2026 02:57:32 -0700 After discuss...
+- [\[blink-dev\] Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16832.html) *(mail-archive.com)*
+  > [blink-dev] Intent to Experiment: WebRTC Diagnostic Logging API Skip to site navigation (Press enter) [blink-dev] Intent to Experiment: WebRTC Diagnostic Logging API Chromestatus Tue, 23 Jun 2026 08:58:45 -0700 Contact emails [email&#160;protected] E...
+- [\[blink-dev\] Re: Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16865.html) *(mail-archive.com)*
+  > [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API Skip to site navigation (Press enter) [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API 'Guido Urdaneta' via blink-dev Wed, 24 Jun 2026 16:07:36 -0700 Correction: T...
+- [Re: \[blink-dev\] Re: Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16877.html) *(mail-archive.com)*
+  > Re: [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API Chris Harrelson Thu, 25 Jun 2026 13:13:46 -0700 LGTM On Thu, Jun 25,...
+- [Implement WebRTC diagnostic logging API \[481412281\] - Chromium](https://issues.chromium.org/issues/481412281) *(issues.chromium.org)*
+  > Chromium Sign in
+- [Debugging WebRTC Issues: A Guide To Troubleshooting](https://www.ir.com/blog/guide-to-webrtc-troubleshooting) *(ir.com · 2025-11-18T13:20:25)*
+  > Debugging WebRTC: A Guide To Troubleshooting | IR Skip to content Customer Support Contact Sales IR Academy Partners About Login About IR Our Story Careers Policies and Statements News Environmental Social and Corporate Governance Legal GDPR Privacy ...
+- [Debugging WebRTC in the browsers \| WebRTC for Developers](https://www.webrtc-developers.com/debugging-webrtc-in-the-browsers) *(webrtc-developers.com · 2023-06-15T00:00:00)*
+  > Debugging WebRTC in the browsers | WebRTC for Developers Documentation About Me Contact Debugging WebRTC in the browsers By Olivier Anguenot Published in dev June 15, 2023 Table Of Contents 1 Take-way 2 Debugging WebRTC in Chrome 3 Debugging WebRTC i...
+- [How to Use chrome://webrtc-internals to Debug WebRTC Calls \| TestMu AI (Formerly LambdaTest)](https://www.testmuai.com/blog/chrome-webrtc-internals) *(testmuai.com · 2026-06-10T12:00:00)*
+  > How to Use chrome://webrtc-internals to Debug WebRTC Calls | TestMu AI (Formerly LambdaTest) New: Agent Assurance. Test what your agent did, not what it said. Join the waitlist Power Your Software Testing with AI Agents and Cloud The Native AI-Agenti...
+- [WebRTC Chrome: The Complete Guide for 2025 - VideoSDK](https://www.videosdk.live/developer-hub/webrtc/webrtc-chrome) *(videosdk.live)*
+  > Native Logging: <strong>Launch Chrome with the --enable-logging --v=1 flag to capture detailed WebRTC logs</strong>. WebRTC Internals: Visit chrome://webrtc-internals to inspect peer connections, ICE candidates, stats, and media flows.
+- [WebRTC](https://webrtc.org) *(webrtc.org)*
+  > The technologies behind WebRTC are implemented as an open web standard and available as regular JavaScript APIs in all major browsers. For native clients, like Android and iOS applications, a library is available that provides the same functionality....
+- [Real time communication with WebRTC - Codelabs - Google](https://codelabs.developers.google.com/codelabs/webrtc-web) *(codelabs.developers.google.com · 2026-03-27T00:00:00)*
+  > Get a video stream from your webcam. Manipulate stream playback. Use CSS and SVG to manipulate video. A complete version of this step is in the step-01 folder. Add a video element and a script element to index.html in your work directory: &lt;!DOCTYP...
+- [WebRTC is now in Chrome](https://groups.google.com/a/chromium.org/g/chromium-dev/c/lb8eLh3oUvw) *(groups.google.com)*
+  > All details about WebRTC in general can be found at http://www.webrtc.org/. Our goal is · <strong>to enable Chrome with Real-Time Communications (RTC) capabilities via simple Javascript APIs</strong>. We are working hard to provide full RTC support i...
+- [WebRTC Control - Chrome Web Store](https://chromewebstore.google.com/detail/webrtc-control/fjkmabmdepjfammlpliljpnbhleegehm) *(chromewebstore.google.com)*
+  > WebRTC Control add-on will also disable the following WebRTC components (see add-on options page): a. navigator.getUserMedia b. window.MediaStreamTrack c. window.RTCPeerConnection d. window.RTCSessionDescription To report bugs, please visit the exten...
+- [Enable real-time communication with WebRTC \| Google for Developers](https://developers.google.com/codelabs/webrtc-web) *(developers.google.com)*
+  > First, you need to set up a signaling channel to exchange metadata messages. A complete version of this step is in the step-04 folder. <strong>WebRTC uses a client-side JavaScript API, but for real-world usage also requires a signaling (messaging) se...
+- [Your API wrote the row. Why did onEdit not run?](https://dev.to/bulldo_gs/your-api-wrote-the-row-why-did-onedit-not-run-c6k) *(dev.to · bulldo.gs · Sep 14)*
+  > A four-case trigger diagnostic: separate a successful spreadsheet write from an event handler execution.
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
-- [[blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16867.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5091582546149376`)*
-  > &gt;&gt; &gt;&gt; *Is this feature fully tested by web-platform-tests &gt;&gt; &lt;https://chromium.googlesource.com/chromium/src/+/main/docs/testing/web_platform_tests.md&gt;?* &gt;&gt; No &gt;&gt; &gt;&gt; &gt;&gt; *Flag name on about://f...
-- [[blink-dev] Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16832.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/webrtc-diagnostic-logging/blob/main/explainer.md`)*
-  > Explainer https://github.com/WICG/webrtc-diagnostic-logging/blob/main/explainer.md Specification https://wicg.github.io/webrtc-diagnostic-logging Summary API for WebRTC diagnostic logging. <strong>This API allows an application to opt in to...
-- [[blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16865.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/webrtc-diagnostic-logging/blob/main/explainer.md`)*
-  > On Tue, Jun 23, 2026 at 1:09 PM Chromestatus &lt; [email protected]&gt; wrote: &gt; *Contact emails* &gt; [email protected] &gt; &gt; *Explainer* &gt; https://<strong>github.com/WICG/webrtc-diagnostic-logging/blob/main/explainer.md</strong>...
-- [Re: [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16877.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/webrtc-diagnostic-logging/blob/main/explainer.md`)*
-  > &gt;&gt; &gt;&gt; &gt;&gt; On Tue, Jun 23, 2026 at 1:09 PM Chromestatus &lt; &gt;&gt; [email protected]&gt; wrote: &gt;&gt; &gt;&gt;&gt; *Contact emails* &gt;&gt;&gt; [email protected] &gt;&gt;&gt; &gt;&gt;&gt; *Explainer* &gt;&gt;&gt; http...
+- [\[blink-dev\] Re: Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16867.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5091582546149376`)*
+  > [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API Skip to site navigation (Press enter) [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API 'Guido Urdaneta' via blink-dev Thu, 25 Jun 2026 02:57:32 -0700 Aft...
+- [\[blink-dev\] Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16832.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5091582546149376`)*
+  > [blink-dev] Intent to Experiment: WebRTC Diagnostic Logging API Skip to site navigation (Press enter) [blink-dev] Intent to Experiment: WebRTC Diagnostic Logging API Chromestatus Tue, 23 Jun 2026 08:58:45 -0700 Contact emails [email&#160;pr...
+- [\[blink-dev\] Re: Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16865.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/webrtc-diagnostic-logging/blob/main/explainer.md`)*
+  > [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API Skip to site navigation (Press enter) [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API 'Guido Urdaneta' via blink-dev Wed, 24 Jun 2026 16:07:36 -0700 Cor...
+- [Re: \[blink-dev\] Re: Intent to Experiment: WebRTC Diagnostic Logging API](http://www.mail-archive.com/blink-dev@chromium.org/msg16877.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/webrtc-diagnostic-logging/blob/main/explainer.md`)*
+  > Re: [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Experiment: WebRTC Diagnostic Logging API Chris Harrelson Thu, 25 Jun 2026 13:13:46 -0700 LGTM On Th...
+
+## 📚 Platform Documentation & Specifications
+
+- [GitHub - fippo/dump-webrtc-event-log: Import Chrome's WebRTC event log · GitHub](https://github.com/fippo/dump-webrtc-event-log) *(github.com)*
+- [web.dev/src/site/content/en/blog/webrtc-basics/index.md at main · GoogleChrome/web.dev](https://github.com/GoogleChrome/web.dev/blob/main/src/site/content/en/blog/webrtc-basics/index.md) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 12 result(s) found across 7 planned queries — **4 verified relevant**
-  - `"chromestatus.com/feature/5091582546149376" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
+- **Brave Search:** 35 result(s) found across 8 planned queries — **16 verified relevant**
+  - `"chromestatus.com/feature/5091582546149376" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (2 returned)
   - `"github.com/WICG/webrtc-diagnostic-logging/blob/main/explainer.md" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (3 returned)
   - `"wicg.github.io/webrtc-diagnostic-logging" -site:wicg.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (3 returned)
-  - `"WebRTC Diagnostic Logging" OR "webrtc-diagnostic-logging" (tutorial OR guide OR debug OR "production")` — *Finds developer guides, blog posts, and articles explaining how to use diagnostic logging for debugging WebRTC issues.* (8 returned)
-  - `("WebRTC Diagnostic Logging API" OR "webrtc-diagnostic-logging") (interface OR WebIDL OR "startLogging" OR "stopLogging" OR sample)` — *Locates API syntax, WebIDL interface definitions, and JavaScript usage snippets.* (0 returned)
-  - `"WebRtcDiagnosticLogCollectionAllowedForOrigins" OR ("WebRTC Diagnostic Logging" "Intent to Prototype" OR "Intent to Ship")` — *Discovers vendor announcements, Chromium Intent to Ship threads, and enterprise policy adoption docs.* (0 returned)
-  - `("WebRTC Diagnostic Logging" OR "webrtc-diagnostic-logging") (privacy OR security OR consensus OR "WICG" OR discussion)` — *Tracks ecosystem sentiment, standards discussions, and security/privacy feedback within the WebRTC community.* (2 returned)
-- **Google Search Grounding (gemini-3.7-flash):** 17 result(s) found — **13 verified relevant**
+  - `"WebRTC Diagnostic Logging API" API` — *Core feature API query* (4 returned)
+  - `"WebRTC Diagnostic Logging API" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
+  - `"webrtc.org" OR "chromeenterprise.google" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
+  - `"WebRTC Diagnostic Logging API" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
+  - `"WebRTC Diagnostic Logging API" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 3 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 7 result(s) found — **1 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
-- **Standards Positions:** 0 item(s) inspected
-- **Engine Bug Trackers:** 0 item(s) inspected
+- **Standards Positions:** 2 result(s) found — **2 verified relevant**
+- **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
-- **NPM Registry:** 6 result(s) found — **3 verified relevant**
-- **Web Platform Tests (wpt.fyi):** 0 item(s) inspected
+- **NPM Registry:** 6 result(s) found — **0 verified relevant**
+- **Web Platform Tests (wpt.fyi):** 348 item(s) inspected
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
-- **Standards Discussion Comments:** 0 engineer comment(s) read
+- **Standards Discussion Comments:** 2 engineer comment(s) read
 - **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links
