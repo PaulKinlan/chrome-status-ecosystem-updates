@@ -1,6 +1,6 @@
 # LanguageDetector support for Traditional vs. Simplified Chinese
 
-> **Report Week:** 2026-W38 | **Milestone:** Chrome 151 | **Category:** Enabled by default
+> **Report Week:** 2026-W39 | **Milestone:** Chrome 151 | **Category:** Enabled by default
 
 ## Overview
 
@@ -8,77 +8,62 @@ Two new detectable language codes, "zh-Hant" and "zh-Hans" will be added. Detect
 
 ## Ecosystem Status
 
-- **Momentum:** High (270 points)
+- **Momentum:** High (180 points)
 - **Standards Alignment:** Contested / Concerns Raised
-- **Sentiment:** Mixed / Skeptical
-- **Executive Take:** LanguageDetector support for Traditional vs. Simplified Chinese is currently Enabled by default in Chrome 151. Verified ecosystem momentum is High with Contested / Concerns Raised standards alignment and mixed / skeptical developer pulse.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** Chromium is advancing its built-in client-side AI capabilities under the W3C Web Machine Learning Community Group's Translation and Language Detector API specification by refining generic 'zh' outputs into script-specific BCP 47 tags ('zh-Hans' and 'zh-Hant') in Chrome 151. This change satisfies widespread internationalization requests by distinguishing Simplified and Traditional Chinese directly within the detector. However, the underlying LanguageDetector API remains an experimental Chromium-led initiative that has not yet achieved cross-engine consensus or implementation outside Blink-based browsers.
 
 ### Recommendations
+- Actionable Advice: Update any existing language detection logic to handle 'zh-Hans' and 'zh-Hant' sub-tags—or map them back to a generic base locale if required—before Chrome 151 rolls out. Continue gating LanguageDetector behind strict feature detection ('LanguageDetector' in self) and provide conventional i18n libraries or server-side detection as fallbacks for non-Chromium browsers.
 - Shipping enabled by default in Chrome 151. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser vendors have raised architectural, security, or privacy considerations in standards position trackers.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+- Verified community discussion on Twitter / X: "Edward Snowden on X: "If you can read simplified Chinese and another language Permanent Record has been translated into (or know someone who does), tag them on this thread and see if they can help restore the missing passages to the Chinese edition. Here we go. From Chapter 18, p. 183 of the Chines… / X" (0 points, 0 comments).
+
+## Community Discussions & Social Pulse
+
+- 🐦 **Twitter / X:** [Edward Snowden on X: "If you can read simplified Chinese and another language Permanent Record has been translated into (or know someone who does), tag them on this thread and see if they can help restore the missing passages to the Chinese edition. Here we go. From Chapter 18, p. 183 of the Chines… / X](https://twitter.com/Snowden/status/1194095985317883906) — *by @Snowden, 0 likes/RTs, 0 replies*
+- 🐦 **Twitter / X:** [Transparent Chinese (@chineselanguage) on X](https://twitter.com/chineselanguage?lang=en) — *0 likes/RTs, 0 replies*
+- 🐦 **Twitter / X:** [Notion on X: "@Carlos\_Lau1993 @WSJ @pierce We don't have any localized versions at the moment, but we will start supporting languages besides English down the line - we'll go ahead and add your vote to prioritize the Chinese version!" / X](https://twitter.com/NotionHQ/status/1085011182983962624) — *by @NotionHQ, 0 likes/RTs, 0 replies*
+- 🐦 **Twitter / X:** [GLLC (@GLLCPK) on X](https://twitter.com/gllcpk?lang=en) — *0 likes/RTs, 0 replies*
+
+## Packages & Polyfills
+
+- [i18next-browser-languagedetector](https://www.npmjs.com/package/i18next-browser-languagedetector) `v8.2.1` — language detector used in browser environment for i18next
+- [node-opencc](https://www.npmjs.com/package/node-opencc) `v2.0.1` — Conversion between Traditional Chinese and Simplified Chinese in pure Node.js
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [Intent to Extend Experiment: Translator API](https://groups.google.com/a/chromium.org/g/blink-dev/c/5DikAhbCv7M/m/BdQVdE6cAwAJ) *(groups.google.com)*
-  > Intent to Extend Experiment: Translator API Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Extend Experiment: Translator API 832 views Skip...
-- [Chee Aun 🤔: "#PhanpySocial changelog ✨ 🎏 C…"](https://mastodon.social/@cheeaun/114149642985452634) *(mastodon.social · 2025-03-12T13:15:23)*
-  > Chee Aun 🤔: "#PhanpySocial changelog ✨ 🎏 Change profile heade…" - Mastodon To use the Mastodon web application, please enable JavaScript. Alternatively, try one of the native apps for Mastodon for your platform.
 - [LanguageDetector support for Traditional vs. Simplified Chinese - Chrome Platform Status](https://chromestatus.com/feature/5138651886518272) *(chromestatus.com)*
   > Chrome Platform Status
 - [\[blink-dev\] Web-Facing Change PSA: LanguageDetector support for Traditional vs. Simplified Chinese](http://www.mail-archive.com/blink-dev@chromium.org/msg16759.html) *(mail-archive.com)*
   > [blink-dev] Web-Facing Change PSA: LanguageDetector support for Traditional vs. Simplified Chinese Skip to site navigation (Press enter) [blink-dev] Web-Facing Change PSA: LanguageDetector support for Traditional vs. Simplified Chinese Chromestatus F...
-- [Traditional vs Simplified Chinese: Business Guide](https://circletranslations.com/blog/traditional-chinese-vs-simplified-chinese) *(circletranslations.com · 2026-05-10T12:00:00)*
-  > Traditional vs Simplified Chinese: Business Guide --> English --> Main Menu &times; Home Translation services Industries Languages Pricing Careers About Us Blogs Contact us Apply as a freelancer --> info@circletranslations.lt --> +37064700734 Main Me...
-- [Simplified or Traditional Chinese? The 2026 guide to choosing by market, boosting SEO, and dodging AI translation traps - Ulatus Translation Blog](https://www.ulatus.com/translation-blog/simplified-or-traditional-chinese-the-2026-guide-to-choosing-by-market-boosting-seo-and-dodging-ai-translation-traps) *(ulatus.com · 2026-01-10T00:00:00)*
-  > Include tone guidance and market-specific legal/regulatory terminology. ... Store both variants in your TM. If converting between Simplified and Traditional, <strong>use a controlled conversion plus human editing to correct lexicon and legal terms</s...
-- [Traditional vs Simplified Chinese: A localization guide](https://www.smartling.com/blog/traditional-vs-simplified-chinese) *(smartling.com · 2026-04-28T15:27:24)*
-  > Smartling&#x27;s platform is designed to help businesses reach diverse Chinese-speaking audiences, whether they focus on Traditional or Simplified Chinese. With powerful tools that handle the full range of Chinese language needs, Smartling ensures yo...
-- [Detecting Languages with Python: A Step-by-Step Guide - Methods Hub - GESIS](https://methodshub.gesis.org/library/tutorials/Language_Detection_Tutorial/1) *(methodshub.gesis.org)*
-  > Learn how to detect the language of a text using Python · Language detection is a key tool in text analytics, enabling researchers to classify documents, messages, and other textual data into their respective languages. With the rise of social media ...
-- [Traditional vs Simplified Chinese: Which One To Choose?](https://bayan-tech.com/blog/traditional-vs-simplified-chinese) *(bayan-tech.com · 2025-07-22T11:56:31)*
-  > One of the most critical decisions you’ll face when localizing your content for Chinese-speaking audiences is choosing between the two main writing systems: traditional vs simplified Chinese. Unsure which writing form you should translate your conten...
-- [Guide to Traditional vs Simplified Chinese for Translation](https://lsa.inc/traditional-chinese-vs-simplified-chinese-choosing-the-right-writing-system-for-translation) *(lsa.inc · 2026-07-30T20:29:16)*
-  > Discover why Chinese writing relies on geography, not dialects — when to use Simplified vs. Traditional Chinese in translations.
-- [--Language - Chinese Studies Advanced Guide - Research Guides at University of Minnesota Minneapolis](https://libguides.umn.edu/china_advanced/language) *(libguides.umn.edu · 2026-08-06T00:00:00)*
-  > For modern Taiwan-style Chinese in traditional characters, CKIP may be a good Python option.
-- [Traditional vs Simplified Chinese: Key Differences Explained](https://laoret.com/blog/simplified-and-traditional-chinese) *(laoret.com · 2026-01-15T15:15:59)*
-  > Discover the differences between Traditional vs Simplified Chinese. Learn where each script is used, how locales work, and why expert translation matters.
-- [【網頁教學】HTML5的lang要設成zh-TW或zh-Hant？-2026台北網頁設計推薦｜RWD響應式網站、購物車網站開發｜英傑銳網路數位](https://www.injerry.com/blog_view/125) *(injerry.com · 2016-12-21T02:38:00)*
-  > 一般寫法是language標籤應全部小寫，region標籤全部大寫，script標籤只有首字母大寫。不同標籤之間用連字型大小-串聯起來。不過不管大小寫，目前瀏覽器都能處理，只不過可能是實際現況，用舊式的zh-TW相容性似乎要高一些。 ... 但因現在HTML多以UNICODE編碼，各國語系都能在同一頁面呈現，似乎很少人這樣處理。 · 以下是其他語言的標示法(照字母排序)。 ... RWD響應式網站RWD網站RWDAIAI網頁設計PHP8WebP台北網頁設計台北網站設計網頁設計網站架設購物商城購
-- [Day09：小事之 HTML lang Attribute - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天](https://ithelp.ithome.com.tw/articles/10194236) *(ithelp.ithome.com.tw)*
-  > 在2007年的國際標準 ISO ...種，因此使用繁體中文的話，lang 應該要寫成 zh-Hant。 · 以 zh 為開頭的語言有(以下只有部分，其餘請上IANA registry查询）： · zh-Hans 簡體中文 zh-Hans-CN 大陸地區使用的簡體中文 zh-Hans-HK ...
-- [How can a Progressive Web App support multilingual content and localization?](https://gtcsys.com/faq/how-can-a-progressive-web-app-support-multilingual-content-and-localization) *(gtcsys.com · 2023-08-02T10:34:46)*
-  > Using the navigator.language property in JavaScript, PWAs can detect the user’s preferred language.
-- [Progressive Web App (PWA) Development Ultimate Guide - Riseup Labs](https://riseuplabs.com/pwa-development-ultimate-guide) *(riseuplabs.com · 2025-12-10T05:24:22)*
-  > Expanding Capabilities: The integration of these APIs has expanded the capabilities of PWAs, allowing them to perform tasks traditionally reserved for native applications. This has made PWAs more competitive in various application domains. Cross-Brow...
-
-## 🔗 Inbound Citations & Reverse Links
-
-The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
-
-- [translation-api/index.bs at main · webmachinelearning/translation-api](https://github.com/webmachinelearning/translation-api/blob/main/index.bs) *(github.com)* *(Cites: `https://webmachinelearning.github.io/translation-api/#language-detector-api`)*
-  > translation-api/index.bs at main · webmachinelearning/translation-api · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refr...
-- [Language Detector API · Issue #3717 · web-platform-dx/web-features](https://github.com/web-platform-dx/web-features/issues/3717) *(github.com · 2026-01-23T16:21:35)* *(Cites: `https://webmachinelearning.github.io/translation-api/#language-detector-api`)*
-  > Language Detector API · Issue #3717 · web-platform-dx/web-features · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh...
-- [Intent to Extend Experiment: Translator API](https://groups.google.com/a/chromium.org/g/blink-dev/c/5DikAhbCv7M/m/BdQVdE6cAwAJ) *(groups.google.com)* *(Cites: `https://webmachinelearning.github.io/translation-api/#language-detector-api`)*
-  > Intent to Extend Experiment: Translator API Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Extend Experiment: Translator API 832 ...
-- [Proxify Translator API, for clients who have does not support this feature yet · Issue #548 · translate-tools/linguist](https://github.com/translate-tools/linguist/issues/548) *(github.com · 2025-06-25T16:24:30)* *(Cites: `https://webmachinelearning.github.io/translation-api/#language-detector-api`)*
-  > Issue · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your session. You signed out in another tab or window. Reloa...
-- [Chee Aun 🤔: "#PhanpySocial changelog ✨ 🎏 C…"](https://mastodon.social/@cheeaun/114149642985452634) *(mastodon.social · 2025-03-12T13:15:23)* *(Cites: `https://webmachinelearning.github.io/translation-api/#language-detector-api`)*
-  > Chee Aun 🤔: "#PhanpySocial changelog ✨ 🎏 Change profile heade…" - Mastodon To use the Mastodon web application, please enable JavaScript. Alternatively, try one of the native apps for Mastodon for your platform.
+- [Build a translation app with Chrome's Built-in Translation API in Angular - DEV Community](https://dev.to/railsstudent/build-a-translation-app-with-chrome-built-in-ai-in-angular-5636) *(dev.to · 2025-01-05T15:00:23)*
+  > The LanguageDetectionService service encapsulates the logic of the Language Detection API. The createDetector method creates a detector and stores it in a signal.
+- [langcodes · PyPI](https://pypi.org/project/langcodes) *(pypi.org)*
+  > &gt;&gt;&gt; all = Language.get(&#x27;zh&#x27;).writing_population() &gt;&gt;&gt; all 1240841517 &gt;&gt;&gt; traditional = Language.get(&#x27;zh-Hant&#x27;).writing_population() &gt;&gt;&gt; traditional 36863340 &gt;&gt;&gt; simplified = Language.ge...
+- [internationalization - What standard do language codes of the form "zh-Hans" belong to? - Stack Overflow](https://stackoverflow.com/questions/18902072/what-standard-do-language-codes-of-the-form-zh-hans-belong-to) *(stackoverflow.com)*
+  > For the lists of language tags, you need to check ISO 639-1 (for languages that have a two-letter code), ISO 639-3 (for languages that don&#x27;t have a two-letter code but only a three letter code) and then either the relevant country codes (e.g. fo...
+- [Intent to Ship: Language Detector API](https://groups.google.com/a/chromium.org/g/blink-dev/c/sWcHBe9wpbo/m/H8Xp7NXTCQAJ?hl=ja) *(groups.google.com)*
+  > dom...@chromium.org, fer...@chromium.org, kenji...@chromium.org, ay...@chromium.org, mem...@chromium.org, chris...@chromium.org, dbo...@chromium.org · https://github.com/WICG/translation-api/blob/main/README.md
+- [Distinguish zh-Hans vs zh-Hant \[40503166\]](https://issues.chromium.org/issues/40503166/blocking) *(issues.chromium.org)*
+  > Sign in
+- [⚓ T271000 Bad language code: zh\_Hans should be zh-Hans](https://phabricator.wikimedia.org/T271000) *(phabricator.wikimedia.org)*
+  > Notice that two Chinese text elements changed into four text elements. Notice there are duplicated ids trsvg8, trsvg9, trsvg18, and trsvg19. Notice there are equivalent systemLanguages: zh_Hant and zh_HANT; IETF langtags do not distinguish case.
+- [swift - Set language to Chinese Simplified (Zh-Hans) doesn't work on IOS9 - Stack Overflow](https://stackoverflow.com/questions/38733731/set-language-to-chinese-simplified-zh-hans-doesnt-work-on-ios9) *(stackoverflow.com)*
+  > So <strong>you can only use &quot;zh&quot; for this project instead of zh-Hans/zh-Hant</strong> , I manage to make it work if I am using &quot;zh&quot;
+- [RFC 5646 - Tags for Identifying Languages](https://datatracker.ietf.org/doc/html/rfc5646) *(datatracker.ietf.org)*
+  > This document describes the structure, content, construction, and semantics of language tags for use in cases where it is desirable to indicate the language used in an information object. It also describes how to register values for use in language t...
+- [zh-cn and zh-tw incorrectly used \[#923304\] \| Drupal.org](https://www.drupal.org/project/wysiwyg/issues/923304) *(drupal.org · 2020-02-06T07:45:03)*
+  > You can change it into : &#x27;zh-CN&#x27; =&gt; array(&#x27;Chinese (PRC) &#x27;, &#x27;中文(中国)&#x27;), &#x27;zh-TW&#x27; =&gt; array(&#x27;Chinese (Taiwan)&#x27;, &#x27;中文(台湾)&#x27;), &#x27;zh-HK&#x27; =&gt; array(&#x27;Chinese (Hong Kong, S.A.R. Ch...
+- [The User Guide and the Chinese language code - Feedback - Haiku Community](https://discuss.haiku-os.org/t/the-user-guide-and-the-chinese-language-code/15904) *(discuss.haiku-os.org · 2024-11-06T19:15:40)*
+  > I recently opened this ticket: #19216 (Change userguide language code for Chinese) – Haiku Please head over there to read it and the comment(s) and give feedback, if you’re savvy in that area. I think we can accommodate two Chinese user guide version...
+- [How to change WPML language slugs from zh-hans to zh and zh-hant to tw? - WPML](https://wpml.org/forums/topic/how-to-change-wpml-language-slugs-from-zh-hans-to-zh-and-zh-hant-to-tw) *(wpml.org · 2025-03-14T02:00:56)*
+  > Background of the issue: Our WordPress website uses WPML to support multiple languages. We want to change the language slugs from /zh-hans/ to /zh/ for
 
 ## 📚 Platform Documentation & Specifications
 
-- [translation-api/index.bs at main · webmachinelearning/translation-api](https://github.com/webmachinelearning/translation-api/blob/main/index.bs) *(github.com)*
-- [Language Detector API · Issue #3717 · web-platform-dx/web-features](https://github.com/web-platform-dx/web-features/issues/3717) *(github.com)*
-- [Proxify Translator API, for clients who have does not support this feature yet · Issue #548 · translate-tools/linguist](https://github.com/translate-tools/linguist/issues/548) *(github.com)*
-- [Styling using language attributes](https://www.w3.org/International/questions/qa-css-lang/1000) *(w3.org)*
-- [Language tags in HTML and XML](https://www.w3.org/International/articles/language-tags) *(w3.org)*
-- [使用语言属性设置样式](https://www.w3.org/International/questions/qa-css-lang.zh-hans.html) *(w3.org)*
-- [Attribute selectors - CSS - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/Attribute_selectors) *(developer.mozilla.org)*
-- [\[LanguageDetector API\] Feedback for the LanguageDetector API developer preview in Microsoft Edge · Issue #1274 · MicrosoftEdge/MSEdgeExplainers](https://github.com/MicrosoftEdge/MSEdgeExplainers/issues/1274) *(github.com)*
-- [LanguageDetector](https://developer.mozilla.org/en-US/docs/Web/API/LanguageDetector) *(developer.mozilla.org)*
+- [Understanding the New Language Tags](https://www.w3.org/International/articles/bcp47) *(w3.org)*
 - [LanguageDetector: availability() static method](https://developer.mozilla.org/en-US/docs/Web/API/LanguageDetector/availability_static) *(developer.mozilla.org)*
 - [LanguageDetector: detect() method](https://developer.mozilla.org/en-US/docs/Web/API/LanguageDetector/detect) *(developer.mozilla.org)*
 
@@ -86,7 +71,7 @@ The following external publications and discussions explicitly link to or cite t
 
 ### Searches Executed
 
-- **Brave Search:** 38 result(s) found across 7 planned queries — **24 verified relevant**
+- **Brave Search:** 61 result(s) found across 12 planned queries — **14 verified relevant**
   - `"chromestatus.com/feature/5138651886518272" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
   - `"webmachinelearning.github.io/translation-api" -site:webmachinelearning.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (5 returned)
   - `"LanguageDetector support for Traditional vs. Simplified Chinese" API` — *Core feature API query* (2 returned)
@@ -94,14 +79,19 @@ The following external publications and discussions explicitly link to or cite t
   - `"zh-hant" OR "zh-hans" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"LanguageDetector support for Traditional vs. Simplified Chinese" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"LanguageDetector support for Traditional vs. Simplified Chinese" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
+  - `"LanguageDetector" OR "translation-api" "zh-Hant" "zh-Hans" tutorial OR guide` — *Searches for developer tutorials and guides explaining how to handle Traditional and Simplified Chinese with the web LanguageDetector API.* (8 returned)
+  - `"translation.createDetector" OR "LanguageDetector" ("zh-Hant" OR "zh-Hans") code example javascript` — *Finds JavaScript code snippets and implementation examples demonstrating detection of specific Chinese scripts.* (8 returned)
+  - `Chrome "LanguageDetector" "zh-Hant" OR "zh-Hans" PSA OR intent to ship OR announcement` — *Locates browser vendor announcements, release notes, and developer PSAs announcing the deprecation of generic 'zh' in favor of 'zh-Hant' and 'zh-Hans'.* (2 returned)
+  - `"LanguageDetector" ("zh-Hans" OR "zh-Hant") site:github.com/webmachinelearning/translation-api/issues OR site:issues.chromium.org` — *Surfaces specification discussions, developer bug reports, and feedback concerning Chinese language subtags in the translation API tracker.* (1 returned)
+  - `"LanguageDetector" "detectedLanguage" ("zh-Hans" OR "zh-Hant") breaking change OR PSA` — *Discovers developer reactions and ecosystem notices about the developer-visible return value change from 'zh' to subtags.* (8 returned)
 - **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 0 result(s) found — **1 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 2 result(s) found — **0 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
-- **NPM Registry:** 5 result(s) found — **0 verified relevant**
+- **NPM Registry:** 5 result(s) found — **2 verified relevant**
 - **Web Platform Tests (wpt.fyi):** 1 item(s) inspected
 
 ### Content Inspected

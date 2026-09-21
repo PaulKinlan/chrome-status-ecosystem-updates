@@ -1,6 +1,6 @@
 # Connection Allowlists
 
-> **Report Week:** 2026-W38 | **Milestone:** Chrome 152 | **Category:** Enabled by default
+> **Report Week:** 2026-W39 | **Milestone:** Chrome 152 | **Category:** Enabled by default
 
 ## Overview
 
@@ -20,7 +20,7 @@ Connection-Allowlist: (response-origin "https://cdn.example" "https://*.example.
 
 ## Ecosystem Status
 
-- **Momentum:** High (285 points)
+- **Momentum:** High (486 points)
 - **Standards Alignment:** Partial Multi-Engine Interest
 - **Sentiment:** Neutral
 - **Executive Take:** Connection Allowlists is currently Enabled by default in Chrome 152. Verified ecosystem momentum is High with Partial Multi-Engine Interest standards alignment and neutral developer pulse.
@@ -43,28 +43,62 @@ Connection-Allowlist: (response-origin "https://cdn.example" "https://*.example.
 - 💬 **Hacker News:** [Show HN: Agent-fetch – Sandboxed HTTP client with SSRF protection for AI agents](https://news.ycombinator.com/item?id=46931359) — *1 pts, 0 comments*
 - 💬 **Hacker News:** [Show HN: CargoWall – eBPF Firewall for GitHub Actions](https://news.ycombinator.com/item?id=47588383) — *14 pts, 2 comments*
 - 💬 **Hacker News:** [Show HN: Buildcage – Egress filtering for Docker builds (SNI-based, no MitM)](https://news.ycombinator.com/item?id=47297739) — *2 pts, 0 comments*
+- 🐦 **Twitter / X:** [Traditional web security features like CSP were not built to protect against exfiltration risks that have taken become a](https://twitter.com/salchoman/status/2100601438413934993) — *by @salchoman, 0 likes/RTs, 0 replies*
+- 🐦 **Twitter / X:** [Chrome 152 introduces Connection Allowlists for web security → https://t.co/buWu0ee3IT  If your site uses federated auth](https://twitter.com/ChromiumDev/status/2100266831743213727) — *by @ChromiumDev, 62 likes/RTs, 1 replies*
+- 🐦 **Twitter / X:** [許可されたURLパターン以外へのあらゆる送信通信をブラウザのネットワーク層で一括遮断する "Connection Allowlists" がChrome 152より利用可能になりました。](https://twitter.com/agektmr/status/2100191946233049365) — *by @agektmr, 69 likes/RTs, 0 replies*
 - 🐦 **Twitter / X:** [雑u Bot on X: "Chromeの新しいセキュリティ機能 Connection Allowlists について https://t.co/hENNUs8Evu" / X](https://x.com/matsuu_zatsu/status/1988945701506539734) — *by @matsuu_zatsu, 0 likes/RTs, 0 replies*
+- 🐦 **Twitter / X:** [Twitter](https://twitter.com/ConnectionChain) — *0 likes/RTs, 0 replies*
 
 ## 📰 Ecosystem Blogs & Articles
 
+- [Show HN: Agent-fetch – Sandboxed HTTP client with SSRF protection for AI agents](https://github.com/Parassharmaa/agent-fetch) *(github.com · 2026-02-08T04:38:40Z)*
+  > GitHub - Parassharmaa/agent-fetch: Sandboxed HTTP client with SSRF protection for AI agents. Prevents DNS rebinding, blocks private IPs, and validates every connection — available as a Rust crate and npm package. · GitHub Skip to content Navigation M...
+- [Show HN: CargoWall – eBPF Firewall for GitHub Actions](https://github.com/code-cargo/cargowall-action) *(github.com · 2026-03-31T15:02:39Z)*
+  > GitHub - code-cargo/cargowall-action: CargoWall Action to secure your GitHub Workflows · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload ...
+- [Show HN: Buildcage – Egress filtering for Docker builds (SNI-based, no MitM)](https://github.com/dash14/buildcage) *(github.com · 2026-03-08T14:43:32Z)*
+  > GitHub - buildcage/docker: GitHub Action to build Docker images with outbound network access restricted to an allowlist · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in wi...
+- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHEBCbSQiF9ZpYKbGPi-30UscCQMpAOazCpx_q70f2WYdtRVY6PJboaIAwTUKquNMIYYV_wwhAG49CZ99u-K7xbHWwWxbZgIHsJPZ8MmdZLtC4_KWcoUkrmfux4Ip50g6SVhdx6fT8P) *(vertexaisearch.cloud.google.com)*
+  > Chrome Platform Status
+- [report-uri.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF9_pVsPgwj_wi-TvAOB-Lyc7Z1mHEPjVk-m4dsW2O4QsNhFdIwpo3zY7DkRhUq9soJdafUxiObf_KNmcAiPLJnGqp3hXgEbKwi4NRTivAUCqDP61t3_BsaC9bh-2BggNelvkRnqljkb4IKinMifXUAVQxYjZSl2Br9BMMLpKsXDSLwWaN8fxn86F4=) *(vertexaisearch.cloud.google.com)*
+  > Connection Allowlist: an egress firewall for the browser Sign in Subscribe Connection Allowlist: an egress firewall for the browser Connection Allowlist Scott Helme 01 Sep 2026 — 3 min read Until now, malicious code running in a browser has had sever...
+- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFIN6aihfBr622LYDEKhKutKfrUg6boL12WyTNQhfs6SQKQ8QBvnyOJTHPD-X4JDkJbByHB_NXBAEGIphSEus9Tr-LQVElOWezUbyRtbv6yh9S9_dea5zR2pcRWoRnjuEI7F6U=) *(vertexaisearch.cloud.google.com)*
+  > GitHub - WICG/connection-allowlists · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your session. You signed out in another ...
+- [medium.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHqhb01OIwWO-1FEqa4sdNGy40DIqbwzL2u8KdC-YCnVO86ALqmm8ZwkJSlkYLb6CNwzCqiuNI-uKbjHkHxpOowlOZNEYg4yq1NVE-i5YiyqRF9FeAQw7TXCXs1Yqj9p8IFMmkh-7ZLeC_aWbBjETgLtvM1P2GRHUNoS5m3tGQu6nUK1VKe) *(vertexaisearch.cloud.google.com)*
+  > Medium Web Apps Need Network Sandboxes. Chrome’s Connection Allowlists origin… | by Roman Fedytskyi | Medium Sitemap Open in app Sign up Sign in Get app Write Search Sign up Sign in Roman Fedytskyi Engineer and product thinker with 10+ years in finte...
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGlp2gqTcWY3N7Zzs62L8xLaYZsazp1EdjrlSjYO5mHdvhuqeQBm5IN-FEPz111rfMg0kP6UDLc2lbKsor8i8OlmczwQzRvxwti7G9uYbFDaG9VT6CVmLE5ll2RIQ1zzVsiw-FAt0ned7OUSKgTPS3raNM9IybKbTmcFQ==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of "Connection Allowlists"  **Connection Allowlists** is a Web Platform security mechanism (incubated within the WICG and spearheaded by Chromium contributors) designed to act as an **in-browser egress firewall**. Unlike Content Security
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFAA0E0xgyI9iZJcWCzmVxHiGR7DByirpBBV9xcFSIaQUTbvLbJ8W-eCdLrXCtwglaP88_JevcQ179wT5DiV3DOx2XRqKvDTh2y2SrKUBY8qRmsWtlX-rk9O48x9aUcYbMBScsWo4M5SDdQgzMC7ZiXyA4=) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of "Connection Allowlists"  **Connection Allowlists** is a Web Platform security mechanism (incubated within the WICG and spearheaded by Chromium contributors) designed to act as an **in-browser egress firewall**. Unlike Content Security
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsh0xXMCZgOd6Oum0Boew28-mGCfke4wmbFyqtk2DNrT7RbaQLAyM_yWTiDTEfmmuTADRO6s1sveYMLHXEVFCuJ2ABjxF8oINsMjkqwtF_cE2o5Ra_GK4Gj2-44tw3BGDaXJffdP5iSIM=) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of "Connection Allowlists"  **Connection Allowlists** is a Web Platform security mechanism (incubated within the WICG and spearheaded by Chromium contributors) designed to act as an **in-browser egress firewall**. Unlike Content Security
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpJ638ZDJIIQBk6O-wVf-vfqDdcStHrP6XCCaCld7Dz8v9iOUCnPcrbnLjMyIdIup51jNhdxyyWRej81Gnev9fdKck_h5QeX3erm8I6sF6PXSzYZI8vIgN6Joza23JmCydSwxh) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of "Connection Allowlists"  **Connection Allowlists** is a Web Platform security mechanism (incubated within the WICG and spearheaded by Chromium contributors) designed to act as an **in-browser egress firewall**. Unlike Content Security
+- [scotthelme.co.uk](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrDtDLberkVo9AiTXH3xAOAfXJbiTcdIRb0h9BPD87Fk6U8Fwgou-cuGMXfX-g_MjSs2P7n7QzElC6STgxOZJ-5QeTtIsUfyXae5eNwEyGj2EYluMBIlBN8PJaFtHrTzbioSi7U7QJN857BSZ9Cdy0I_tr-V8vUfsEFUAYLOVmZ259f9Iqmfv2SlmsRdK4) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of "Connection Allowlists"  **Connection Allowlists** is a Web Platform security mechanism (incubated within the WICG and spearheaded by Chromium contributors) designed to act as an **in-browser egress firewall**. Unlike Content Security
+- [centralcsp.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGVQ0zAHBAAcqGhJ0XgwQN49y_MYykNsCNn2zLCNJxeAB8iHFGXKbFd3esTjgVcH58_T_tDrcLjCLhx1yo2ODGNccdxA_i5mltNS2UzItCJLtowxOrkaOUfjmd9ieMKoHycCEheylVr5POvDOrMKEYYZPNtDOfFQrnB16cjdrXJL5ZYHw4X7Z3k-VbK-w==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of "Connection Allowlists"  **Connection Allowlists** is a Web Platform security mechanism (incubated within the WICG and spearheaded by Chromium contributors) designed to act as an **in-browser egress firewall**. Unlike Content Security
+- [timjohns.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE1aZcz5VtSJCa6h9tRqxg5Vg_Cd340IT6Gm_2fSGApmF4JaWmQye0an0qiG5BfLQIuSVFjnay1ZZ24lOhm98w-JLqgJd7BnUNvApSzaLwIeEbbbx6O_vB5yK8lDrjWT1fdyiJdvA==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of "Connection Allowlists"  **Connection Allowlists** is a Web Platform security mechanism (incubated within the WICG and spearheaded by Chromium contributors) designed to act as an **in-browser egress firewall**. Unlike Content Security
+- [google.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEipI3PbXy6Fu_Vh-SAtTWJH7wLMTB0KVIhOsWVH_RQ_6e1Ec8lSfhCuKTH8YfmE6sOlUYdZwcnBDEM158VuUhQRaAWjFsx0M3zrWpbAqXGsXTDx6wKF6x1N5nXwYBxi3Te2Br2yfHBYDRqTwGTj_5jYHrcGqTDuvE=) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of "Connection Allowlists"  **Connection Allowlists** is a Web Platform security mechanism (incubated within the WICG and spearheaded by Chromium contributors) designed to act as an **in-browser egress firewall**. Unlike Content Security
+- [chromium.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFKZNTiRUVbmi45dxxNp-MCXQGENjQLZXiSGRyAsq39t-T5aWUe9mIzYExgjMJEn6n4KXDKhm3BDAaMkg1Wp3W0r0pOkYhVagKapGHKfCYdfI10C-z1iHhnJvvgPFgNzoA0xw==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of "Connection Allowlists"  **Connection Allowlists** is a Web Platform security mechanism (incubated within the WICG and spearheaded by Chromium contributors) designed to act as an **in-browser egress firewall**. Unlike Content Security
 - [Re: \[blink-dev\] Re: Intent to Ship: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16949.html) *(mail-archive.com)*
-  > Re: [blink-dev] Re: Intent to Ship: Connection Allowlists Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: Connection Allowlists Noam Rosenthal Wed, 08 Jul 2026 11:56:52 -0700 On Wed, Jul 8, 2026 at 7:10 PM Morgaine (de la fa...
+  > Prior to the establishment &gt;&gt; of any connection by the user agent on behalf of a page, the agent will &gt;&gt; evaluate the destination against this allowlist; connections to verified &gt;&gt; endpoints will be permitted, while those failing to...
 - [Connection Allowlists: Consider splitting exfiltration mitigation out of CSP. \[447954811\] - Chromium](https://issues.chromium.org/issues/447954811) *(issues.chromium.org)*
-  > Chromium Sign in
+  > Explainer: https://github.com/WICG/connection-allowlists This CL is the second one in the series that <strong>implements the functionality of Connection Allowlist prototype in the content/browser and network service layers</strong>. This one does the...
+- [Re: \[blink-dev\] Re: Intent to Experiment: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16085.html) *(mail-archive.com)*
+  > Prior to the establishment &gt;&gt;&gt; of any connection by the user agent on behalf of a page, the agent will &gt;&gt;&gt; evaluate the destination against this allowlist; connections to verified &gt;&gt;&gt; endpoints will be permitted, while thos...
 - [\[blink-dev\] Intent to Prototype: Connection Allowlists Embedded Enforcement](http://www.mail-archive.com/blink-dev@chromium.org/msg16801.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Prototype: Connection Allowlists Embedded Enforcement Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Connection Allowlists Embedded Enforcement 'Brandon Maslen' via blink-dev Wed, 17 Jun 2026 10:53:14 -07...
+  > Embedded enforcement spec changes: ... Connection Allowlists is <strong>a feature designed to provide explicit control over external endpoints by restricting connections initiated via the Fetch API or other web platform APIs from a document or worker...
 - [\[blink-dev\] Re: Intent to Ship: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16946.html) *(mail-archive.com)*
-  > [blink-dev] Re: Intent to Ship: Connection Allowlists Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: Connection Allowlists Morgaine (de la faye) Wed, 08 Jul 2026 11:10:09 -0700 I take it there are no affordances for Bookmarklet...
+  > Prior to the establishment &gt; of any connection by the user agent on behalf of a page, the agent will &gt; evaluate the destination against this allowlist; connections to verified &gt; endpoints will be permitted, while those failing to match the e...
 - [\[blink-dev\] Re: Intent to Experiment: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg15987.html) *(mail-archive.com)*
   > &gt; *Contact emails* &gt; [email protected], ... &gt; Connection Allowlists is <strong>a feature designed to provide explicit control &gt; over external endpoints by restricting connections initiated via the Fetch &gt; API or other web platform APIs...
-- [Re: \[blink-dev\] Intent to Ship: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16912.html) *(mail-archive.com)*
-  > &gt; LGTM2 &gt; &gt; On Fri, Jun 26, 2026 ... Connection Allowlists is <strong>a feature designed to provide explicit control &gt;&gt; over external endpoints by restricting connections initiated via the Fetch &gt;&gt; API or other web platform APIs ...
-- [Re: \[blink-dev\] Re: Intent to Experiment: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16085.html) *(mail-archive.com)*
-  > &gt;&gt; &gt;&gt; On 3/3/26 7:19 p.m., Shivani ... Connection Allowlists is <strong>a feature designed to provide explicit control &gt;&gt;&gt; over external endpoints by restricting connections initiated via the Fetch &gt;&gt;&gt; API or other web p...
-- [\[blink-dev\] Intent to Experiment: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg15986.html) *(mail-archive.com)*
-  > Explainer https://github.com/W... Connection Allowlists is <strong>a feature designed to provide explicit control over external endpoints by restricting connections initiated via the Fetch API or other web platform APIs from a document or worker</str...
-- [\[blink-dev\] Intent to Ship: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16875.html) *(mail-archive.com)*
-  > Explainer https://github.com/W... Connection Allowlists is <strong>a feature designed to provide explicit control over external endpoints by restricting connections initiated via the Fetch API or other web platform APIs from a document or worker</str...
+- [\[dev-platform\] Re: Intent to prototype: Connection Allowlists](http://www.mail-archive.com/dev-platform@mozilla.org/msg01899.html) *(mail-archive.com)*
+  > On Friday, September 18, 2026 at ... Connection-Allowlist header <strong>allows web developers to limit the servers &gt; a website can communicate with</strong>. This can be used to prevent data &gt; exfiltration attacks. &gt; &gt; Bug: Bug 2062159 &...
+- [\[blink-dev\] Intent to Experiment: Connection Allowlists Embedded Enforcement](http://www.mail-archive.com/blink-dev@chromium.org/msg17485.html) *(mail-archive.com)*
+  > [email protected]&lt;mailto:[email ....com/chromium/src/+/main/docs/connection_allowlist_design.md Summary Connection Allowlists <strong>restrict the endpoints a document or worker may connect to</strong>....
 - [Tim Johns - Blog: Connection Allowlists](https://timjohns.com/blog/connection-allowlists) *(timjohns.com · 2026-05-24T15:00:00)*
   > Connection Allowlists is <strong>a feature designed to provide explicit control over external endpoints by restricting connections initiated using the Fetch API or other web platform APIs from a document or worker</strong>.
 - [Connection Allowlists origin trial: Secure your web application's network \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/connection-allowlists-origin-trial) *(developer.chrome.com · 2026-04-16T00:00:00)*
@@ -77,66 +111,70 @@ Connection-Allowlist: (response-origin "https://cdn.example" "https://*.example.
   > Line 2876, Patchset 11: // connection allowlist: check whether navigation to the url is allowed.
 - [Chromeの新しいセキュリティ機能 Connection Allowlists について - ASnoKaze blog](https://asnokaze.hatenablog.com/entry/2025/11/10/002835) *(asnokaze.hatenablog.com · 2025-11-10T00:00:00)*
   > Connection-Allowlistヘッダで通信可能なURLリストを指定する ... CSPよりも単純な構文で、外部サイトと通信を制限できるようにします。これによってユーザデータが外部に漏れることを制限します。防御としては万能なわけではなく、著者としても意図的にスコープを絞っていると述べています。 · またReporting API用のReport-Onlyも定義されています
+- [What PWA Can Do Today](https://whatpwacando.today) *(whatpwacando.today)*
+  > The NetworkInformation API provides information about the connection of a device, allowing web apps to adapt functionality based on network quality. ... Speech synthesis provides text-to-speech and allows programs to read out their text content. ... ...
 - [Connection Allowlist: a network firewall, built into the browser](https://scotthelme.co.uk/connection-allowlist-a-network-firewall-built-into-the-browser) *(scotthelme.co.uk · 2026-07-08T16:11:31)*
-  > This post covers how the mechanism works, how it differs from CSP, and the shape of the reports. Before any outbound connection is established, the browser checks the destination against the allowlist. If it doesn&#x27;t match, the connection is bloc...
-- [Web Apps Need Network Sandboxes. Chrome’s Connection Allowlists origin… \| by Roman Fedytskyi \| Medium](https://medium.com/@roman_fedyskyi/web-apps-need-network-sandboxes-1997eb7e4440) *(medium.com · 2026-04-20T17:26:04)*
-  > That includes obvious paths such as `fetch()` and WebSocket connections. The proposal also aims at a broader set of explicit web platform connections, including redirects, DNS prefetch, WebTransport, and WebRTC handling. For the origin trial, teams s...
-- [r/salesforce on Reddit: Hyperforce allowlist / whitelist by domain](https://www.reddit.com/r/salesforce/comments/1gsxax2/hyperforce_allowlist_whitelist_by_domain) *(reddit.com · 2024-11-16T21:19:50)*
-  > This is the article I referenced that says allowing by domain appears to be only for inbound connections https://help.salesforce.com/s/articleView?id=000394078&amp;type=1
+  > Connection Allowlist is <strong>a new browser security mechanism that lets a document declare, up front, the exact set of destinations it&#x27;s permitted to open network connections to</strong>. Anything not on the list is blocked by the browser bef...
+- [\[blink-dev\] Intent to Ship: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16875.html) *(mail-archive.com)*
+  > Example: Connection-Allowlist: (response-origin &quot;https://cdn.example&quot; &quot;https://*.example.:tld&quot; \ &quot;https://api.example:*&quot;); report-to=ReportingAPIEndpoint Initial public proposal https://github.com/WICG/proposals/issues/2...
+- [\[dev-platform\] Intent to prototype: Connection Allowlists](http://www.mail-archive.com/dev-platform@mozilla.org/msg01898.html) *(mail-archive.com)*
+  > Summary: The Connection-Allowlist header <strong>allows web developers to limit the servers a website can communicate with</strong>. This can be used to prevent data exfiltration attacks · Bug: Bug 2062159 &lt;https://bugzilla.mozilla.org/show_bug.cg...
+- [Re: \[blink-dev\] Intent to Ship: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16890.html) *(mail-archive.com)*
+  > *Chromium Trial Name* ConnectionAllowlist *Origin Trial documentation link* https://developer.chrome.com/blog/connection-allowlists-origin-trial *WebFeature UseCounter name* kConnectionAllowlist *Risks* *Interoperability and Compatibility* This is a ...
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
+- [Add \`local.adguard.org\` to \`Connection Allowlists\` response header automatically · Issue #2096 · AdguardTeam/CoreLibs](https://github.com/AdguardTeam/CoreLibs/issues/2096) *(github.com · 2026-08-23T18:15:32)* *(Cites: `https://chromestatus.com/feature/5175745573945344`)*
+  > Chrome added the <strong>Connection-Allowlist response header</strong> - https://chromestatus.com/feature/5175745573945344 As far as I understand, it works similarly to Content Security Policy - https://github.com/WICG/connection-allowlists...
 - [Re: \[blink-dev\] Re: Intent to Ship: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16949.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/connection-allowlists`)*
-  > Re: [blink-dev] Re: Intent to Ship: Connection Allowlists Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: Connection Allowlists Noam Rosenthal Wed, 08 Jul 2026 11:56:52 -0700 On Wed, Jul 8, 2026 at 7:10 PM Morgaine...
+  > Prior to the establishment &gt;&gt; of any connection by the user agent on behalf of a page, the agent will &gt;&gt; evaluate the destination against this allowlist; connections to verified &gt;&gt; endpoints will be permitted, while those ...
 - [Connection Allowlists: Consider splitting exfiltration mitigation out of CSP. \[447954811\] - Chromium](https://issues.chromium.org/issues/447954811) *(issues.chromium.org)* *(Cites: `https://github.com/WICG/connection-allowlists`)*
-  > Chromium Sign in
+  > Explainer: https://github.com/WICG/connection-allowlists This CL is the second one in the series that <strong>implements the functionality of Connection Allowlist prototype in the content/browser and network service layers</strong>. This on...
+- [Re: \[blink-dev\] Re: Intent to Experiment: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16085.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/connection-allowlists`)*
+  > Prior to the establishment &gt;&gt;&gt; of any connection by the user agent on behalf of a page, the agent will &gt;&gt;&gt; evaluate the destination against this allowlist; connections to verified &gt;&gt;&gt; endpoints will be permitted, ...
 - [\[blink-dev\] Intent to Prototype: Connection Allowlists Embedded Enforcement](http://www.mail-archive.com/blink-dev@chromium.org/msg16801.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/connection-allowlists`)*
-  > [blink-dev] Intent to Prototype: Connection Allowlists Embedded Enforcement Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Connection Allowlists Embedded Enforcement 'Brandon Maslen' via blink-dev Wed, 17 Jun 2026 10...
+  > Embedded enforcement spec changes: ... Connection Allowlists is <strong>a feature designed to provide explicit control over external endpoints by restricting connections initiated via the Fetch API or other web platform APIs from a document...
 - [\[blink-dev\] Re: Intent to Ship: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16946.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/connection-allowlists`)*
-  > [blink-dev] Re: Intent to Ship: Connection Allowlists Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: Connection Allowlists Morgaine (de la faye) Wed, 08 Jul 2026 11:10:09 -0700 I take it there are no affordances for B...
+  > Prior to the establishment &gt; of any connection by the user agent on behalf of a page, the agent will &gt; evaluate the destination against this allowlist; connections to verified &gt; endpoints will be permitted, while those failing to m...
 - [\[blink-dev\] Re: Intent to Experiment: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg15987.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/connection-allowlists`)*
   > &gt; *Contact emails* &gt; [email protected], ... &gt; Connection Allowlists is <strong>a feature designed to provide explicit control &gt; over external endpoints by restricting connections initiated via the Fetch &gt; API or other web pla...
-- [Re: \[blink-dev\] Intent to Ship: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16912.html) *(mail-archive.com)* *(Cites: `https://wicg.github.io/connection-allowlists`)*
-  > &gt; LGTM2 &gt; &gt; On Fri, Jun 26, 2026 ... Connection Allowlists is <strong>a feature designed to provide explicit control &gt;&gt; over external endpoints by restricting connections initiated via the Fetch &gt;&gt; API or other web plat...
-- [Re: \[blink-dev\] Re: Intent to Experiment: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16085.html) *(mail-archive.com)* *(Cites: `https://wicg.github.io/connection-allowlists`)*
-  > &gt;&gt; &gt;&gt; On 3/3/26 7:19 p.m., Shivani ... Connection Allowlists is <strong>a feature designed to provide explicit control &gt;&gt;&gt; over external endpoints by restricting connections initiated via the Fetch &gt;&gt;&gt; API or o...
-- [\[blink-dev\] Intent to Experiment: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg15986.html) *(mail-archive.com)* *(Cites: `https://wicg.github.io/connection-allowlists`)*
-  > Explainer https://github.com/W... Connection Allowlists is <strong>a feature designed to provide explicit control over external endpoints by restricting connections initiated via the Fetch API or other web platform APIs from a document or w...
-- [\[blink-dev\] Intent to Ship: Connection Allowlists](http://www.mail-archive.com/blink-dev@chromium.org/msg16875.html) *(mail-archive.com)* *(Cites: `https://wicg.github.io/connection-allowlists`)*
-  > Explainer https://github.com/W... Connection Allowlists is <strong>a feature designed to provide explicit control over external endpoints by restricting connections initiated via the Fetch API or other web platform APIs from a document or w...
+- [\[dev-platform\] Re: Intent to prototype: Connection Allowlists](http://www.mail-archive.com/dev-platform@mozilla.org/msg01899.html) *(mail-archive.com)* *(Cites: `https://wicg.github.io/connection-allowlists`)*
+  > On Friday, September 18, 2026 at ... Connection-Allowlist header <strong>allows web developers to limit the servers &gt; a website can communicate with</strong>. This can be used to prevent data &gt; exfiltration attacks. &gt; &gt; Bug: Bug...
+- [\[blink-dev\] Intent to Experiment: Connection Allowlists Embedded Enforcement](http://www.mail-archive.com/blink-dev@chromium.org/msg17485.html) *(mail-archive.com)* *(Cites: `https://wicg.github.io/connection-allowlists`)*
+  > [email protected]&lt;mailto:[email ....com/chromium/src/+/main/docs/connection_allowlist_design.md Summary Connection Allowlists <strong>restrict the endpoints a document or worker may connect to</strong>....
 
 ## 📚 Platform Documentation & Specifications
 
-- [RTCPeerConnection: RTCPeerConnection() constructor](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection) *(developer.mozilla.org)*
-- [RTCPeerConnection: connectionState property](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/connectionState) *(developer.mozilla.org)*
-- [RTCPeerConnection](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection) *(developer.mozilla.org)*
+- [Add \`local.adguard.org\` to \`Connection Allowlists\` response header automatically · Issue #2096 · AdguardTeam/CoreLibs](https://github.com/AdguardTeam/CoreLibs/issues/2096) *(github.com)*
+- [GitHub - krispo/git-edit: Edit HTML web pages in browser and commit the changes to Github immediately.](https://github.com/krispo/git-edit) *(github.com)*
+- [Browser pairing, CORS allowlists and authenticated SSE · Issue #25 · dflippojr/agent-harness](https://github.com/dflippojr/agent-harness/issues/25) *(github.com)*
+- [Content-Security-Policy (CSP) header - HTTP - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy) *(developer.mozilla.org)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 52 result(s) found across 13 planned queries — **18 verified relevant**
-  - `"chromestatus.com/feature/5175745573945344" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
-  - `"github.com/WICG/connection-allowlists" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (5 returned)
-  - `"wicg.github.io/connection-allowlists" -site:wicg.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (7 returned)
+- **Brave Search:** 54 result(s) found across 12 planned queries — **23 verified relevant**
+  - `"chromestatus.com/feature/5175745573945344" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
+  - `"github.com/WICG/connection-allowlists" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (6 returned)
+  - `"wicg.github.io/connection-allowlists" -site:wicg.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (3 returned)
   - `"Connection Allowlists" API` — *Core feature API query* (7 returned)
   - `"Connection Allowlists" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"connection-allowlist" OR "github.com" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Connection Allowlists" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"Connection Allowlists" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (5 returned)
-  - `"Connection-Allowlist" header (tutorial OR guide OR "connect-src" OR CSP)` — *Finds developer-oriented articles and security guides explaining Connection Allowlists as a modern, simplified alternative to CSP connect-src.* (3 returned)
-  - `"Connection-Allowlist:" (response-origin OR report-to OR "fetch") example` — *Locates concrete HTTP response header examples, syntax definitions, and configuration snippets for Connection Allowlists.* (8 returned)
-  - `"Connection Allowlists" site:github.com/mozilla/standards-positions OR site:github.com/WebKit/standards-positions` — *Checks vendor consensus, official standards positions, and feedback from Mozilla and WebKit engineers on the proposal.* (0 returned)
-  - `"Connection-Allowlist" OR "Connection Allowlists" (site:news.ycombinator.com OR site:reddit.com OR "Intent to Prototype")` — *Surfaces community reactions, early developer sentiment, and Chromium Intent to Prototype/Ship announcements.* (8 returned)
-  - `"Connection Allowlists" ("data exfiltration" OR "Content Security Policy") (WICG OR Chromium)` — *Finds technical analysis and design discussions regarding using Connection Allowlists for mitigating data exfiltration attacks.* (0 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
-- **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 6 result(s) found — **0 verified relevant**
+  - `"Connection-Allowlist" header (guide OR explainer OR "data exfiltration")` — *Finds developer-oriented articles, guides, and explainers detailing how to use the Connection-Allowlist header to prevent data exfiltration.* (5 returned)
+  - `"Connection-Allowlist:" ("response-origin" OR "report-to")` — *Locates concrete HTTP header syntax definitions, Structured Fields usage, and configuration code examples.* (6 returned)
+  - `"Connection Allowlists" OR "Connection-Allowlist" ("Intent to Prototype" OR chromestatus OR "standards-positions")` — *Tracks browser vendor signals, Chrome Intent announcements, WebKit/Mozilla standards positions, and platform rollout status.* (8 returned)
+  - `"Connection-Allowlist" ("connect-src" OR CSP OR "Content Security Policy") (Hacker News OR Reddit OR discussion)` — *Surfaces developer reactions, debates, and community critiques comparing Connection Allowlists to existing CSP connect-src directives.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 13 result(s) found — **13 verified relevant**
+- **Twitter / X API v2:** *found 4 tweet(s)*
+- **Dev.to Community Blogs:** 4 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 4 result(s) found — **3 verified relevant**
 - **Standards Positions:** 3 result(s) found — **3 verified relevant**
-- **Engine Bug Trackers:** 3 result(s) found — **3 verified relevant**
+- **Engine Bug Trackers:** 5 result(s) found — **5 verified relevant**
 - **Baseline (baseline.dev):** *limited*
 - **NPM Registry:** 5 result(s) found — **0 verified relevant**
 - **Web Platform Tests (wpt.fyi):** 256 item(s) inspected

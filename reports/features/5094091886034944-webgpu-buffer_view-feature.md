@@ -1,6 +1,6 @@
 # WebGPU: \`buffer\_view\` feature
 
-> **Report Week:** 2026-W38 | **Milestone:** Chrome 153 | **Category:** Enabled by default
+> **Report Week:** 2026-W39 | **Milestone:** Chrome 153 | **Category:** Enabled by default
 
 ## Overview
 
@@ -14,37 +14,29 @@ For ease-of-use and safety, the opaque type can only be operated on by new built
 
 ## Ecosystem Status
 
-- **Momentum:** High (100 points)
+- **Momentum:** Moderate (75 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Cautiously Optimistic
-- **Executive Take:** The WebGPU \`buffer\_view\` feature is a W3C WGSL language extension that introduces an opaque \`buffer\` type and \`buffer\_view\` built-in function, enabling safe type-punning and logical subdivision of uniform, storage, and workgroup buffers. Formally merged into the WGSL specification in July 2026 (PR #6291), it shipped enabled by default in Chrome 153 and Edge 153. While it has strong working group consensus, cross-browser availability is currently limited as Gecko and WebKit have not yet shipped native engine implementations.
+- **Executive Take:** The \`buffer\_view\` WGSL feature introduces native type-punning and memory subdivision by providing an opaque \`buffer\` type and built-in functions to reinterpret storage, uniform, and workgroup memory without manual byte indexing. Enabled by default starting in Chrome 153, it substantially improves ergonomics for complex GPU workloads, bindless patterns, and compute shaders. However, the feature currently lacks cross-engine parity, as neither Firefox nor Safari has shipped support in stable releases.
 
 ### Recommendations
-- Actionable Advice: Teams building advanced WebGPU pipelines should guard use of \`requires buffer\_view;\` behind runtime feature detection via the device's WGSL language feature queries. Projects targeting multi-engine production should retain existing struct bitcast or multi-buffer fallback paths until Safari and Firefox roll out matching support.
+- Actionable Advice: Teams should treat \`buffer\_view\` as a progressive enhancement by guarding shaders with \`requires buffer\_view;\` and checking runtime support via \`navigator.gpu.wgslLanguageFeatures.has('buffer\_view')\`. For multi-browser production deployments, retain traditional struct layouts or manual typed-array offsets as fallbacks until WebKit and Gecko support the language extension.
 - Shipping enabled by default in Chrome 153. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @mwyrzykowski: "Duplicate of https://github.com/WebKit/standards-positions/issues/107 per earlier discussion..."
+- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-
-## Standards Positions
-
-- **WebKit:** [WebGPU: Render to slice of 3D texture](https://github.com/WebKit/standards-positions/issues/294) [closed]
-
-## Packages & Polyfills
-
-- [@webgpu/types](https://www.npmjs.com/package/@webgpu/types) `v0.1.72` — This package defines Typescript types (`.d.ts`) for the upcoming [WebGPU standard](https://github.com/gpuweb/gpuweb/wiki/Implementation-Status).
 
 ## 📰 Ecosystem Blogs & Articles
 
 - [\[blink-dev\] Intent to Ship: WebGPU: \`buffer\_view\` feature](http://www.mail-archive.com/blink-dev@chromium.org/msg16978.html) *(mail-archive.com)*
   > [blink-dev] Intent to Ship: WebGPU: `buffer_view` feature Skip to site navigation (Press enter) [blink-dev] Intent to Ship: WebGPU: `buffer_view` feature Chromestatus Wed, 15 Jul 2026 11:23:32 -0700 Contact emails [email&#160;protected] Explainer htt...
-- [Re: \[blink-dev\] Re: Intent to Ship: WebGPU: \`buffer\_view\` feature](http://www.mail-archive.com/blink-dev@chromium.org/msg17026.html) *(mail-archive.com)*
-  > Re: [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Chris Harrelson Wed, 22 Jul 2026 08:06:15 -0700 LGTM2 On Wed, Jul 22, 2026 at 6:...
 - [\[blink-dev\] Re: Intent to Ship: WebGPU: \`buffer\_view\` feature](http://www.mail-archive.com/blink-dev@chromium.org/msg17024.html) *(mail-archive.com)*
   > [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Vladimir Levin Wed, 22 Jul 2026 06:55:00 -0700 LGTM1 On Wednesday, July 15, 2026 at 2:23...
+- [Re: \[blink-dev\] Re: Intent to Ship: WebGPU: \`buffer\_view\` feature](http://www.mail-archive.com/blink-dev@chromium.org/msg17026.html) *(mail-archive.com)*
+  > Re: [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Chris Harrelson Wed, 22 Jul 2026 08:06:15 -0700 LGTM2 On Wed, Jul 22, 2026 at 6:...
 - [Re: \[blink-dev\] Re: Intent to Ship: WebGPU: \`buffer\_view\` feature](http://www.mail-archive.com/blink-dev@chromium.org/msg17035.html) *(mail-archive.com)*
   > Re: [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Alex Russell Wed, 22 Jul 2026 08:33:30 -0700 Sorry for the slow reply here; thou...
 - [What's New in WebGPU (Chrome 137) \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/new-in-webgpu-137) *(developer.chrome.com)*
-  > WebGPU 新功能 (Chrome 137) | Blog | Chrome for Developers 跳至主要內容 / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภาษาไทย 中文 – 简体 中文 ...
+  > Use texture view for externalTexture binding, buffers copy without specifying offsets and size, WGSL workgroupUniformLoad using pointer to atomic, and more.
 - [GPUs from the Browser: Instant Charts with WebGPU \| by Nexumo \| Medium](https://medium.com/@Nexumo_/gpus-from-the-browser-instant-charts-with-webgpu-f2fe2a703fcd) *(medium.com · 2025-11-26T12:32:07)*
   > A hands-on guide to building ultra-fast charts with WebGPU. Learn device setup, buffers, WGSL shaders, compute-first pipelines, and smart downsampling.
 
@@ -54,10 +46,10 @@ The following external publications and discussions explicitly link to or cite t
 
 - [\[blink-dev\] Intent to Ship: WebGPU: \`buffer\_view\` feature](http://www.mail-archive.com/blink-dev@chromium.org/msg16978.html) *(mail-archive.com)* *(Cites: `https://github.com/gpuweb/gpuweb/blob/main/proposals/buffer-view.md`)*
   > [blink-dev] Intent to Ship: WebGPU: `buffer_view` feature Skip to site navigation (Press enter) [blink-dev] Intent to Ship: WebGPU: `buffer_view` feature Chromestatus Wed, 15 Jul 2026 11:23:32 -0700 Contact emails [email&#160;protected] Exp...
-- [Re: \[blink-dev\] Re: Intent to Ship: WebGPU: \`buffer\_view\` feature](http://www.mail-archive.com/blink-dev@chromium.org/msg17026.html) *(mail-archive.com)* *(Cites: `https://github.com/gpuweb/gpuweb/blob/main/proposals/buffer-view.md`)*
-  > Re: [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Chris Harrelson Wed, 22 Jul 2026 08:06:15 -0700 LGTM2 On Wed, Jul 22, ...
 - [\[blink-dev\] Re: Intent to Ship: WebGPU: \`buffer\_view\` feature](http://www.mail-archive.com/blink-dev@chromium.org/msg17024.html) *(mail-archive.com)* *(Cites: `https://github.com/gpuweb/gpuweb/blob/main/proposals/buffer-view.md`)*
   > [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Vladimir Levin Wed, 22 Jul 2026 06:55:00 -0700 LGTM1 On Wednesday, July 15, 20...
+- [Re: \[blink-dev\] Re: Intent to Ship: WebGPU: \`buffer\_view\` feature](http://www.mail-archive.com/blink-dev@chromium.org/msg17026.html) *(mail-archive.com)* *(Cites: `https://github.com/gpuweb/gpuweb/blob/main/proposals/buffer-view.md`)*
+  > Re: [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Chris Harrelson Wed, 22 Jul 2026 08:06:15 -0700 LGTM2 On Wed, Jul 22, ...
 - [Re: \[blink-dev\] Re: Intent to Ship: WebGPU: \`buffer\_view\` feature](http://www.mail-archive.com/blink-dev@chromium.org/msg17035.html) *(mail-archive.com)* *(Cites: `https://github.com/gpuweb/gpuweb/pull/6291`)*
   > Re: [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: WebGPU: `buffer_view` feature Alex Russell Wed, 22 Jul 2026 08:33:30 -0700 Sorry for the slow reply ...
 
@@ -77,19 +69,19 @@ The following external publications and discussions explicitly link to or cite t
   - `"WebGPU: `buffer_view` feature" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
 - **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 1 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 2 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 1 result(s) found — **0 verified relevant**
-- **Standards Positions:** 2 result(s) found — **1 verified relevant**
+- **Standards Positions:** 2 result(s) found — **0 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
-- **NPM Registry:** 5 result(s) found — **1 verified relevant**
+- **NPM Registry:** 5 result(s) found — **0 verified relevant**
 - **Web Platform Tests (wpt.fyi):** 1 item(s) inspected
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 2 document(s) analyzed
-- **Standards Discussion Comments:** 4 engineer comment(s) read
+- **Standards Discussion Comments:** 0 engineer comment(s) read
 - **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links

@@ -1,6 +1,6 @@
 # CPU Performance API
 
-> **Report Week:** 2026-W38 | **Milestone:** Chrome 152 | **Category:** Enabled by default
+> **Report Week:** 2026-W39 | **Milestone:** Chrome 152 | **Category:** Enabled by default
 
 ## Overview
 
@@ -14,13 +14,13 @@ Applications whose functionality depends on client-side hardware detection often
 
 ## Ecosystem Status
 
-- **Momentum:** High (570 points)
+- **Momentum:** High (415 points)
 - **Standards Alignment:** Contested / Concerns Raised
 - **Sentiment:** Mixed / Skeptical
-- **Executive Take:** The CPU Performance API ships enabled by default in Chrome 152 to replace costly client-side benchmarking and proprietary extension hacks used by heavy web applications. However, the feature launches without multi-engine consensus, facing strong opposition from Apple and skepticism from Mozilla over device independence and fingerprinting. Consequently, it enters the ecosystem as a Chromium-specific capability with deep architectural divide across browser vendors.
+- **Executive Take:** Chrome 152 has shipped the CPU Performance API by default to replace resource-heavy client-side benchmarks and proprietary extensions with standardized coarse hardware tiers. However, the feature lacks multi-engine consensus, with WebKit formally opposing it and Mozilla flagging unresolved privacy and API design issues. Because it is incubated in WICG without cross-vendor buy-in, it remains a Chromium-only capability for the foreseeable future.
 
 ### Recommendations
-- Actionable Advice: Treat the CPU Performance API strictly as an optional progressive enhancement in Chromium environments and do not treat performance tier values as guarantees. Production applications must maintain resilient client-side fallbacks to support Safari and Firefox without degrading functionality.
+- Actionable Advice: Treat the CPU Performance API strictly as an optional progressive enhancement for Chromium-based browsers behind explicit feature checks (\`'cpuPerformance' in navigator\`). Maintain standard runtime performance measurement fallbacks to ensure functional parity across Safari and Firefox.
 - Shipping enabled by default in Chrome 152. Developers can begin adopting in production with progressive feature detection.
 - Standards Activity (WebKit): Latest discussion from @marcoscaceres: "@lukewarlow, the API would potentially go to the Web Performance WG after incubation, so I think that's fine. It would be premature for it to go to We..."
 - Standards Activity (Mozilla): Latest discussion from @bvandersloot-mozilla: "The answers w.r.t. ads sounds like a reasonable motivation. I might not have personally mentioned ads at all as a special category, but I can see why ..."
@@ -31,7 +31,6 @@ Applications whose functionality depends on client-side hardware detection often
 - **WebKit:** [CPU Performance API](https://github.com/WebKit/standards-positions/issues/622) [closed]
 - **Mozilla:** [CPU Performance API](https://github.com/mozilla/standards-positions/issues/1364) [open]
 - **W3C TAG:** [Incubation: CPU Performance API](https://github.com/w3ctag/design-reviews/issues/1198) [open]
-- **W3C TAG:** [WG Revision: WebTransport](https://github.com/w3ctag/design-reviews/issues/1212) [open]
 
 ## 📰 Ecosystem Blogs & Articles
 
@@ -41,14 +40,18 @@ Applications whose functionality depends on client-side hardware detection often
   > GitHub - trustgraph-ai/trustgraph: The context orchestration layer powered by hypergraphs. Build a unified semantic context layer where agentic outcomes are deterministic and agent behavior is not just traceable, but cryptographically verifiable. · G...
 - [Show HN: Cloud Benchmarker: See how fast your cloud instances are for real!](https://github.com/Dicklesworthstone/cloud_benchmarker) *(github.com · 2023-09-28T12:19:54Z)*
   > GitHub - Dicklesworthstone/cloud_benchmarker: Cloud Benchmarker automates performance testing of cloud instances, offering insightful charts and tracking over time. · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in...
+- [\[blink-dev\] Intent to Extend Experiment: CPU Performance API](http://www.mail-archive.com/blink-dev@chromium.org/msg17465.html) *(mail-archive.com)*
+  > [blink-dev] Intent to Extend Experiment: CPU Performance API Skip to site navigation (Press enter) [blink-dev] Intent to Extend Experiment: CPU Performance API Chromestatus Tue, 15 Sep 2026 14:34:58 -0700 Contact emails [email&#160;protected] Explain...
 - [Microsoft Edge Browser Policy Documentation CpuPerformanceTierOverride \| Microsoft Learn](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/cpuperformancetieroverride) *(learn.microsoft.com · 2026-07-14T00:00:00)*
   > Microsoft Edge Browser Policy Documentation CpuPerformanceTierOverride | Microsoft Learn Skip to main content Skip to Ask Learn chat experience This browser is no longer supported. Upgrade to Microsoft Edge to take advantage of the latest features, s...
-- [Re: \[blink-dev\] Re: Intent to Ship: CPU Performance API](http://www.mail-archive.com/blink-dev@chromium.org/msg17019.html) *(mail-archive.com)*
-  > Re: [blink-dev] Re: Intent to Ship: CPU Performance API Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: CPU Performance API Nikolaos Papaspyrou Tue, 21 Jul 2026 16:28:47 -0700 On Monday, June 22, 2026 at 5:02:04 PM UTC+2 Ric...
+- [Re: \[blink-dev\] Intent to Extend Experiment: CPU Performance API](http://www.mail-archive.com/blink-dev@chromium.org/msg17482.html) *(mail-archive.com)*
+  > Re: [blink-dev] Intent to Extend Experiment: CPU Performance API Skip to site navigation (Press enter) Re: [blink-dev] Intent to Extend Experiment: CPU Performance API Rick Byers Wed, 16 Sep 2026 09:35:21 -0700 Hey Nikos, Sorry for the lack of overla...
 - [CpuPerformanceTierOverride: Override for the CPU performance tier \| Chrome Enterprise](https://chromeenterprise.google/policies/cpu-performance-tier-override) *(chromeenterprise.google)*
-  > CpuPerformanceTierOverride: Override for the CPU performance tier | Chrome Enterprise chrome enterprise Jump to Content chrome enterprise Get in touch Download Chrome Get advanced security protections with Chrome Enterprise Premium. Learn more. Enter...
-- [Override for the CPU performance tier - ADMX Viewer](https://gpedit.tplant.com.au/en-us/policy/BraveSoftware.Policies.Brave/CpuPerformanceTierOverride) *(gpedit.tplant.com.au)*
   > Setting this policy allows enterprises to override the value returned by the CPU Performance API (i.e., navigator.cpuPerformance, please see https://<strong>github.com/WICG/cpu-performance</strong> for details). If this policy is set, the value of na...
+- [Override for the CPU performance tier - ADMX Viewer](https://gpedit.tplant.com.au/en-us/policy/chrome/CpuPerformanceTierOverride) *(gpedit.tplant.com.au)*
+  > Setting this policy allows enterprises to override the value returned by the CPU Performance API (i.e., navigator.cpuPerformance, please see https://<strong>github.com/WICG/cpu-performance</strong> for details). If this policy is set, the value of na...
+- [Переопределить уровень производительности ЦП - ADMX Viewer](https://gpedit.tplant.com.au/ru-ru/policy/chrome/CpuPerformanceTierOverride) *(gpedit.tplant.com.au)*
+  > Правило позволяет компаниям переопределять значение, возвращаемое CPU Performance API (то есть navigator.cpuPerformance). Подробнее: https://<strong>github.com/WICG/cpu-performance</strong>. Если правило настроено, значение правила navigator.cpuPerfo...
 - [The CPU Performance API: Adaptive Loading Without Running a Benchmark \| Trade Assistance LLC](https://trade-assistance.com/blog/cpu-performance-api-adaptive-loading-chrome-152) *(trade-assistance.com · 2026-07-27T00:00:00)*
   > Chrome 152 is set to ship navigator.cpuPerformance, <strong>a one-line read that sorts a visitor&#x27;s device into a stable performance tier</strong>. Here&#x27;s how to use it to serve lighter experiences to weaker hardware — without fingerprinting...
 - [CPU Performance API](https://chromestatus.com/feature/5189864286978048?gate=5130174173675520) *(chromestatus.com · 2026-05-26T00:00:00)*
@@ -63,50 +66,26 @@ Applications whose functionality depends on client-side hardware detection often
   > A CPU bottleneck occurs when the processor runs at over 80% of its capacity for an extended period or when there are too many tasks queued up. ... Adding more memory (RAM) and optimizing the code (removing unnecessary loops, optimizing data structure...
 - [How To Get Per-Core CPU Usage \| W-Shadow.com](https://w-shadow.com/blog/2009/04/17/per-core-cpu-usage) *(w-shadow.com · 2017-12-19T22:10:10)*
   > Here’s a general overview of how to use the performance counter API to get the per-core usage numbers. ... <strong>Create a performance query using PdhOpenQuery</strong>. Generate a list of performance counter paths (one for each CPU or core) by feed...
-- [How To Improve API Performance: 10 Best Tips \| PFLB](https://pflb.us/blog/how-to-improve-api-performance) *(pflb.us · 2026-04-28T08:59:27)*
-  > Response Time — How long it takes for the API to respond after receiving a request. This includes processing time, network delays, and any backend operations involved. Latency — Often confused with response time, latency focuses specifically on the t...
+- [CPU Database API \| Zyla API Hub](https://zylalabs.com/api-marketplace/data/cpu+database+api/2327) *(zylalabs.com)*
+  > By integrating the API into their applications, users can easily compare CPU specifications, performance rankings, and prices to select the best processor for their specific computing needs. Tech Review Websites and Blogs: Technology review websites ...
 - [Which API should I call to get data of memory utilization, cpu utilization ? - Site24x7 Forum](https://www.site24x7.com/community/which-api-should-i-call-to-get-data-of-memory-utiliation-cpu-utilizations) *(site24x7.com · 2020-06-26T00:00:00)*
   > report_type - the required performance metric for which you wish to see data. This param is optional and if not passed it will send the overall CPU, memory, and disk utilization for the selected server monitor. For example, to get the CPU utilization...
-- [Preface to the CPU performance optimization guide - AMD GPUOpen](https://gpuopen.com/learn/cpu-performance-guide/cpu-performance-guide-preface) *(gpuopen.com · 2024-06-18T00:00:00)*
-  > Before diving into the specifics, readers are highly recommended to familiarize themselves with the CPU hardware performance analysis tools and counters. In this initial blog, we will first clarify some important concepts: what is performance, how to...
+- [How To Improve API Performance: 10 Best Tips \| PFLB](https://pflb.us/blog/how-to-improve-api-performance) *(pflb.us · 2026-04-28T08:59:27)*
+  > Response Time — How long it takes for the API to respond after receiving a request. This includes processing time, network delays, and any backend operations involved. Latency — Often confused with response time, latency focuses specifically on the t...
 - [Chrome 152 beta \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/chrome-152-beta) *(developer.chrome.com · 2026-07-30T00:00:00)*
   > <strong>Starting in Chrome 152, Chrome introduces the CPU Performance API, which lets web applications determine the CPU performance tier of a user&#x27;s device</strong>.
 - [Progressive Web Apps 2026: PWA Performance Guide](https://www.digitalapplied.com/blog/progressive-web-apps-2026-pwa-performance-guide) *(digitalapplied.com · 2026-02-01T00:00:00)*
   > In 2026, every major browser fully supports the core PWA APIs — service workers, Web App Manifest, and Web Push — and the install experience has matured to the point where users on Android and iOS can add PWAs to their home screens with a single tap....
 - [PWA Kit Architecture: How Your PWA Kit App Delivers a Page \| Composable Storefront \| B2C Commerce API \| Salesforce Developers](https://developer.salesforce.com/docs/commerce/commerce-api/guide/perf-pwa-arch.html) *(developer.salesforce.com)*
   > CSR delivers a seamless, application-like feel, yet it’s also where you frequently encounter performance bottlenecks that negatively affect your Interaction to Next Paint (INP) score. It’s entirely possible to achieve an excellent LCP score on the se...
-- [Progressive Web App (PWA) Development Ultimate Guide - Riseup Labs](https://riseuplabs.com/pwa-development-ultimate-guide) *(riseuplabs.com · 2025-12-10T05:24:22)*
-  > These efforts have contributed to a more standardized approach to building PWAs, ensuring consistent quality and performance. ... The evolution of PWA technologies has been driven by advancements in web standards, the introduction of key features suc...
 - [Solving PWA Performance Bottlenecks and Improving Speed](https://www.hashstudioz.com/blog/why-do-some-pwas-feel-slower-than-native-apps-solving-performance-bottlenecks) *(hashstudioz.com · 2026-07-15T06:25:43)*
   > These advancements will help PWAs deliver faster and more reliable performance, making them even closer to native apps. WebAssembly (Wasm) enables developers to write high-performance code in languages like C++ and Rust, which can then be executed in...
+- [Progressive Web App (PWA) Development Ultimate Guide - Riseup Labs](https://riseuplabs.com/pwa-development-ultimate-guide) *(riseuplabs.com · 2025-12-10T05:24:22)*
+  > These efforts have contributed to a more standardized approach to building PWAs, ensuring consistent quality and performance. ... The evolution of PWA technologies has been driven by advancements in web standards, the introduction of key features suc...
 - [PWA vs Capacitor vs Native: Choosing an App Architecture in 2026 \| Our Code World](https://ourcodeworld.com/articles/read/3646/pwa-vs-capacitor-vs-native-2026) *(ourcodeworld.com · 2026-07-01T19:42:00)*
   > The architecture question there is not PWA vs native; it is build inside the platform users already trust vs ship yet another thing they have to log into. Adoption usually rewards the former. Default to PWA. Make the team justify leaving it. Move to ...
-- [r/PWA on Reddit: Anyone else feel like PWAs are on the edge of replacing native apps... but just not quite there](https://www.reddit.com/r/PWA/comments/1m69nmu/anyone_else_feel_like_pwas_are_on_the_edge_of) *(reddit.com · 2025-07-22T09:37:43)*
-  > Spotify use to have a good PWA but now it redirects to the web if you want to play music. The reasons for this are beyond me. ... - offline support is not rocket science if you know what you&#x27;re doing. I created a service worker to get you starte...
-- [How to Get Started With the JavaScript Performance API \| DigitalOcean](https://www.digitalocean.com/community/tutorials/js-js-performance-api) *(digitalocean.com · 2019-12-24T00:00:00)*
-  > An overview of the JavaScript APIs available to monitor your website’s performance in the wild.
-- [An Introduction to the Node.js Performance API \| Better Stack Community](https://betterstack.com/community/guides/scaling-nodejs/performance-apis) *(betterstack.com)*
-  > <strong>Through this tutorial, you will learn to leverage these APIs for tracking various key metrics in your application</strong>. To follow through with this tutorial, you need basic knowledge of Node.js and a recent version installed on your machi...
-- [Performance Monitoring for JavaScript Applications - DoHost](https://dohost.us/index.php/2025/11/11/performance-monitoring-for-javascript-applications) *(dohost.us · 2025-11-11T12:00:20)*
-  > <strong>This tutorial will guide you through the essential techniques and tools for performance monitoring for JavaScript applications</strong>, enabling you to identify bottlenecks, optimize code, and maintain a high-performing application.
-- [JavaScript Performance: Making Your Apps Fast (2026) - DEV Community](https://dev.to/armorbreak/javascript-performance-making-your-apps-fast-2026-1cmg) *(dev.to · 2026-06-11T20:36:44)*
-  > Performance isn&#x27;t about premature optimization — it&#x27;s about understanding what makes JavaScript slow and knowing how to fix it when it matters. // ❌ Wrong ways to measure: const start = Date.now(); // Low resolution (ms only) doSomething();...
-- [Chrome DevTools \| Chrome for Developers](https://developers.google.com/web/tools/chrome-devtools/rendering-tools/js-execution) *(developers.google.com · 2020-07-14T00:00:00)*
-  > Learn about new DevTools features like CPU throttling calibration to help you base your performance debugging decisions on data from the real world · Learn about the new performance insights, the power of Lighthouse directly in the DevTools Performan...
-- [Web Performance API: Measure What Matters](https://www.trevorlasn.com/blog/performance-web-api-in-javascript) *(trevorlasn.com · 2026-02-15T00:00:00)*
-  > From slow to fast: Using JavaScript&#x27;s Performance API to optimize web apps
-- [Chrome has a new potential fingerprint vector - DEV Community](https://dev.to/extractdata/chrome-has-a-new-potential-fingerprint-vector-3097) *(dev.to · 2026-09-03T05:56:52)*
-  > The two are meant to work together: cpuPerformance tells a site what to load first, and Compute Pressure tells it when to back off once the page is running under load. The spec&#x27;s own example is <strong>a video conferencing app</strong>. Tier one...
-- [New in Chrome 152 \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/new-in-chrome-152) *(developer.chrome.com)*
-  > Chrome 152 introduces the CPU Performance API, which <strong>lets web applications determine the CPU performance of a user device</strong>.
-- [Chrome 152 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/152) *(chromestatus.com)*
-  > Starting in Chrome 152, Chrome introduces the CPU Performance API, which <strong>allows web applications to determine the CPU performance of a user&#x27;s device</strong>.
-- [Chrome 152: What Changes for Tab and Memory Users? (2026)](https://www.superchargebrowser.com/library/chrome-152-whats-new-tab-memory-users) *(superchargebrowser.com · 2026-09-04T00:00:00)*
-  > As of September 2026, the CPU Performance API exposes navigator.cpuPerformance, <strong>a read-only integer from 1 (low) to 4 (high) describing your device&#x27;s performance bucket, with 0 meaning unknown</strong>.
-- [\[blink-dev\] Re: Intent to Ship: CPU Performance API](http://www.mail-archive.com/blink-dev@chromium.org/msg16718.html) *(mail-archive.com)*
-  > &gt; &gt; Best, &gt; &gt; Alex &gt; &gt; On Monday, ... &gt;&gt; &gt;&gt; *Specification* &gt;&gt; https://wicg.github.io/cpu-performance &gt;&gt; &gt;&gt; *Summary* &gt;&gt; <strong>Expose some information about how powerful the user device is</stro...
-- [React Context in 2026: When It Still Beats Zustand and When It Quietly Destroys Performance](https://dev.to/jsmanifest/react-context-in-2026-when-it-still-beats-zustand-and-when-it-quietly-destroys-performance-51hn) *(dev.to · jsmanifest · Sep 14)*
-  > React Context in 2026: When It Still Beats Zustand and When It Quietly Destroys...
+- [Comprehensive FAQs Guide: PWAs and Desktop Applications: Converting Web Apps into Installable Desktop Apps](https://gtcsys.com/comprehensive-faqs-guide-progressive-web-app-performance-monitoring-and-debugging-tools-and-techniques) *(gtcsys.com · 2024-07-02T05:24:58)*
+  > RUM tools provide a holistic view of how users experience a PWA, allowing developers to prioritize optimizations that directly impact user satisfaction and engagement. Indicators of performance bottlenecks in PWAs include: Slow Loading Times: Prolong...
 
 ## 🔗 Inbound Citations & Reverse Links
 
@@ -114,14 +93,18 @@ The following external publications and discussions explicitly link to or cite t
 
 - [Add CPU Performance API · Issue #7536 · Fyrd/caniuse](https://github.com/Fyrd/caniuse/issues/7536) *(github.com · 2026-06-24T10:22:39)* *(Cites: `https://chromestatus.com/feature/5189864286978048`)*
   > Add CPU Performance API · Issue #7536 · Fyrd/caniuse · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your session....
+- [\[blink-dev\] Intent to Extend Experiment: CPU Performance API](http://www.mail-archive.com/blink-dev@chromium.org/msg17465.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/cpu-performance`)*
+  > [blink-dev] Intent to Extend Experiment: CPU Performance API Skip to site navigation (Press enter) [blink-dev] Intent to Extend Experiment: CPU Performance API Chromestatus Tue, 15 Sep 2026 14:34:58 -0700 Contact emails [email&#160;protecte...
 - [Microsoft Edge Browser Policy Documentation CpuPerformanceTierOverride \| Microsoft Learn](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/cpuperformancetieroverride) *(learn.microsoft.com · 2026-07-14T00:00:00)* *(Cites: `https://github.com/WICG/cpu-performance`)*
   > Microsoft Edge Browser Policy Documentation CpuPerformanceTierOverride | Microsoft Learn Skip to main content Skip to Ask Learn chat experience This browser is no longer supported. Upgrade to Microsoft Edge to take advantage of the latest f...
-- [Re: \[blink-dev\] Re: Intent to Ship: CPU Performance API](http://www.mail-archive.com/blink-dev@chromium.org/msg17019.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/cpu-performance`)*
-  > Re: [blink-dev] Re: Intent to Ship: CPU Performance API Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: CPU Performance API Nikolaos Papaspyrou Tue, 21 Jul 2026 16:28:47 -0700 On Monday, June 22, 2026 at 5:02:04 PM...
+- [Re: \[blink-dev\] Intent to Extend Experiment: CPU Performance API](http://www.mail-archive.com/blink-dev@chromium.org/msg17482.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/cpu-performance`)*
+  > Re: [blink-dev] Intent to Extend Experiment: CPU Performance API Skip to site navigation (Press enter) Re: [blink-dev] Intent to Extend Experiment: CPU Performance API Rick Byers Wed, 16 Sep 2026 09:35:21 -0700 Hey Nikos, Sorry for the lack...
 - [CpuPerformanceTierOverride: Override for the CPU performance tier \| Chrome Enterprise](https://chromeenterprise.google/policies/cpu-performance-tier-override) *(chromeenterprise.google)* *(Cites: `https://github.com/WICG/cpu-performance`)*
-  > CpuPerformanceTierOverride: Override for the CPU performance tier | Chrome Enterprise chrome enterprise Jump to Content chrome enterprise Get in touch Download Chrome Get advanced security protections with Chrome Enterprise Premium. Learn m...
-- [Override for the CPU performance tier - ADMX Viewer](https://gpedit.tplant.com.au/en-us/policy/BraveSoftware.Policies.Brave/CpuPerformanceTierOverride) *(gpedit.tplant.com.au)* *(Cites: `https://github.com/WICG/cpu-performance`)*
   > Setting this policy allows enterprises to override the value returned by the CPU Performance API (i.e., navigator.cpuPerformance, please see https://<strong>github.com/WICG/cpu-performance</strong> for details). If this policy is set, the v...
+- [Override for the CPU performance tier - ADMX Viewer](https://gpedit.tplant.com.au/en-us/policy/chrome/CpuPerformanceTierOverride) *(gpedit.tplant.com.au)* *(Cites: `https://github.com/WICG/cpu-performance`)*
+  > Setting this policy allows enterprises to override the value returned by the CPU Performance API (i.e., navigator.cpuPerformance, please see https://<strong>github.com/WICG/cpu-performance</strong> for details). If this policy is set, the v...
+- [Переопределить уровень производительности ЦП - ADMX Viewer](https://gpedit.tplant.com.au/ru-ru/policy/chrome/CpuPerformanceTierOverride) *(gpedit.tplant.com.au)* *(Cites: `https://github.com/WICG/cpu-performance`)*
+  > Правило позволяет компаниям переопределять значение, возвращаемое CPU Performance API (то есть navigator.cpuPerformance). Подробнее: https://<strong>github.com/WICG/cpu-performance</strong>. Если правило настроено, значение правила navigato...
 - [CPU Performance API · Issue #622 · WebKit/standards-positions](https://github.com/WebKit/standards-positions/issues/622) *(github.com · 2026-02-26T11:24:29)* *(Cites: `https://wicg.github.io/cpu-performance`)*
   > WebKittens @jernoble, @marcoscaceres, @jyavenard Title of the proposal CPU Performance API URL to the spec <strong>https://wicg.github.io/cpu-performance/</strong> URL to the spec&#x27;s repository https://github.com/WICG/cpu-performance Is...
 
@@ -134,37 +117,29 @@ The following external publications and discussions explicitly link to or cite t
 - [GitHub - GoogleChrome/samples: A repo containing samples tied to new functionality in each release of Google Chrome. · GitHub](https://github.com/GoogleChrome/samples) *(github.com)*
 - [GoogleChrome · GitHub](https://github.com/googlechrome) *(github.com)*
 - [chrome-browser · GitHub Topics](https://github.com/topics/chrome-browser) *(github.com)*
-- [google-chrome · GitHub Topics · GitHub](https://github.com/topics/google-chrome?l=html) *(github.com)*
 - [google-chrome-extension · GitHub Topics · GitHub](https://github.com/topics/google-chrome-extension) *(github.com)*
+- [google-chrome · GitHub Topics · GitHub](https://github.com/topics/google-chrome?l=html) *(github.com)*
 - [Build software better, together](https://github.com/topics/chrome-extensions) *(github.com)*
-- [GitHub - chromium/chromium: The official GitHub mirror of the Chromium source · GitHub](https://github.com/chromium/chromium) *(github.com)*
-- [Difference from navigator.hardwareConcurrency · Issue #22 · WICG/cpu-performance](https://github.com/WICG/cpu-performance/issues/22) *(github.com)*
-- [First CPU idle](https://developer.mozilla.org/en-US/docs/Glossary/First_CPU_idle) *(developer.mozilla.org)*
-- [Web performance](https://developer.mozilla.org/en-US/docs/Web/Performance) *(developer.mozilla.org)*
-- [Performance fundamentals](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Fundamentals) *(developer.mozilla.org)*
+- [GitHub - ChromeDevTools/devtools-frontend: The Chrome DevTools UI · GitHub](https://github.com/ChromeDevTools/devtools-frontend) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 56 result(s) found across 12 planned queries — **44 verified relevant**
+- **Brave Search:** 45 result(s) found across 8 planned queries — **34 verified relevant**
   - `"chromestatus.com/feature/5189864286978048" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
-  - `"github.com/WICG/cpu-performance" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (4 returned)
+  - `"github.com/WICG/cpu-performance" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (6 returned)
   - `"wicg.github.io/cpu-performance" -site:wicg.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (2 returned)
   - `"CPU Performance API" API` — *Core feature API query* (8 returned)
   - `"CPU Performance API" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"chromeenterprise.google" OR "github.com" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"CPU Performance API" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"CPU Performance API" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"CPU Performance API" guide OR tutorial OR "web performance" javascript` — *Finds developer-facing tutorials, implementation guides, and articles explaining how to incorporate the CPU Performance API into web apps.* (8 returned)
-  - `"CPU Performance API" (navigator OR "performance tier" OR "CpuPerformanceTier") code OR snippet OR example` — *Locates real-world JavaScript code examples, interface syntax, and tier determination patterns.* (3 returned)
-  - `"CPU Performance API" ("Intent to Ship" OR "Chrome 152" OR "WICG/cpu-performance")` — *Discovers official Chromium launch announcements, platform status notes, and tracking discussions.* (8 returned)
-  - `"CPU Performance API" ("Compute Pressure" OR fingerprinting OR benchmarks) site:news.ycombinator.com OR site:reddit.com OR site:github.com` — *Captures developer community sentiment, discussions about hardware fingerprinting concerns, and comparisons to the Compute Pressure API.* (4 returned)
 - **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 8 result(s) found — **3 verified relevant**
+- **Dev.to Community Blogs:** 4 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 8 result(s) found — **0 verified relevant**
-- **Standards Positions:** 4 result(s) found — **4 verified relevant**
+- **Standards Positions:** 4 result(s) found — **3 verified relevant**
 - **Engine Bug Trackers:** 7 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
 - **NPM Registry:** 6 result(s) found — **0 verified relevant**
@@ -174,7 +149,7 @@ The following external publications and discussions explicitly link to or cite t
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
-- **Standards Discussion Comments:** 18 engineer comment(s) read
+- **Standards Discussion Comments:** 15 engineer comment(s) read
 - **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links

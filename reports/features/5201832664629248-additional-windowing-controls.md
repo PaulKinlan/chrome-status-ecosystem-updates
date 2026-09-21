@@ -1,6 +1,6 @@
 # Additional Windowing Controls
 
-> **Report Week:** 2026-W38 | **Milestone:** Chrome 155 | **Category:** Enabled by default
+> **Report Week:** 2026-W39 | **Milestone:** Chrome 155 | **Category:** Enabled by default
 
 ## Overview
 
@@ -12,7 +12,7 @@ Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integ
 
 ## Ecosystem Status
 
-- **Momentum:** High (220 points)
+- **Momentum:** High (340 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Neutral
 - **Executive Take:** Additional Windowing Controls is currently Enabled by default in Chrome 155. Verified ecosystem momentum is High with Chromium-Led standards alignment and neutral developer pulse.
@@ -36,72 +36,96 @@ Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integ
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [\[blink-dev\] Ready for Developer Testing: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg16555.html) *(mail-archive.com)*
-  > [blink-dev] Ready for Developer Testing: Additional Windowing Controls Skip to site navigation (Press enter) [blink-dev] Ready for Developer Testing: Additional Windowing Controls Chromestatus Tue, 19 May 2026 00:52:56 -0700 Contact emails [email&#16...
+- [Re: \[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17444.html) *(mail-archive.com)*
+  > Re: [blink-dev] Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) Re: [blink-dev] Intent to Ship: Additional Windowing Controls Mike Taylor Mon, 14 Sep 2026 09:42:49 -0700 LGTM3 On 9/14/26 12:05 p.m., Chris Harrelson...
+- [\[blink-dev\] Re: Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17441.html) *(mail-archive.com)*
+  > [blink-dev] Re: Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: Additional Windowing Controls Vladimir Levin Mon, 14 Sep 2026 08:57:02 -0700 LGTM1 On Wednesday, September 9, 2026 at ...
 - [\[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17394.html) *(mail-archive.com)*
   > [blink-dev] Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) [blink-dev] Intent to Ship: Additional Windowing Controls Chromestatus Tue, 08 Sep 2026 23:04:36 -0700 Contact emails [email&#160;protected] , [email&#160...
-- [Screen.isExtended, getScreenDetails, and Multi-Display Development \| Melin's Blog](https://melin.vercel.app/blog/2026-07-30) *(melin.vercel.app)*
-  > Screen.isExtended, getScreenDetails, and Multi-Display Development | Melin&#39;s Blog Melin&#39;s Blog Back to blog July 30, 2026 &bull; 7 min read Screen.isExtended, getScreenDetails, and Multi-Display Development Table of Contents Modern web apps a...
 - [Window-placement popup? \| Vivaldi Forum](https://forum.vivaldi.net/topic/120737/window-placement-popup) *(forum.vivaldi.net · 2026-09-02T18:23:29)*
   > Window-placement popup? | Vivaldi Forum Search Register Login Your browser does not seem to support JavaScript. As a result, your viewing experience will be diminished, and you have been placed in read-only mode . Please download a browser that suppo...
-- [\[blink-dev\] Intent to Prototype: Creating always-on-top windows](http://www.mail-archive.com/blink-dev@chromium.org/msg17325.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Prototype: Creating always-on-top windows Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Creating always-on-top windows Tommy Steimel Fri, 28 Aug 2026 15:17:36 -0700 *Contact emails* [email&#160;protected...
-- [Permissions](https://w3c.github.io/permissions) *(w3c.github.io · 2025-10-06T00:00:00)*
-  > Permissions Permissions Interacting with Permissions for Powerful Features W3C Editor's Draft 06 October 2025 More details about this document This version: https://w3c.github.io/permissions/ Latest published version: https://www.w3.org/TR/permission...
-- [html - Display new window fullscreen on second monitor with Javascript - Stack Overflow](https://stackoverflow.com/questions/55836590/display-new-window-fullscreen-on-second-monitor-with-javascript) *(stackoverflow.com)*
-  > https://<strong>www.w3.org/TR/window-management</strong>/#usage-overview-place-fullscreen-content-on-a-specific-screen
+- [Re: \[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17442.html) *(mail-archive.com)*
+  > Re: [blink-dev] Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) Re: [blink-dev] Intent to Ship: Additional Windowing Controls Chris Harrelson Mon, 14 Sep 2026 09:14:30 -0700 LGTM2 On Tue, Sep 8, 2026 at 11:03 PM Ch...
 - [\[Proposal\] Additional Windowing Controls](https://discourse.wicg.io/t/proposal-additional-windowing-controls/6044) *(discourse.wicg.io)*
-  > This proposal seeks to enable local web applications to convey a user’s intended window control interactions with remote (or custom) window controls. Summary of the API proposals, which are generally gated by Window Management (“window-placement”) pe...
+  > [Proposal] Additional Windowing Controls A partial archive of discourse.wicg.io as of Saturday February 24, 2024. [Proposal] Additional Windowing Controls ivansandrk 2022-11-23 Full explainer available here Introduction This proposal introduces addit...
 - [Additional Windowing Controls](https://chromestatus.com/feature/5201832664629248) *(chromestatus.com)*
   > We cannot provide a description for this page right now
 - [Window Controls (OpenWindows User's Guide)](https://docs.oracle.com/cd/E19455-01/806-2901/6jc3a4m17/index.html) *(docs.oracle.com)*
   > The following examples illustrate the use of window controls on a group of selected windows or icons. To select multiple windows, either click SELECT on one window and ADJUST on additional windows (or icons), or position the pointer on the workspace ...
-- [Windowing overview for WinUI and Windows App SDK - Windows apps \| Microsoft Learn](https://learn.microsoft.com/en-us/windows/apps/develop/ui/windowing-overview) *(learn.microsoft.com · 2025-11-24T00:00:00)*
+- [Windowing overview for WinUI and Windows App SDK - Windows apps \| Microsoft Learn](https://learn.microsoft.com/en-us/windows/apps/develop/ui/windowing-overview) *(learn.microsoft.com)*
   > If you use WinUI XAML as your app&#x27;s UI framework, both the Window and the AppWindow APIs are available to you. Starting in Windows App SDK 1.4, you can use the Window.AppWindow property to get an AppWindow object from an existing XAML window. Wi...
 - [Windows Controls and patterns - Windows app development - Windows apps \| Microsoft Learn](https://learn.microsoft.com/en-us/windows/apps/develop/ui/controls) *(learn.microsoft.com · 2026-05-28T00:00:00)*
   > Install it to try controls in real time and link directly from individual control pages. Get the WinUI 3 Gallery from the Microsoft Store. Get the source code from GitHub. The Windows Community Toolkit is a collection of helpers, extensions, and addi...
 - [Chrome 152 \| Release notes \| Chrome for Developers](https://developer.chrome.com/release-notes/152) *(developer.chrome.com · 2026-08-25T00:00:00)*
   > Tracking bug #492246715 | ChromeStatus.com entry | Spec · <strong>The window-drag CSS property lets web content designate regions of an installed desktop web app UI that behave as draggable window title bar areas</strong>.
-- [Chrome 152 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/152) *(chromestatus.com)*
-  > This feature standardizes and renames the existing app-region CSS property, changes its value names to move and none, and adds explicit inheritance behavior. This property is used by installed web apps and Electron-based applications for the same pur...
+- [Chrome 154 beta \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/chrome-154-beta) *(developer.chrome.com · 2026-09-02T00:00:00)*
+  > DefaultWindowManagementSetting configures the default state of window management for all apps.
+- [CSS usage metrics &gt; all properties &gt; stack rank](https://chromestatus.com/metrics/css/popularity) *(chromestatus.com)*
+  > We cannot provide a description for this page right now
+- [Manage several displays with the Window Management API \| Capabilities \| Chrome for Developers](https://developer.chrome.com/docs/capabilities/web-apis/window-management) *(developer.chrome.com · 2020-09-14T00:00:00)*
+  > The Chrome team has designed and implemented the Window Management API using the core principles defined in Controlling Access to Powerful Web Platform Features, including user control, transparency, and ergonomics.
+- [Intent to Ship: Window Controls Overlay for Installed Desktop Web Apps](https://groups.google.com/a/chromium.org/g/blink-dev/c/guI1QCPJTAA) *(groups.google.com)*
+  > The major risk is that giving sites ... allows developers to spoof content in what was previously a trusted, UA-controlled region. To minimize the risk of spoofing, the app will open by default in “standalone” mode with a full width title bar, and th...
+- [Window management \| web.dev](https://web.dev/learn/pwa/windows) *(web.dev)*
+  > We want to hear from you! We are looking for web developers to participate in user research, product testing, discussion groups and more. Apply now to join our WebDev Insights Community. ... <strong>A PWA outside of the browser manages its own window...
+- [Navigation management into installed PWAs \| Capabilities \| Chrome for Developers](https://developer.chrome.com/docs/capabilities/pwa-navigation-management) *(developer.chrome.com · 2025-08-19T00:00:00)*
+  > Developer controls: <strong>Includes web APIs that let developers instruct the browser on how to handle specific tasks</strong>. The interplay of these elements determines whether the PWA opens in a standalone window or a browser tab.
+- [JUCE: juce::ResizableWindow Class Reference](https://docs.juce.com/master/classResizableWindow.html) *(docs.juce.com)*
+  > By default resizing isn&#x27;t enabled - <strong>use the setResizable() method to enable it and to choose the style of resizing to use</strong>.
+- [Blazor Window Size - Telerik UI for Blazor](https://www.telerik.com/blazor-ui/documentation/components/window/size) *(telerik.com)*
+  > <strong>Maximize, Minimize and Restore the Window programmatically</strong> ... &lt;TelerikWindow @bind-State=&quot;@WindowState&quot; Height=&quot;200px&quot; Width=&quot;400px&quot; Resizable=&quot;false&quot; Visible=&quot;true&quot;&gt; &lt;Windo...
+- [Window.setResizable (gtk.Window.Window.setResizable)](https://api.gtkd.org/gtk.Window.Window.setResizable.html) *(api.gtkd.org)*
+  > <strong>Sets whether the user can resize a window</strong>. Windows are user resizable by default · TRUE if the user can resize this window
+- [swing - Java how to make JFrames maximised but not resizable - Stack Overflow](https://stackoverflow.com/questions/14882417/java-how-to-make-jframes-maximised-but-not-resizable) *(stackoverflow.com)*
+  > public static void main(String[] args) { Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); JFrame frame = new JFrame(&quot;Jedia&quot;); frame.setExtendedState(JFrame.MAXIMIZED_BOTH); frame.setSize(screenSize); frame.setResizable(fa...
+- [Window.ResizeMode Property (System.Windows) \| Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/api/system.windows.window.resizemode?view=windowsdesktop-7.0) *(learn.microsoft.com · 2021-10-07T00:00:00)*
+  > <strong>The user can only minimize the window and restore it from the taskbar</strong>. The Minimize and Maximize boxes are both shown, but only the Minimize box is enabled. CanResize. The user has the full ability to resize the window, using the Min...
+- [Intent to Prototype: Borderless Mode for Installed Desktop Web Apps](https://groups.google.com/a/chromium.org/g/blink-dev/c/0WFHeazngK8) *(groups.google.com)*
+  > When borderless mode is enabled for installed desktop web apps, the app&#x27;s client area is extended to cover the entire window - including the title bar area and windowing control buttons (close, maximize/restore, minimize). The web app developer ...
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
-- [\[blink-dev\] Ready for Developer Testing: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg16555.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5201832664629248`)*
-  > [blink-dev] Ready for Developer Testing: Additional Windowing Controls Skip to site navigation (Press enter) [blink-dev] Ready for Developer Testing: Additional Windowing Controls Chromestatus Tue, 19 May 2026 00:52:56 -0700 Contact emails ...
+- [Updates for Chrome 155 beta by Elchi3 · Pull Request #30575 · mdn/browser-compat-data](https://github.com/mdn/browser-compat-data/pull/30575) *(github.com)* *(Cites: `https://chromestatus.com/feature/5201832664629248`)*
+  > Updates for Chrome 155 beta by Elchi3 · Pull Request #30575 · mdn/browser-compat-data · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window...
+- [Re: \[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17444.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5201832664629248`)*
+  > Re: [blink-dev] Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) Re: [blink-dev] Intent to Ship: Additional Windowing Controls Mike Taylor Mon, 14 Sep 2026 09:42:49 -0700 LGTM3 On 9/14/26 12:05 p.m., Chris...
+- [\[blink-dev\] Re: Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17441.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5201832664629248`)*
+  > [blink-dev] Re: Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: Additional Windowing Controls Vladimir Levin Mon, 14 Sep 2026 08:57:02 -0700 LGTM1 On Wednesday, September 9...
 - [\[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17394.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5201832664629248`)*
   > [blink-dev] Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) [blink-dev] Intent to Ship: Additional Windowing Controls Chromestatus Tue, 08 Sep 2026 23:04:36 -0700 Contact emails [email&#160;protected] , [...
-- [Screen.isExtended, getScreenDetails, and Multi-Display Development \| Melin's Blog](https://melin.vercel.app/blog/2026-07-30) *(melin.vercel.app)* *(Cites: `https://www.w3.org/TR/window-management/#api-window-minimize-method`)*
-  > Screen.isExtended, getScreenDetails, and Multi-Display Development | Melin&#39;s Blog Melin&#39;s Blog Back to blog July 30, 2026 &bull; 7 min read Screen.isExtended, getScreenDetails, and Multi-Display Development Table of Contents Modern ...
 - [Window-placement popup? \| Vivaldi Forum](https://forum.vivaldi.net/topic/120737/window-placement-popup) *(forum.vivaldi.net · 2026-09-02T18:23:29)* *(Cites: `https://www.w3.org/TR/window-management/#api-window-minimize-method`)*
   > Window-placement popup? | Vivaldi Forum Search Register Login Your browser does not seem to support JavaScript. As a result, your viewing experience will be diminished, and you have been placed in read-only mode . Please download a browser ...
-- [\[blink-dev\] Intent to Prototype: Creating always-on-top windows](http://www.mail-archive.com/blink-dev@chromium.org/msg17325.html) *(mail-archive.com)* *(Cites: `https://www.w3.org/TR/window-management/#api-window-minimize-method`)*
-  > [blink-dev] Intent to Prototype: Creating always-on-top windows Skip to site navigation (Press enter) [blink-dev] Intent to Prototype: Creating always-on-top windows Tommy Steimel Fri, 28 Aug 2026 15:17:36 -0700 *Contact emails* [email&#160...
-- [Permissions](https://w3c.github.io/permissions) *(w3c.github.io · 2025-10-06T00:00:00)* *(Cites: `https://www.w3.org/TR/window-management/#api-window-minimize-method`)*
-  > Permissions Permissions Interacting with Permissions for Powerful Features W3C Editor's Draft 06 October 2025 More details about this document This version: https://w3c.github.io/permissions/ Latest published version: https://www.w3.org/TR/...
-- [html - Display new window fullscreen on second monitor with Javascript - Stack Overflow](https://stackoverflow.com/questions/55836590/display-new-window-fullscreen-on-second-monitor-with-javascript) *(stackoverflow.com)* *(Cites: `https://www.w3.org/TR/window-management/#api-window-minimize-method`)*
-  > https://<strong>www.w3.org/TR/window-management</strong>/#usage-overview-place-fullscreen-content-on-a-specific-screen
+- [Re: \[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17442.html) *(mail-archive.com)* *(Cites: `https://www.w3.org/TR/window-management/#api-window-minimize-method`)*
+  > Re: [blink-dev] Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) Re: [blink-dev] Intent to Ship: Additional Windowing Controls Chris Harrelson Mon, 14 Sep 2026 09:14:30 -0700 LGTM2 On Tue, Sep 8, 2026 at 1...
 
 ## 📚 Platform Documentation & Specifications
 
+- [Updates for Chrome 155 beta by Elchi3 · Pull Request #30575 · mdn/browser-compat-data](https://github.com/mdn/browser-compat-data/pull/30575) *(github.com)*
 - [Additional Windowing Controls · Issue #96 · WebKit/standards-positions](https://github.com/WebKit/standards-positions/issues/96) *(github.com)*
 - [GitHub - explainers-by-googlers/additional-windowing-controls: Repository hosting the feature explainer · GitHub](https://github.com/explainers-by-googlers/additional-windowing-controls) *(github.com)*
+- [\[mediaqueries-5\] Add 'display-state' and 'resizable' media feature · Issue #14428 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/14428) *(github.com)*
+- [Window: setResizable() method - Web APIs - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Window/setResizable) *(developer.mozilla.org)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 41 result(s) found across 8 planned queries — **16 verified relevant**
-  - `"chromestatus.com/feature/5201832664629248" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (2 returned)
-  - `"github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (1 returned)
-  - `"www.w3.org/TR/window-management" -site:www.w3.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (6 returned)
-  - `"Additional Windowing Controls" API` — *Core feature API query* (5 returned)
+- **Brave Search:** 57 result(s) found across 13 planned queries — **28 verified relevant**
+  - `"chromestatus.com/feature/5201832664629248" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (4 returned)
+  - `"github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (3 returned)
+  - `"www.w3.org/TR/window-management" -site:www.w3.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (4 returned)
+  - `"Additional Windowing Controls" API` — *Core feature API query* (4 returned)
   - `"Additional Windowing Controls" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"chromestatus.com" OR "window-management" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Additional Windowing Controls" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
-  - `"Additional Windowing Controls" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
+  - `"Additional Windowing Controls" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (7 returned)
+  - `"Additional Windowing Controls" OR "Window Management API" ("window.minimize" OR "window.maximize") tutorial OR guide` — *Finds developer-oriented tutorials and practical guides explaining how to control window states and handle window management permissions.* (0 returned)
+  - `("window.setResizable" OR "window.maximize()" OR "window.minimize()") ("@media (display-state" OR "@media (resizable")` — *Targets real-world JavaScript and CSS syntax examples implementing the new window control methods and media queries.* (8 returned)
+  - `"Additional Windowing Controls" (VDI OR Citrix OR "remote desktop") (Chrome OR Chromium) status` — *Searches for announcements, enterprise VDI adoption cases, and Chromium rollout updates for windowing controls.* (8 returned)
+  - `"Additional Windowing Controls" site:github.com/mozilla/standards-positions OR site:github.com/WebKit/standards-positions OR site:groups.google.com/a/chromium.org` — *Identifies web standards positions and browser vendor discussions across Chromium, Mozilla, and WebKit forums.* (8 returned)
+  - `"display-state: maximized" OR "display-state: minimized" OR "display-state: normal" CSS` — *Discovers developer implementations, snippets, and documentation for adapting UI layouts using the display-state CSS media feature.* (0 returned)
 - **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
 - **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
@@ -117,7 +141,7 @@ The following external publications and discussions explicitly link to or cite t
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
 - **Standards Discussion Comments:** 12 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 7 page(s)
+- **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links
 
