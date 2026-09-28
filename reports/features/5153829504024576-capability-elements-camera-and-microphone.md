@@ -1,6 +1,6 @@
 # Capability elements: &lt;camera&gt; and &lt;microphone&gt;
 
-> **Report Week:** 2026-W39 | **Milestone:** Chrome 153 | **Category:** Enabled by default
+> **Report Week:** 2026-W40 | **Milestone:** Chrome 153 | **Category:** Enabled by default
 
 ## Overview
 
@@ -14,13 +14,12 @@ Based on feedback and the WICG specification, we are expanding this MVP model in
 
 ## Ecosystem Status
 
-- **Momentum:** High (195 points)
+- **Momentum:** High (275 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Cautiously Optimistic
-- **Executive Take:** Shipped enabled by default in Chrome 153, the &lt;camera&gt; and &lt;microphone&gt; capability elements evolve Page-Embedded Permission Control (PEPC) into semantic, single-capability HTML controls. They mitigate out-of-context permission prompt spam and solve the web's persistent 'permission recovery hole' by embedding strictly styled, browser-verified activation buttons directly in the page. While the proposal has transitioned to the W3C Media Capture Extensions specification, active implementation remains strictly confined to Chromium.
+- **Sentiment:** Positive / High Interest
+- **Executive Take:** Capability elements: &lt;camera&gt; and &lt;microphone&gt; is currently Enabled by default in Chrome 153. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
 
 ### Recommendations
-- Actionable Advice: Adopt &lt;camera&gt; and &lt;microphone&gt; strictly as progressive enhancements by feature-detecting 'HTMLCameraElement' in window. Production applications must retain traditional navigator.mediaDevices.getUserMedia() imperative fallbacks to support Safari, Firefox, and older browser baselines.
 - Shipping enabled by default in Chrome 153. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
@@ -33,72 +32,86 @@ Based on feedback and the WICG specification, we are expanding this MVP model in
 ## 📰 Ecosystem Blogs & Articles
 
 - [Chrome 153 ships camera and microphone HTML elements](https://webiterate.dev/capability-elements-camera-126) *(webiterate.dev · 2026-09-08T23:55:35Z)*
-- [\[blink-dev\] Intent to Extend Experiment: Capability Elements &lt;usermedia&gt; MVP](http://www.mail-archive.com/blink-dev@chromium.org/msg17006.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Extend Experiment: Capability Elements MVP Skip to site navigation (Press enter) [blink-dev] Intent to Extend Experiment: Capability Elements MVP Chromestatus Mon, 20 Jul 2026 13:09:41 -0700 Contact emails [email&#160;protected]...
-- [\[webkit-changes\] \[WebKit/WebKit\] 2c252b: Implement https://w3c.github.io/mediacapture-exten...](https://www.mail-archive.com/webkit-changes@lists.webkit.org/msg212408.html) *(mail-archive.com)*
-  > [webkit-changes] [WebKit/WebKit] 2c252b: Implement https://w3c.github.io/mediacapture-exten... Skip to site navigation (Press enter) [webkit-changes] [WebKit/WebKit] 2c252b: Implement https://w3c.github.io/mediacapture-exten... youennf Thu, 28 Mar 20...
+- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE24hVf3NkgP0PtDfsx1OXfca5wz2ppCGw-Xc7xmDgu2jFFrP1HbopfaYr669ag4jHz_KUsn8HnGz__TbEy4ul2v1po223RYn-xWv4xJij-1ylsWnEujh2w-HzQOg8KHmWTNDIVVQlGSYH_) *(vertexaisearch.cloud.google.com)*
+  > Media Capture Capability Elements (part of PEPC) · Issue #1218 · w3ctag/design-reviews · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload ...
+- [webiterate.dev](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE-Hpjr1KTzV2o5m70aGduBKs3B3OxA07FX0qEvswfWWFHukMH7XXta88nGQCFWqY2OJbXhPKEZbaBwe1tKMO-2L0pomaassyL3u4j96FKH7aomC_e6z7EtFSD4eY6JBSIbn7Z5NSMfON8SG6k=) *(vertexaisearch.cloud.google.com)*
+  > ### Feature Overview  The **`<camera>`** and **`<microphone>`** capability elements are declarative, user-activated HTML controls introduced as part of the broader **Capability Elements** (formerly Page-Embedded Permission Control / PEPC) initiative.
+- [whatpwacando.today](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGNndMrpvaKWx6FbodY4ikE0vL8RKfOTIpwfh-OWm44lgLXXoJc-pil6NLzbqdJowHmJk55-PM9levYHY57Fk31SKD2Rxn08JVFSvuQvUm8M0XTfwGg7duj1404c8qbzARpMO4Gvp20vqh9Lw==) *(vertexaisearch.cloud.google.com)*
+  > Media Capability Elements — What PWA Can Do Today keyboard_backspace wifi_off Media Capability Elements The declarative <camera> and <microphone> HTML elements are user-activated controls to access the user's camera and microphone. When access was pr...
+- [c-sharpcorner.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHJurrFpC8NIlnNSJu3gALe8v_nB6BDwH1rP9_qdOvTXSPYNBmktwWGBQkg-DdVmWyYkuN_cjpk7ia4u1jub9O-HtvtEsqXA1mmEpsmuviEPbXnnPGbW33ALHyMAHb1D-RuCOR4mXeel9cI9fS9379YN5c564HatHpkZjiml8ahi8GrvzN5xNzmQLdrLvrVvVeJvz3-QbvAzxYox5RYiw==) *(vertexaisearch.cloud.google.com)*
+  > ### Feature Overview  The **`<camera>`** and **`<microphone>`** capability elements are declarative, user-activated HTML controls introduced as part of the broader **Capability Elements** (formerly Page-Embedded Permission Control / PEPC) initiative.
+- [ycombinator.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHoHduJq3D7j3Jla1liuvZvJliRu80lt7qUw0ph4gYw_SUVkSfACOkjo8vBDzGwHKbdt1OWcIfYW14Dv8ZBpNgFkj7b6U-CwvR6e1r-uVO3GReyzxqVPCDEQ_M5kF6lgtGb2WY=) *(vertexaisearch.cloud.google.com)*
+  > ### Feature Overview  The **`<camera>`** and **`<microphone>`** capability elements are declarative, user-activated HTML controls introduced as part of the broader **Capability Elements** (formerly Page-Embedded Permission Control / PEPC) initiative.
+- [github.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHbF_mcGCfDu75QrlrD3tcd-KMzY75cegNpXbDrBU4FNw5cx8k3zb1PHI3uRgSIcq1-_hah3pkrZSfcMZd3wtVs8F6wmwOCDV9yq6gQpUCrlOjToxFIDOpBZlpvcjqYSQMDj1Mv7RUA5-VU) *(vertexaisearch.cloud.google.com)*
+  > ### Feature Overview  The **`<camera>`** and **`<microphone>`** capability elements are declarative, user-activated HTML controls introduced as part of the broader **Capability Elements** (formerly Page-Embedded Permission Control / PEPC) initiative.
+- [reddit.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECL6nSL7HWp8GRQXNwo-Dxwev4jkmWKk84-ilISP7bBqfE9IxoDW3wgUjxIp0ZuxS5AI7FtpiuGe1t1YdmYFGup9nCT0YSDwiIsS6QEBanpEgvcxLt1XZbSkyHcMrSjT3dafJvX4m7_5DBYjkEfaAw031O9D658EJI7MUE0yiVYLBdJSSdETe95sTjFBZhLs1eBwwSsKfgl2k=) *(vertexaisearch.cloud.google.com)*
+  > ### Feature Overview  The **`<camera>`** and **`<microphone>`** capability elements are declarative, user-activated HTML controls introduced as part of the broader **Capability Elements** (formerly Page-Embedded Permission Control / PEPC) initiative.
+- [Re: \[blink-dev\] Re: Intent to Ship: Capability elements: &lt;camera&gt; and &lt;microphone&gt;](http://www.mail-archive.com/blink-dev@chromium.org/msg17137.html) *(mail-archive.com)*
+  > &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt; *Link to entry on the Chrome Platform Status* &gt;&gt;&gt;&gt; https://<strong>chromestatus.com/feature/5153829504024576</strong>?gate=6067694366490624 &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt; This intent message was genera...
 - [\[blink-dev\] Intent to Ship: Capability elements: &lt;camera&gt; and &lt;microphone&gt;](http://www.mail-archive.com/blink-dev@chromium.org/msg17048.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Ship: Capability elements: and Skip to site navigation (Press enter) [blink-dev] Intent to Ship: Capability elements: and Chromestatus Wed, 22 Jul 2026 14:47:30 -0700 Contact emails [email&#160;protected] , [email&#160;protected...
+  > The &lt;camera&gt; and &lt;microphone&gt; elements <strong>provide a dedicated, semantic HTML control for these single-capability use cases</strong>. They maintain the identical security model, strict styling constraints, and built-in permission reco...
 - [\[blink-dev\] Re: Intent to Ship: Capability elements: &lt;camera&gt; and &lt;microphone&gt;](http://www.mail-archive.com/blink-dev@chromium.org/msg17084.html) *(mail-archive.com)*
-  > [blink-dev] Re: Intent to Ship: Capability elements: and Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: Capability elements: and Yoav Weiss (@Shopify) Wed, 29 Jul 2026 07:22:07 -0700 On Wednesday, July 22, 2026 at 11:47:33 PM U...
+  > The &lt;camera&gt; and &lt;microphone&gt; elements <strong>provide a dedicated, semantic HTML control for these single-capability use cases</strong>. They maintain the identical security model, strict styling constraints, and built-in permission reco...
 - [Re: \[blink-dev\] Re: Intent to Ship: Capability elements: &lt;camera&gt; and &lt;microphone&gt;](http://www.mail-archive.com/blink-dev@chromium.org/msg17132.html) *(mail-archive.com)*
-  > Re: [blink-dev] Re: Intent to Ship: Capability elements: and Skip to site navigation (Press enter) Re: [blink-dev] Re: Intent to Ship: Capability elements: and 'Thomas Nguyen' via blink-dev Fri, 07 Aug 2026 04:23:06 -0700 Thanks for taking a look. I ...
-- [Introducing the &lt;usermedia&gt; HTML element \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/usermedia-html-element) *(developer.chrome.com · 2026-06-29T00:00:00)*
-  > Introducing the <usermedia> HTML element | Blog | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی ...
-- [Accessing a device's camera and microphone with JavaScript - Desarrollolibre](https://www.desarrollolibre.net/blog/javascript/accessing-a-devices-camera-and-microphone-with-javascript) *(desarrollolibre.net · 2025-11-24T00:00:00)*
-  > In this guide, I&#x27;m going to teach you, step-by-step, <strong>how to access the camera and microphone with JavaScript using the modern API</strong>, how to show the stream in a &lt;video&gt;, how to capture a photo with &lt;canvas&gt;, and how to...
-- [How to Access the Camera in a PWA \[2025 guide\]](https://simicart.com/blog/pwa-camera-access) *(simicart.com · 2025-10-09T06:40:31)*
-  > Yes, Progressive Web Apps (PWAs) can access the camera on devices. This is achieved using the getUserMedia() API, which is part of the WebRTC framework. The API allows PWAs to request access to the device’s camera and microphone, enabling features li...
-- [Allowing your browser access to your camera and microphone - Source Elements](https://support.source-elements.com/source-nexus-gateway-user-guide/allowing-your-browser-access-to-your-camera-and-microphone) *(support.source-elements.com)*
-  > ... If you need to configure these settings after accidentally denying access to the browser, follow these steps: <strong>Type in chrome://settings/content#media-stream-mic in the browser bar and then Enter</strong>.
-- [Capture audio and video in HTML5 \| Articles \| web.dev](https://web.dev/articles/getusermedia-intro) *(web.dev · 2024-03-08T00:00:00)*
-  > <strong>This tutorial introduces a new API, GetUserMedia, which allows web apps to access a user&#x27;s camera and microphone</strong>.
-- [How To Allow Access To Camera And Microphone On Android ?](https://www.kentfaith.com/blog/article_how-to-allow-access-to-camera-and-microphone-on-android_5546) *(kentfaith.com · 2023-05-19T10:02:43)*
-  > Learn how to allow access to the camera and microphone on your Android device with this step-by-step guide. Ensure smooth usage for video calls, recording, and more.
-- [Camera and Microphone Access In Cross Origin Iframes With getUserMedia & Feature Policy](https://blog.addpipe.com/camera-and-microphone-access-in-cross-oirigin-iframes-with-feature-policy) *(blog.addpipe.com · 2026-05-21T08:16:34)*
-  > Learn how to use feature policy to allow camera and microphone access in cross-origin iframes. This is a must-read for secure embed scenarios.
-- [Mixing Device Cameras and the Web - Dan Wilson](https://danielcwilson.com/blog/2021/11/user-media) *(danielcwilson.com · 2021-11-11T00:00:00)*
-  > We are fairly used to the apps on our mobile devices and computers to have access to cameras and microphones for grabbing a selfie or joining a video call. These same media inputs are accessible to our web applications via the Media Devices API.
+  > The &lt;camera&gt; and &lt;microphone&gt; elements provide a dedicated, &gt;&gt; semantic HTML control for these single-capability use cases. They maintain &gt;&gt; the identical security model, strict styling constraints, and built-in &gt;&gt; permi...
 - [What Makes A PWA Installable? - by Danny Moerkerke](https://modernwebweekly.substack.com/p/what-makes-a-pwa-installable) *(modernwebweekly.substack.com · 2026-09-03T17:28:25)*
   > With &lt;camera&gt; and &lt;microphone&gt;, the user can just click the element again, which makes recovery straightforward: ... Check out the demo. In Firefox 155, you can now use the attr() function for CSS properties other than content, which now ...
-- [What PWA Can Do Today](https://whatpwacando.today) *(whatpwacando.today)*
+- [PWA Demos & Examples — What PWA Can Do Today](https://whatpwacando.today) *(whatpwacando.today)*
   > <strong>Test camera and microphone access with browser-controlled capability elements</strong>. ... AirPlay lets iOS or macOS users stream video from a PWA to an Apple TV, AirPlay speaker or compatible smart TV.
+- [Re: \[blink-dev\] Re: Intent to Ship: Capability elements: &lt;camera&gt; and &lt;microphone&gt;](http://www.mail-archive.com/blink-dev@chromium.org/msg17135.html) *(mail-archive.com)*
+  > Thanks for filing those. I&#x27;m excited that we&#x27;re adding HTML elements for common behaviours. Along those lines, do we have an analysis of how common camera and mic requests are today? I.e., can we make the case that this is so common that it...
+- [Progressive Web App (PWA) and Hardware Access](https://simicart.com/blog/pwa-hardware-access) *(simicart.com · 2025-08-08T04:27:41)*
+  > This is all possible thanks to the <strong>DeviceOrientationEvent and DeviceMotionEvent</strong>. ... Full access to the user’s camera and microphone is available and supported in most Chromium-based browsers.
+- [Chrome 153 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/153) *(chromestatus.com)*
+  > The &lt;camera&gt; and &lt;microphone&gt; ... to request a single capability. <strong>The &lt;camera&gt; element specifically requests video capture, while the &lt;microphone&gt; element specifically requests audio capture</strong>....
 - [Search Conversations](https://groups.google.com/a/chromium.org/g/blink-dev/search?q=%22intent+to+ship%22) *(groups.google.com)*
   > Intent to Ship: Capability elements: &lt;camera&gt; and &lt;microphone&gt;
-- [Re: \[blink-dev\] Re: Intent to Ship: Capability elements: &lt;camera&gt; and &lt;microphone&gt;](http://www.mail-archive.com/blink-dev@chromium.org/msg17087.html) *(mail-archive.com)*
-  > &gt; &gt; *Adoption plan* &gt; We are planning to update on developer.chrome.com and do further partner &gt; outreach &gt; &gt; *Non-OSS dependencies* &gt; &gt; Does the feature depend on any code or APIs outside the Chromium open &gt; source reposit...
+- [Intent to Experiment: Page Embedded Permission Control](https://groups.google.com/a/chromium.org/g/blink-dev/c/9dANzlI1YgQ/m/0zKu55F5BQAJ) *(groups.google.com)*
+  > The first OT for the &lt;permission&gt; HTML element exposed only support for Camera / Mic permissions, which is slated to end with M131 / 19 FEB 2025.
+- [Intent to implement and ship: Navigator.MediaDevices](https://groups.google.com/a/chromium.org/g/blink-dev/c/709H0911zqM) *(groups.google.com)*
+  > Remember: For access to the most sensitive devices (camera and microphone), this API is just a rename of the getSources API, which we&#x27;re already shipping.
+- [Intent to Ship: MediaStreamTrack Insertable Streams (a.k.a. Breakout Box)](https://groups.google.com/a/chromium.org/g/blink-dev/c/oo6MQoRbDXk/m/7Kjjfe9NAwAJ) *(groups.google.com)*
+  > This feature <strong>defines an API surface for manipulating raw media carried by MediaStreamTracks such as the output of a camera, microphone, screen capture, and to programmatically produce MediaStreamTracks from raw media frames</strong>. It uses ...
+- [Intent to Extend Experiment: MediaStreamTrack Insertable Streams (a.k.a. Breakout Box)](https://groups.google.com/a/chromium.org/g/blink-dev/c/OCDJghwLUFw/m/jgG7R1PBBQAJ) *(groups.google.com)*
+  > This feature <strong>defines an API surface for manipulating raw media carried by MediaStreamTracks</strong> such as the output of a camera, microphone, screen capture, or the decoder part of a codec and the input to the decoder part of a codec.
+- [Intent for Reverse Origin Trial: Media Previews opt-out](https://groups.google.com/a/chromium.org/g/blink-dev/c/f_x-iPGZSPg) *(groups.google.com)*
+  > In addition, users with multiple devices will be able to select a camera and microphone at the time permissions are requested, unless the site has requested a specific device through getUserMedia(). This feature is in concurrent development with anot...
+- [Intent to Experiment: MediaStreamTrack Insertable Streams (a.k.a. Breakout Box)](https://groups.google.com/a/chromium.org/g/blink-dev/c/fyJfqEwP1FY) *(groups.google.com · 2021-01-27T00:00:00)*
+  > This feature <strong>defines an API surface for manipulating raw media carried by MediaStreamTracks</strong> such as the output of a camera, microphone, screen capture, or the decoder part of a codec and the input to the decoder part of a codec.
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
-- [\[blink-dev\] Intent to Extend Experiment: Capability Elements &lt;usermedia&gt; MVP](http://www.mail-archive.com/blink-dev@chromium.org/msg17006.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/mediacapture-extensions/blob/main/media-capture-elements-explainer.md`)*
-  > [blink-dev] Intent to Extend Experiment: Capability Elements MVP Skip to site navigation (Press enter) [blink-dev] Intent to Extend Experiment: Capability Elements MVP Chromestatus Mon, 20 Jul 2026 13:09:41 -0700 Contact emails [email&#160;...
-- [Background Blur: Unprocessed video should be mandatory to support · Issue #121 · w3c/mediacapture-extensions](https://github.com/w3c/mediacapture-extensions/issues/121) *(github.com · 2023-10-25T11:45:09)* *(Cites: `https://w3c.github.io/mediacapture-extensions/#the-camera-html-element`)*
-  > Background Blur: Unprocessed video should be mandatory to support · Issue #121 · w3c/mediacapture-extensions · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in wit...
-- [\[webkit-changes\] \[WebKit/WebKit\] 2c252b: Implement https://w3c.github.io/mediacapture-exten...](https://www.mail-archive.com/webkit-changes@lists.webkit.org/msg212408.html) *(mail-archive.com)* *(Cites: `https://w3c.github.io/mediacapture-extensions/#the-camera-html-element`)*
-  > [webkit-changes] [WebKit/WebKit] 2c252b: Implement https://w3c.github.io/mediacapture-exten... Skip to site navigation (Press enter) [webkit-changes] [WebKit/WebKit] 2c252b: Implement https://w3c.github.io/mediacapture-exten... youennf Thu,...
+- [Re: \[blink-dev\] Re: Intent to Ship: Capability elements: &lt;camera&gt; and &lt;microphone&gt;](http://www.mail-archive.com/blink-dev@chromium.org/msg17137.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5153829504024576`)*
+  > &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt; *Link to entry on the Chrome Platform Status* &gt;&gt;&gt;&gt; https://<strong>chromestatus.com/feature/5153829504024576</strong>?gate=6067694366490624 &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt; This intent message ...
 
 ## 📚 Platform Documentation & Specifications
 
-- [Background Blur: Unprocessed video should be mandatory to support · Issue #121 · w3c/mediacapture-extensions](https://github.com/w3c/mediacapture-extensions/issues/121) *(github.com)*
+- [Capability Element - &lt;usermedia&gt; (former PEPC) · Issue #1392 · mozilla/standards-positions](https://github.com/mozilla/standards-positions/issues/1392) *(github.com)*
+- [Permissions-Policy: microphone directive](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy/microphone) *(developer.mozilla.org)*
+- [Getting browser microphone permission](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Build_a_phone_with_peerjs/Connect_peers/Get_microphone_permission) *(developer.mozilla.org)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 35 result(s) found across 8 planned queries — **18 verified relevant**
-  - `"chromestatus.com/feature/5153829504024576" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
+- **Brave Search:** 47 result(s) found across 12 planned queries — **17 verified relevant**
+  - `"chromestatus.com/feature/5153829504024576" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
   - `"github.com/w3c/mediacapture-extensions/blob/main/media-capture-elements-explainer.md" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (1 returned)
   - `"w3c.github.io/mediacapture-extensions" -site:w3c.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (2 returned)
   - `"Capability elements: <camera> and <microphone>" API` — *Core feature API query* (3 returned)
   - `"Capability elements: <camera> and <microphone>" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"user-activated" OR "browser-controlled" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Capability elements: <camera> and <microphone>" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
-  - `"Capability elements: <camera> and <microphone>" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (7 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
+  - `"Capability elements: <camera> and <microphone>" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
+  - `"capability elements" HTML ("camera" OR "microphone") guide OR tutorial OR explainer` — *Discover developer-facing guides and articles introducing declarative camera and microphone capability elements.* (6 returned)
+  - `"<camera>" OR "<microphone>" HTML element "getUserMedia" OR "MediaStream" code example` — *Find practical HTML markup and JavaScript event-handling code snippets using the single-capability elements.* (1 returned)
+  - `"capability elements" ("camera" OR "microphone") site:chromestatus.com OR site:groups.google.com/a/chromium.org/g/blink-dev` — *Track browser adoption, Intent to Prototype/Ship threads, and release announcements in Chromium channels.* (8 returned)
+  - `"media capture elements" ("<camera>" OR "<microphone>" OR "<usermedia>") site:github.com/w3c/mediacapture-extensions/issues OR site:news.ycombinator.com` — *Surface developer sentiment, spec feedback, and privacy debates regarding declarative browser-controlled capture controls.* (1 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 11 result(s) found — **7 verified relevant**
 - **Twitter / X API v2:** *HTTP 400*
-- **Dev.to Community Blogs:** 1 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 1 result(s) found — **1 verified relevant**
 - **Standards Positions:** 0 result(s) found — **0 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
@@ -111,7 +124,7 @@ The following external publications and discussions explicitly link to or cite t
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
 - **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 7 page(s)
+- **Web Page Excerpts Ingested:** 6 page(s)
 
 ## Useful Links
 

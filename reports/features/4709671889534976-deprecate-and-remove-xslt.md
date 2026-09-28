@@ -1,6 +1,6 @@
 # Deprecate and remove XSLT
 
-> **Report Week:** 2026-W39 | **Milestone:** Chrome 152 | **Category:** Origin trial
+> **Report Week:** 2026-W40 | **Milestone:** Chrome 152 | **Category:** Origin trial
 
 ## Overview
 
@@ -16,13 +16,13 @@ The usage of XSL Processing Instructions (https://chromestatus.com/metrics/featu
 
 ## Ecosystem Status
 
-- **Momentum:** High (983 points)
+- **Momentum:** High (793 points)
 - **Standards Alignment:** Multi-Engine Consensus
 - **Sentiment:** Mixed / Skeptical
-- **Executive Take:** Client-side XSLT 1.0 is slated for deprecation and complete removal across the web platform, driven by the critical need to eliminate high-risk memory-safety vulnerabilities in legacy C processing libraries like libxslt. Chromium is executing a phased sunset through origin trials and enterprise policies, while the WHATWG and peer browser engines move to strip XSLT from the living HTML specification. Although global page load traffic is low (~0.05%), the removal disproportionately impacts specialized institutional archives, podcast RSS feeds, and XML sitemaps.
+- **Executive Take:** Chromium, Gecko, and WebKit have aligned to deprecate and permanently remove client-side XSLT (including \`XSLTProcessor\` and XSL processing instructions) to eliminate high-risk memory safety attack surfaces stemming from aging C libraries like \`libxslt\`. Although usage sits well below 0.1% of page loads, it powers critical legacy infrastructure across government, publishing, and enterprise intranets, prompting a staged deprecation targeting stable removal around Chrome 158. Cross-engine consensus firmly favors removal, supported by WHATWG specification updates to retire XSLT from the HTML Living Standard.
 
 ### Recommendations
-- Actionable Advice: Audit existing applications immediately for client-side XSLTProcessor usage or XML stylesheet processing instructions, and migrate transformation logic server-side or to client-side JS/WASM engines like SaxonJS. Teams maintaining legacy enterprise or public-sector XML rendering must leverage Chrome's Origin Trial or the enterprise policy flag (\`XSLTEnabled\`) to buy time before permanent browser deprecation.
+- Actionable Advice: Audit production web applications immediately for \`XSLTProcessor\` invocations or \`&lt;?xml-stylesheet?&gt;\` processing instructions and audit third-party XML sitemap implementations. Teams must migrate workflows to server-side transformation pipelines (such as Saxon or Node-based renderers) or deploy client-side Wasm/JS fallbacks (like SaxonJS) before stable browser removal.
 - In active Origin Trial in Chrome 152. Validate API ergonomics in staging/pilot environments before general availability.
 - Standards Activity (WebKit): Latest discussion from @annevk: "WebKit is cautiously supportive. We'd probably wait for one implementation to fully remove support, though if there's a known list of origins that par..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
@@ -38,139 +38,100 @@ The usage of XSL Processing Instructions (https://chromestatus.com/metrics/featu
 - 💬 **Hacker News:** [Intent to Deprecate and Remove: XSLT](https://news.ycombinator.com/item?id=45734849) — *3 pts, 1 comments*
 - 💬 **Hacker News:** [Intent to Deprecate and Remove: XSLT](https://news.ycombinator.com/item?id=6102357) — *2 pts, 0 comments*
 - 🐦 **Twitter / X:** [Chrome for Developers on X: "Chrome 153 is now in beta! Try out new CSS scroll container options, Rust-based XML parsing, declarative camera and microphone HTML elements, and the new WebGPU buffer\_view feature. https://t.co/QVG8pp2SRN" / X](https://x.com/ChromiumDev/status/2093424350036660456) — *by @ChromiumDev, 0 likes/RTs, 0 replies*
-- 🐦 **Twitter / X:** [Exeter Premedia Services on X: "XSLT developer groups](https://mobile.twitter.com/GrowwithExeter/status/980674084743790592) — *0 likes/RTs, 0 replies*
-- 🐦 **Twitter / X:** [XSLT Deprecation in Google Chrome Browser \| Community](https://community.nintex.com/nintex-automation-k2-3/xslt-deprecation-in-google-chrome-browser-74072) — *0 likes/RTs, 0 replies*
-- 🐦 **Twitter / X:** [Chromium XSLT deprecation \| Community](https://community.nintex.com/nintex-automation-k2-57/chromium-xslt-deprecation-74128) — *0 likes/RTs, 0 replies*
 
 ## 📰 Ecosystem Blogs & Articles
 
 - [Intent to Deprecate and Remove XSLT](https://groups.google.com/a/chromium.org/g/blink-dev/c/CxL4gYZeSJA/m/yNs4EsD5AQAJ) *(groups.google.com · 2025-11-01T04:31:52Z)*
   > Intent to Deprecate and Remove: Deprecate and remove XSLT Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Deprecate and Remove: Deprecate an...
-- [Intent to Deprecate and Remove: XSLT](https://groups.google.com/a/chromium.org/forum) *(groups.google.com · 2013-07-25T13:40:31Z)*
-  > Redirecting to Google Groups
-- [Removing XSLT for a more secure browser \| Web Platform \| Chrome for Developers](https://developer.chrome.com/docs/web-platform/deprecating-xslt) *(developer.chrome.com · 2025-10-29T00:00:00)*
-  > Removing XSLT for a more secure browser | Web Platform | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة...
-- [Intent to Deprecate and Remove: Deprecate and remove XSLT](https://groups.google.com/a/chromium.org/g/blink-dev/c/CxL4gYZeSJA) *(groups.google.com · 2025-10-24T00:00:00)*
-  > Intent to Deprecate and Remove: Deprecate and remove XSLT Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Deprecate and Remove: Deprecate an...
-- [Intent to Deprecate and Remove: Deprecate and remove XSLT \| Lobsters](https://lobste.rs/s/r3ckga/intent_deprecate_remove_deprecate) *(lobste.rs · 2025-10-31T00:00:00)*
-  > Intent to Deprecate and Remove: Deprecate and remove XSLT | Lobsters Lobsters 36 Intent to Deprecate and Remove: Deprecate and remove XSLT browsers groups.google.com via inactive-user 2025-10-31 23:56:34 | caches Archive.org Ghostarchive | 31 comment...
-- [Chromium's Plan to Deprecate and Remove XSLT \| daily.dev](https://app.daily.dev/posts/chromium-s-plan-to-deprecate-and-remove-xslt-dhq8zbv55) *(app.daily.dev · 2025-11-05T17:26:05)*
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG_mi4UF_Ldknu9QoDTRju_MCnqfih05bXoYKjJUGPh5NSOzKOn5cGQnX8zEsw1ImTlDBwrP1iVFfh-hGmTCHRya7aZSNespAZQ_61hzXHPzzizvU5z4LHa8rKOfkfI9BeGK9f4OV87RVM-XQhTgY3bfyJHbLA=) *(vertexaisearch.cloud.google.com)*
+  > ブラウザの安全性を高めるための XSLT の削除 | Web Platform | Chrome for Developers メイン コンテンツにスキップ / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภา...
+- [daily.dev](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGYkeIRhgPwwepxPVT5zDdtGBQYSgDKQGdNIuX6-lGWPs0ukDzr4bhEgp7oaCad1RTYv_v-6ky4M3PIdgJ_4w9rQa3l4hy1LtmAlOFKF3IJoLyidMW17qYfokQuDB2R98oP-qEFAaprO6SP5638jb8KWXIlIRHUugtUZ9IcrdVy5w_oWg0=) *(vertexaisearch.cloud.google.com)*
   > Chromium&#x27;s Plan to Deprecate and Remove XSLT | daily.dev Collection Subscribe Chromium&#x27;s Plan to Deprecate and Remove XSLT # webassembly # web-security # chromium Last updated Nov 05, 2025 • 2 sources Comment Bookmark Copy Share your though...
-- [Michael Tsai - Blog - Removing XSLT From the Web Platform](https://mjtsai.com/blog/2025/08/21/removing-xslt-from-the-web-platform) *(mjtsai.com · 2025-08-21T00:00:00)*
-  > The proposed timeline for Chromium is to <strong>deprecate in M143, remove in M155 (except for Origin Trial and Enterprise Policy users), and discontinue the Origin Trial and Enterprise Policy in M164</strong>. Update (2025-11-05): Mason Freed and Do...
+- [simonwillison.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEHaC_4QOwqUFVb-1ppbujcvAu3HAYUimyDZJK5r8dV2q_00I5RIh3IHxUqXBCZlUiWS6u65fDVjQLlSeca6gLof44tpcQeuQ0gQWLZx7qpAdeCSc0GgvdiUAoWm_CenwUUVWeXWc2BNCY=) *(vertexaisearch.cloud.google.com)*
+  > Removing XSLT for a more secure browser Simon Willison’s Weblog Subscribe Sponsored by: Greptile &mdash; AI code reviewers catch bugs at run time and manage your code. Trusted by Nvidia, Netflix, and many more 5th November 2025 - Link Blog Removing X...
+- [wikipedia.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHbr-weaJDLirwNvsZ0VNV_3_louggYidaYcodKvSKVweUAhfvTT6guzpKMQH1HtqSC_enkmytjJv6Uq-a1Gm4JVFGlJx6pF6TlqqeI7cKiYNFINxM9D1cyV_9R) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGEwAAohJkZ1hiKKUA6lnK9oF0O6t7vewTgIRyL9JqMYaZCrC6stlRPdeGkQPnOFxi_BYpPl7XzFsuMCPCwuiymzWRNqZJOUquFnoiQHfl9WdEjC0EOVo-AhZRMUwVgDO0rnSpudUbZ) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE10GVJSk1ifNB3uz7jUeELCL3DHZRl4iJHRlL7UHmCzNO8iFzeIPvt7YXp8i8O-y5pjTqmKYXQvHGKsXDnJmOYxhpW4C20zDSJhStF3vC_HmqZ3yILo47WQep7Fp4SwfueKblzf1y0) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4_YqGgS-6LDbhcLBMtF70OrA04gXd--ViXzT9mdY6o5u7qxSzn1OV-3rnFDBjTbD4BfbdGjXDEPY8wO4km3gKm_zkVc60XtXdA7wD7D5GFrj6MnK1tGqGvy246ZBHoz0lSP8GyOthixRN9qgmraRxmThx1Q==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [web-standards.dev](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGz0D_0KHEvGKbKU7dD8wl-SChs1_CRo2lBuPY3OOiSewj6DXaheTiFN68suCslf1_nTLiJ_hRlEPTXfgbLGoEpvYb0ehAoLF6s1OVNYJVWBmv1Sh424C64lheNPVJZsSDUp_o_o6EdDAJA8L8f-A==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [jakearchibald.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGillE1fxdqIcCliXasbQwGqjo8drxp-rHNmrTtNNpbpTJ6ZDCG2fuXanbFjwoaEJVqMg9u12uMtTErcaf6p0wzG8jxBysB-Y8V6C62QWhsT2SvGefKquOJFBexxHTpS1zvuDxC7LJWT5MBwaHfQgkk-vmEhLPPhdpYt9U=) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [aras.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHdJ6NC3STqwWAOzpqPdHU74QFRR7EKJsnCx7jitm0Kls8BOF1xiwNVgJ8PmDa6l5r5fju5I-i51ysUschUxsJOjJiYeL3EEGcK6miHGtSsf-4c-2PVKYoR5g439kfzeIa4O77y9rtXTxaEckuSMWuk7NVDSCd8c0FsbHXLFyIX8NcGEpuL_q6nBP4cHiI1ZCHr59ITrQ==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFmuBWJnr5zqUafLGtubLKWdPPFmgI6ee7p5CJLMMHyoGK3aNP4nzC26qGHr98CBbqVplqgZwsDP90Exw0KWQ2lanSRIpltiZ03cOxFYH2WpvIgDeA5H3pT-ECBl6AYCPDg) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [ycombinator.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGLpmRYLIRQkMY-jSvism2DYhEBCFnAnyKshIKbWwJ9qIa48wckYsiNeOPG1jud6ntBuH0vqo4ntgB-GSTEb5iR8VpS7pS5DYThrsP_pmTOn2ZCzbF7P_5jztP7HxgCLN83VTo=) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [thenewstack.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1O5tjHwWtvLsuub_8D8h-iKlddo4HHFVPyuxwVtDfASTE6yQBMnwbZS_6mosSaDeR1xVv0t5kgxw4pw-Vx8Uq_1IBBL7cgs5HqVjLKYzeRfq0_UPD_i8IkuhJ_V1aiAaz97anyNxe1uWRyxMAoXTEh_2C2zrNDECbFrnB5TpQVFVVTWV3) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [wordpress.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFAZMTpdpxIGC5yE9u5al90ESEsSXfaOoUZtNG5f6vmq_jumvhe-LrtyMNuMou2gElvYwBv-Bpbk_txr9oDS5XJ9XCft6PQbLAsCuunp-N9WtBJ4n31BwjHHJ0H1RaULvAp) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [acumatica.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFhgqIaydM1wnDnsUtZIPFhUDjq_YONOXt2_KqnDXHmvWR-PMHGf9xKgkyvx2l_4l_91fqmecbmGWTDUt1kQ0HKGedT1FpP68o86SGYe01CUKJtDlz0nsCpud7_BpOlpWApJX502gtRDBQbGSQsyNcWFkLxP5Ydioeh7NNexjNZzqdVtjM6tRIecGZEtWeFLfFjkN5WRWcBQd7_T88UBRGd7lO20B8pC4jzxNbfkyAO4szR3-OM5AY=) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF4WSJQjXaLV-qRnEaDCZJ9hOOijccRgle7a7wldZ60RL3L8Twjfvv-3l8Sr_552zISog0xta7XJ4H8aO610NR0cq3MnbkSuLGb4PrGxkTLnAG37neisBOAnNiqJp71eTh_3O87sBFzI6gyHgUhC7gOp_qTFTGkWqD1koFZVHjLhVNWOBFCjd-ebovWatwD--dzweatSUcjL9mgzsBGCwX_89n_) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGirZBMLNTO2XIPjVcmGcTozbJp8VUSuR6YZTmUWfCsxHqVVUooESKnWlDMGyltUoIak2_umHEWq8zZOWThwlCdxVUw5uZ32u-ZCCPAFFKJ8LnxLCfZkfDSHruoVWzHrRowzCc=) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHC2kflY5F9QTGRwwZ6-rT_6UBpgB5y4dRsRoHrucyG3jLZXnRDKnqMYHuSjdcj9WgUjmErMZXFPyhl4QlRAAAXsm5pQX8NxpgR9ovk_dF572G31xpq-P8lOYlMPwsAS3KhZQ_ruexPOQUQdmKb3_6pB0mzXep54IiB4DpnB0MSeO9Kl1YowLBrj1-pH6SDRw==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview of the Deprecation  Major browser vendors—**Chromium (Google Chrome, Microsoft Edge)**, **Gecko (Mozilla Firefox)**, and **WebKit (Apple Safari)**—have coordinated to deprecate and remove client-side **XSLT 1.0** from the web platform. T
+- [Removing XSLT for a more secure browser \| Web Platform \| Chrome for Developers](https://developer.chrome.com/docs/web-platform/deprecating-xslt) *(developer.chrome.com · 2025-10-29T00:00:00)*
+  > <strong>Chrome intends to deprecate and remove XSLT from the browser</strong>. This document details how you can migrate your code before the removal in late-2026. Chromium has officially deprecated XSLT, including the XSLTProcessor JavaScript API an...
+- [Intent to Deprecate and Remove: Deprecate and remove XSLT](https://groups.google.com/a/chromium.org/g/blink-dev/c/CxL4gYZeSJA) *(groups.google.com · 2025-10-24T00:00:00)*
+  > The proposed timeline for Chromium is to <strong>deprecate in M143, remove in M155 (except for Origin Trial and Enterprise Policy users), and discontinue the Origin Trial and Enterprise Policy in M164</strong>. See below for more details. ... Securit...
+- [Intent to Deprecate and Remove: Deprecate and remove XSLT \| Lobsters](https://lobste.rs/s/r3ckga/intent_deprecate_remove_deprecate) *(lobste.rs · 2025-10-31T00:00:00)*
+  > Even if the performance is 10x worse than native it&#x27;s still 100x better than what the most powerful workstations could provide during the heyday of XML+XSLT as a publishing format. You could even run the whole thing through wasm2c or w2c2 and pu...
+- [Chromium's Plan to Deprecate and Remove XSLT \| daily.dev](https://app.daily.dev/posts/chromium-s-plan-to-deprecate-and-remove-xslt-dhq8zbv55) *(app.daily.dev · 2025-11-05T17:26:05)*
+  > Chromium will deprecate and remove XSLT support <strong>between December 2025 (M143) and August 2027 (M164)</strong> due to security vulnerabilities in libxslt and minimal...
+- [Deprecate and remove XSLT](https://chromestatus.com/feature/4709671889534976?gate=5156253931929600) *(chromestatus.com)*
+  > Sign in with GoogleSign in with Google. Opens in new tab
 - [Deprecate and remove XSLT - Chrome Platform Status](https://cr-status.appspot.com/feature/4709671889534976) *(cr-status.appspot.com)*
   > Acceder con GoogleAcceder con Google. Se abre en una pestaña nueva
-- [XSLT Introduction](https://www.w3schools.com/xml/xsl_intro.asp) *(w3schools.com)*
-  > This tutorial will teach you how to use XSLT to transform XML documents into other formats (like transforming XML into HTML).
-- [Intent to Deprecate and Remove: XSLT](https://groups.google.com/a/chromium.org/g/blink-dev/c/zIg2KC7PyH0/m/Ho1tm5mo7qAJ) *(groups.google.com)*
+- [Intent to Deprecate and Remove: XSLT](https://groups.google.com/a/chromium.org/g/Blink-dev/c/zIg2KC7PyH0/m/Rdcb5K-mVecJ) *(groups.google.com)*
   > XSLT is more often used on the server as part of an XML processing pipeline. Server-side XSLT processing will not be affected by deprecating and removing XSLT support in Blink.
-- [XML and XSLT](https://www.w3schools.com/xml/xml_xslt.asp) *(w3schools.com)*
-  > XSLT is far more sophisticated than CSS. With XSLT you can add/remove elements and attributes to or from the output file.
-- [XSLT Tutorial - Basics - EduTech Wiki](https://edutechwiki.unige.ch/en/XSLT_Tutorial_-_Basics) *(edutechwiki.unige.ch)*
-  > The following code will override the default rules and will help you find some problems. Simply <strong>cut/paste this to your XSLT (but remove it later !)</strong>
-- [XSLT Tutorial – XSLT Transformations & Elements With Examples](https://www.softwaretestinghelp.com/xslt-tutorial) *(softwaretestinghelp.com · 2025-04-01T08:28:31)*
-  > I&#x27;m Vijay, and I&#x27;ve been working on this blog for the past 20+ years! I’ve been in the IT industry for more than 20 years now. I completed my graduation in B.E. Computer Science from a reputed Pune university and then started my career in… ...
-- [W3Schools Online Web Tutorials](https://www.w3schools.com) *(w3schools.com)*
-  > The W3Schools Adventure app is here! Coding fundamentals as a game. Bite-sized lessons, streaks and XP. Free on iOS and Android. ... Pick a language and start right away. Every tutorial is packed with examples you can run and edit in your browser: HT...
-- [W3.CSS Home](https://www.w3schools.com/w3css/defaulT.asp) *(w3schools.com)*
-  > W3.CSS is <strong>built with standard CSS and does not depend on any JavaScript library</strong>. W3.CSS gives you ready-to-use classes for common web design tasks.
-- [Using a JavaScript Library](https://www.w3schools.com/w3css/w3css_web_javascript.asp) *(w3schools.com)*
-  > Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java, XML and more.
-- [W3.CSS Examples](https://www.w3schools.com/w3css/w3css_examples.asp) *(w3schools.com)*
-  > Fluid grid demonstration Two equal columns Two unequal columns Three equal columns Three unequal columns Six equal columns Mixed: Mobile and Laptops Mixed: Mobile, Tablets and Laptops Difference between w3-row and w3-row-padding Columns using w3-rest...
-- [W3.CSS Reference](https://www.w3schools.com/w3css/w3css_references.asp) *(w3schools.com)*
-  > Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java, XML and more.
-- [W3.CSS Code](https://www.w3schools.com/W3CSs/w3css_code.asp) *(w3schools.com)*
-  > Web Intro Web HTML Web CSS Web JavaScript Web Layout Web Band Web Catering Web Restaurant Web Architect · W3.CSS Examples W3.CSS Demos W3.CSS Templates W3.CSS Certificate ... <strong>The w3-code class is used to display code in a readable mono-spaced...
+- [Michael Tsai - Blog - Removing XSLT From the Web Platform](https://mjtsai.com/blog/2025/08/21/removing-xslt-from-the-web-platform) *(mjtsai.com · 2025-08-21T00:00:00)*
+  > <strong>Chromium has officially deprecated XSLT, including the XSLTProcessor JavaScript API and the XML stylesheet processing instruction</strong>. We intend to remove support from version 155 (November 17, 2026). The Firefox and WebKit projects have...
 - [Previous release notes - Chrome Enterprise and Education Help](https://support.google.com/chrome/a/answer/10314655?hl=en-GBAfter) *(support.google.com)*
   > Indeed, XSLT is the source of several recent high-profile security exploits that continue to put browser users at risk. For these reasons, <strong>Chromium (along with both other browser engines) plans to deprecate and remove XSLT from the web platfo...
-- [Chrome 152 beta \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/chrome-152-beta) *(developer.chrome.com · 2026-07-30T00:00:00)*
-  > <strong>Chrome has deprecated client-side XSLT, and is getting close to removing it from the browser, in Chrome 158.</strong> A deprecation (origin) trial has been set up to allow sites to extend the migration time away from XSLT by about nine months...
 - [Chrome Enterprise and Education release notes - Chrome browser - Chrome Enterprise and Education Help](https://support.google.com/chrome/a/answer/7679408?hl=en_PH&co=CHROME_ENTERPRISE._Product%3DChromeBrowser) *(support.google.com)*
   > Indeed, XSLT is the source of several recent high-profile security exploits that continue to put browser users at risk. For these reasons, <strong>Chromium (along with both other browser engines) plans to deprecate and remove XSLT from the web platfo...
 - [XSLT Debate Leads to Bigger Questions of Web Governance - The New Stack](https://thenewstack.io/xslt-debate-leads-to-bigger-questions-of-web-governance) *(thenewstack.io · 2025-09-02T13:16:43)*
-  > When the Chrome team created an issue on GitHub to discuss the idea of deprecating XSLT from the web platform and removing it from browsers as a “niche, rarely used feature” superseded by JavaScript and implemented by complex, aging codebases with li...
+  > Even with enthusiastic agreement from Firefox and more muted support from WebKit, it took over a year to remove them from Chrome, Edge and the spec — and even then a deprecation trial and enterprise policy gave developers extra time to make changes. ...
 - [The tangled web of XSLT browser support \[LWN.net\]](https://lwn.net/Articles/1034560) *(lwn.net · 2025-08-27T00:00:00)*
-  > Barring a sudden reversal, the Chrome team looks poised to ship that prototype before too long. <strong>The Chrome Platform Status page for the &quot;feature&quot; to deprecate XSLT lists 2026 as the estimated shipping year</strong>, though many of t...
+  > Google has sought to drop support for XSLT a few times. <strong>In 2013, Adam Barth notified the Blink development list of an intent to deprecate and remove XSLT from the browser engine</strong>.
 - [Chrome is removing XSLT on November 17, 2026: what breaks and what to do \| XSLT Playground](https://xsltplayground.com/blog/posts/chrome-removing-xslt-what-to-do) *(xsltplayground.com)*
   > Quick answer: <strong>Chrome removes built-in XSLT support in version 158, shipping November 17, 2026</strong>, with deprecation warnings already appearing since Chrome 142–143 (official announcement). Both the XSLTProcessor JavaScript API and &lt;?x...
-- [Intent to Deprecate and Remove: XSLT (Again)](https://groups.google.com/a/chromium.org/g/blink-dev/c/6MOMhQaX3N8/m/s-8UHedjCAAJ) *(groups.google.com)*
-  > I want to remove XSLT to make the binary smaller (up to about 0.5 MB smaller, depending on the platform), make the attack surface smaller, eliminate the maintenance burden of updating the library (which we did rarely in practice), and give us more fl...
-- [Intent to Deprecate and Remove: XSLT](https://groups.google.com/a/chromium.org/g/blink-dev/c/zIg2KC7PyH0) *(groups.google.com)*
-  > Moreover, less than 0.003% of page ... XSLT via the XSLTProcessor JavaScript API.) XSLT is more often used on the server as part of an XML processing pipeline. <strong>Server-side XSLT processing will not be affected by deprecating and removing XSLT ...
-- [\[blink-dev\] Intent to Deprecate and Remove: Deprecate and remove XSLT](http://www.mail-archive.com/blink-dev@chromium.org/msg14983.html) *(mail-archive.com)*
-  > They will need to be changed/removed: https://wpt.fyi/results/dom/xslt Flag name on about://flags XSLT Finch feature name XSLT Requires code in //chrome? False Tracking bug https://crbug.com/435623334 Estimated milestones No milestones specified Link...
-- [\[blink-dev\] Re: Intent to Deprecate and Remove: Deprecate and remove XSLT](http://www.mail-archive.com/blink-dev@chromium.org/msg17362.html) *(mail-archive.com)*
-  > And we are doing everything we can to mitigate this &gt;&gt; breakage and be proactive in reaching out to potentially affected sites and &gt;&gt; particularly libraries that might account for significant chunks of the &gt;&gt; overall usage. In addit...
-- [Intent to Deprecate and Remove: XSLT (Again) - Google Groups](https://groups.google.com/a/chromium.org/forum/?_escaped_fragment_=topic%2Fblink-dev%2F6MOMhQaX3N8) *(groups.google.com)*
-  > dominicc@chromium.org · XSLT is a declarative language for transforming XML. Transforming XML into HTML is a typical use on the web. XSLT 1.0 is implemented in Blink, although it’s incomplete. (xsl:include does not work, for example.) Our implementat...
-- [Re: \[blink-dev\] Request for Deprecation Trial: Deprecate and remove XSLT](http://www.mail-archive.com/blink-dev@chromium.org/msg17421.html) *(mail-archive.com)*
-  > They will need to be &gt;&gt;&gt; changed/removed: https://wpt.fyi/results/dom/xslt &gt;&gt;&gt; &gt;&gt;&gt; *Flag name on about://flags* &gt;&gt;&gt; XSLT &gt;&gt;&gt; &gt;&gt;&gt; *Finch feature name* &gt;&gt;&gt; XSLT &gt;&gt;&gt; &gt;&gt;&gt; *R...
-- [google chrome - XSLTForms after removal of xml-stylesheet processing instruction - Stack Overflow](https://stackoverflow.com/questions/79825649/xsltforms-after-removal-of-xml-stylesheet-processing-instruction) *(stackoverflow.com)*
-  > The shortest alternative for a standalone form could be just 2 script elements: one for pointing to Javascript source, one for embedding XHTML+XForms. 2025-11-23 09:18:14Z+00:00 ... Thank you for pointing at Google decision deprecating XSLT 1.0. Prop...
-- [Deprecating XSLT in browsers — Web Standards](https://web-standards.dev/news/2025/10/deprecating-xslt) *(web-standards.dev · 2025-10-28T00:00:00)*
-  > The decision comes from its extremely ... and Safari expressed support. <strong>Deprecation will begin in Chrome 143, with full removal planned for version 155 and a transition period lasting until 2027</strong>....
-- [Chromium XSLT Deprecation Affecting Classic UI \[Action Required\] \| Community](https://community.acumatica.com/acumatica-news-updates-2/chromium-xslt-deprecation-affecting-classic-ui-action-required-35343) *(community.acumatica.com · 2026-05-01T21:56:12)*
-  > Yes - <strong>the XSLT fix is confirmed merged into the patch released July 3, 2026 - 2025R2 SP1, build 25.201.0213.5</strong>.
-- [transformToFragment - Saxon Documentation](https://www.saxonica.com/ce/user-doc/1.1/html/api/xslt20processor/transformToFragment.html) *(saxonica.com)*
-  > transformToFragment · Saxon · About Saxon-CE · Change Log for Saxon-CE · Getting started · Developing Applications · JavaScript API · Command · Saxon · XSLT20Processor · clearParameters · getInitialMode · getInitialTemplate · getParameter · getResult...
-- [Intent to Deprecate and Remove XSLT \| Hacker News](https://news.ycombinator.com/item?id=45779261) *(news.ycombinator.com · 2025-11-03T07:09:21)*
-  > There have been other removals, but few of them were of even specified features, and I don’t think any of them have been universally available. One of the closest might be showModalDialog &lt;https://web.archive.org/web/20140401014356/http://dev.oper...
-- [r/programming on Reddit: No, Google Did Not Unilaterally Decide to Kill XSLT](https://www.reddit.com/r/programming/comments/1mxswpp/no_google_did_not_unilaterally_decide_to_kill_xslt) *(reddit.com · 2025-08-23T05:21:06)*
-  > What is being proposed is the removal of a feature that works and that some people are using. I&#x27;m kind of stunned that we&#x27;re in r/programming, and so many programmers seem up in arms about a public API getting deprecated. Like, yeah! It hap...
-- [Should we remove XSLT from the web platform? \| Hacker News](https://news.ycombinator.com/item?id=44909599) *(news.ycombinator.com · 2025-08-22T07:31:47)*
-  > It wouldn’t surprise me to see a resurgence of interest in XSLT after this, if only for formatting Atom/RSS feeds · https://xmpp.org/extensions/xep-0182.xml
-- [Chrome intends to remove XSLT from the HTML spec](https://www.reddit.com/r/hackernews/comments/1mun6cy/chrome_intends_to_remove_xslt_from_the_html_spec) *(reddit.com)*
-  > r/hackernews: A mirror of the front page of Hacker News.
-- [r/xml on Reddit: Pro-XSLT - replacement for deprecated native support](https://www.reddit.com/r/xml/comments/1safdgk/proxslt_replacement_for_deprecated_native_support) *(reddit.com · 2026-04-02T11:58:53)*
-  > I have been using XSLTProcessor for some simple transforms and noticed that Chrome was going to be removing it. I was concerned about what I was going to do moving forward. I found this post and tried ProXslt and it was so easy. I added pro-xslt.umd....
-- [Removing XSLT from Chromium \[LWN.net\]](https://lwn.net/Articles/1045161) *(lwn.net · 2025-11-05T00:00:00)*
-  > Mason Freed and Dominik Röttsches ... (XSLT) from the Chromium project and Chrome browser: <strong>Chromium has officially deprecated XSLT, including the XSLTProcessor JavaScript API and the XML stylesheet processing instruction</strong>....
-- [jquery - Chrome and Safari XSLT using JavaScript - Stack Overflow](https://stackoverflow.com/questions/2042178/chrome-and-safari-xslt-using-javascript) *(stackoverflow.com)*
-  > Test.Xml.xslTransform = function(xml, xsl) { try { // code for IE if (window.ActiveXObject) { ex = xml.transformNode(xsl); return ex; } // code for Mozilla, Firefox, Opera, etc. else if (document.implementation &amp;&amp; document.implementation.crea...
-- [Serving Gemma 4 on an AMD MI300X: What $1.99 an Hour Buys](https://dev.to/gde/serving-gemma-4-on-an-amd-mi300x-what-199-an-hour-buys-52h9) *(dev.to · xbill · Sep 17)*
-  > A step by step deployment of Gemma 4 E2B to a single AMD Instinct MI300X on AMD Developer Cloud, driven by Python MCP tools, and the throughput a 191.7 GiB card returns for its hourly rate.
-- [ELT with Dataform on Google Cloud](https://dev.to/gde/elt-with-dataform-on-google-cloud-kc9) *(dev.to · Mazlum Tosun · Sep 16)*
-  > A real-world ELT pipeline with Dataform and BigQuery — staging and mart layers, JavaScript includes, dynamic tables and views, GitHub sync over SSH and Terraform provisioning.
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
 - [xslt · Issue #1310 · GoogleChrome/modern-web-guidance-src](https://github.com/GoogleChrome/modern-web-guidance-src/issues/1310) *(github.com · 2026-08-14T17:30:47)* *(Cites: `https://chromestatus.com/feature/4709671889534976`)*
-  > xslt · Issue #1310 · GoogleChrome/modern-web-guidance-src · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your ses...
+  > Chromestatus: https://chromestatus.com/feature/4709671889534976 Feature Name: <strong>Deprecate and remove XSLT</strong> Web Feature ID: xslt Chrome Releases: Chrome 152
 
 ## 📚 Platform Documentation & Specifications
 
 - [xslt · Issue #1310 · GoogleChrome/modern-web-guidance-src](https://github.com/GoogleChrome/modern-web-guidance-src/issues/1310) *(github.com)*
 - [1990759 - Investigate deprecation and removal of XSLT (deprecate and remove XSLT)](https://bugzilla.mozilla.org/show_bug.cgi?id=1990759) *(bugzilla.mozilla.org)*
-- [The web standards model - HTML CSS and JavaScript - W3C Wiki](https://www.w3.org/wiki/The_web_standards_model_-_HTML_CSS_and_JavaScript) *(w3.org)*
-- [XSLTProcessor: importStylesheet() method - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/XSLTProcessor/importStylesheet) *(developer.mozilla.org)*
-- [XSLTProcessor - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/XSLT/Using_the_Mozilla_JavaScript_interface_to_XSL_Transformations) *(developer.mozilla.org)*
-- [GitHub - spagu/XSLT-Processor: JavaScript implementation of XSLTProcessor for browser environments and Node.js CLI. This package provides a complete implementation of the W3C XSLTProcessor API that can be used as a drop-in replacement for the native browser implementation. · GitHub](https://github.com/spagu/XSLT-Processor) *(github.com)*
-- [XSLT](https://developer.mozilla.org/en-US/docs/Glossary/XSLT) *(developer.mozilla.org)*
-- [XSLT guides](https://developer.mozilla.org/en-US/docs/Web/XML/XSLT/Guides) *(developer.mozilla.org)*
-- [XSLT reference](https://developer.mozilla.org/en-US/docs/Web/XML/XSLT/Reference) *(developer.mozilla.org)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 68 result(s) found across 11 planned queries — **46 verified relevant**
+- **Brave Search:** 38 result(s) found across 6 planned queries — **15 verified relevant**
   - `"chromestatus.com/feature/4709671889534976" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (2 returned)
   - `"Deprecate and remove XSLT" API` — *Core feature API query* (8 returned)
   - `"Deprecate and remove XSLT" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"v1.0" OR "www.w3" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Deprecate and remove XSLT" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
-  - `"Deprecate and remove XSLT" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"Intent to Deprecate and Remove" "XSLT" OR "XSLTProcessor" blink-dev` — *Locate official Blink-dev discussions, standards positions from WebKit and Gecko, and implementation timelines for removing XSLT from browsers.* (8 returned)
-  - `"deprecating XSLT" OR "XSLT deprecation" migrate replace XSLTProcessor javascript` — *Find migration guides, developer tutorials, and modern JavaScript-based alternatives to client-side XSL transformations.* (8 returned)
-  - `"new XSLTProcessor" (importStylesheet OR transformToFragment) (Saxon OR fallback OR polyfill)` — *Search for real-world JavaScript code snippets featuring XSLTProcessor usage alongside fallback mechanisms and client-side XML transform polyfills.* (8 returned)
-  - `("deprecate XSLT" OR "removing XSLT" OR "remove XSLT") (site:news.ycombinator.com OR site:reddit.com)` — *Discover developer sentiment, ecosystem reactions, and legacy web concerns across tech aggregators regarding the browser removal of XSLT.* (8 returned)
-  - `"XSLTProcessor" deprecated Chrome OR Firefox OR Safari alternative` — *Explore practical guidance and blog articles explaining why browsers are dropping libxslt and how to modernize affected XML stylesheets.* (8 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
+  - `"Deprecate and remove XSLT" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (7 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 21 result(s) found — **18 verified relevant**
 - **Twitter / X API v2:** *found 10 tweet(s)*
-- **Dev.to Community Blogs:** 2 result(s) found — **2 verified relevant**
+- **Dev.to Community Blogs:** 2 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 3 result(s) found — **3 verified relevant**
 - **Standards Positions:** 1 result(s) found — **1 verified relevant**
 - **Engine Bug Trackers:** 6 result(s) found — **1 verified relevant**

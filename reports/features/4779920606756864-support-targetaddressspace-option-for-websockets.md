@@ -1,6 +1,6 @@
 # Support targetAddressSpace option for WebSockets
 
-> **Report Week:** 2026-W39 | **Milestone:** Chrome 154 | **Category:** Enabled by default
+> **Report Week:** 2026-W40 | **Milestone:** Chrome 154 | **Category:** Enabled by default
 
 ## Overview
 
@@ -12,81 +12,79 @@ To avoid mixed content blocking for local network WebSockets requests, web devel
 
 ## Ecosystem Status
 
-- **Momentum:** High (410 points)
+- **Momentum:** High (310 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Cautiously Optimistic
-- **Executive Take:** Shipping enabled by default in Chromium 154 (Chrome and Edge), \`targetAddressSpace\` in the new WebSocket constructor options bag establishes parity with the Fetch API for Local Network Access (LNA). It provides a much-needed mechanism for secure public web applications to connect to unencrypted local servers (\`ws://\`) without running afoul of mixed content blocking, provided the user grants permission and DNS resolves to a private or loopback IP. While this is a Chromium-led milestone, broader multi-engine standardization across WHATWG and WICG is progressing through shared reviews.
+- **Executive Take:** Shipping enabled by default in Chrome 154 and Edge 154, this feature brings parity between WebSockets and the Fetch API by allowing a \`targetAddressSpace\` option inside a newly standardized WebSocket constructor options dictionary. It provides a crucial escape hatch for secure public web applications connecting to insecure local or loopback WebSocket servers (\`ws://\`), bypassing mixed content blocking once Local Network Access (LNA) user permissions are granted. However, because Local Network Access remains a WICG draft primarily driven by Chromium, cross-browser support is currently non-existent.
 
 ### Recommendations
-- Actionable Advice: Teams connecting to local or loopback servers should adopt the \`{ targetAddressSpace: 'local' \| 'loopback' }\` option immediately as progressive enhancement within Chromium browsers while preparing fallback error handling for browsers that do not yet support the options bag. Verify that local endpoints correctly resolve to private IP blocks and ensure your UX accounts for explicit Local Network Access permission requests.
+- Actionable Advice: Use \`targetAddressSpace\` defensively with feature detection or user-agent branching, since passing an options dictionary to legacy engines that only expect a subprotocol string or array can trigger unexpected runtime errors or string coercion (\`\[object Object\]\`). Web teams relying on local hardware integrations should adopt the flag to restore Chromium connectivity on HTTPS sites, but maintain fallback pathways or localhost HTTPS certificates for non-Chromium clients.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
+## Packages & Polyfills
+
+- [ws](https://www.npmjs.com/package/ws) `v8.22.0` — Simple to use, blazing fast and thoroughly tested websocket client and server for Node.js
+- [rpc-websockets](https://www.npmjs.com/package/rpc-websockets) `v10.0.1` — JSON-RPC 2.0 implementation over WebSockets for Node.js
+- [@httptoolkit/websocket-stream](https://www.npmjs.com/package/@httptoolkit/websocket-stream) `v6.0.1` — Use websockets with the node streams API. Works in browser and node, with all current WS versions
+
 ## 📰 Ecosystem Blogs & Articles
 
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMgl_hhzy444jnvSne6GUTx7bjT0Jogrjxc7IvhWVbUDxHz0Y6Oig1iCb-s6fVp8WjIt62muiwAlnndjcg4Ju7ETAiL0lPJ030OOdP1egS2T9qjJpZmZZQ6sZ-1IJAFMKAaQTJfpw=) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [github.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHdFVkOd1SEaICCae1V_xZgUIH7i2L2Ds3zCAq67hV04vPe3O9ghZC5lyrwouuG_NfhIiKv9sdzE84W4JbYlWK0S1nqGcEdmizavNN2DWJEdZqehILhroogq-3mmycSGItl) *(vertexaisearch.cloud.google.com)*
-  > Local Network Access Local Network Access Draft Community Group Report , 7 August 2026 More details about this document This version: https://wicg.github.io/local-network-access/ Issue Tracking: GitHub Inline In Spec Editors: Chris Thompson ( Google ...
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrJ9yD_ycsIg5xfyddWcyBgjkGv0vgKzb897pq8vWU8RZvO_OWwy4NkIsyQjWtcoWZzgGICVJPcnvCQ5WsV-kVNAvyL7qK7UITHDdIR8KhTCsLlQcombyTJxmj) *(vertexaisearch.cloud.google.com)*
-  > Chrome 154 Release Notes - Chrome Platform Status Chrome 154 Release Notes Preview Network / Connectivity Add options bag to WebSocket constructor # Link copied! Add support for passing an option bag (WebSocketInit dictionary) as the second argument ...
-- [chromium.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE9SNBN77jX5_J8xoeSIgeadAe9nUhURcPSsMxWWWQYXj92GIKkIK0SuQDcaGju1iv27zht8bYN_AoE_QuOFRnXEvpSGkBAJIcJzkeURLtSGXk9p55kigHeqQBkx_phoz8b) *(vertexaisearch.cloud.google.com)*
-  > Chromium Sign in
-- [google.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF8Z0-9ZbhgunalNUJvUtrLKzB3qOayBD8XdOdX3TQf8PdfbjcjrBPRbRzyBLWb4AtCitojUt1UcOBxZTuGDK_UD_D6yxQJr5FgQCT0DV--uPx4cmd8rB4HLCaKtc1Jax18DSqcdl697YQ_sd2v9oUWV8RpmDFqo1oale21TkNfUsyh6AE2fA==) *(vertexaisearch.cloud.google.com)*
-  > Intent to Prototype: Support targetAddressSpace option for WebSockets Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Prototype: Support tar...
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGhB-eLh0XlC17tJFUZyK_QdTBBU7y-1eljpHTWAeujWSyhj0p2F9GmGsj3kYzc19etPE19HbDJiSrKHqnuRQ_CjBamsAzxY0lmNHOBZ69AdUDiZmdqrGgIovrtTz0-o4tjJyy63FqfdhNhhA==) *(vertexaisearch.cloud.google.com)*
-  > Novo aviso de permissão para o acesso à rede local | Blog | Chrome for Developers Ir para o conteúdo principal / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עבר...
-- [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFJFRPpDQHXt4P0IdewKMZLqzWTtoJcTxuYIdXwDh6cSX5meWgoq35EvNZh2Du3rFOTqN8XPP9e7rV93-4t8C_hGltBAoe0HJa9kQi2P5VMcoTF0BhZr_s3FRuLPfi6DKcn3NQB2lD_Ml4vIY-gqr1LzMio1v9q2kDfzJ8ZmLk=) *(vertexaisearch.cloud.google.com)*
+- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGEzHvLm28epIrcaQsQzYjtjZn6VHTCKdqIBJTn9L70mycjE6yI4oZ04JbyK3txERTN-LR0gKw2SkEzrOstbFhWTiXpH6NoRLbS3Dqf6JAWrDco2qVlpOgReeR6yji-nx1aGwpOEHjS_s2YHBuz5iAuofUtGhfb215ZR3dy8Oso8cwjJFUlEukl1g==) *(vertexaisearch.cloud.google.com)*
+  > Local network access - Security | MDN Skip to main content Skip to search Toggle sidebar Web Security Defenses Local network access Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) 日本語 Local network access Th...
+- [steeleobrienconsulting.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF8idATlERWP-Xqj_UNKBKMa8LHcLqYuB4dFBX8J91aR6Uii0Y6N03qYEyNJVNi6W66bUVdb-ppg7WmiQ0StYNBhYnI5E__tWTJcoy88jEGAijl8KmZ1pAeRGWF0brG_4wJX1tcumWMe2_Gx7HldEl7SoZ_PAoMWQQk3A==) *(vertexaisearch.cloud.google.com)*
+  > Chrome&#39;s Local Network Access: What It Breaks and How to Fix It | Steele O&#39;Brien Consulting Skip to main content Mar 2026 Chrome&#39;s Local Network Access: What It Breaks and How to Fix It On 28 October 2025, Google Chrome 142 shipped a feat...
+- [openreplay.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHfp0JAO5ybDRXZ7kQsn20OAmvELgdGWWc45W0Ci2IPsToOMXxFFeaM7rNRjYi9bdEtU4fviCombIf8J54MnqzlOBPSo9k3_zOslLhhS7AhEhSrtTww2F3dNON2RyULtl5Y-eSO_fd2KGk4eJzCYVdbdOkra-MSD1dUS11Riw==) *(vertexaisearch.cloud.google.com)*
+  > Chrome&#39;s Local Network Access (LNA) Permission Explained 12k Self-Host Try Cloud Free 12k Self-Host Try Cloud Free All articles Chrome&#39;s Local Network Access (LNA) Permission Explained Chrome Local Network Access permission gates public sites...
+- [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGT4N1Hb6-DEWd9PSGQTCvgXHM4I8cAcfljGJJqXD5pnxNRgQARusC_GBIBXmjYCQb3x0U68VadzlrUa_zUmZBWkiWH11TAylwR5N2ePhb3n4rFMGQMBjSrRFwnXA5zTQK_l6TI2j1GBpV76jtcYapH7lTKYMrehCeiAaogDTwC) *(vertexaisearch.cloud.google.com)*
   > Adapting your website for new Local Network Access restrictions in Microsoft Edge | Microsoft Learn Skip to main content Skip to Ask Learn chat experience This browser is no longer supported. Upgrade to Microsoft Edge to take advantage of the latest ...
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWWsTxwnY_ejqOJ7gFNJO8mc9sAR_w-qFopwXOguvcr24oLg1j6hz-t8EOR6-9a_dil5fo7DQG15ACCrZKF1rVlUHarLjSvFpmmzdaF3GtjfkgLjxPwUZ-cogm6w1092phZ20jVEnfiyMIRA==) *(vertexaisearch.cloud.google.com)*
-  > Use case for WebSocket communications · Issue #16 · WICG/local-network-access · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refres...
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHZ1Vo4cHTTSq23UVaF2nvfN1v5AeRPiAgbNng6vZqcmvnOBYXFY4TkK-fJqHkp4DewwIr657MjQDgMvFoGjfx9SeqamMTgpQueoQI9fr1U3RIujRJtBYKW1miZ9tQu9XwnKaW7DfHftTQCcoedNm5xI3vS6z4-twHzxwc=) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Overview  The **`targetAddressSpace` option for WebSockets** allows developers to declare an intended network destination space (such as `"local"` or `"loopback"`) when instantiating a WebSocket connection:  ```javascript const ws = new W
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGnHjibAHzxRzqhRBZsbZENc6w6EKiKXXslKiHb-O_bdZMBiGRUT7FnARCrOarH7M5NzgRRhrwW9cAJbitelpLUqJekcEcZLEq1n9h4wKoau8lz5_RJDN2_szAgVSBvjqQOsNj-yRuTZH-bQCJi_4CJjF7B1v1XxyG_zMg-AzvqiQ==) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Overview  The **`targetAddressSpace` option for WebSockets** allows developers to declare an intended network destination space (such as `"local"` or `"loopback"`) when instantiating a WebSocket connection:  ```javascript const ws = new W
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHfvDadaJ89DQM7_rCYitRz9PoTfoCBJR--mlV0Z7FMZn_SftU4sh0TlcqF7rCzWWDoSpG0QYOYNFXfsDVtJs7StPXlQeXbiVIjOLqY4ZEgcgeWRNiv_cKNEOF5x-5p2RgoWdqcR_4=) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Overview  The **`targetAddressSpace` option for WebSockets** allows developers to declare an intended network destination space (such as `"local"` or `"loopback"`) when instantiating a WebSocket connection:  ```javascript const ws = new W
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF_clcpmGWWbOtOIbaRjIpWYdqGp7z6uUNeS8pNXtO8ELLZnLDEVqB09LBR0syP7ATCVGiajns7kworKzlWri_wGbLFkvdsFEQegddwX9FS1ILS6DJ0IoRPHUmkNIW52sn2ij9rC992S_T3ylk=) *(vertexaisearch.cloud.google.com)*
+  > Nieuwe toestemmingsprompt voor lokale netwerktoegang | Blog | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית الع...
+- [github.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGfPL3-SBXIolR0IuDUNo87qqzz_ypWeyJIjlneren08dg1LkZEGnZiFM3IgEA-gphRElrg61b2aKRO2oaTaKzHHQeEsJ_jEfp4VjZv49_2YTjuUI9Le7dUg67zPd6CRDnyg==) *(vertexaisearch.cloud.google.com)*
+  > Local Network Access Local Network Access Draft Community Group Report , 7 August 2026 More details about this document This version: https://wicg.github.io/local-network-access/ Issue Tracking: GitHub Inline In Spec Editors: Chris Thompson ( Google ...
+- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEUYSbz04q0A0lN-T1H_SurFvzIONcBUOigTvUhghF5ImT2tN5ma-cjvFb1mRVHdBazw2OlYr5rdsmlMTHOilloXMmhWj6xdPn_XA1c3pRNdrz4_gohsPl0SpwBiodVDn4sEbjCnC_5) *(vertexaisearch.cloud.google.com)*
+  > Chrome Platform Status
+- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG0N-HNS4QN55nLodaty2CABSpswJE0Ugys43TyxmH8CZJb16spg7GbA2Y2Z1oj7vZzEy0CXE7PCK-f2TFZHfpMsNXS5oJWMIO_uO7CJj_lcKgfjkkBZLvQ-Vou2nQkkpRR_Lzzx4Xs5VIP5Zu8) *(vertexaisearch.cloud.google.com)*
+  > Support `targetAddressSpace` in WebSockets · Issue #126 · WICG/local-network-access · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to ...
+- [biggo.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGtRyUr5SRtup82fdQh9fvfm9zr-zZrEi3bL4pQ9AAxVXXHkuV0hWSO8ncRDpQD8ujX8y5Sx50fUxQkncUMeJ-5skwTy6Be6DhrUaIoQm7AF0P0reEBgwQXC-ppLmoSYJJxH4sYPA524vvAhy8FGcZJl74jqC5iyqBl) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  As part of the **Local Network Access (LNA)** security specification (formerly Private Network Access / PNA), web browsers gate requests originating from public websites to local or loopback destinations (e.g., IoT devices
+- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqmI6hhGio5epwbiUl62wb7SzbOu-VOtdqD_YZEIpXGUxkKFCxQSv7qbUmgtrkrKYgHeUA9-LeSlhtfS-zQFbbUvi1EQjV6fgezYNbxfZXc5fQdyljwVPk5PV49pRZvZfCKtJSYTh-) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  As part of the **Local Network Access (LNA)** security specification (formerly Private Network Access / PNA), web browsers gate requests originating from public websites to local or loopback destinations (e.g., IoT devices
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGvzt_S4wSkcHWxvh_3DvwT-44uEBLovQjAhpExHnHKYDhlxGgRzs83d2-_BcCUM358bZWFb0p7RB3x8MU0fK0GGO_7vjJdOAxgq2NVRG92QIdHXdL6xv_B5A5kOM1jU1zQ_Wah) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  As part of the **Local Network Access (LNA)** security specification (formerly Private Network Access / PNA), web browsers gate requests originating from public websites to local or loopback destinations (e.g., IoT devices
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGUp9F5aJHBfU_TVYPfHcOYsYGdPnVVlOaKPsYferOewycnedPia1jCR7w3Oj2dm8J6WmSXRD6EWaRrNDenu5Sgv_W8E8-avBudDNY6geCcVcOfOG3u2YOTKrGvk-wzcP2o6YwZwjnV) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  As part of the **Local Network Access (LNA)** security specification (formerly Private Network Access / PNA), web browsers gate requests originating from public websites to local or loopback destinations (e.g., IoT devices
+- [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFbwHEx7zHjOjixzXLyUQTNPcjzAEk6mqt20BhVC3IIN6X3DLnddtTCljmMBt7k5XWxVqLDjnWeINVe7rxPm9sf5eFgsALwK8fy-EDrc31aiv-ppInTD2Abb6KQtoh_8Bvkqa1cMqmYkNhgX6jMIFN1lsjBXj0rN6SYGFRuCNtcsFlg7uce) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  As part of the **Local Network Access (LNA)** security specification (formerly Private Network Access / PNA), web browsers gate requests originating from public websites to local or loopback destinations (e.g., IoT devices
+- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH07cZ9MSs-NqlzXj_LAMMP5KXc2iY9TX3wR0V5YPi1EWb-rmRLTrxc0uGwM6oOKq9lmL7dCTRB_SXLztssWwEumPPtcImo96Hx7OHD3NAyBVbAs_72ac4by8qLEpqTCBPh760vRLsEH-wqwSs=) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  As part of the **Local Network Access (LNA)** security specification (formerly Private Network Access / PNA), web browsers gate requests originating from public websites to local or loopback destinations (e.g., IoT devices
+- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFkKmrXmNWWcT0TKoKqofrzEWCTtjT22LLf1jsYKyTD_21sfMGXtQlzEvpNHlamiWzojFppTGIuuQr2At2kdyW4JIHC_DfEjhxCrrzLo7EyaYTJqs4_eS3UjqblnCVeWv6loAaRcRJcLm6V-yO6MQ==) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  As part of the **Local Network Access (LNA)** security specification (formerly Private Network Access / PNA), web browsers gate requests originating from public websites to local or loopback destinations (e.g., IoT devices
+- [gigazine.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHcnCryGtX0y8g3KKphAX6-a-U6GPgUVdROe_AJgqhsndoUUT3Cixm6trRBETw8-WIuuYe-bekOaDUuT55Y5qwSd-E8x0iTNI0h92uka3Ux_ZnTXAlL6o-4HpVUwajmHIrKut_0XfXI79w4T3ixqmR0khM=) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  As part of the **Local Network Access (LNA)** security specification (formerly Private Network Access / PNA), web browsers gate requests originating from public websites to local or loopback destinations (e.g., IoT devices
+- [polypane.app](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGTB2XJHCENePtgwm9ccXMIne5evo-IG0Mh8m5dxlxR4c2lAFCOKAXL7Wkk-f-UAJJii8SDqebVyuvtatSveQHZ2k0E4tXnFveCd050KGl0xdaR0rp3BX2MgAX6kJtLqo4_XmQvjSEYM5Y1RLmJ5A==) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  As part of the **Local Network Access (LNA)** security specification (formerly Private Network Access / PNA), web browsers gate requests originating from public websites to local or loopback destinations (e.g., IoT devices
+- [Support \`targetAddressSpace\` option in WebSockets \[517413738\] - Chromium](https://issues.chromium.org/issues/517413738) *(issues.chromium.org)*
+  > ChromeStatus entry: https://chromestatus.com/feature/4779920606756864 <strong>Intent-to-Prototype: https://groups.google.com/a/chromium.org/g/blink-dev/c/hVlq3XXExbU/m/FqxRLh0yBwAJ TAG=agy CONV=d49fff98-9ad5-4ac6-8a3f-c6022b98b1f9 Bug: 517413738 Bina...
 - [\[blink-dev\] Intent to Prototype: Support targetAddressSpace option for WebSockets](http://www.mail-archive.com/blink-dev@chromium.org/msg17125.html) *(mail-archive.com)*
   > Explainer https://github.com/WICG/local-network-access/issues/126 Specification https://github.com/WICG/local-network-access/pull/125 Summary <strong>Add support for passing a targetAddressSpace option in the WebSocket constructor</strong>. This allo...
-- [How to WebSockets \[Complete Guide\] \| Treehouse Blog](https://blog.teamtreehouse.com/an-introduction-to-websockets) *(blog.teamtreehouse.com · 2022-05-17T21:23:28)*
-  > For up-to-date information on browser support check out: Can I use Web Sockets. In this post you’ve learned about the WebSocket protocol and how to use the new API to build real-time web applications.
-- [How Do WebSockets Work? \| Postman Blog](https://blog.postman.com/how-do-websockets-work) *(blog.postman.com · 2026-01-05T16:26:18)*
-  > WebSockets introduce a different communication model than standard HTTP. After an initial HTTP handshake, the connection is upgraded and maintained, allowing for ongoing, bidirectional message exchange over a single TCP connection. This approach redu...
-- [WebSockets support in ASP.NET Core \| Microsoft Learn](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/websockets?view=aspnetcore-9.0) *(learn.microsoft.com)*
-  > This article explains how to get started with WebSockets in ASP.NET Core. WebSocket (RFC 6455) is a protocol that enables two-way persistent communication channels over TCP connections.
-- [Part 1 - Send & receive - websockets 17.0.1 documentation](https://websockets.readthedocs.io/en/stable/intro/tutorial1.html) *(websockets.readthedocs.io)*
-  > The WebSocket protocol provides two-way communication between a browser and a server over a persistent connection.
-- [Guide to Postman WebSockets 💬 \| Documentation](https://www.postman.com/postman/websockets/documentation/atoq67w/guide-to-postman-websockets) *(postman.com)*
-  > Product · Enterprise · Resources and Support · API Network · Search · (Ctrl+K) · Contact Sales · Sign In · Sign Up for Free · This wasn&#x27;t supposed to happen
-- [The complete guide to WebSockets with React](https://ably.com/blog/websockets-react-tutorial) *(ably.com · 2023-10-23T00:00:00)*
-  > When I was learning about WebSockets in React, this caused me a bit of anxiety! I went looking for a definitive best practice but, as it happens, there isn’t a universal “right” answer. It depends on what you’re building and the specific shape of you...
-- [WebSockets: The Complete Guide for 2026 \| DevToolbox Blog](https://devtoolbox.dedyn.io/blog/websocket-complete-guide) *(devtoolbox.dedyn.io · 2026-02-12T00:00:00)*
-  > WebSockets support both text and binary data.
-- [Setting up a simple local web socket server – Donny Wals](https://www.donnywals.com/setting-up-a-simple-local-web-socket-server) *(donnywals.com · 2024-04-23T12:16:01)*
-  > const wss = new WebSocketServer({port: 8080}); wss.on(&#x27;connection&#x27;, function connection(wss) { wss.on(&#x27;message&#x27;, function message(data) { console.log(&#x27;received %s&#x27;, data); wss.close(); }); wss.send(&#x27;connection recei...
-- [websockets](https://cs.lmu.edu/~ray/notes/websockets) *(cs.lmu.edu)*
-  > All server side languages (JavaScript, Python, Ruby, Java, C#, Go, etc.) provide libraries to help you write websocket servers. To use web sockets on a Node-based server, npm install ws (Read the docs). Here’s a simple server, with a little bit of lo...
-- [javascript - WebSocket Server - Stack Overflow](https://stackoverflow.com/questions/74005325/websocket-server) *(stackoverflow.com)*
-  > WebSocket connection to &#x27;wss://mysite.com/8080&#x27; failed: Error during WebSocket handshake: Unexpected response code: 404 · Here is the code of the local server, which works: const Socket = require(&quot;websocket&quot;).server const http = r...
-- [javascript - Simple example on how to use Websockets between Client and Server - Stack Overflow](https://stackoverflow.com/questions/53294938/simple-example-on-how-to-use-websockets-between-client-and-server) *(stackoverflow.com)*
-  > Just a note, socket.io is a backend/frontend library that uses websocket but also has a number of fallbacks if the client browser does not support websocket. The example below works with ws backend. ... Copyconst WS = require(&#x27;ws&#x27;) const PO...
-- [r/PWA on Reddit: Using websockets in service worker](https://www.reddit.com/r/PWA/comments/maa0pw/using_websockets_in_service_worker) *(reddit.com · 2021-03-22T00:14:00)*
-  > Do you guys have experience using a single websocket connection inside a service worker. The use case is to connect to a real base database for…
-- [Real-time Communication in PWAs: WebSockets, Server- ...](https://gtcsys.com/comprehensive-faqs-guide-real-time-communication-in-pwas-websockets-server-sent-events-and-webrtc) *(gtcsys.com · 2024-03-28T10:47:32)*
-  > <strong>These technologies empower developers to create dynamic, real-time experiences in PWAs, enhancing user engagement and interactivity</strong>. WebSocket is a communication protocol that provides full-duplex, bidirectional communication channel...
-- [Implementing Progressive Web Apps (PWA) with MERN \| by Harshit Sharma \| Medium](https://medium.com/@harshitynwa/implementing-progressive-web-apps-pwa-with-mern-ea6442bf2d70) *(medium.com · 2024-05-22T20:53:19)*
-  > Imagine you’re on a mountaintop, enjoying the view and checking your to-do list on your app. Despite having no signal, the app still works! This seamless experience is made possible by Progressive Web Apps (PWA) built with the MERN stack and WebSocke...
-- [Re-establishing web-socket for PWA - Need help - Bubble Forum](https://forum.bubble.io/t/re-establishing-web-socket-for-pwa/249335) *(forum.bubble.io · 2023-02-28T18:00:11)*
-  > I have a PWA shortcut for my app. When people re-access the website from the shortcut, if the PWA was already open and running in the background, the websocket will have been disconnected, so data will not update on thei…
-- [WebSocket 連本機服務怎麼過 mixed content？用 targetAddressSpace - ZeroOne](https://laplusda.com/posts/websocket-target-address-space-local-network) *(laplusda.com · 2026-09-17T00:00:00)*
-  > 從 HTTPS 網站連到開發機上的 WebSocket 服務時，常見的錯誤不是 WebSocket server 沒啟動，而是瀏覽器把 ws:// 視為 mixed content。Chrome 154 beta 的 release notes 提供了一個新的 constructor options：用 targetAddressSpace 明確表示目標是 local 或 loopback address space。
+- [Support targetAddressSpace option for WebSockets - Chrome Platform Status](https://chromestatus.com/feature/4779920606756864) *(chromestatus.com)*
+  > We cannot provide a description for this page right now
+- [Microsoft Edge 154 web platform release notes (Sep. 24, 2026) - Microsoft Edge Developer documentation \| Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-edge/web-platform/release-notes/154) *(learn.microsoft.com · 2026-09-10T00:00:00)*
+  > const ws = new WebSocket(&quot;ws://local-server.example&quot;, { targetAddressSpace: &quot;local&quot;});
+- [Chrome 154 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/154) *(chromestatus.com)*
+  > Tracking bug #502133195 ↗ (opens in new window) | ChromeStatus.com entry | Spec ↗ (opens in new window) <strong>Add support for passing a targetAddressSpace option in the WebSocket constructor</strong>.
+- [Chrome 154 \| Release notes \| Chrome for Developers](https://developer.chrome.com/release-notes/154?hl=en) *(developer.chrome.com · 2026-09-22T21:33:03)*
+  > For example, instead of new WebSocket(&quot;wss://example.com:8080&quot;, &quot;soap&quot;), you can pass new WebSocket(&quot;wss://example.com:8080&quot;, { protocols: &quot;soap&quot; }). Tracking bug #542670554 | ChromeStatus.com entry | Spec · Ad...
 - [Chrome 154 beta \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/chrome-154-beta) *(developer.chrome.com · 2026-09-02T00:00:00)*
-  > <strong>Adds support for passing a targetAddressSpace option in the WebSocket constructor</strong>. This lets you specify that a WebSocket connection to a public hostname should be treated as going to a &quot;local&quot; or &quot;loopback&quot; desti...
-- [Local Network Access](https://wicg.github.io/local-network-access) *(wicg.github.io · 2026-08-07T00:00:00)*
-  > If the resolved remote IP address does not belong to the IP address space specified as the targetAddressSpace option value, then the request will fail. If it does belong, then the permission can be checked to allow or fail the request. This document ...
+  > const ws = new WebSocket(&quot;ws://local-server.example&quot;, { targetAddressSpace: &quot;local&quot; });
+- [Add option bag to WebSocket constructor \[542670554\] - Chromium](https://issues.chromium.org/issues/542670554) *(issues.chromium.org)*
+  > We want to implement an option bag in the WebSocket constructor, in order to allow extensibility (and thus be able to implement the targetAddressSpace option for Local Network Access, see
 - [Intent to Prototype: Add options bag to WebSocket constructor](https://groups.google.com/a/chromium.org/g/blink-dev/c/YwkXWzPUJ7U) *(groups.google.com · 2026-08-05T00:00:00)*
   > Motivation There is a demand for extensibility of options on the WebSocket constructor, to mirror the &quot;option bag&quot; approach that the Fetch API has. https://github.com/whatwg/websockets/issues/42 is requested by a number of implementors and ...
+- [Chrome 154 \| Release notes \| Chrome for Developers](https://developer.chrome.com/release-notes/154) *(developer.chrome.com · 2026-09-23T06:03:02)*
+  > Adds support for passing a ... })). <strong>This lets you specify that a WebSocket connection to a public hostname should be treated as going to a &quot;local&quot; or &quot;loopback&quot; destination, matching existing support in the Fetch API</stro...
 - [\[blink-dev\] Intent to Prototype: Add options bag to WebSocket constructor](http://www.mail-archive.com/blink-dev@chromium.org/msg17124.html) *(mail-archive.com)*
   > Blink component Blink&gt;Network&gt;WebSockets Web Feature ID websockets Motivation There is a demand for extensibility of options on the WebSocket constructor, to mirror the &quot;option bag&quot; approach that the Fetch API has. https://github.com/...
 
@@ -94,46 +92,36 @@ To avoid mixed content blocking for local network WebSockets requests, web devel
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
+- [Support \`targetAddressSpace\` option in WebSockets \[517413738\] - Chromium](https://issues.chromium.org/issues/517413738) *(issues.chromium.org)* *(Cites: `https://chromestatus.com/feature/4779920606756864`)*
+  > ChromeStatus entry: https://chromestatus.com/feature/4779920606756864 <strong>Intent-to-Prototype: https://groups.google.com/a/chromium.org/g/blink-dev/c/hVlq3XXExbU/m/FqxRLh0yBwAJ TAG=agy CONV=d49fff98-9ad5-4ac6-8a3f-c6022b98b1f9 Bug: 5174...
 - [\[blink-dev\] Intent to Prototype: Support targetAddressSpace option for WebSockets](http://www.mail-archive.com/blink-dev@chromium.org/msg17125.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/local-network-access/pull/125`)*
   > Explainer https://github.com/WICG/local-network-access/issues/126 Specification https://github.com/WICG/local-network-access/pull/125 Summary <strong>Add support for passing a targetAddressSpace option in the WebSocket constructor</strong>....
-
-## 📚 Platform Documentation & Specifications
-
-- [Writing WebSocket servers - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_servers) *(developer.mozilla.org)*
-- [GitHub - websockets/ws: Simple to use, blazing fast and thoroughly tested WebSocket client and server for Node.js · GitHub](https://github.com/websockets/ws) *(github.com)*
-- [WebSocket: WebSocket() constructor - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket) *(developer.mozilla.org)*
-- [Writing WebSocket client applications - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications) *(developer.mozilla.org)*
-- [How to create a websocket module · lwsjs/local-web-server Wiki · GitHub](https://github.com/lwsjs/local-web-server/wiki/How-to-create-a-websocket-module) *(github.com)*
-- [GitHub - webmaxru/mqtt-websockets-angular-pwa](https://github.com/webmaxru/mqtt-websockets-angular-pwa) *(github.com)*
-- [GitHub - marcelovue/first-pwa: PWA with websocket, get bitcoin price in usdt from binance](https://github.com/cruzeiro99/first-pwa) *(github.com)*
-- [GitHub - HowProgrammingWorks/PWA: Progressive Web Application · GitHub](https://github.com/HowProgrammingWorks/PWA) *(github.com)*
-- [local-network-access/explainer.md at main · WICG/local-network-access](https://github.com/WICG/local-network-access/blob/main/explainer.md) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 46 result(s) found across 12 planned queries — **30 verified relevant**
-  - `"chromestatus.com/feature/4779920606756864" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
+- **Brave Search:** 48 result(s) found across 12 planned queries — **11 verified relevant**
+  - `"chromestatus.com/feature/4779920606756864" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
   - `"github.com/WICG/local-network-access/issues/126" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (0 returned)
   - `"github.com/WICG/local-network-access/pull/125" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Specification* (1 returned)
-  - `"Support targetAddressSpace option for WebSockets" API` — *Core feature API query* (1 returned)
+  - `"Support targetAddressSpace option for WebSockets" API` — *Core feature API query* (2 returned)
   - `"Support targetAddressSpace option for WebSockets" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"const ws = new websocket("ws://local-server.example", { targetaddressspace: "local"}" OR "const ws = new websocket("ws://local-server" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Support targetAddressSpace option for WebSockets" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"Support targetAddressSpace option for WebSockets" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"targetAddressSpace" "new WebSocket" ("local" OR "loopback")` — *Finds exact code examples and WebIDL usage where the targetAddressSpace option bag is passed to the WebSocket constructor.* (8 returned)
-  - `"Local Network Access" "targetAddressSpace" WebSocket "mixed content" guide OR tutorial` — *Surfaces practical developer tutorials explaining how to use targetAddressSpace with WebSockets to connect to local servers without triggering mixed content blocking.* (0 returned)
-  - `"targetAddressSpace" WebSocket (Chromium OR ChromeStatus OR "intent to prototype" OR "intent to ship")` — *Tracks browser vendor implementation status, Chrome release announcements, and ecosystem rollout timelines.* (8 returned)
-  - `site:github.com/WICG/local-network-access "WebSocket" "targetAddressSpace"` — *Discovers spec discussions, developer feedback, and security considerations directly in the WICG Local Network Access issue tracker.* (0 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 11 result(s) found — **11 verified relevant**
+  - `"new WebSocket" "targetAddressSpace"` — *Finds code snippets and usage examples demonstrating the targetAddressSpace dictionary option inside the WebSocket constructor.* (8 returned)
+  - `"targetAddressSpace" ("WebSocket" OR "WebSockets") ("Local Network Access" OR "mixed content")` — *Discovers articles and developer guides covering how to connect to local WebSocket servers without triggering mixed content blocking.* (8 returned)
+  - `site:github.com/WICG/local-network-access "targetAddressSpace" "WebSocket"` — *Surfaces specification issues, debates, and developer feedback in the WICG Local Network Access repository.* (0 returned)
+  - `"targetAddressSpace" "WebSocket" ("Intent to Ship" OR "Intent to Prototype" OR "Chromium")` — *Tracks browser vendor release notes, standards proposals, and adoption milestones across Chromium and related engines.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 17 result(s) found — **17 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 5 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 2 result(s) found — **0 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
-- **NPM Registry:** 5 result(s) found — **0 verified relevant**
+- **NPM Registry:** 5 result(s) found — **3 verified relevant**
 - **Web Platform Tests (wpt.fyi):** 129 item(s) inspected
 
 ### Content Inspected
