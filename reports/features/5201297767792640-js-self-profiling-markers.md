@@ -1,6 +1,6 @@
 # JS Self-Profiling Markers
 
-> **Report Week:** 2026-W40 | **Milestone:** Chrome 153 | **Category:** Origin trial
+> **Report Week:** 2026-W41 | **Milestone:** Chrome 153 | **Category:** Origin trial
 
 ## Overview
 
@@ -12,13 +12,12 @@ The JavaScript Self-Profiling API lets web apps sample their own call stacks on 
 
 ## Ecosystem Status
 
-- **Momentum:** High (290 points)
+- **Momentum:** High (370 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Mixed / Skeptical
-- **Executive Take:** The JS Self-Profiling Markers extension enhances Chromium's JS Self-Profiling API by labeling sampling traces with specific browser activities like garbage collection, styling, layout, and painting. While performance engineers and RUM providers strongly value filling previously unexplained execution gaps in production traces, the underlying API remains exclusive to Chromium with long-standing multi-stakeholder stalls. Full marker exposure is strictly gated behind cross-origin isolation (COOP/COEP) to mitigate cross-origin and cross-process timing side-channel attacks.
+- **Sentiment:** Positive / High Interest
+- **Executive Take:** JS Self-Profiling Markers is currently Origin trial in Chrome 153. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
 
 ### Recommendations
-- Actionable Advice: Web teams running large-scale real-user performance pipelines should register for the Chromium Origin Trial to capture enriched diagnostic traces on desktop and mobile. Treat the API strictly as a progressive enhancement behind robust feature detection (\`'Profiler' in window\`), ensuring production telemetry still relies primarily on standardized primitives like Long Animation Frames (LoAF).
 - In active Origin Trial in Chrome 153. Validate API ergonomics in staging/pilot environments before general availability.
 - Standards Activity (WebKit): Latest discussion from @monica-ch: "Thanks @bkardell, checking @rniwa's four 2021 points (mozilla/standards-positions#477) against the current design. Short version: lazy mode narrows st..."
 - Standards Activity (W3C TAG): Latest discussion from @monica-ch: "@marcoscaceres Just filed a WebKit position https://github.com/WebKit/standards-positions/issues/717..."
@@ -34,87 +33,105 @@ The JavaScript Self-Profiling API lets web apps sample their own call stacks on 
 ## Community Discussions & Social Pulse
 
 - 🐦 **Twitter / X:** [Twitter](https://twitter.com/javascriptdaily/status/1479830759036928002?lang=en) — *by @javascriptdaily, 0 likes/RTs, 0 replies*
+- 🐦 **Twitter / X:** [Amy Dutton (@selfteachme) on X](https://twitter.com/selfteachme/status/1465443021948923909) — *by @selfteachme, 0 likes/RTs, 0 replies*
+- 🐦 **Twitter / X:** [Oxford Craniofacial Unit on X: "Do you know what #Craniosynostosis is? September is #CraniosynostosisAwarenessMonth and we are profiling the work of our specialist multidisciplinary @OxfordCranio Unit team @OUHospitals #CraniosynostosisAwareness #Cranio #Craniofacial" / X](https://twitter.com/OxfordCranio/status/1300697493165006856) — *by @OxfordCranio, 0 likes/RTs, 0 replies*
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFBjaGsrBWSM6QFvSDmDwKp6m98Zb8iPVvGaVwT1NS-Fj1q6PvB9tWHGNYUf662WlW28WuRZisuIJLti-8LoI211lyv07LBuATt5xZieJUEccPhP4mF4spFAr1LW0PUjCXRVq1A_Kel7ebvApaC) *(vertexaisearch.cloud.google.com)*
+- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGduQ6BG2aR2mJCMTv9wKX5pzEVjihN5-zaqlzEqKAK1mTzhlhAYfZzhs5kI8zuQIChBgrCd8c1yo1FTQzI6iXL9sY4QFGLPSnyBp4kLYseen-do49lcTf8vqpYQsbWa4_eGyElguvtW8Vkj7bn9w==) *(vertexaisearch.cloud.google.com)*
   > JS Self-Profiling API (including the Markers extension) · Issue #717 · WebKit/standards-positions · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or wind...
-- [npmjs.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEzzIyPE11-Z_LifH-CBGPJPPEb8K-fSgcKX4BRq0hcSDxLG6yM_psmWmfrA3EJexBCezJBqw7fyZTtPwj_03S2S2iKMiS106t4P2wolSQ2nLih4ITlPch2IKs7yinfHG96IqFdjzwqu4ofEYq7A8uu-rdrZAAv3A-plR33hesdSD0=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of JS Self-Profiling Markers  The **JS Self-Profiling API** allows web applications to run a low-overhead sampling profiler directly on real user devices (in production) by configuring the `Document-Policy: js-profiling` HTTP header. Howe
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHH4g2m103Bz9FUtWSNR7wjEIRdtq1ANXGF6MBZoiONpYBZgk2BRK9oxp1eldWWCkAvV84CclKjAH2ZYScgwsSBcvh3VgNTyeNarl-dVSAoYCyqgFusQ3REn6ny1p-XNRCPHSMkDbY=) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [nicj.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQER5UmOaC703SK46330oBly8l4chl0aDpDxb4QPH24AvnY7nIYXj4DdkP2Ix-396eeeusqYx3LlUvHH4qNr2G-wXvTidb0S2rgpW4drDqlvIS_p7f718bVV2Hy5n_0kM7ThZWZEllio5w==) *(vertexaisearch.cloud.google.com)*
+- [windows.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFhG-2AB_VcAn5-uA_UToYHB5TtEh3D2TKvP2Fktln3QhugOP_eG3ZNP0azkKKSQy8Nc7vq1iTVxnAYPaYT9oLtA7bUxhfSyaFXOaqbKGz_INmyqw1ODXmTO0jZ9mHwW_VOB0JPhQBMJyrA_IAGXtV1928TeZlWWbGg0XDvX0HnhrCO2sjWNNhL3_Blth2Nx6Siu6Z2E6ngPAnYYTpsiDGEDqEjYyQNfzmrbqAmb1IHcoTTCMnjTBbJWg==) *(vertexaisearch.cloud.google.com)*
+  > New in Edge for developers – Create better components and make your site agent-ready - Microsoft Edge Blog Skip to main content Skip to main content Windows Blogs Windows Experience Devices Windows Developer Microsoft Edge Windows Insider Microsoft 3...
+- [nicj.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFGfwutf8TaqTex588obLOpFMTu4iNQFuJ-sFh6hGfDQR89yCGxUpsFLQ_AvSO63R5dHmSucV5TT3yAta5IxAHbmYlGfyky4zPWhDRcqnNal48EVrNjKJgI3hn-_QntEzjaZyXa224gQgs=) *(vertexaisearch.cloud.google.com)*
   > JS Self-Profiling API In Practice - NicJ.net JS Self-Profiling API In Practice December 31st, 2021 Goto comments Leave a comment Table of Contents The JS Self-Profiling API What is Sampled Profiling? Downsides to Sampled Profiling API Document Policy...
-- [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFu0p-PmSbMVcM9_Ump9fGfSWUPgo7UrRyUXH9JC4iFNdnJKk0ReqfiBx4dVmiDi5kmhye97oBvrrF34gpC2-bk_8UXjs4JElduazXpi4akFKL2izs3bVs41MXBgbLJRCqXqQqCEjJUKOt6V6zrf3OnO-yhG5AptoYUS5AqxUzo2jbQF78=) *(vertexaisearch.cloud.google.com)*
-  > Microsoft Edge 153 web platform release notes (Sep. 10, 2026) - Microsoft Edge Developer documentation | Microsoft Learn Skip to main content Skip to Ask Learn chat experience This browser is no longer supported. Upgrade to Microsoft Edge to take adv...
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGgb7CtQeKK4ZGJsY81GsQ3SFctTy2pF19dLnejRbjfximNRuxF0LtEcgnpqblafqWCP39zmCDvfVzhhPsHz0FsY6NUF12X1BA4mzrgscXjWAPaM4RRzkH3T-pvseSw1LSFMHbvYEI=) *(vertexaisearch.cloud.google.com)*
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEnRqtXAr3TDE58S5c_J14orKTdJieP94ujWsT5JSefCUwM36TmAZ_2_ADIwgxfuxX9CASW1_015oM68Ogn4yBHkYDPGA928i7keWCzmMat9X1ZkUNx-CXxEJtJdXpaHX4lWjUY) *(vertexaisearch.cloud.google.com)*
+  > Chrome 153 | Release notes | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภาษาไทย 中...
+- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFZ_ukSDCNiTkvCfwKMq8Q2qozt-TEmURPbUjS61C-_Vd_JK-F_XnvSVun5MJM0bG4D5cbD8yWfl7j7Hv54Q27QHrBVo3Qm7wItBSvTMobl9yD-kqhu4KX0iW1-5UWo8bNrS5UTQrSSpTTp_cT9pH9e) *(vertexaisearch.cloud.google.com)*
   > Chrome Platform Status
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHqx9YVP16IN8xmMQUt2PSz79h_D3cWwn6QgLaBHNgA8YH4nq6STYK9H4OyJSrmDHKr5xfubY51D-IKXAnqOwDo4mmjDazOkSE-lGbMoNbP-DIdkJ2-iOkh-kMDTMssYHzHPlps6VDmQ2Qz) *(vertexaisearch.cloud.google.com)*
+- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF8SKAuLAGMrb3UU69Cy_Dh-J3QHyOkNbOYZovCdNZ-pzdMxi5XEjrKgHLtSy4lKMILtAFF3PRglGEY56y18NU7EBgGLB-R_NteDJiLg2VaLobaUmIYF29bSOhVzHM1Zrr328nwnYlI) *(vertexaisearch.cloud.google.com)*
   > Chrome Platform Status
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHEv0rpTIeVunxS4OzdtcWE-oQNvtlXfsRTDGQTAj1nRiSWzksBPvzuezElD-UTD7CAqPD_oZfLNXBwHlwgJ_Iv-YBeV030_Sz5DKx5ewCIz8rHR-iij5bHfi_3m5TzsIvRL-QI70cZJL-cJWP6UUG8raLLWGiC3lkGvTE=) *(vertexaisearch.cloud.google.com)*
-  > JS Self-Profiling API - Web APIs | MDN Skip to main content Skip to search Toggle sidebar Web Web APIs JS Self-Profiling API Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) JS Self-Profiling API Limited avai...
-- [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE1dA-lXV5jNbhXmw5sNL9PwxDBGpJY7uvdHms-3qcVy5uY2rvqxecKN7z6hl-2-drS1FkbdrXpkm6HaAw1JQ-7AXJoaYDT0InGN_y6SDo87E1AnJEBTVr5U_IGyWxTWdEuCTBgUuR5RhtffRJ31FdfBS_DvAylVW-C8ZF7pek=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of JS Self-Profiling Markers  The **JS Self-Profiling API** allows web applications to run a low-overhead sampling profiler directly on real user devices (in production) by configuring the `Document-Policy: js-profiling` HTTP header. Howe
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGTrJ7-XLSigPm7Lgy5AD3RgswtmLrf5BKGdUvhgbGgO8KyLsofcVG2j9bUAvqj2Yf5oC3a-6kgYsD-pktPncob7p8_lib7iuO5oWnLFAYreDyshMeBo2AfVL04Ph_3oQ==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of JS Self-Profiling Markers  The **JS Self-Profiling API** allows web applications to run a low-overhead sampling profiler directly on real user devices (in production) by configuring the `Document-Policy: js-profiling` HTTP header. Howe
-- [perfplanet.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXUJq75hdBUsHNSnGOEjU9wjhr0fLo4IiDRBurMxiCp64TVrG_ggEM1wvfGJhpSWpzoJrA0Uequ0jNgK75buIrTQ_ZfhRLWW5eimeFOvqQyaeViu2_VFXdJbgxITOffm2YBjymJ_lit8GpxaP0_vJGuOgONLRJdXTyKtoh) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of JS Self-Profiling Markers  The **JS Self-Profiling API** allows web applications to run a low-overhead sampling profiler directly on real user devices (in production) by configuring the `Document-Policy: js-profiling` HTTP header. Howe
-- [github.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHvyD9X-5mPjWCQytnGmSBlB7WFN1a8-6uHSvT-9tchRCPxdlrzaWyWDAd3tIVTozIkIrFjmOlOWwSxNOjcDzM4vHTAr9mNQjWSgVJuC5Y7TcK4DzBQClRQgLRDflOtgAHxGugJ33c4cip2moSpCEdtkpUsSxRCVfZmXZppnhx_pw==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of JS Self-Profiling Markers  The **JS Self-Profiling API** allows web applications to run a low-overhead sampling profiler directly on real user devices (in production) by configuring the `Document-Policy: js-profiling` HTTP header. Howe
-- [sentry.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFhhDbF9M1AdDCq9AVN7FyZfUknTjjVAZnr90Lo-COgxc-AsdoEV9xUKm5C62hFlivbPxlVD2Yc3QQ0AdeoiIvM8QpXKIuqivrqte1Hr63h1k-dSNb-WTjKc5BwWAKvzfACVcoHwn6Kwq9gvcXO5dnFLKeXy1WYXn8jl3PR) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of JS Self-Profiling Markers  The **JS Self-Profiling API** allows web applications to run a low-overhead sampling profiler directly on real user devices (in production) by configuring the `Document-Policy: js-profiling` HTTP header. Howe
-- [mintec.co](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHiD6dqf8UbyhXInj95ddJjr9hUDN4Mh5HkYFE2Q_ueGQXlyu7Abxx3rPC0aiUu2ehszcZA3dZGKEpo2A8CFvqKRPdYBOHgkdX761-UODq-prW07GDfkCImuBLACcvS2-6poYTgVO66Uw==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of JS Self-Profiling Markers  The **JS Self-Profiling API** allows web applications to run a low-overhead sampling profiler directly on real user devices (in production) by configuring the `Document-Policy: js-profiling` HTTP header. Howe
-- [mintec.co](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEdt0tcc16bARZu4kUBbQzfBkfQ5toC9oot9vaTX9KrRkl7qP3VRhK7T85vyxpP83Rl88MxGqP7MA7B0ABKqAo2qiSGex_5s1MWJ6F3sYPBfXJqO9F56BslEW8-3ysldvbr4dUtYQhuCg==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of JS Self-Profiling Markers  The **JS Self-Profiling API** allows web applications to run a low-overhead sampling profiler directly on real user devices (in production) by configuring the `Document-Policy: js-profiling` HTTP header. Howe
+- [sentry.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF362iHlipGC-ueT-U9y3t2PJog6-QKRI5bcqGT-wfh60ugvS4pUVFi8HZA685Befk2FzTrHu0BgK95CkMBfcZ7JSjSCCrp6cCGQS9VHM6MJrLtekSlq6CY9iEnYENiO--QhPhhezd5zQMlZEd6EihjjKluVshAa2Lkas6kBA==) *(vertexaisearch.cloud.google.com)*
+  > Improving INP and FID with production profiling | Sentry Blog Skip to main content ← Back to Blog Home Improving INP and FID with production profiling Jonas Badalic - March 26, 2024 · 12 min read On March 12 Google began promoting INP (Interaction to...
+- [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_1J30w6l7FxpKnFgBKOi_Rl4x2_sXJmabKUfkKCd5Ac_QsMfkFQlmJYhHtKU36SVTB_azfBhBsUziAlVOeggGXum_IDYJ77NZUsaOOD7BpfSaz2HutG6pOvHc95ioCYl0TxK9KPhFT7RcOo22z800MLkc-LXzBj0_wrnk-JJt) *(vertexaisearch.cloud.google.com)*
+  > Microsoft Edge Origin Trials Skip to main content Sign-in to GitHub header Origin Trials Origin trials grant you access to experimental features while they are in design. Trials are open to all developers and are limited in duration. Active Trials Co...
 - [Implement markers for JS Self-Profiling API \[40800459\] - Chromium](https://issues.chromium.org/issues/40800459) *(issues.chromium.org)*
-  > This CL exposes that existing feature ... spec: https://github.com/WICG/js-self-profiling/blob/main/markers.md Chrome Status: https://<strong>chromestatus.com/feature/5201297767792640</strong> Bug: 40800459 Change-Id: Ie370922859478eb0251c93c1db412b7...
+  > This CL exposes that existing feature through an Origin Trial (&quot;JSSelfProfilingMarkers&quot;) so non-COI trial documents see the safe &quot;style&quot;/&quot;layout&quot; subset, while COI documents see the full set Markers spec: https://github....
 - [Re: \[blink-dev\] Intent to Experiment: JS Self-Profiling Markers](http://www.mail-archive.com/blink-dev@chromium.org/msg17130.html) *(mail-archive.com)*
-  > &gt;&gt; &gt;&gt; On Tue, Aug 4, 2026 at 3:30 .../WICG/js-self-profiling/pull/89 &gt;&gt;&gt; &gt;&gt;&gt; *Summary* &gt;&gt;&gt; <strong>The JavaScript Self-Profiling API lets a web application sample its own &gt;&gt;&gt; call stacks to measure perf...
+  > &gt;&gt;&gt; &gt;&gt;&gt; *Origin Trial documentation link* &gt;&gt;&gt; <strong>https://github.com/WICG/js-self-profiling/blob/main/markers.md</strong> &gt;&gt;&gt; &gt;&gt;&gt; *Risks* &gt;&gt;&gt; &gt;&gt;&gt; &gt;&gt;&gt; *Interoperability and Co...
 - [\[blink-dev\] Intent to Experiment: JS Self-Profiling Markers](http://www.mail-archive.com/blink-dev@chromium.org/msg17114.html) *(mail-archive.com)*
   > Interested partners include Excel Online, which will consume the trial to enrich its existing JS self-profiling telemetry, and Datadog, which collects JS self-profiling data as part of its RUM product. <strong>Origin Trial documentation link https://...
 - [Intent to Prototype: State extension for JS Self-Profiling API](https://groups.google.com/a/chromium.org/g/blink-dev/c/m1hp39BMNcQ) *(groups.google.com)*
   > https://github.com/WICG/js-self-profiling/blob/main/markers.md · No specification available yet for this extension · <strong>Adds information about what type of non javascript work is being done by the user agent to samples from the JS Self-Profiling...
-- [Re: \[blink-dev\] Intent to Experiment: JS Self-Profiling Markers](http://www.mail-archive.com/blink-dev@chromium.org/msg17123.html) *(mail-archive.com)*
-  > *Contact emails* [email protected], ... https://github.com/WICG/js-self-profiling/pull/89 *Summary* <strong>The JavaScript Self-Profiling API lets a web application sample its own call stacks to measure performance on real user devices</strong>....
-- [Microsoft Edge Adds New Tools for Web Performance and AI Agents](https://windowsreport.com/microsoft-edge-adds-new-tools-for-web-performance-and-ai-agents) *(windowsreport.com · 2026-09-28T06:08:02)*
-  > Microsoft is also adding JS Self-Profiling markers that show what Edge was doing when a performance sample was captured.
+- [Re: \[blink-dev\] Intent to Experiment: JS Self-Profiling Markers](http://www.mail-archive.com/blink-dev@chromium.org/msg17121.html) *(mail-archive.com)*
+  > On Tue, Aug 4, 2026 at 3:30 PM ...hub.com/WICG/js-self-profiling/pull/89 &gt; &gt; *Summary* &gt; <strong>The JavaScript Self-Profiling API lets a web application sample its own &gt; call stacks to measure performance on real user devices</strong>......
 - [JS Self-Profiling Markers](https://chromestatus.com/feature/5201297767792640) *(chromestatus.com · 2026-07-22T00:00:00)*
   > We cannot provide a description for this page right now
-- [New in Edge for developers – Create better components and make your site agent-ready - Microsoft Edge Blog](https://blogs.windows.com/msedgedev/2026/09/21/new-in-edge-for-developers-create-better-components-and-make-your-site-agent-ready) *(blogs.windows.com · 2026-09-21T16:58:01)*
-  > The JS Self-Profiling API is a great way to measure your app’s performance in production, on real user devices. But it only samples your page’s JavaScript, which often leaves unexplained gaps in a trace, moments where the browser was styling, laying ...
+- [What are the best tools for profiling Node.js applications? \| Reintech media](https://reintech.io/blog/the-best-tools-for-profiling-nodejs-applications) *(reintech.io · 2026-01-15T07:00:21)*
+  > <strong>The interactive HTML output lets you zoom into specific call stacks and search for function names</strong>. Use Flame when you need detailed CPU profiling with better visualization than the built-in profiler provides.
+- [Jscrambler 101 — Profiling: For performance-critical apps](https://jscrambler.com/getting-started/101-profiling) *(jscrambler.com · 2019-10-23T00:00:00)*
+  > Understand why Profiling is a valuable feature for performance-critical apps, how you can use it in your own apps, and its main use cases. Welcome back to Jscrambler 101! A collection of tutorials on how to use Jscrambler to protect your JavaScript. ...
+- [The definitive guide to profiling React applications](https://blog.openreplay.com/the-definitive-guide-to-profiling-react-applications) *(blog.openreplay.com · 2021-03-12T00:00:00)*
+  > Let’s take a look at the interface of the profiler so that we’re able to understand the profiling data. I’ve numbered each section (in red) so that we can break it down bit by bit. 1. Component chart This is a chart of all the components being profil...
+- [An Introduction to Profiling in Node.js \| AppSignal Blog](https://blog.appsignal.com/2023/11/29/an-introduction-to-profiling-in-nodejs.html) *(blog.appsignal.com · 2023-11-29T00:00:00)*
+  > The first approach we&#x27;ll consider requires no external tools or libraries. It involves <strong>using the built-in sample-based profiler built into Node.js, which is enabled through the --prof command-line option</strong>.
+- [Profiling Node.js Applications: Step-by-Step Guide \| by NonCoderSuccess \| Medium](https://noncodersuccess.medium.com/profiling-node-js-applications-step-by-step-guide-38c75d8a8ef6) *(noncodersuccess.medium.com · 2024-11-19T11:47:07)*
+  > Introduction to Profiling Profiling a Node.js app means analyzing CPU, memory, and runtime metrics to identify performance issues like high CPU usage, memory leaks, or slow functions.
+- [Chrome Profiler, A Complete Guide](https://www.codemancers.com/blog/2023-08-18-chrome-profiler) *(codemancers.com · 2023-08-18T00:00:00)*
+  > The Chrome Profiler is a useful tool for optimizing the performance of our website. It allows us to witness events, monitor how much memory and CPU our machine is using, understand how the screen is rendered, observe how users interact, and track how...
+- [How to Add Multiple Markers in Leaflet.js: Step-by-Step Guide with Coordinates — xjavascript.com](https://www.xjavascript.com/blog/how-to-add-multiple-markers-in-leaflet-js) *(xjavascript.com)*
+  > Leaflet.js is a lightweight, open-source JavaScript library for interactive maps. It’s widely used for creating custom maps with features like markers, popups, and layers—all without the bloat of heavier alternatives. One common use case is adding **...
+- [AddyOsmani.com - The JavaScript Self-Profiling API](https://addyosmani.com/blog/js-self-profiling) *(addyosmani.com)*
+  > // Begin a new profiling session // Provide a sampleInterval (period which the session obtains samples) const profiler = await performance.profile({ sampleInterval: 10 }); // Do some expensive work performSomeTask(); // Stop the profiler and return t...
+- [JS Self-Profiling API In Practice - Web Performance Calendar](https://calendar.perfplanet.com/2021/js-self-profiling-api-in-practice) *(calendar.perfplanet.com)*
+  > The JS Self-Profiling API is a new API, currently only available in Chrome versions 94+ (on Desktop and Android). <strong>It provides a sampling profiler that you can enable, from JavaScript, for any of your visitors</strong>.
+- [JS Self-Profiling API In Practice - NicJ.net](https://nicj.net/js-self-profiling-api-in-practice) *(nicj.net · 2021-12-31T19:16:36)*
+  > The JS Self-Profiling API is a new API, currently only available in Chrome versions 94+ (on Desktop and Android). It <strong>provides a sampling profiler that you can enable, from JavaScript, for any of your visitors</strong>.
+- [JS Self-Profiling API](https://wicg.github.io/js-self-profiling) *(wicg.github.io · 2026-02-18T00:00:00)*
+  > <strong>This specification describes an API that allows web applications to control a sampling profiler for measuring client JavaScript execution times</strong>. Complex web applications currently have limited visibility into where JS execution time ...
+- [JS Self-Profiling API](https://chromestatus.com/feature/5170190448852992) *(chromestatus.com)*
+  > We cannot provide a description for this page right now
+- [Building Progressive Web Applications with Vanilla JavaScript. - DEV Community](https://dev.to/onwuemene/building-progressive-web-applications-with-vanilla-javascript-4733) *(dev.to · 2023-06-13T06:57:16)*
+  > You can make your little file a PWA if you want to, is base on choice and what you want to achieve with it. By the way, I am sorry for replying late, have been chocked with school lately. ... Always curious... ... I was just wondering, if this might ...
+- [Mastering Progressive Web Apps: Overcoming 2024 Development Challenges - DEV Community](https://dev.to/vaib/mastering-progressive-web-apps-overcoming-2024-development-challenges-34m4) *(dev.to · 2025-06-18T12:03:06)*
+  > <strong>Developing complex PWAs necessitates sophisticated debugging and testing methodologies</strong>. Browser developer tools are indispensable for service worker debugging, manifest validation, and performance profiling.
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
 - [Implement markers for JS Self-Profiling API \[40800459\] - Chromium](https://issues.chromium.org/issues/40800459) *(issues.chromium.org)* *(Cites: `https://chromestatus.com/feature/5201297767792640`)*
-  > This CL exposes that existing feature ... spec: https://github.com/WICG/js-self-profiling/blob/main/markers.md Chrome Status: https://<strong>chromestatus.com/feature/5201297767792640</strong> Bug: 40800459 Change-Id: Ie370922859478eb0251c9...
+  > This CL exposes that existing feature through an Origin Trial (&quot;JSSelfProfilingMarkers&quot;) so non-COI trial documents see the safe &quot;style&quot;/&quot;layout&quot; subset, while COI documents see the full set Markers spec: https...
 - [Re: \[blink-dev\] Intent to Experiment: JS Self-Profiling Markers](http://www.mail-archive.com/blink-dev@chromium.org/msg17130.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/js-self-profiling/blob/main/markers.md`)*
-  > &gt;&gt; &gt;&gt; On Tue, Aug 4, 2026 at 3:30 .../WICG/js-self-profiling/pull/89 &gt;&gt;&gt; &gt;&gt;&gt; *Summary* &gt;&gt;&gt; <strong>The JavaScript Self-Profiling API lets a web application sample its own &gt;&gt;&gt; call stacks to me...
+  > &gt;&gt;&gt; &gt;&gt;&gt; *Origin Trial documentation link* &gt;&gt;&gt; <strong>https://github.com/WICG/js-self-profiling/blob/main/markers.md</strong> &gt;&gt;&gt; &gt;&gt;&gt; *Risks* &gt;&gt;&gt; &gt;&gt;&gt; &gt;&gt;&gt; *Interoperabil...
 - [\[blink-dev\] Intent to Experiment: JS Self-Profiling Markers](http://www.mail-archive.com/blink-dev@chromium.org/msg17114.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/js-self-profiling/blob/main/markers.md`)*
   > Interested partners include Excel Online, which will consume the trial to enrich its existing JS self-profiling telemetry, and Datadog, which collects JS self-profiling data as part of its RUM product. <strong>Origin Trial documentation lin...
 - [Intent to Prototype: State extension for JS Self-Profiling API](https://groups.google.com/a/chromium.org/g/blink-dev/c/m1hp39BMNcQ) *(groups.google.com)* *(Cites: `https://github.com/WICG/js-self-profiling/blob/main/markers.md`)*
   > https://github.com/WICG/js-self-profiling/blob/main/markers.md · No specification available yet for this extension · <strong>Adds information about what type of non javascript work is being done by the user agent to samples from the JS Self...
-- [Re: \[blink-dev\] Intent to Experiment: JS Self-Profiling Markers](http://www.mail-archive.com/blink-dev@chromium.org/msg17123.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/js-self-profiling/pull/89`)*
-  > *Contact emails* [email protected], ... https://github.com/WICG/js-self-profiling/pull/89 *Summary* <strong>The JavaScript Self-Profiling API lets a web application sample its own call stacks to measure performance on real user devices</str...
+- [Re: \[blink-dev\] Intent to Experiment: JS Self-Profiling Markers](http://www.mail-archive.com/blink-dev@chromium.org/msg17121.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/js-self-profiling/pull/89`)*
+  > On Tue, Aug 4, 2026 at 3:30 PM ...hub.com/WICG/js-self-profiling/pull/89 &gt; &gt; *Summary* &gt; <strong>The JavaScript Self-Profiling API lets a web application sample its own &gt; call stacks to measure performance on real user devices</...
+
+## 📚 Platform Documentation & Specifications
+
+- [JS Self-Profiling API - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/JS_Self-Profiling_API) *(developer.mozilla.org)*
+- [GitHub - WICG/js-self-profiling: Proposal for a programmable JS profiling API for collecting JS profiles from real end-user environments · GitHub](https://github.com/WICG/js-self-profiling) *(github.com)*
+- [Profiler - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/Profiler) *(developer.mozilla.org)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 36 result(s) found across 8 planned queries — **8 verified relevant**
-  - `"chromestatus.com/feature/5201297767792640" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
+- **Brave Search:** 38 result(s) found across 8 planned queries — **23 verified relevant**
+  - `"chromestatus.com/feature/5201297767792640" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (2 returned)
   - `"github.com/WICG/js-self-profiling/blob/main/markers.md" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (4 returned)
   - `"github.com/WICG/js-self-profiling/pull/89" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Specification* (2 returned)
-  - `"JS Self-Profiling Markers" API` — *Core feature API query* (4 returned)
+  - `"JS Self-Profiling Markers" API` — *Core feature API query* (3 returned)
   - `"JS Self-Profiling Markers" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"self-profiling" OR "per-sample" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"JS Self-Profiling Markers" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
-  - `"JS Self-Profiling Markers" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (6 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 15 result(s) found — **15 verified relevant**
+  - `"JS Self-Profiling Markers" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 8 result(s) found — **8 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 18 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 15 result(s) found — **2 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 3 result(s) found — **3 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
@@ -127,7 +144,7 @@ The following external publications and discussions explicitly link to or cite t
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
 - **Standards Discussion Comments:** 11 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 7 page(s)
+- **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links
 

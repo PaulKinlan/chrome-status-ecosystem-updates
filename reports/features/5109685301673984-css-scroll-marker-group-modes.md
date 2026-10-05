@@ -1,6 +1,6 @@
 # CSS scroll-marker-group modes
 
-> **Report Week:** 2026-W40 | **Milestone:** Chrome 154 | **Category:** Enabled by default
+> **Report Week:** 2026-W41 | **Milestone:** Chrome 154 | **Category:** Enabled by default
 
 ## Overview
 
@@ -8,18 +8,18 @@ The scroll-marker-group property is enhaced to support modes: 1) 'links' - The g
 
 ## Ecosystem Status
 
-- **Momentum:** High (275 points)
+- **Momentum:** High (395 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Cautiously Optimistic
-- **Executive Take:** Shipped by default in Chrome and Edge 154 under the CSS Overflow Module Level 5 draft, \`scroll-marker-group\` modes introduce declarative \`links\` and \`tabs\` values to map generated scroll markers directly to WAI-ARIA roles and keyboard behaviors. While the enhancement resolves major semantic and focus-management pitfalls inherent to CSS-driven navigation, it remains Chromium-exclusive without cross-vendor consensus. The feature is currently unindexed in Baseline, and formal standardization is still actively debated in the CSSWG.
+- **Executive Take:** Shipped enabled by default in Chrome 154, CSS \`scroll-marker-group\` modes allow developers to explicitly toggle between \`links\` (navigation landmarks and fragment anchors) and \`tabs\` (tablist/tabpanel with roving tabindex and accessibility tree pruning). The enhancement directly addresses long-standing usability and accessibility criticisms of CSS carousels, but currently exists as a Chromium-only implementation without Baseline interoperability.
 
 ### Recommendations
-- Actionable Advice: Do not rely on \`scroll-marker-group\` modes as an immediate replacement for production tabs or interactive carousels without progressive enhancement or robust JavaScript fallbacks. Web teams should test the interaction models and assistive technology announcements in Chromium browsers today, but hold off on full architectural adoption until multi-engine intent solidifies.
+- Actionable Advice: Web teams should treat \`scroll-marker-group\` modes as an experimental, progressive enhancement rather than a baseline solution. If experimenting with CSS-driven carousels or tabs in Chromium, ensure feature queries or accessible HTML/JS fallbacks remain in place for Safari and Firefox users.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Standards Activity (WebKit): Latest discussion from @fantasai: "Some issues that seem pretty fundamental: - https://github.com/w3c/csswg-drafts/issues/12240 - https://github.com/w3c/csswg-drafts/issues/12269..."
 - Standards Activity (Mozilla): Latest discussion from @jcsteh: "I have some significant accessibility concerns regarding CSS inert specifically. See https://github.com/w3ctag/design-reviews/issues/1055#issuecomment..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-- Verified community discussion on Twitter / X: "Chrome for Developers (@ChromiumDev) on X" (0 points, 0 comments).
+- Verified community discussion on Twitter / X: "New in Chrome 154 \| Chrome for Developers (@ChromiumDev) on X" (0 points, 0 comments).
 
 ## Standards Positions
 
@@ -28,86 +28,111 @@ The scroll-marker-group property is enhaced to support modes: 1) 'links' - The g
 
 ## Community Discussions & Social Pulse
 
-- 🐦 **Twitter / X:** [Chrome for Developers (@ChromiumDev) on X](https://x.com/ChromiumDev/status/2102804599325528424) — *by @ChromiumDev, 0 likes/RTs, 0 replies*
+- 🐦 **Twitter / X:** [New in Chrome 154 \| Chrome for Developers (@ChromiumDev) on X](https://x.com/ChromiumDev/article/2102804599325528424) — *0 likes/RTs, 0 replies*
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH9LKwyz5H1JcsLfJeRC4JG_5R7pCfvazEJEPTpN4h9BIC8yBPoR2UptwybJX0LQPiDxO_C-o5SPlouyxenfXfayAWt6-ZgFZx9MBpHDTsJX1fOwzebcPnfjS7rvitw) *(vertexaisearch.cloud.google.com)*
-  > CSS scroll-marker-group modes && WAI-ARIA patterns · Issue #18 · w3c/css-aam · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh...
-- [sarasoueidan.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQErosPDpfUa5KL-aVezL1ip420bwcEa-91c-c_G16W9YM5wg2zeogKZq5slEmejF5qq1P0VhPWp45JVKIZgwz2TyyUjj4mH2i3pDkstnURa-5HSt0zIuFFSvirWpmdQBwLXVFk7uYU=) *(vertexaisearch.cloud.google.com)*
-  > The introduction of **`links`** and **`tabs`** modes for the **`scroll-marker-group`** property (part of the **CSS Overflow Module Level 5** specification) addresses the accessibility and interaction nuances of CSS-driven carousels, tabs, and scroll
-- [dandenney.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFaSFJEOk4BxbiY782ES66ZwGYyWNDtWl3UgrZxVjn0voTKR3TveTxMFwcU6katO5ctRvB3Ash_Sszc1nFL0LGpKaNZA0UruqLRoepSBB4hFPaWyxClqHhOEoDA0o786Kw4WswUwg_onA3VumgnFDebvs0z3ZVXP5QvWKftzjfP_pvV) *(vertexaisearch.cloud.google.com)*
-  > The introduction of **`links`** and **`tabs`** modes for the **`scroll-marker-group`** property (part of the **CSS Overflow Module Level 5** specification) addresses the accessibility and interaction nuances of CSS-driven carousels, tabs, and scroll
-- [css-tricks.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFMT7C45ftRmtjLaqCjg5krxv-_jrR9FB69NN09gEEuVacND3VMUKu6Weww27G3eMYme3-LtUkDlIr7qimAmIJuTKHavleA4Y_jeCNX5Nygyms_8EdA8gmT1X_IvPvgiZ18NJ7Mh7IZo0k9p41J5K0fQWQczhm_L780gBGq) *(vertexaisearch.cloud.google.com)*
-  > The introduction of **`links`** and **`tabs`** modes for the **`scroll-marker-group`** property (part of the **CSS Overflow Module Level 5** specification) addresses the accessibility and interaction nuances of CSS-driven carousels, tabs, and scroll
-- [jpcasabianca.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH74OexOgONn06zv1umdx8X3u3cUoi6vLEroRTv5b8_AeHhiwBB2x2DoFGxZkFhlUXs8e1XRGjUJRQMd9bmHD_TFK-v6yWLGFJDtTbpu8NkwlfmzO14MlKLrU2CALoud5dO1HPsOQFjcFldSjNlDC17Wfo=) *(vertexaisearch.cloud.google.com)*
-  > The introduction of **`links`** and **`tabs`** modes for the **`scroll-marker-group`** property (part of the **CSS Overflow Module Level 5** specification) addresses the accessibility and interaction nuances of CSS-driven carousels, tabs, and scroll
-- [RE: \[blink-dev\] Intent to Ship: CSS scroll-marker-group modes](http://www.mail-archive.com/blink-dev@chromium.org/msg16999.html) *(mail-archive.com)*
-  > Thanks, Dan From: [email protected] ... modes Contact emails [email protected]&lt;mailto:[email protected]&gt; Explainer https://<strong>gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3</strong> Specification https://drafts.csswg.org/c...
+- [Re: \[blink-dev\] Intent to Ship: CSS scroll-marker-group modes](http://www.mail-archive.com/blink-dev@chromium.org/msg17237.html) *(mail-archive.com)*
+  > Re: [blink-dev] Intent to Ship: CSS scroll-marker-group modes Skip to site navigation (Press enter) Re: [blink-dev] Intent to Ship: CSS scroll-marker-group modes Robert Flack Wed, 19 Aug 2026 16:39:42 -0700 On Wed, Jul 29, 2026 at 8:04 PM 'Dan Clark'...
 - [\[blink-dev\] Intent to Ship: CSS scroll-marker-group modes](http://www.mail-archive.com/blink-dev@chromium.org/msg16979.html) *(mail-archive.com)*
-  > Explainer https://gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3 Specification <strong>https://drafts.csswg.org/css-overflow-5/#scroll-marker-modes</strong> Summary The scroll-marker-group property is enhaced to support modes: 1) &#x...
-- [CSS scroll-marker-group modes](https://chromestatus.com/feature/5109685301673984) *(chromestatus.com · 2026-06-26T00:00:00)*
-  > We cannot provide a description for this page right now
+  > [blink-dev] Intent to Ship: CSS scroll-marker-group modes Skip to site navigation (Press enter) [blink-dev] Intent to Ship: CSS scroll-marker-group modes Chromestatus Wed, 15 Jul 2026 12:40:07 -0700 Contact emails [email&#160;protected] Explainer htt...
+- [Chrome 154 \| Release notes \| Chrome for Developers](https://developer.chrome.com/release-notes/154) *(developer.chrome.com · 2026-09-22T00:00:00)*
+  > Chrome 154 | Release notes | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภาษาไทย 中...
+- [New in Chrome 154 \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/new-in-chrome-154) *(developer.chrome.com · 2026-09-22T00:00:00)*
+  > New in Chrome 154 | Blog | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภาษาไทย 中文 ...
+- [Common Issues and Workarounds for CSS scroll-marker-group](https://runebook.dev/en/docs/css/scroll-marker-group) *(runebook.dev)*
+  > Common Issues and Workarounds for CSS scroll-marker-group Common Issues and Workarounds for CSS scroll-marker-group 2025-09-09 This property is designed to allow developers to style the scroll markers of an element, which are visual indicators for sc...
 - [CSS scroll-behavior property](https://www.w3schools.com/cssref/pr_scroll-behavior.php) *(w3schools.com)*
   > Add a smooth scrolling effect to the document.
+- [How To Create a Scroll Indicator](https://www.w3schools.com/howto/howto_js_scroll_indicator.asp) *(w3schools.com)*
+  > 2 Column Layout 3 Column Layout 4 Column Layout Expanding Grid List Grid View Mixed Column Layout Column Cards Zig Zag Layout Blog Layout · Google Charts Google Fonts Google Font Pairings Google Set up Analytics · Convert Weight Convert Temperature C...
 - [A guide to Scroll-driven Animations with just CSS \| WebKit](https://webkit.org/blog/17101/a-guide-to-scroll-driven-animations-with-just-css) *(webkit.org · 2025-07-07T23:17:11)*
   > First, let’s break down the components of a scroll-driven animation. ... What’s great about these three parts is that two out of the three are probably already familiar to you. The first, the target, can be whatever you want to move on your page, sty...
 - [CSS scroll-margin property](https://www.w3schools.com/cssref/css_pr_scroll-margin.php) *(w3schools.com)*
   > Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, PHP, Python, Bootstrap, Java and XML.
-- [How To Create a Custom Scrollbar](https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp) *(w3schools.com)*
-  > ::-webkit-scrollbar-corner the bottom corner of the scrollbar, where both horizontal and vertical scrollbars meet. ::-webkit-resizer the draggable resizing handle that appears at the bottom corner of some elements. ... Coding fundamentals as bite-siz...
+- [CSS Scroll Effects: 50 Interactive Animations to Try](https://prismic.io/blog/css-scroll-effects) *(prismic.io · 2025-03-13T00:00:00)*
+  > TAOS is a lightweight (approximately 600 bytes) JavaScript library designed to integrate seamlessly with Tailwind CSS. It allows you to apply animations to elements when they enter the viewport during scrolling, utilizing Tailwind&#x27;s Just-In-Time...
 - [scroll-marker-group \| CSS-Tricks](https://css-tricks.com/almanac/properties/s/scroll-marker-group) *(css-tricks.com · 2025-05-28T15:25:53)*
   > The scroll-marker-group CSS property <strong>determines if the ::scroll-marker-group pseudo-element is generated within the scroll container that the property is set on, and where</strong>.
 - [CSS-only scrollspy effect using scroll-marker-group and :target-current](https://www.sarasoueidan.com/blog/css-scrollspy) *(sarasoueidan.com · 2025-08-18T00:00:00)*
   > Let’s demonstrate how. In the CSS Carousels article we talked about how the scroll-marker-group property is <strong>used to generate a grouping container for a group of ::scroll-markers</strong>.
-- [Carousels with CSS \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/carousels-with-css) *(developer.chrome.com · 2025-03-20T00:00:00)*
-  > <strong>The containing element of the markers is called a ::scroll-marker-group and it is created as a sibling of the scroller, just like the scroll buttons</strong>. This container can be styled and placed wherever you need.
 - [Intent to Ship: ::scroll-marker and ::scroll-marker-group for Carousel, ::column pseudo element for Carousel and ::scroll-button() pseudo elements](https://groups.google.com/a/chromium.org/g/blink-dev/c/7EQ8-VzPZh0/m/NMyrGCjuAAAJ) *(groups.google.com)*
   > Can you do a triage pass over the open issues and summarize here what you see the web compat risk to be for potentially upcoming spec changes to resolve the issues? Given this is an unpolyfillable CSS feature I assume we don&#x27;t expect much adopti...
-- [Chrome 152 \| Release notes \| Chrome for Developers](https://developer.chrome.com/release-notes/152) *(developer.chrome.com · 2026-08-25T00:00:00)*
-  > Support for CSSPseudoElement, ... intersection logic to determine where the click occurred. ::scroll-marker: <strong>Used to collect click statistics</strong>....
+- [A Checklist of Issues for Progressive Web Apps and How to Fix them \| Philip Heltweg](https://heltweg.org/posts/checklist-issues-progressive-web-apps-how-to-fix) *(heltweg.org · 2024-10-15T00:00:00)*
+  > <strong>Set overflow hidden on the body and show content in an element with overflow-y: scroll; and a fixed height</strong>:
+- [Take control of your scroll - customizing pull-to-refresh and overflow effects \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/overscroll-behavior) *(developer.chrome.com · 2017-11-14T00:00:00)*
+  > Pulling down on a social feed and releasing creates new space for more recent posts to be loaded. In fact, this particular UX has become so popular that mobile browsers like Chrome on Android have adopted the same effect. Swiping down at the top of t...
 - [css - Content showing in statusbar when scrolling in PWA - Stack Overflow](https://stackoverflow.com/questions/61735881/content-showing-in-statusbar-when-scrolling-in-pwa) *(stackoverflow.com)*
   > Thanks Max Di Campo. This solution worked for me. In my PWA, the body content was showing behind the status bar when body is scrolled.
+- [Scroll marker group type](https://flackr.github.io/web-demos/css-overflow/scroll-marker-type) *(flackr.github.io)*
+  > Pressing enter to activate a scroll marker will, like following an anchor link, scroll to its target element and set the sequential focus navigation starting point to the target meaning that subsequent tab presses will move focus starting from that c...
+- [::scroll-marker \| CSS-Tricks](https://css-tricks.com/almanac/pseudo-selectors/s/scroll-marker) *(css-tricks.com · 2025-05-06T12:38:13)*
+  > scroll-marker-group is set to before this time, because the tabs are at the top/before the scroll container’s content.
+- [Make accessible carousels \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/accessible-carousel?hl=en) *(developer.chrome.com)*
+  > Note: Be aware that this approach does not conform to the expectations for the tablist and tabs generated by the ::scroll-marker-group and ::scroll-marker pseudo-elements.
+- [Chrome 154 Takes Over Iframe Sizing and Carousel Semantics — Here's Where to Adopt It \| Mintec Blog](https://mintec.co/blog/chrome-154-frame-sizing-carousel-tabs) *(mintec.co · 2026-09-26T14:39:22)*
+  > CSS scroll marker modes. scroll-marker-group already generated the <strong>::scroll-marker-group and ::scroll-marker pseudo-elements that turn a scroll-snap list into a carousel with dots</strong>.
+- [你以为 tab 无障碍只能靠 WAI-ARIA 一个个配？今天 scroll-marker-group 两个模式把这件事彻底原生化了 - AI产品库官网 - AIProductHub](https://aiproducthub.cn/s/46558.html) *(aiproducthub.cn · 2026-09-13T13:26:57)*
+  > scroll-marker-group: tabs 模式下，浏览器会自动给滚动容器内的标记点赋予正确的 ARIA 语义：::scroll-marker-group 隐式获得 tablist 角色，每个 ::scroll-marker 获得 tab 角色，对应的原始元素自动获得 tabpanel 角色。不需要写任何 role 属性，浏览器自己推断。
+- [CSS Overflow Module Level 3](https://drafts.csswg.org/css-overflow) *(drafts.csswg.org · 2025-10-07T00:00:00)*
+  > Clarify which clipping affects limit contributions to the scrollable overflow area of the nearest scroll container. (Issue 8607) Clarify application of overflow to tables.
+- [Re: \[blink-dev\] Intent to Ship: CSS scroll-marker-group modes](http://www.mail-archive.com/blink-dev@chromium.org/msg17270.html) *(mail-archive.com)*
+  > &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; *&gt; Is this feature fully tested by web-platform-tests &gt;&gt;&gt;&gt;&gt; &lt;https://chromium.googlesource.com/chromium/src/+/main/docs/testing/web_platform_test...
+- [security - Google Chrome weird cursor blink on pages, never seen 'em before - Stack Overflow](https://stackoverflow.com/questions/64499328/google-chrome-weird-cursor-blink-on-pages-never-seen-em-before) *(stackoverflow.com)*
+  > <strong>On Firefox, it&#x27;s allowing to select and no cursor blinks</strong> and that&#x27;s the default behaviour.
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
-- [RE: \[blink-dev\] Intent to Ship: CSS scroll-marker-group modes](http://www.mail-archive.com/blink-dev@chromium.org/msg16999.html) *(mail-archive.com)* *(Cites: `https://gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3`)*
-  > Thanks, Dan From: [email protected] ... modes Contact emails [email protected]&lt;mailto:[email protected]&gt; Explainer https://<strong>gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3</strong> Specification https://drafts.c...
-- [\[blink-dev\] Intent to Ship: CSS scroll-marker-group modes](http://www.mail-archive.com/blink-dev@chromium.org/msg16979.html) *(mail-archive.com)* *(Cites: `https://gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3`)*
-  > Explainer https://gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3 Specification <strong>https://drafts.csswg.org/css-overflow-5/#scroll-marker-modes</strong> Summary The scroll-marker-group property is enhaced to support mod...
+- [Re: \[blink-dev\] Intent to Ship: CSS scroll-marker-group modes](http://www.mail-archive.com/blink-dev@chromium.org/msg17237.html) *(mail-archive.com)* *(Cites: `https://gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3`)*
+  > Re: [blink-dev] Intent to Ship: CSS scroll-marker-group modes Skip to site navigation (Press enter) Re: [blink-dev] Intent to Ship: CSS scroll-marker-group modes Robert Flack Wed, 19 Aug 2026 16:39:42 -0700 On Wed, Jul 29, 2026 at 8:04 PM '...
+- [csswg-drafts/css-overflow-5/Overview.bs at main · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/blob/main/css-overflow-5/Overview.bs) *(github.com)* *(Cites: `https://drafts.csswg.org/css-overflow-5/#scroll-marker-modes`)*
+  > csswg-drafts/css-overflow-5/Overview.bs at main · w3c/csswg-drafts · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh...
+- [Support CSS Overflow Module Level 5 · Issue #1184 · parcel-bundler/lightningcss](https://github.com/parcel-bundler/lightningcss/issues/1184) *(github.com · 2026-03-16T06:55:52)* *(Cites: `https://drafts.csswg.org/css-overflow-5/#scroll-marker-modes`)*
+  > Support CSS Overflow Module Level 5 · Issue #1184 · parcel-bundler/lightningcss · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Relo...
 
 ## 📚 Platform Documentation & Specifications
 
-- [scroll-marker-group CSS property - CSS \| MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scroll-marker-group) *(developer.mozilla.org)*
+- [csswg-drafts/css-overflow-5/Overview.bs at main · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/blob/main/css-overflow-5/Overview.bs) *(github.com)*
+- [Support CSS Overflow Module Level 5 · Issue #1184 · parcel-bundler/lightningcss](https://github.com/parcel-bundler/lightningcss/issues/1184) *(github.com)*
+- [\`scroll-marker-group\` CSS property flagged as 'Unknown property' · Issue #120 · microsoft/vscode-custom-data](https://github.com/microsoft/vscode-custom-data/issues/120) *(github.com)*
+- [scroll-marker-group CSS property - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scroll-marker-group) *(developer.mozilla.org)*
 - [scroll-marker-group CSS pseudo-element - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/::scroll-marker-group) *(developer.mozilla.org)*
-- [scroll-marker CSS pseudo-element - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/::scroll-marker) *(developer.mozilla.org)*
+- [scroll-marker-group CSS property - CSS \| MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-marker-group) *(developer.mozilla.org)*
 - [::scroll-marker-group CSS pseudo-element - CSS \| MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/::scroll-marker-group) *(developer.mozilla.org)*
-- [scroll-target-group - CSS - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scroll-target-group) *(developer.mozilla.org)*
+- [scroll-marker CSS pseudo-element - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/::scroll-marker) *(developer.mozilla.org)*
+- [::scroll-marker CSS pseudo-element - CSS \| MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/::scroll-marker) *(developer.mozilla.org)*
+- [Scroll markers · Issue #1406 · web-platform-tests/interop](https://github.com/web-platform-tests/interop/issues/1406) *(github.com)*
+- [Creating CSS carousels - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Overflow/Carousels) *(developer.mozilla.org)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 36 result(s) found across 8 planned queries — **18 verified relevant**
+- **Brave Search:** 55 result(s) found across 13 planned queries — **35 verified relevant**
   - `"chromestatus.com/feature/5109685301673984" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
-  - `"gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3" -site:gist.github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (2 returned)
+  - `"gist.github.com/danielsakhapov/aa8e744701224994609aebb3e9e316e3" -site:gist.github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (1 returned)
   - `"drafts.csswg.org/css-overflow-5" -site:drafts.csswg.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (2 returned)
   - `"CSS scroll-marker-group modes" API` — *Core feature API query* (2 returned)
   - `"CSS scroll-marker-group modes" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"scroll-marker-group" OR ":scroll-marker-group" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"CSS scroll-marker-group modes" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
-  - `"CSS scroll-marker-group modes" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (7 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 12 result(s) found — **5 verified relevant**
-- **Twitter / X API v2:** *found 1 tweet(s)*
-- **Dev.to Community Blogs:** 2 result(s) found — **0 verified relevant**
+  - `"CSS scroll-marker-group modes" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
+  - `"scroll-marker-group" "tabs" OR "links" tutorial OR guide` — *Finds technical blog posts, guides, and practical tutorials explaining the difference between the tabs and links modes of scroll-marker-group.* (8 returned)
+  - `"scroll-marker-group" tabs "tabpanel" OR "tablist" CSS carousel` — *Surfaces real-world CSS code snippets and carousel implementations that leverage the tabs mode with automatic ARIA semantics.* (8 returned)
+  - `site:drafts.csswg.org/css-overflow OR site:github.com/w3c/csswg-drafts "scroll-marker-group" "links" "tabs"` — *Finds formal spec drafts, discussions, and syntax issue threads in CSSWG repositories for scroll-marker-group modes.* (1 returned)
+  - `"scroll-marker-group" ("tabs" OR "links") (Chrome OR WebKit OR Firefox OR Blink OR "web-platform-tests")` — *Tracks browser engine implementation status, intent to ship/prototype announcements, and test suites across web engines.* (3 returned)
+  - `"scroll-marker-group" "tabs" ("accessibility" OR "a11y" OR "ARIA" OR "roving tabindex")` — *Identifies web accessibility community opinions, articles, and feedback regarding the automatic roving tabindex and a11y tree pruning behaviors.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
+- **Twitter / X API v2:** *found 0 tweet(s)*
+- **Dev.to Community Blogs:** 1 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 2 result(s) found — **2 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
-- **NPM Registry:** 6 result(s) found — **0 verified relevant**
-- **Web Platform Tests (wpt.fyi):** 899 item(s) inspected
+- **NPM Registry:** 5 result(s) found — **0 verified relevant**
+- **Web Platform Tests (wpt.fyi):** 906 item(s) inspected
 
 ### Content Inspected
 

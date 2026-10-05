@@ -1,6 +1,6 @@
 # Additional Windowing Controls
 
-> **Report Week:** 2026-W40 | **Milestone:** Chrome 155 | **Category:** Enabled by default
+> **Report Week:** 2026-W41 | **Milestone:** Chrome 155 | **Category:** Enabled by default
 
 ## Overview
 
@@ -12,13 +12,13 @@ Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integ
 
 ## Ecosystem Status
 
-- **Momentum:** High (330 points)
+- **Momentum:** High (220 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Mixed / Skeptical
-- **Executive Take:** Additional Windowing Controls (AWC) expands the Window Management API with imperative methods (\`maximize()\`, \`minimize()\`, \`restore()\`, \`setResizable()\`) and CSS media features (\`display-state\`, \`resizable\`) specifically designed to streamline installed desktop web apps and enterprise VDI streaming clients. While Chromium has pushed to ship the capabilities by default, the specification remains largely a single-vendor initiative without multi-engine consensus. Cross-engine adoption remains blocked due to long-standing concerns regarding user agency, window-manager spoofing, and OS integration.
+- **Executive Take:** Additional Windowing Controls ships enabled by default in Chrome 155, introducing programmatic window state management (window.maximize, minimize, restore, setResizable) alongside the display-state and resizable CSS media features. While delivering long-sought UI parity for enterprise VDI web clients and standalone desktop PWAs, the feature currently lacks cross-engine consensus and is not indexed in Baseline.
 
 ### Recommendations
-- Actionable Advice: Treat Additional Windowing Controls strictly as an optional progressive enhancement for installed desktop PWAs in Chromium environments, always validating the \`window-management\` permission beforehand. Ensure applications retain intuitive manual window fallbacks and responsive CSS defaults when operating in non-Chromium or standard tabbed browsing contexts.
+- Actionable Advice: Implement these controls strictly as an optional progressive enhancement for installed desktop PWAs, always verifying the window-management permission and method availability prior to invocation. Avoid building windowing architectures that depend on programmatic resizing, ensuring robust fallbacks for Firefox, Safari, and standard browser tabs.
 - Shipping enabled by default in Chrome 155. Developers can begin adopting in production with progressive feature detection.
 - Standards Activity (WebKit): Latest discussion from @sonkkeli: "Hey, I'm jumping in here as I'm continuing on Ivan's work.  There were some updates made on the proposed APIs and the current proposals are at least a..."
 - Standards Activity (Mozilla): Latest discussion from @michaelwasserman: "Client application window controls may indeed be limited by the OS, Window Manager, protocols, utilities, and modalities. The API surface offers coher..."
@@ -32,92 +32,69 @@ Virtual Desktop Infrastructure (VDI) web clients have limited abilities to integ
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHt6oSU4d3tX9XhyHc5MOTZE4Yt6c1-yLEFy3R2XnjS2BKSm6kpBxc_0VEvdv5DI5-faUT0Dtw7QJVv5GaaLZKfcJclea9Tlg5ESHtlcVHXu2kwVyfgvDdQ1D0JmTULJoE8RTxfTCKQCF3nWrU=) *(vertexaisearch.cloud.google.com)*
-  > Additional Windowing Controls · Issue #96 · WebKit/standards-positions · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your ...
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGa30SGYx0NRHg2ZU2XvQyF1cGvCvhjuJVyrby42bXh_auGppaauYXAweObJy0-g5IAdThfYqq4Nee2G95EtjOCYFOw_HAnFIf-Ch1vP7450fzkzFFrRX0S5D_EY0toeujQ2_75bvHNldBOEVWM) *(vertexaisearch.cloud.google.com)*
-  > Additional Windowing Controls · Issue #96 · WebKit/standards-positions · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your ...
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG8pFNe2fW2wi82u3xejI18Np3tNQdd5bmJU1olKhUWb8GFFclIENEI8uFJ_qzrob0eQDTysEFMXif0WnRouKdz27RxgWEsAUO6zaWk3bgBQt6SJBVyUkwBXztQF27C-_Y_1bD4kFjs4qhI) *(vertexaisearch.cloud.google.com)*
-  > WG New Spec: Additional Windowing Controls · Issue #1246 · w3ctag/design-reviews · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to ref...
-- [w3.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFWorAlsh5f2N_uSQlDoVdwIHDuc04khEQ01seVQ0QAHRqZU4cxzRIBzoB_vVcxV0k9HG9bGbIrMuyVNqAPrYAOsgOopX5Lv_5FNzO9eeiJFbc-I5M7nywhC9ZUumypdV1jL5c8dUzezr5zJA==) *(vertexaisearch.cloud.google.com)*
-  > ### Overview of Additional Windowing Controls (AWC)  The **Additional Windowing Controls** feature extends the [W3C Window Management API](https://chromestatus.com/feature/5252960583942144) to provide web applications—specifically installed Progressi
-- [chromium.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHamgr2zRw5y1c0-UCNQttTBEPIrBZUMxOVpCvwid6Cy6IsGa-Jr0k7Cnp5H4Ym7Q0pq9ywaCVavEtV95GTpBDA9bsmauSHnhqKVnEgm--J0YgnFsw__StyorM=) *(vertexaisearch.cloud.google.com)*
-  > ### Overview of Additional Windowing Controls (AWC)  The **Additional Windowing Controls** feature extends the [W3C Window Management API](https://chromestatus.com/feature/5252960583942144) to provide web applications—specifically installed Progressi
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFgLSRL1WUXeCwxhp4Do7ltZyQ0szt3NowA_4au_W25k0VVTO0b0rbJvHGJ0fcHn9g9Uh39hAzublCkuIn0p-9wT4-VwJV52Uv1QhJFFaJc4kijlvGqV6Z60MJtX94n2p2KBQ76-7d8F4hk) *(vertexaisearch.cloud.google.com)*
-  > ### Overview of Additional Windowing Controls (AWC)  The **Additional Windowing Controls** feature extends the [W3C Window Management API](https://chromestatus.com/feature/5252960583942144) to provide web applications—specifically installed Progressi
-- [w3.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFBEcfOb1iDTt3HviVL0Y4HCdjH3g3jIu9YcAZ9QOqsFZW-4L3AzOgXWjUXBJaCbFe9GmLpqQ-SQ-E7ccfQx1UxggdqNUQdOu4aszr1EAYy8zlEzHMA7Gd5opZ6X7wAvzLcRZsHUmiJZpM6iNJaayOP3Q==) *(vertexaisearch.cloud.google.com)*
-  > ### Overview of Additional Windowing Controls (AWC)  The **Additional Windowing Controls** feature extends the [W3C Window Management API](https://chromestatus.com/feature/5252960583942144) to provide web applications—specifically installed Progressi
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrNAEZBxB2DrkBsgXYKn_p0qT3zUbWmfFNY2b_QPKMaMoSGNmN_2BjWisj_DikQLWeZ-4Kjl1vaACP2mYLYtNejCReutZs8Fn4qo3RU4J2wfWIDOD4M2JmOeM2NPNdMSbjbKmBjAVRYtBTdinfD5WOjrRTnYR6pOhMwQ==) *(vertexaisearch.cloud.google.com)*
-  > ### Overview of Additional Windowing Controls (AWC)  The **Additional Windowing Controls** feature extends the [W3C Window Management API](https://chromestatus.com/feature/5252960583942144) to provide web applications—specifically installed Progressi
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGwuLHwzktDEA4ZJHo-gmgNbKJXP9aqqz95wk9rznV8l165jD1TrFvktAcoreVqp1A0CwgSRcxEy3yY9_53p1urR7GQP3eUq5mMsglCtPCmGL33deRu0NKNdkZO1OP2_mePjsi_GwhgL8KNFdGO) *(vertexaisearch.cloud.google.com)*
-  > ### Overview of Additional Windowing Controls (AWC)  The **Additional Windowing Controls** feature extends the [W3C Window Management API](https://chromestatus.com/feature/5252960583942144) to provide web applications—specifically installed Progressi
-- [webkit.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEf9HvpK2RHCzT-Jcj2d2gPR66SKZy2idWEIsK9nu9iKxdlmsF0UUbW3vM0jsDkE2gWE6bo-RmT9Bety1WsdLWCCiXU8EEUyy_Axquhk44ThBhqvEfBctO9GAD3I10=) *(vertexaisearch.cloud.google.com)*
-  > ### Overview of Additional Windowing Controls (AWC)  The **Additional Windowing Controls** feature extends the [W3C Window Management API](https://chromestatus.com/feature/5252960583942144) to provide web applications—specifically installed Progressi
-- [chromium.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHf9jigQZNzs7O1uNFg7-8RVzlNQzee2EAIa5_Rav2cG-2SabsH5SQPq27vaCXdQRTgfopQtiCRUhDclay0eeQm7dCtSWXStokoOUzyVgvklBWGMlnYK9Ei4ieyjXTYMZK6qUhM0_sCDhPF-oNSVIG4BbBACx6YbBlewz8mc9azUi8nSg==) *(vertexaisearch.cloud.google.com)*
-  > ### Overview of Additional Windowing Controls (AWC)  The **Additional Windowing Controls** feature extends the [W3C Window Management API](https://chromestatus.com/feature/5252960583942144) to provide web applications—specifically installed Progressi
-- [web.dev](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEzI721b33dXOGJZdBDAx5e6VMb42ELRkfTz7UnaaPNkDalP-HlTysytQTJad3SR_Nf64CdjiUPTgPcE7zRh2UFnmNNyqrPZBCd_noyfHpxMdjdJC4c8HxtKRWKHucE3mcs7M6vFg==) *(vertexaisearch.cloud.google.com)*
-  > ### Overview of Additional Windowing Controls (AWC)  The **Additional Windowing Controls** feature extends the [W3C Window Management API](https://chromestatus.com/feature/5252960583942144) to provide web applications—specifically installed Progressi
-- [Re: \[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17444.html) *(mail-archive.com)*
-  > /No information provided/ *Link to entry on the Chrome Platform Status* https://chromestatus.com/feature/5201832664629248?gate=5182130005475328 *Links to previous Intent discussions* Intent to Prototype: https://groups.google.com/a/chromium.org/g/bli...
-- [\[blink-dev\] Re: Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17441.html) *(mail-archive.com)*
-  > &gt; *No information provided* &gt; &gt; *Link to entry on the Chrome Platform Status* &gt; https://chromestatus.com/feature/5201832664629248?gate=5182130005475328 &gt; &gt; *Links to previous Intent discussions* &gt; Intent to Prototype: &gt; https:...
 - [\[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17394.html) *(mail-archive.com)*
-  > <strong>No information provided Link to entry on the Chrome Platform Status https://chromestatus.com/feature/5201832664629248?gate=5182130005475328 Links to previous Intent discussions Intent to Prototype: https://groups.google.com/a/chromium.org/g/b...
+  > [blink-dev] Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) [blink-dev] Intent to Ship: Additional Windowing Controls Chromestatus Tue, 08 Sep 2026 23:04:36 -0700 Contact emails [email&#160;protected] , [email&#160...
+- [\[blink-dev\] Re: Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17441.html) *(mail-archive.com)*
+  > [blink-dev] Re: Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: Additional Windowing Controls Vladimir Levin Mon, 14 Sep 2026 08:57:02 -0700 LGTM1 On Wednesday, September 9, 2026 at ...
 - [Re: \[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17442.html) *(mail-archive.com)*
-  > &gt; *Contact emails* &gt; [email protected], ...ow-minimize-method &gt; &gt; *Summary* &gt; <strong>Enables web applications with the window-management permission to &gt; maximize(), minimize(), and restore() their windows, and to prevent &gt; resiz...
+  > Re: [blink-dev] Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) Re: [blink-dev] Intent to Ship: Additional Windowing Controls Chris Harrelson Mon, 14 Sep 2026 09:14:30 -0700 LGTM2 On Tue, Sep 8, 2026 at 11:03 PM Ch...
 - [\[Proposal\] Additional Windowing Controls](https://discourse.wicg.io/t/proposal-additional-windowing-controls/6044) *(discourse.wicg.io)*
-  > This proposal seeks to enable local web applications to convey a user’s intended window control interactions with remote (or custom) window controls. Summary of the API proposals, which are generally gated by Window Management (“window-placement”) pe...
+  > [Proposal] Additional Windowing Controls A partial archive of discourse.wicg.io as of Saturday February 24, 2024. [Proposal] Additional Windowing Controls ivansandrk 2022-11-23 Full explainer available here Introduction This proposal introduces addit...
 - [Additional Windowing Controls](https://chromestatus.com/feature/5201832664629248) *(chromestatus.com)*
   > We cannot provide a description for this page right now
-- [Chrome 155 beta \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/chrome-155-beta) *(developer.chrome.com · 2026-09-16T10:28:25)*
+- [Window Controls (OpenWindows User's Guide)](https://docs.oracle.com/cd/E19455-01/806-2901/6jc3a4m17/index.html) *(docs.oracle.com)*
+  > The following examples illustrate the use of window controls on a group of selected windows or icons. To select multiple windows, either click SELECT on one window and ADJUST on additional windows (or icons), or position the pointer on the workspace ...
+- [Windows Controls and patterns - Windows app development - Windows apps \| Microsoft Learn](https://learn.microsoft.com/en-us/windows/apps/develop/ui/controls) *(learn.microsoft.com · 2026-09-19T00:00:00)*
+  > Install it to try controls in real time and link directly from individual control pages. Get the WinUI 3 Gallery from the Microsoft Store. Get the source code from GitHub. The Windows Community Toolkit is a collection of helpers, extensions, and addi...
+- [Windowing overview for WinUI and Windows App SDK - Windows apps \| Microsoft Learn](https://learn.microsoft.com/en-us/windows/apps/develop/ui/windowing-overview) *(learn.microsoft.com · 2025-11-24T00:00:00)*
+  > If you use WinUI XAML as your app&#x27;s UI framework, both the Window and the AppWindow APIs are available to you. Starting in Windows App SDK 1.4, you can use the Window.AppWindow property to get an AppWindow object from an existing XAML window. Wi...
+- [Chrome 155 beta \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/chrome-155-beta) *(developer.chrome.com · 2026-09-16T00:00:00)*
   > <strong>Lets web applications with the window-management permission maximize(), minimize(), and restore() their windows, and prevent resizing through setResizable().</strong> Additionally, new CSS media features display-state and resizable enable scr...
-- [Window management \| web.dev](https://web.dev/learn/pwa/windows) *(web.dev)*
-  > You can read more about this experimental capability at Tabbed application mode for PWA. Note: You&#x27;ll learn more about experimental capabilities in the Experimental chapter. We&#x27;ve mentioned that you can change the window&#x27;s title by def...
-- [Navigation management into installed PWAs \| Capabilities \| Chrome for Developers](https://developer.chrome.com/docs/capabilities/pwa-navigation-management) *(developer.chrome.com · 2025-08-19T00:00:00)*
-  > Developer controls: <strong>Includes web APIs that let developers instruct the browser on how to handle specific tasks</strong>. The interplay of these elements determines whether the PWA opens in a standalone window or a browser tab.
+- [Chrome 155 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/155) *(chromestatus.com)*
+  > Tracking bug #40747844 ↗ (opens in new window) | ChromeStatus.com entry | Spec ↗ (opens in new window) | Explainer ↗ (opens in new window) | Demo ↗ (opens in new window) The text-decoration-skip-spaces CSS property controls whether text decoration li...
+- [Chrome 154 \| Release notes \| Chrome for Developers](https://developer.chrome.com/release-notes/154) *(developer.chrome.com · 2026-09-22T00:00:00)*
+  > Tracking bug #468928416 | ChromeStatus.com entry | Spec · The CSS Typed OM specification exposes the CSSStyleValue hierarchy to worker global scopes ([Exposed=(Window, Worker, PaintWorklet, LayoutWorklet)]). Previously, Blink only exposed CSSStyleVal...
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
+- [Additional Windowing Controls · Issue #1364 · GoogleChrome/modern-web-guidance-src](https://github.com/GoogleChrome/modern-web-guidance-src/issues/1364) *(github.com · 2026-08-20T17:03:51)* *(Cites: `https://chromestatus.com/feature/5201832664629248`)*
+  > Additional Windowing Controls · Issue #1364 · GoogleChrome/modern-web-guidance-src · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. R...
+- [Additional Windowing Controls · Issue #4257 · web-platform-dx/web-features](https://github.com/web-platform-dx/web-features/issues/4257) *(github.com · 2026-08-20T17:00:48)* *(Cites: `https://chromestatus.com/feature/5201832664629248`)*
+  > Additional Windowing Controls · Issue #4257 · web-platform-dx/web-features · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to...
 - [Updates for Chrome 155 beta by Elchi3 · Pull Request #30575 · mdn/browser-compat-data](https://github.com/mdn/browser-compat-data/pull/30575) *(github.com)* *(Cites: `https://chromestatus.com/feature/5201832664629248`)*
-  > Window controls, https://<strong>chromestatus.com/feature/5201832664629248</strong>
-- [Re: \[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17444.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5201832664629248`)*
-  > /No information provided/ *Link to entry on the Chrome Platform Status* https://chromestatus.com/feature/5201832664629248?gate=5182130005475328 *Links to previous Intent discussions* Intent to Prototype: https://groups.google.com/a/chromium...
-- [\[blink-dev\] Re: Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17441.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5201832664629248`)*
-  > &gt; *No information provided* &gt; &gt; *Link to entry on the Chrome Platform Status* &gt; https://chromestatus.com/feature/5201832664629248?gate=5182130005475328 &gt; &gt; *Links to previous Intent discussions* &gt; Intent to Prototype: &...
-- [\[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17394.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5201832664629248`)*
-  > <strong>No information provided Link to entry on the Chrome Platform Status https://chromestatus.com/feature/5201832664629248?gate=5182130005475328 Links to previous Intent discussions Intent to Prototype: https://groups.google.com/a/chromi...
+  > Updates for Chrome 155 beta by Elchi3 · Pull Request #30575 · mdn/browser-compat-data · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window...
+- [\[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17394.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md`)*
+  > [blink-dev] Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) [blink-dev] Intent to Ship: Additional Windowing Controls Chromestatus Tue, 08 Sep 2026 23:04:36 -0700 Contact emails [email&#160;protected] , [...
+- [\[blink-dev\] Re: Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17441.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md`)*
+  > [blink-dev] Re: Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: Additional Windowing Controls Vladimir Levin Mon, 14 Sep 2026 08:57:02 -0700 LGTM1 On Wednesday, September 9...
 - [Re: \[blink-dev\] Intent to Ship: Additional Windowing Controls](http://www.mail-archive.com/blink-dev@chromium.org/msg17442.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md`)*
-  > &gt; *Contact emails* &gt; [email protected], ...ow-minimize-method &gt; &gt; *Summary* &gt; <strong>Enables web applications with the window-management permission to &gt; maximize(), minimize(), and restore() their windows, and to prevent ...
+  > Re: [blink-dev] Intent to Ship: Additional Windowing Controls Skip to site navigation (Press enter) Re: [blink-dev] Intent to Ship: Additional Windowing Controls Chris Harrelson Mon, 14 Sep 2026 09:14:30 -0700 LGTM2 On Tue, Sep 8, 2026 at 1...
 
 ## 📚 Platform Documentation & Specifications
 
+- [Additional Windowing Controls · Issue #1364 · GoogleChrome/modern-web-guidance-src](https://github.com/GoogleChrome/modern-web-guidance-src/issues/1364) *(github.com)*
+- [Additional Windowing Controls · Issue #4257 · web-platform-dx/web-features](https://github.com/web-platform-dx/web-features/issues/4257) *(github.com)*
 - [Updates for Chrome 155 beta by Elchi3 · Pull Request #30575 · mdn/browser-compat-data](https://github.com/mdn/browser-compat-data/pull/30575) *(github.com)*
 - [Additional Windowing Controls · Issue #96 · WebKit/standards-positions](https://github.com/WebKit/standards-positions/issues/96) *(github.com)*
 - [GitHub - explainers-by-googlers/additional-windowing-controls: Repository hosting the feature explainer · GitHub](https://github.com/explainers-by-googlers/additional-windowing-controls) *(github.com)*
-- [Calling setResizable(false) and then setResizable(true) changes maximizible state of window · Issue #13373 · electron/electron](https://github.com/electron/electron/issues/13373) *(github.com)*
-- [Window: setResizable() method - Web APIs - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Window/setResizable) *(developer.mozilla.org)*
-- [\[Bug\]: Window resizes when setting resizable: false · Issue #31233 · electron/electron](https://github.com/electron/electron/issues/31233) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 53 result(s) found across 12 planned queries — **15 verified relevant**
-  - `"chromestatus.com/feature/5201832664629248" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (4 returned)
+- **Brave Search:** 39 result(s) found across 8 planned queries — **16 verified relevant**
+  - `"chromestatus.com/feature/5201832664629248" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (3 returned)
   - `"github.com/w3c/window-management/blob/main/EXPLAINER_additional_windowing_controls.md" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (3 returned)
-  - `"www.w3.org/TR/window-management" -site:www.w3.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (2 returned)
-  - `"Additional Windowing Controls" API` — *Core feature API query* (4 returned)
+  - `"www.w3.org/TR/window-management" -site:www.w3.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (1 returned)
+  - `"Additional Windowing Controls" API` — *Core feature API query* (5 returned)
   - `"Additional Windowing Controls" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"chromestatus.com" OR "window-management" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Additional Windowing Controls" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
-  - `"Additional Windowing Controls" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (7 returned)
-  - `"Additional Windowing Controls" OR "Window Management API" ("maximize()" OR "minimize()" OR "setResizable()") tutorial OR blog` — *Search for developer tutorials and technical blog posts explaining how to implement additional windowing controls in progressive web apps.* (8 returned)
-  - `"@media (display-state:" OR "@media (resizable:" OR "window.setResizable" github.com OR codepen.io` — *Find functional JavaScript implementations and CSS media queries demonstrating display-state and resizability adaptations.* (8 returned)
-  - `"Additional Windowing Controls" ("Intent to Ship" OR "Chrome Platform Status" OR "mozilla/standards-positions" OR "WebKit-dev")` — *Track multi-engine standards consensus, browser vendor signals, and release schedules across Chromium, Gecko, and WebKit.* (3 returned)
-  - `"Additional Windowing Controls" (VDI OR "remote desktop" OR Citrix OR PWA) discussion OR feedback` — *Discover community reactions, real-world pain points, and feedback from remote desktop and enterprise web application developers.* (8 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 16 result(s) found — **12 verified relevant**
-- **Twitter / X API v2:** *found 0 tweet(s)*
+  - `"Additional Windowing Controls" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
+- **Twitter / X API v2:** *found 1 tweet(s)*
 - **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 3 result(s) found — **3 verified relevant**
@@ -131,7 +108,7 @@ The following external publications and discussions explicitly link to or cite t
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
 - **Standards Discussion Comments:** 12 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 7 page(s)
+- **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links
 

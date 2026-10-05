@@ -1,6 +1,6 @@
 # Secure Payment Confirmation: Locale Validation
 
-> **Report Week:** 2026-W40 | **Milestone:** Chrome 154 | **Category:** Enabled by default
+> **Report Week:** 2026-W41 | **Milestone:** Chrome 154 | **Category:** Enabled by default
 
 ## Overview
 
@@ -16,54 +16,53 @@ By returning an error when none of the language tags provided match Secure Payme
 
 ## Ecosystem Status
 
-- **Momentum:** High (235 points)
+- **Momentum:** High (225 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Positive / High Interest
-- **Executive Take:** Secure Payment Confirmation: Locale Validation is currently Enabled by default in Chrome 154. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** Secure Payment Confirmation: Locale Validation shipped enabled by default in Chrome 154, allowing merchants and payment authenticators to ensure transaction data matches the browser's native dialog language. The feature resolves a recurring internationalization challenge in EMV 3DS flows by throwing a NotSupportedError DOMException when no supplied language tag matches the browser UI locale. However, broad web platform impact remains constrained because the underlying Secure Payment Confirmation (SPC) specification lacks multi-engine implementation outside of Chromium.
 
 ### Recommendations
+- Actionable Advice: If utilizing Secure Payment Confirmation, specify your supported language tags in the \`locale\` field and wrap the call in a try/catch block to intercept \`NotSupportedError\`. Use that failure signal to renegotiate or translate transaction strings into a fallback locale before retrying or gracefully falling back to standard 3DS web flows.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- Standards Activity (WebKit): Latest discussion from @gsnedders: "Am I right in understanding that the primary goal here is to replace 3-D Secure with something that's browser mediated?..."
+- Standards Activity (Mozilla): Latest discussion from @stephenmcgruer: "Hi folks. I know that Mozilla's position on SPC is outstanding, however we wanted to let you know of a notable additional feature to SPC that we are c..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+
+## Standards Positions
+
+- **WebKit:** [Secure Payment Confirmation (SPC)](https://github.com/WebKit/standards-positions/issues/30) [open]
+- **Mozilla:** [Secure Payment Confirmation](https://github.com/mozilla/standards-positions/issues/570) [open]
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHdoq97ejlAri5L92dgl9yF6eyvh20m8Lcz-f5puZJip8tcQiYBcUESzOrvAZE7-DdaAto6MvcytFoJvcFYgjZKSq02TjavRnFpDUbHP6F2tQmZD4zG_5XEw8daeLnX8a6WPXyXBIO4Jrw2AZplJTMwHZ67UsC5cFl-ADI6MO44SRE1jdaIdJI=) *(vertexaisearch.cloud.google.com)*
-  > SecurePaymentConfirmationRequest - Web APIs | MDN Skip to main content Skip to search Toggle sidebar Web Web APIs SecurePaymentConfirmationRequest Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) SecurePaymen...
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQErf0yD3aTIoZTxgb_l8mlz3QEHtv5MaYbkaI3jbhU4YUmEtmYSofks8qJcyxst59GciMFDX35YnUNoexBx83qTNRsgreWqN7rl4GvKjMw92QZDKfXjcXuM0Xi7GlwGPDRhQmXrpzo=) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [nhimg.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGagXkSxjczMpg2X1thWO0HslHmF23Adiy4xYCAnlcti3V1HhN5mchExmV0trPNjTh-mn4djjjdH5cKOH-BslKXozWH2X7Tck0e-9I7hqjkn51eHjwgAs7UqCw5sT37JD1PqusWZUi4LBYEgEZR) *(vertexaisearch.cloud.google.com)*
-  > What Is Secure Payment Confirmation? Definition & Examples Join our Newsletter &mdash; 33% off our NHI Course Search Search for: Search Button --> Home › Glossary › Cyber Security › Secure Payment Confirmation Cyber Security Secure Payment Confirmati...
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEmYzd0qsSnenhKviXGR4ozZKyeaqPNIh_9Gy4ovOd-0xbrLiBjcASvqtEc2P9DVHIe4_p8rH7HIbuqZU2R_bwfSU4IMCR49McOqoxhTmgXAYCnMt-sFyurg_Ukwxwvx8vCI-jalHoc) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHu4t3BWRsn9eVoo8cvZdt3ll-LdjFReH00rElo6qIQdk48EbujBF0J1m_NIm4j3PFFmBgCVI3xLZoI2ooQuAJO5h3A145MhUBmyvkjGKOi0o4FUY54yJSqOX3hTyh5xsOXugKS9aNF3vlVaD2qwox66OjUmWxD4UD0wMJGW5sBwbNQGEfpTJ5yFIXRsygKHbJhgu1b0PMquXz0meE=) *(vertexaisearch.cloud.google.com)*
-  > Using Secure Payment Confirmation - Web APIs | MDN Skip to main content Skip to search Toggle sidebar Web Web APIs Payment Request API Using Secure Payment Confirmation Theme OS default Light Dark English (US) Remember language Learn more Deutsch Eng...
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGGP15ERgEj-6PMzgcuIlG1Jxyx3WoU6KM2qtCKI1hpvnFiQVFksuLCbxbHWCurtQj1mBqVqp9hb17Ns6n-QENOdbOpxLp0jGBK7iiV9PR4QxYy9aUk6bWnNz8eD1L79XiS0uqI) *(vertexaisearch.cloud.google.com)*
-  > Chrome 154 | Release notes | Chrome for Developers Chuyển ngay đến nội dung chính / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা...
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQED2UKt7E4fxga_ektVzNU3DXJ5rw_SY5U3hWyS6j7dFi7XvB3mH6SUFCZ5UFPZdJ3iyfsTizZ58VmKgsBu4PervHEmnxsv_6vtPjKSI9tBvZSQjDiaa4oKOSbr7IUWA6_PKq5mLJJ3MIfjNUwiRxc7nwDLSvQ7mI9o_OinVVk8m4IPlHqpdBQ-VA==) *(vertexaisearch.cloud.google.com)*
-  > Authenticate with Secure Payment Confirmation | Payments | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربي...
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGZMLyaz6zGfn1rDweUUNnlwYHxWg0CLVEPZ5hCyyYOGfWTJyo1XVx04hOaiJ5aQQknAof_EZlwl64cxcWI6WH5GYkt4TeSsVsttWJAWLiddJGOyV2s1_0irvJ6bRldlKEyh8M=) *(vertexaisearch.cloud.google.com)*
-  > Chrome 154 | Release notes | Chrome for Developers メイン コンテンツにスキップ / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภาษาไทย 中文 – 简体...
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGYU1zGagVxBp5OWV8NToiab9ToyT4L8mdLMkKmyXFbAvjUKB4y4dkePlHR12pH0x7gpE6w0nz-01WJyBIyn6hvIWqCKcB2b-LjoiabGWHpANhCtBG3VUGj5aW5-YQ_kqjaJwAAbyc=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature  **Secure Payment Confirmation: Locale Validation** updates the `locale` data field in the `SecurePaymentConfirmationRequest` dictionary (used with the Payment Request API and WebAuthn).   * **The Problem:** The Secure Paym
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFhz1Mnpu-cY3uDUILpHdBAlHUDbjqH4FJ9DHLuJzE9uNwqHoGU1LmsZRESaEl55ifXTJJsg5NUmvdosG9pTOJHIxolSydyfDCtRr_XO8jmaNvEKKOGYFTn7rKm_7aYvWLuVaaj9H6vr-AcugQmwg==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature  **Secure Payment Confirmation: Locale Validation** updates the `locale` data field in the `SecurePaymentConfirmationRequest` dictionary (used with the Payment Request API and WebAuthn).   * **The Problem:** The Secure Paym
-- [w3.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH_xC53kkcUH0d6DW4B3e5Vubf9h47XbW3AdhKtyiASRk4XT2A-vlgPSjFbLtD2BmKuVVMFMmVgW0hYgMVhooqwAflDVX57_HHjpMoU91OxUDLAOmrUN-a6-8IwiAcBBEQSmw07Pec3zw==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature  **Secure Payment Confirmation: Locale Validation** updates the `locale` data field in the `SecurePaymentConfirmationRequest` dictionary (used with the Payment Request API and WebAuthn).   * **The Problem:** The Secure Paym
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHxhk9iJRW2ngSBuMIWIr0f4RqrSJztzgZKNCwN6Qiq_XFmAe2pQJUInXzVhT17pH3gDrTucRasARrGKlQ6FapzQS1bemcuqa8vZqWcHxaRiyXowECaLJx8CM_9ni9BXGGRVkB55jKQo0F88GR7cUA-r9c2_5vFOQbIbg==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature  **Secure Payment Confirmation: Locale Validation** updates the `locale` data field in the `SecurePaymentConfirmationRequest` dictionary (used with the Payment Request API and WebAuthn).   * **The Problem:** The Secure Paym
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG5DVfxu3YqtVb_3hnNV7kaukNJ9rWq1k9fvmuuysvT0mQRXzANakYGE4y-iOTnW8hZC6Ssfom8O9P5dbdXdrecIVtZeJegC6XcCXVLtHKpE0F3-fXpazuE49PiTYs6b6-PGvbdZtSu0ItpUQ0w6S2AZfrF4biGNnVGVL5l-3TsM0vEZjZOLck=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature  **Secure Payment Confirmation: Locale Validation** updates the `locale` data field in the `SecurePaymentConfirmationRequest` dictionary (used with the Payment Request API and WebAuthn).   * **The Problem:** The Secure Paym
-- [gigazine.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF7iyv1gLnrzix4emCTM06uBvI0tfA58cwPgMPVu-1HTQsDR6eCiRH56q84pEpxXfvDXxwmT29rFndK2cJnWiHWd5nmbWsL_R9L720vOrTIZP071DX9gQnJ43gkn8stS1qZUghOG0l9XVIUA79Xi2mbYdY=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature  **Secure Payment Confirmation: Locale Validation** updates the `locale` data field in the `SecurePaymentConfirmationRequest` dictionary (used with the Payment Request API and WebAuthn).   * **The Problem:** The Secure Paym
-- [releasebot.io](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGX1GDBtouCyOsAWQJO4MQ2l3ZwL-a8B5c9rjujH0WHrL7APbEOb5i7ZW7oYMTs0zXQ1qvpeNkJOWCkNNCZttdTDcUNVEi6v75KxQQU8VMNl40i6-G5666AN8QK-CwH1_2AeKOPD6p0) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature  **Secure Payment Confirmation: Locale Validation** updates the `locale` data field in the `SecurePaymentConfirmationRequest` dictionary (used with the Payment Request API and WebAuthn).   * **The Problem:** The Secure Paym
-- [fidoalliance.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHKRWS4PbLJ05Xfe5l6Oz9UzbaOBcbn1l0993gjV35hb38kUtPOc8oo9uJqhwwTvzRtYM78wkCWKfbsLXhKfOpfG_Mc9kDqVYB7yt0nUSAUVe6Ff5-uu_GFOtZdzlyG1FBr4jPDc55RVKYLMNtTQ2AwDFxwOvO2nA==) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature  **Secure Payment Confirmation: Locale Validation** updates the `locale` data field in the `SecurePaymentConfirmationRequest` dictionary (used with the Payment Request API and WebAuthn).   * **The Problem:** The Secure Paym
+- [w3.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpAm_XHSy8ZPsK6AN7VIENguIQy9H37hpWxlIFaZ-LIv19lCrwTiV2RPZj3rnoNz-y3_qPVjqt2UL1YXypBY1ttTCno2so1VFjmToU4ItzxASh_qnNIOgq_nuEDhK-3jqskYEh3O4d7g==) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **"Secure Payment Confirmation: Locale Validation"** is an enhancement to the Secure Payment Confirmation (SPC) standard within the Payment Request and WebAuthn ecosystem.   * **The Problem:** The SPC confirmation modal is
+- [google.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFxrFByka1vT9f4wjBP9a6fPHULsicOnXlZyL3lpWmpq0_nljYzlg_9UxInfeI6Dw9cY1V2vH_dtAc-E87RvFnxuJYVENA2nr6OyLF7TUGJtxRl6FiwN2vBM_n47fRPx5VWXeT3WJA=) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **"Secure Payment Confirmation: Locale Validation"** is an enhancement to the Secure Payment Confirmation (SPC) standard within the Payment Request and WebAuthn ecosystem.   * **The Problem:** The SPC confirmation modal is
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE1Az-SA4EV4QPufQti-Br0SGgR-EiELPmXfrLW1n8_A_MV1ybIp9B6mo8qUqja7RfMZseWFMrrepNu5Rflls5eSJiiOVOakqck8037QiwF7kzjJqb6ARa3bNJ-xgeV-tjOaorX708=) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **"Secure Payment Confirmation: Locale Validation"** is an enhancement to the Secure Payment Confirmation (SPC) standard within the Payment Request and WebAuthn ecosystem.   * **The Problem:** The SPC confirmation modal is
+- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHah1kC6qe-SgpiQZbom5wD6NwVkcoy_4fbtxvLIu7vVjIjhtovgTlj35SOJnAsVu51v3Gmm8cBIVhVxVDc3MxXHHCQ4kismG_xIaoHaGs=) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **"Secure Payment Confirmation: Locale Validation"** is an enhancement to the Secure Payment Confirmation (SPC) standard within the Payment Request and WebAuthn ecosystem.   * **The Problem:** The SPC confirmation modal is
+- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGwKhuQgjLcEoi06y2ydi6h8fhNFlEc6mJ2AimlzjoRqw0rysquHBjJ5prQR_DbkhLyBbd9B1jLyPs8QlwYlVpLkMsrt6Bva2Oor9MI-uNvUJLnt54F9fiqm_KGtiMc7w==) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **"Secure Payment Confirmation: Locale Validation"** is an enhancement to the Secure Payment Confirmation (SPC) standard within the Payment Request and WebAuthn ecosystem.   * **The Problem:** The SPC confirmation modal is
+- [w3.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF1z5kZ6i8d4omrxmFl6_Urg5S7xvPvkhyKLliKk8xc5INizvwPo3wtIOpD1MeJFCZeOgsWflsRoBr8IVrhbUXONOmQrec3jbvHznqlL_xhYiRCUHKZhUiK5iAQGdleTPzMPp9e4loY1y3LeHD_6O-LcxLQf5cyJ_Ao) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **"Secure Payment Confirmation: Locale Validation"** is an enhancement to the Secure Payment Confirmation (SPC) standard within the Payment Request and WebAuthn ecosystem.   * **The Problem:** The SPC confirmation modal is
+- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGSd3Hljkqs1rznynK2sF6Rr5kifcSNKcmeZN3u8oFZfFh2zjMiUpwmrpRvnJ0mfW-I5ebPCMOJb7qXzwFprG21I3o6rD1z3tdx7AL1h-vzmJuKkF44zz10wrCfvVwfPAtiyQ==) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **"Secure Payment Confirmation: Locale Validation"** is an enhancement to the Secure Payment Confirmation (SPC) standard within the Payment Request and WebAuthn ecosystem.   * **The Problem:** The SPC confirmation modal is
+- [googlesource.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE4rNJh65d5STZCJds7CgodKut_KUZOx88l_fBWMpjdA_8sQN37b6BsMRwVhlx4VvTahRGOVoTVZIB8IVxxirsmIKhzl7xJwAAycq9mYkVOLqAS2B59WvIAFB2R-FjA3_Z-w71Z7KeeQSHKtBGfp8rLNcXaQuZD5h43Gc-C9iR17CR5NRKJQz70nkGufGZN5LEBxxu_RdjP3IqUDdCSqKOA4MEylZ4=) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **"Secure Payment Confirmation: Locale Validation"** is an enhancement to the Secure Payment Confirmation (SPC) standard within the Payment Request and WebAuthn ecosystem.   * **The Problem:** The SPC confirmation modal is
+- [google.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH3ppehKWJBijtoY1_Xhiza0NxFSwSPq-vxL1fmiDV6o8PqLDrCGxXoXbJsxAQIrIPMWnzuXKidxkPUJpNFHpu1PfXJEUmlH5X16dFEP2Iv8M586iDT6AhRRVWK93MDMWm6jPp25Q==) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **"Secure Payment Confirmation: Locale Validation"** is an enhancement to the Secure Payment Confirmation (SPC) standard within the Payment Request and WebAuthn ecosystem.   * **The Problem:** The SPC confirmation modal is
+- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEclzoA7wuoy5SgPCpTrAZqN3RhKmsI_yBIDcbwrpjFCO96yUHukm4kI7R5tmd_xgCKCaerWs1qegD5AI-EBS2URltonz5HLh2j2MS43yjb-hbj5oQdqOEo6hSM0n5bapKHcs_g0RK6tGKOmzpi1fWqjLS9hbKA4Ipa) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **"Secure Payment Confirmation: Locale Validation"** is an enhancement to the Secure Payment Confirmation (SPC) standard within the Payment Request and WebAuthn ecosystem.   * **The Problem:** The SPC confirmation modal is
+- [fidoalliance.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHDDIo8bVkuFUsV-pP-l5g1LrcP4mnlmZRkq_ezuTE3uWg-LzcKjQ9VnRP_1svpDUTfRhWK2KWtR5h5AT3HIL9225v-9AJ3FruNMOBI93PmkerR86dGJFC2cZHQMibTataioSfS4S82-j7islDzWoIsTL8JylSITg==) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **"Secure Payment Confirmation: Locale Validation"** is an enhancement to the Secure Payment Confirmation (SPC) standard within the Payment Request and WebAuthn ecosystem.   * **The Problem:** The SPC confirmation modal is
+- [gigazine.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFfdSRVsHjLa1uO21nHfOFx5XYBXFt1GSqmFCJCqhEl1cnOq8cb3Ht7cM34Ata8YeO2RCS6YqQl-_XUnquM2_CytJAfvQTlw5MMVeAmFG_VkUIax--Q6beCycovapaVtPO1z3w20DaAO9I_a07hz3ZJVw==) *(vertexaisearch.cloud.google.com)*
+  > ### Summary of the Feature  **"Secure Payment Confirmation: Locale Validation"** is an enhancement to the Secure Payment Confirmation (SPC) standard within the Payment Request and WebAuthn ecosystem.   * **The Problem:** The SPC confirmation modal is
 - [\[blink-dev\] Intent to Prototype: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17162.html) *(mail-archive.com)*
-  > Estimated milestones Shipping on ... This intent message was generated by Chrome Platform Status. -- <strong>You received this message because you are subscribed to the Google Groups &quot;blink-dev&quot; group</strong>....
-- [Chrome 154 \| Release notes \| Chrome for Developers](https://developer.chrome.com/release-notes/154?hl=en) *(developer.chrome.com · 2026-09-23T05:58:01)*
-  > <strong>Updates the Secure Payment Confirmation locale data field to return a NotSupportedError DOMException if none of the language tags provided in the field match the language used by the Secure Payment Confirmation dialog</strong>.
+  > By returning an error when none of the language tags provided match Secure Payment Confirmation&#x27;s language, <strong>web developers are able to retry with different language tags (while updating the language of their supplied data elements) until...
+- [SecurePaymentConfirmationRequest - Web APIs - W3cubDocs](https://docs.w3cub.com/dom/securepaymentconfirmationrequest) *(docs.w3cub.com)*
+  > An optional list of well-formed RFC 5646: Tags for Identifying Languages (also known as BCP 47) language tags, in descending order of priority, that identify the local preferences of the website. That is, this represents a language priority list RFC ...
 
 ## 🔗 Inbound Citations & Reverse Links
 
@@ -71,42 +70,36 @@ The following external publications and discussions explicitly link to or cite t
 
 - [secure-payment-confirmation/spec.bs at main · w3c/secure-payment-confirmation](https://github.com/w3c/secure-payment-confirmation/blob/main/spec.bs) *(github.com)* *(Cites: `https://w3c.github.io/secure-payment-confirmation/#dom-securepaymentconfirmationrequest-locale`)*
   > TR: https://www.w3.org/TR/secure-payment-confirmation/ ED: https://<strong>w3c.github.io/secure-payment-confirmation</strong>/ Prepare for TR: true · Inline Github Issues: true · Group: web-payments · Status: w3c/ED · Deadline: 2023-08-01 ·...
-- [Mention Secure Payment Confirmation · Issue #535 · w3c/web-roadmaps](https://github.com/w3c/web-roadmaps/issues/535) *(github.com · 2021-08-27T11:03:35)* *(Cites: `https://w3c.github.io/secure-payment-confirmation/#dom-securepaymentconfirmationrequest-locale`)*
-  > Spec: https://<strong>w3c.github.io/secure-payment-confirmation</strong>/ Explainer: https://github.com/w3c/secure-payment-confirmation/blob/main/explainer.md Chrome Platform Status: https://www.chromestatus.com/feature/5702310124584960
-- [Secure Payment Confirmation 2023-01-11 &gt; 2023-02-01 · Issue #50 · w3c/a11y-request](https://github.com/w3c/a11y-request/issues/50) *(github.com)* *(Cites: `https://w3c.github.io/secure-payment-confirmation/#dom-securepaymentconfirmationrequest-locale`)*
-  > name of spec to be reviewed: Secure Payment Confirmation (SPC) URL of spec: https://<strong>w3c.github.io/secure-payment-confirmation</strong>/ What and when is your next expected transition? Candidate Recommendati...
-- [Secure Payment Confirmation · Issue #570 · mozilla/standards-positions](https://github.com/mozilla/standards-positions/issues/570) *(github.com · 2021-08-24T13:51:20)* *(Cites: `https://w3c.github.io/secure-payment-confirmation/#dom-securepaymentconfirmationrequest-locale`)*
-  > Specification or proposal URL: https://<strong>w3c.github.io/secure-payment-confirmation</strong>/ (see also explainer)
 
 ## 📚 Platform Documentation & Specifications
 
 - [secure-payment-confirmation/spec.bs at main · w3c/secure-payment-confirmation](https://github.com/w3c/secure-payment-confirmation/blob/main/spec.bs) *(github.com)*
-- [Mention Secure Payment Confirmation · Issue #535 · w3c/web-roadmaps](https://github.com/w3c/web-roadmaps/issues/535) *(github.com)*
-- [Secure Payment Confirmation 2023-01-11 &gt; 2023-02-01 · Issue #50 · w3c/a11y-request](https://github.com/w3c/a11y-request/issues/50) *(github.com)*
-- [Secure Payment Confirmation · Issue #570 · mozilla/standards-positions](https://github.com/mozilla/standards-positions/issues/570) *(github.com)*
+- [Localization topics to address · Issue #93 · w3c/secure-payment-confirmation](https://github.com/w3c/secure-payment-confirmation/issues/93) *(github.com)*
+- [SecurePaymentConfirmationRequest - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/SecurePaymentConfirmationRequest) *(developer.mozilla.org)*
+- [Secure Payment Confirmation](https://www.w3.org/TR/2023/CR-secure-payment-confirmation-20230615) *(w3.org)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 36 result(s) found across 12 planned queries — **6 verified relevant**
+- **Brave Search:** 38 result(s) found across 12 planned queries — **6 verified relevant**
   - `"chromestatus.com/feature/5126146013396992" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
   - `"github.com/w3c/secure-payment-confirmation/issues/343" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (0 returned)
   - `"w3c.github.io/secure-payment-confirmation" -site:w3c.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (4 returned)
   - `"Secure Payment Confirmation: Locale Validation" API` — *Core feature API query* (0 returned)
   - `"Secure Payment Confirmation: Locale Validation" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"Secure Payment Confirmation: Locale Validation" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
-  - `"Secure Payment Confirmation: Locale Validation" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (5 returned)
-  - `"Secure Payment Confirmation" (locale OR "locale validation") (guide OR tutorial OR "web.dev")` — *Find practical merchant implementation guides and blog articles detailing how to handle SPC locale validation.* (0 returned)
-  - `"SecurePaymentConfirmationRequest" "locale" ("NotSupportedError" OR "Not Supported")` — *Search for code snippets, WebIDL definitions, and error-handling routines dealing with the locale validation DOMException.* (8 returned)
-  - `"Secure Payment Confirmation" "locale" ("Intent to Ship" OR "ChromeStatus" OR "Blink-dev")` — *Locate browser engine intent-to-ship threads, implementation statuses, and cross-browser alignment announcements.* (2 returned)
-  - `site:github.com/w3c/secure-payment-confirmation ("issue 343" OR "locale validation" OR "dom-securepaymentconfirmationrequest-locale")` — *Discover standards committee discussions, issue tracking, and consensus debates around SPC locale field behavior.* (2 returned)
-  - `"secure-payment-confirmation" "locale" ("language tags" OR "retry") PaymentRequest` — *Uncover developer tutorials and patterns demonstrating how to retry PaymentRequest with fallback language tags.* (0 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 16 result(s) found — **16 verified relevant**
+  - `"Secure Payment Confirmation: Locale Validation" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
+  - `"secure-payment-confirmation" locale ("NotSupportedError" OR "Not Supported")` — *Finds technical documentation, code snippets, and error-handling patterns for Secure Payment Confirmation when locale validation fails.* (2 returned)
+  - `"Secure Payment Confirmation" ("locale" OR "language") "PaymentRequest" guide OR tutorial` — *Discovers developer guides, implementation articles, and tutorials on configuring localization and language tags in SPC.* (0 returned)
+  - `"Intent to Ship" "Secure Payment Confirmation" "locale"` — *Uncovers browser release announcements, blink-dev intent threads, and feature rollout status across Chromium-based browsers.* (0 returned)
+  - `site:github.com/w3c/secure-payment-confirmation ("issue" OR "pull") "locale"` — *Surfaces standards debates, issue discussions, and spec rationale within the W3C Web Payments Working Group repository.* (3 returned)
+  - `"SecurePaymentConfirmationRequest" "locale" match OR retry language` — *Locates real-world JavaScript code samples showing how developers retry authentication requests with fallback language tags.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 19 result(s) found — **12 verified relevant**
 - **Twitter / X API v2:** *HTTP 400*
 - **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
-- **Standards Positions:** 2 result(s) found — **0 verified relevant**
+- **Standards Positions:** 2 result(s) found — **2 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
 - **NPM Registry:** 6 result(s) found — **0 verified relevant**
@@ -116,8 +109,8 @@ The following external publications and discussions explicitly link to or cite t
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
-- **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 8 page(s)
+- **Standards Discussion Comments:** 9 engineer comment(s) read
+- **Web Page Excerpts Ingested:** 7 page(s)
 
 ## Useful Links
 

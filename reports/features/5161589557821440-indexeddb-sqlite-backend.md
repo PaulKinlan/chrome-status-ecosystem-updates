@@ -1,6 +1,6 @@
 # IndexedDB: SQLite backend
 
-> **Report Week:** 2026-W40 | **Milestone:** Chrome 156 | **Category:** Enabled by default
+> **Report Week:** 2026-W41 | **Milestone:** Chrome 156 | **Category:** Enabled by default
 
 ## Overview
 
@@ -12,13 +12,13 @@ Chromium's IndexedDB implementation suffers from poor reliability and maintainab
 
 ## Ecosystem Status
 
-- **Momentum:** High (221 points)
+- **Momentum:** High (381 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Positive
-- **Executive Take:** Chromium's transition of its IndexedDB implementation from an unmaintained hybrid of LevelDB and flat files to an SQLite backend is an internal architectural overhaul to resolve chronic data corruption, missing data, and transaction reliability bugs. Because both WebKit (Safari) and Gecko (Firefox) already back their IndexedDB implementations with SQLite, this aligns Chromium's underlying storage architecture with the rest of the browser ecosystem without altering the public Web IDB API. Shipping by default for new persistent stores in Chrome 156 marks Phase 2 of the rollout following successful deployment in in-memory contexts.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** Chromium's transition to an SQLite-backed IndexedDB is an internal architectural overhaul rolling out by default for new data stores in Chrome 156, rather than a web-facing API change. This migration phases out an unmaintained LevelDB and flat-file implementation plagued by chronic data corruption and transactional reliability issues. The move brings Chromium into architectural alignment with both Gecko (Firefox) and WebKit (Safari), which have historically utilized SQLite for IndexedDB storage.
 
 ### Recommendations
-- Actionable Advice: No code changes are required since the JavaScript API surface remains identical, but developers building data-intensive or offline PWAs should proactively verify performance and durability by testing new storage creation in Chrome 156. Keep an eye out for Phase 3 rollout details regarding the automatic on-disk migration of legacy LevelDB stores to SQLite.
+- Actionable Advice: No client-side API modifications or polyfills are needed, as the JavaScript interface remains unchanged. Teams building data-heavy PWAs should audit database performance in Chrome 156+ across fresh profiles, and consider selectively purging non-critical cached data to force new SQLite store allocation ahead of Chrome's eventual phase 3 legacy data migration.
 - Shipping enabled by default in Chrome 156. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
@@ -32,73 +32,116 @@ Chromium's IndexedDB implementation suffers from poor reliability and maintainab
 
 - [Chrome IndexedDB: SQLite back end](https://chromestatus.com/feature/5161589557821440) *(chromestatus.com · 2026-05-13T06:46:44Z)*
   > Chrome Platform Status
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGsvdM_zsbZ2rcbB4OKXu4VFZBXSQF_OrWN1vUQj8Bolh7pfaHSUb0PxBgdCHd6VmyldZ-BAtaHGgA1yduhK6nsWy0AvUpHjNNGjPN5CYqMCQDt_SOyopl3ZXYMEScDtp15Zn6XvF2Y) *(vertexaisearch.cloud.google.com)*
-  > ### Executive Summary  Chromium has undertaken a major internal re-architecture of its **IndexedDB** engine, replacing the legacy hybrid backend (LevelDB combined with custom flat files for large blobs) with **SQLite**.   * **The Problem:** LevelDB—o
-- [appspot.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF9RV24u1P87ZcbTqAISl5dfFMDcisycy0niK1gc2x9E_rFANQVi_K2tRMvZS5uZTaSzTO72WgyatrT8yXFcrxqE37P2OUNCJrUGRUUNxlW6dojJby-eXzbeKZYFCI2JNkx7Ekwt09Nr-B2rqQVUmx6) *(vertexaisearch.cloud.google.com)*
-  > ### Executive Summary  Chromium has undertaken a major internal re-architecture of its **IndexedDB** engine, replacing the legacy hybrid backend (LevelDB combined with custom flat files for large blobs) with **SQLite**.   * **The Problem:** LevelDB—o
-- [chromestatuslite.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGqkOZBVOE2DhpyS-cBv5mIjNBf9O_lKOy6mQ_A5bmqm2DIoeqTVqNNbwOBDS_y6KHRoSk7IbixV2QzOtmxdiNfGlHsq7D0Ts2xc-8_QeMWDuLCrw==) *(vertexaisearch.cloud.google.com)*
-  > ### Executive Summary  Chromium has undertaken a major internal re-architecture of its **IndexedDB** engine, replacing the legacy hybrid backend (LevelDB combined with custom flat files for large blobs) with **SQLite**.   * **The Problem:** LevelDB—o
-- [smashingmagazine.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEg1WqokOSQ1kWgbUmZ1g2D7_TH7sjcWD1zPUCKG55Zdip5hmOpYTvGkgNFZHKlHdcXDa6tLGMsA2ptoKZW5UxfgvadD7sS_0Q3Mzkz_XYouRziiOyf89doxIxdGHtOrFj8CuOtFFKTB1Vmx6SpMuJcSFY-9vYRQHkXhvHUp7C-9uwr3iZv35na) *(vertexaisearch.cloud.google.com)*
-  > ### Executive Summary  Chromium has undertaken a major internal re-architecture of its **IndexedDB** engine, replacing the legacy hybrid backend (LevelDB combined with custom flat files for large blobs) with **SQLite**.   * **The Problem:** LevelDB—o
-- [ycombinator.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhEWOhx31cfCEhBXlkNKaFCZu0NYDkOLhoQ88mT_pVWAD0nZb2ilRUDM9eoZeKkP1YDaVNWOnE-JtIXaGiqqwd4qN8KiUWra6L9LlCH0DCwBCqM_1T-KtuEZBdSyN-6q6IvGE=) *(vertexaisearch.cloud.google.com)*
-  > ### Executive Summary  Chromium has undertaken a major internal re-architecture of its **IndexedDB** engine, replacing the legacy hybrid backend (LevelDB combined with custom flat files for large blobs) with **SQLite**.   * **The Problem:** LevelDB—o
-- [nolanlawson.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHqJbJQ8uRUJKk8i7xavZuRgPfIgojGg4--f6Ywxa3n6c9qkz8yasAd8jmDZpEHlS_pfOp8hLenN9UzDehXYU_sE6eKs5p63-zR_9E50QVMbqdDrd289Fler-w3VS66imzFj9qvU-vuz_-sz-OFyYzdAFHeaZIJgpbMKecI) *(vertexaisearch.cloud.google.com)*
-  > ### Executive Summary  Chromium has undertaken a major internal re-architecture of its **IndexedDB** engine, replacing the legacy hybrid backend (LevelDB combined with custom flat files for large blobs) with **SQLite**.   * **The Problem:** LevelDB—o
-- [reddit.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHdgPvDPiaR82RObC-Jf227fTBWd7n_MF-f0hjDJyEBZfk4qW5TeIqF3ex9nqeSi_QnUaFzhO5izED6VN9jTkWN1jmf1P2xywSMLmjF0s9Qd7Hec8_kNXyF0p0K1bLm_7wIf0voWQbZGqQBW6ITdAhdUrRm_swI1kRYEzDKJeoDFCxnd1VVoXwVSbW1mv8MReNZPrnb) *(vertexaisearch.cloud.google.com)*
-  > ### Executive Summary  Chromium has undertaken a major internal re-architecture of its **IndexedDB** engine, replacing the legacy hybrid backend (LevelDB combined with custom flat files for large blobs) with **SQLite**.   * **The Problem:** LevelDB—o
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEirdHbAAwrHlF0UdLo4h8AKyqKiTntEhCnrS5aRGNMbPlonHliNkeZEWvJrQyUF82hNVXchwOgomgXnT_ZvqIR1y272xCm9eBS5GFLvGYxmjh0SlK7r0pNzO0PtrbIMYmwysctqeE_HUdNroIXWZv5t4z-7mW_sGiBWqk5_pBnfYaZm61x4bAU1zpY1badkMGBGxgYRDyGlKNTgw==) *(vertexaisearch.cloud.google.com)*
-  > ### Executive Summary  Chromium has undertaken a major internal re-architecture of its **IndexedDB** engine, replacing the legacy hybrid backend (LevelDB combined with custom flat files for large blobs) with **SQLite**.   * **The Problem:** LevelDB—o
+- [AbsurdSQL – IndexedDB as a persistent back end for SQLite](https://github.com/jlongster/absurd-sql) *(github.com · 2025-03-09T18:14:32Z)*
+  > GitHub - jlongster/absurd-sql: sqlite3 in ur indexeddb (hopefully a better backend soon) · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reloa...
 - [Web-Facing Change PSA: IndexedDB: SQLite backend](https://groups.google.com/a/chromium.org/g/blink-dev/c/jS0khnC5IWA) *(groups.google.com · 2026-04-24T00:00:00)*
-  > https://<strong>chromestatus.com/feature/5161589557821440</strong> · This intent message was generated by Chrome Platform Status. unread, Apr 25, 2026, 3:10:44 AMApr 25 ·  ·  ·  · Reply to author · Sign in to reply to author · Forward · Sign in to...
-- [IndexedDB: SQLite backend (in-memory contexts) - Chrome Platform Status](https://chromestatus.com/feature/5126896685809664) *(chromestatus.com · 2025-11-21T00:00:00)*
+  > Web-Facing Change PSA: IndexedDB: SQLite backend Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Web-Facing Change PSA: IndexedDB: SQLite backend 261 ...
+- [Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend](http://www.mail-archive.com/blink-dev@chromium.org/msg16362.html) *(mail-archive.com)*
+  > More details: &gt; https://docs.g... &gt; 148 &gt; Shipping on WebView &gt; 150 &gt; &gt; &gt; *Link to entry on the Chrome Platform Status* &gt; https://chromestatus.com/feature/5161589557821440 &gt; &gt; <strong>This intent message was generated by...
+- [IndexedDB](https://javascript.info/indexeddb) *(javascript.info)*
+  > That power is usually excessive for traditional client-server apps. IndexedDB is intended for offline apps, to be combined with ServiceWorkers and other technologies. The native interface to IndexedDB, described in the specification https://<strong>w...
+- [IndexedDB Tutorial for Beginners: A Comprehensive Guide with Coding Examples \| by Amresh Kumar \| Medium](https://medium.com/@kamresh485/indexeddb-tutorial-for-beginners-a-comprehensive-guide-with-coding-examples-74df2914d4d5) *(medium.com · 2024-01-20T01:36:21)*
+  > IndexedDB API — The W3C specification for the IndexedDB API defines the standard interface and functionality of IndexedDB. You can refer to the specification for a deeper understanding of the underlying concepts and methods: https://<strong>www.w3.or...
+- [IndexedDB: A Complete Guide for Frontend Developers on Efficient Web Storage \| Medium](https://medium.com/@shashika.silva88/indexeddb-a-comprehensive-overview-for-frontend-developers-6b47a9f32e23) *(medium.com · 2025-02-18T18:31:23)*
+  > IndexedDB API — The W3C specification for the IndexedDB API defines the standard interface and functionality of IndexedDB. You can refer to the specification for a deeper understanding of the underlying concepts and methods: https://<strong>www.w3.or...
+- [IndexedDB - external/w3c/web-platform-tests - Git at Google](https://chromium.googlesource.com/external/w3c/web-platform-tests/+/refs/heads/allow_patial_list/IndexedDB) *(chromium.googlesource.com)*
+  > The latest Editor&#x27;s Draft of Indexed Database API is: https://w3c.github.io/IndexedDB/. <strong>The latest W3C Technical Report of Indexed Database API is: https://www.w3.org/TR/IndexedDB/</strong>.
+- [Using IndexedDB to Manage 3D WebGL Assets — SitePoint](https://www.sitepoint.com/using-indexeddb-manage-3d-webgl-assets) *(sitepoint.com · 2024-11-13T21:17:31)*
+  > 1 – <strong>The W3C specification itself</strong>: https://www.w3.org/TR/IndexedDB/ . It really contains everything and it’s relatively easy to read. I’ve frequently ended up reading the spec to really understand how it works to solve some of my issu...
+- [How To Use IndexedDB – Code And Example \| Ido Green](https://greenido.dev/2011/06/24/how-to-use-indexdb-code-and-example) *(greenido.dev · 2011-10-26T12:56:25)*
+  > // IndexedDB spec is still evolving - see: http://<strong>www.w3.org/TR/IndexedDB</strong>/ // various browsers keep it // behind various flags and implementation varies.
+- [HTML5 IndexedDB - DZone Refcards](https://dzone.com/refcardz/html5-indexeddb) *(dzone.com)*
+  > That said, IndexedDB is still a working draft and some aspects may still change in time. If you find that what you read in books or on the internet is not working as you expect, I find it&#x27;s often easier to go back to the source and read the late...
+- [IndexedDB: SQLite backend (in-memory contexts)](https://chromestatus.com/feature/5126896685809664) *(chromestatus.com · 2025-11-21T00:00:00)*
   > We cannot provide a description for this page right now
 - [Web-Facing Change PSA: IndexedDB: SQLite backend (in-memory contexts)](https://groups.google.com/a/chromium.org/g/blink-dev/c/jEDGJfRibfM) *(groups.google.com)*
   > There is no change to the Web API. This is expected to improve reliability and, to a lesser extent, performance. For now this is applied only to in-memory contexts such as Incognito mode in Chromium and Google Chrome. This limits the impact of any ne...
+- [IndexedDB Tutorial - How to Use IndexedDB, Its Limits, and RxDB \| RxDB](https://rxdb.info/articles/indexeddb/indexeddb-tutorial.html) *(rxdb.info · 2026-09-15T00:00:00)*
+  > No sync: IndexedDB stores data in one tab, on one device, in one origin. It has no concept of syncing to another tab, another device, or a backend server.
+- [IndexedDB \| Guide to Getting Started, Tutorial, & Best Practices](https://www.meticulous.ai/blog/getting-started-with-indexeddb) *(meticulous.ai)*
+  > A tutorial on how to get started with IndexedDB and whether you should use it, with an example code walkthrough.
+- [A complete guide to using IndexedDB - LogRocket Blog](https://blog.logrocket.com/using-indexeddb-complete-guide) *(blog.logrocket.com · 2024-06-04T20:58:09)*
+  > IndexedDB is an alternative to WebSQL and provides more storage capacity than its previous counterpart. In this tutorial, we’ll explore how to use and set up IndexedDB for web application data storage and how to manipulate its data using the availabl...
+- [Offline-first frontend apps in 2025: IndexedDB and SQLite in the browser and beyond - LogRocket Blog](https://blog.logrocket.com/offline-first-frontend-apps-2025-indexeddb-sqlite) *(blog.logrocket.com · 2026-03-27T14:51:02)*
+  > IndexedDB and the Cache API provide powerful primitives · Service workers and Background Sync enable durable offline actions · SQLite in the browser and WebAssembly-powered sync engines bring full databases client-side
+- [How to Use IndexedDB – Database Guide for Beginners](https://www.freecodecamp.org/news/how-indexeddb-works-for-beginners) *(freecodecamp.org · 2022-09-08T16:23:00)*
+  > To store application state: When a user first loads a website or application, you can use IndexedDB to store these initial states. These can be log in authentications, API requests, or any other state needed before the UI is rendered. So when next th...
+- [A Beginner's Guide to IndexedDB](https://www.telerik.com/blogs/beginners-guide-indexeddb) *(telerik.com · 2024-02-22T15:43:42)*
+  > In this beginner’s guide, we will explore the basics of IndexedDB, including how to <strong>create a database, add data, retrieve data and delete data</strong>. We will also cover advanced topics such as indexing, transactions and versioning.
+- [A Beginner’s Guide to IndexedDB. A Tutorial on Using Client-Side Storage… \| by Jeferson F Silva \| Medium](https://medium.com/@jeferson0993/a-beginners-guide-to-indexeddb-4b0178524a79) *(medium.com · 2024-10-07T18:11:26)*
+  > <strong>This guide will walk you through the basics of IndexedDB, showing you how to create, read, update, and delete data (CRUD operations) within your web app</strong>.
+- [Chrome 156 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/156) *(chromestatus.com)*
+  > Tracking bug #542706103 ↗ (opens in new window) | ChromeStatus.com entry | Spec ↗ (opens in new window) | Explainer ↗ (opens in new window) Chromium&#x27;s IndexedDB implementation is rewritten on top of SQLite, to replace the previous implementation...
+- [Chrome 145 \| Release notes \| Chrome for Developers](https://developer.chrome.com/release-notes/145) *(developer.chrome.com · 2026-02-10T00:00:00)*
+  > paintTime means the time when the rendering phase ended and the browser started the paint phase. presentationTime means the time when the &quot;pixels reached the screen,&quot; which is somewhat implementation-defined. This feature entry omits event ...
 - [Chrome 150 beta \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/chrome-150-beta?hl=en) *(developer.chrome.com · 2026-06-03T20:17:18)*
   > For now, this change applies to new data stores. This change is step 2 of a multi-phase progressive release. See the ChromeStatus feature page for SQLite in-memory contexts which tracks step 1.
-- [How the browsers store IndexedDB data \| LINQ to Fail](https://www.aaron-powell.com/posts/2012-10-05-indexeddb-storage) *(aaron-powell.com · 2012-10-05T00:00:00)*
-  > Firefox was the 2nd browser to go prefix free with IndexedDB, it is unprefixed as of version 16. Logically since Firefox is a cross-platform browser they use a cross-platform database, SQLite.
-- [r/electronjs on Reddit: IndexedDB good enough for complex data in offline app?](https://www.reddit.com/r/electronjs/comments/atbu0e/indexeddb_good_enough_for_complex_data_in_offline) *(reddit.com · 2019-02-22T02:22:33)*
-  > Our experience with indexeddb is it would suddenly eat up tons of disk space and memory when under heavy load. There are some issues related to this on leveldb (which is underlying db of indexeddb) github page.
-- [r/programming on Reddit: leveldb - a fast and lightweight key/value database library](https://www.reddit.com/r/programming/comments/h6oup/leveldb_a_fast_and_lightweight_keyvalue_database) *(reddit.com · 2011-05-08T16:11:54)*
-  > I agree that majority of people will never use leveldb specifically, but just because there are LOTS of alternative solutions, not because they don&#x27;t need it. E.g. apps which work with separate DBMS instance (SQL database) typically do not need ...
+- [CSS module scripts](https://chromestatus.com/feature/5948572598009856) *(chromestatus.com · 2019-08-09T00:00:00)*
+  > We cannot provide a description for this page right now
+- [Chrome 143 \| Release notes \| Chrome for Developers](https://developer.chrome.com/release-notes/143) *(developer.chrome.com · 2025-12-02T00:00:00)*
+  > In Chrome 143 (Warning Phase): Both error and code attributes are supported. Using code triggers a console warning, guiding developers to migrate. Tracking bug #427474985 | ChromeStatus.com entry | Spec
+- [Chrome 154 \| Release notes \| Chrome for Developers](https://developer.chrome.com/release-notes/154) *(developer.chrome.com · 2026-09-22T00:00:00)*
+  > Tracking bug #468928416 | ChromeStatus.com entry | Spec · The CSS Typed OM specification exposes the CSSStyleValue hierarchy to worker global scopes ([Exposed=(Window, Worker, PaintWorklet, LayoutWorklet)]). Previously, Blink only exposed CSSStyleVal...
+- [Progressive Web Apps: IndexedDB \| Google for Developers](https://developers.google.com/codelabs/pwa-training/pwa03--indexeddb) *(developers.google.com · 2024-09-18T00:00:00)*
+  > <strong>Before an IndexedDB database can be used, it needs to be opened and set up</strong>. While you can do this directly, because IndexedDB was standardized before Promises were prominent, it&#x27;s callback based interface can be unwieldy to use....
+- [CushionDB](https://cushiondb.github.io) *(cushiondb.github.io)*
+  > <strong>The TwitterLite PWA makes use of IndexedDB and the CacheAPI to store data and pages on the client, resulting in blazing fast load times and also some offline/bad network functionality</strong>.
+- [Progressive Web Apps: New FE systems - DEV Community](https://dev.to/tangoindiamango/progressive-web-apps-new-fe-systems-1ko3) *(dev.to · 2024-12-23T07:58:56)*
+  > This article details how we transformed ... capable solution. <strong>By leveraging browser-based storage solutions like IndexedDB, employing synchronization mechanisms, and using Progressive Web Apps (PWA).</strong>...
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
 - [IndexedDB: SQLite backend · Issue #38 · getsentry/browser-updates-radar](https://github.com/getsentry/browser-updates-radar/issues/38) *(github.com · 2026-09-28T08:15:45)* *(Cites: `https://chromestatus.com/feature/5161589557821440`)*
-  > 🔗 https://<strong>chromestatus.com/feature/5161589557821440</strong>
+  > IndexedDB: SQLite backend · Issue #38 · getsentry/browser-updates-radar · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to re...
 - [Web-Facing Change PSA: IndexedDB: SQLite backend](https://groups.google.com/a/chromium.org/g/blink-dev/c/jS0khnC5IWA) *(groups.google.com · 2026-04-24T00:00:00)* *(Cites: `https://chromestatus.com/feature/5161589557821440`)*
-  > https://<strong>chromestatus.com/feature/5161589557821440</strong> · This intent message was generated by Chrome Platform Status. unread, Apr 25, 2026, 3:10:44 AMApr 25 ·  ·  ·  · Reply to author · Sign in to reply to author · Forward · ...
+  > Web-Facing Change PSA: IndexedDB: SQLite backend Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Web-Facing Change PSA: IndexedDB: SQLite ba...
+- [Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend](http://www.mail-archive.com/blink-dev@chromium.org/msg16362.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5161589557821440`)*
+  > More details: &gt; https://docs.g... &gt; 148 &gt; Shipping on WebView &gt; 150 &gt; &gt; &gt; *Link to entry on the Chrome Platform Status* &gt; https://chromestatus.com/feature/5161589557821440 &gt; &gt; <strong>This intent message was ge...
+- [IndexedDB](https://javascript.info/indexeddb) *(javascript.info)* *(Cites: `https://www.w3.org/TR/IndexedDB`)*
+  > That power is usually excessive for traditional client-server apps. IndexedDB is intended for offline apps, to be combined with ServiceWorkers and other technologies. The native interface to IndexedDB, described in the specification https:/...
+- [IndexedDB/index.bs at main · w3c/IndexedDB](https://github.com/w3c/IndexedDB/blob/main/index.bs) *(github.com)* *(Cites: `https://www.w3.org/TR/IndexedDB`)*
+  > For the revision history of the second edition, see [that document&#x27;s Revision History](https://<strong>www.w3.org/TR/IndexedDB</strong>-2/#revision-history).
+- [IndexedDB Tutorial for Beginners: A Comprehensive Guide with Coding Examples \| by Amresh Kumar \| Medium](https://medium.com/@kamresh485/indexeddb-tutorial-for-beginners-a-comprehensive-guide-with-coding-examples-74df2914d4d5) *(medium.com · 2024-01-20T01:36:21)* *(Cites: `https://www.w3.org/TR/IndexedDB`)*
+  > IndexedDB API — The W3C specification for the IndexedDB API defines the standard interface and functionality of IndexedDB. You can refer to the specification for a deeper understanding of the underlying concepts and methods: https://<strong...
+- [IndexedDB: A Complete Guide for Frontend Developers on Efficient Web Storage \| Medium](https://medium.com/@shashika.silva88/indexeddb-a-comprehensive-overview-for-frontend-developers-6b47a9f32e23) *(medium.com · 2025-02-18T18:31:23)* *(Cites: `https://www.w3.org/TR/IndexedDB`)*
+  > IndexedDB API — The W3C specification for the IndexedDB API defines the standard interface and functionality of IndexedDB. You can refer to the specification for a deeper understanding of the underlying concepts and methods: https://<strong...
+- [IndexedDB - external/w3c/web-platform-tests - Git at Google](https://chromium.googlesource.com/external/w3c/web-platform-tests/+/refs/heads/allow_patial_list/IndexedDB) *(chromium.googlesource.com)* *(Cites: `https://www.w3.org/TR/IndexedDB`)*
+  > The latest Editor&#x27;s Draft of Indexed Database API is: https://w3c.github.io/IndexedDB/. <strong>The latest W3C Technical Report of Indexed Database API is: https://www.w3.org/TR/IndexedDB/</strong>.
+- [Using IndexedDB to Manage 3D WebGL Assets — SitePoint](https://www.sitepoint.com/using-indexeddb-manage-3d-webgl-assets) *(sitepoint.com · 2024-11-13T21:17:31)* *(Cites: `https://www.w3.org/TR/IndexedDB`)*
+  > 1 – <strong>The W3C specification itself</strong>: https://www.w3.org/TR/IndexedDB/ . It really contains everything and it’s relatively easy to read. I’ve frequently ended up reading the spec to really understand how it works to solve some ...
+- [How To Use IndexedDB – Code And Example \| Ido Green](https://greenido.dev/2011/06/24/how-to-use-indexdb-code-and-example) *(greenido.dev · 2011-10-26T12:56:25)* *(Cites: `https://www.w3.org/TR/IndexedDB`)*
+  > // IndexedDB spec is still evolving - see: http://<strong>www.w3.org/TR/IndexedDB</strong>/ // various browsers keep it // behind various flags and implementation varies.
+- [HTML5 IndexedDB - DZone Refcards](https://dzone.com/refcardz/html5-indexeddb) *(dzone.com)* *(Cites: `https://www.w3.org/TR/IndexedDB`)*
+  > That said, IndexedDB is still a working draft and some aspects may still change in time. If you find that what you read in books or on the internet is not working as you expect, I find it&#x27;s often easier to go back to the source and rea...
 
 ## 📚 Platform Documentation & Specifications
 
 - [IndexedDB: SQLite backend · Issue #38 · getsentry/browser-updates-radar](https://github.com/getsentry/browser-updates-radar/issues/38) *(github.com)*
-- [IndexedDB](https://developer.mozilla.org/en-US/docs/Glossary/IndexedDB) *(developer.mozilla.org)*
-- [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) *(developer.mozilla.org)*
-- [Using IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB) *(developer.mozilla.org)*
+- [IndexedDB/index.bs at main · w3c/IndexedDB](https://github.com/w3c/IndexedDB/blob/main/index.bs) *(github.com)*
+- [Weekly hardening 2026-10-04: build 11 pending demos, v149 critique batch, margin-trim goal-setting fix by PaulKinlan · Pull Request #23 · PaulKinlan/chrome-platform-showcase](https://github.com/PaulKinlan/chrome-platform-showcase/pull/23) *(github.com)*
+- [GitHub - Virtual0ps/Chrome-samples: A repo containing samples tied to new functionality in each release of Google Chrome. · GitHub](https://github.com/Virtual0ps/Chrome-samples) *(github.com)*
+- [GitHub - anchetadev/PWA-IndexedDB-Guide: Guide on how to start with IndexedDB and PWA · GitHub](https://github.com/anchetadev/PWA-IndexedDB-Guide) *(github.com)*
+- [Convert IndexedDB to SQLite · Issue #690 · sillsdev/appbuilder-pwa](https://github.com/sillsdev/appbuilder-pwa/issues/690) *(github.com)*
+- [package:indexeddb - CRUID for iphone, android, windows, linux, ios (and web & pwa) · Issue #339 · tekartik/sqflite](https://github.com/tekartik/sqflite/issues/339) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 56 result(s) found across 11 planned queries — **8 verified relevant**
-  - `"chromestatus.com/feature/5161589557821440" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (2 returned)
+- **Brave Search:** 43 result(s) found across 7 planned queries — **34 verified relevant**
+  - `"chromestatus.com/feature/5161589557821440" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (3 returned)
   - `"www.w3.org/TR/IndexedDB" -site:www.w3.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (8 returned)
   - `"IndexedDB: SQLite backend" API` — *Core feature API query* (4 returned)
   - `"IndexedDB: SQLite backend" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"chromestatus.com" OR "multi-phase" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"IndexedDB: SQLite backend" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"IndexedDB: SQLite backend" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"IndexedDB" "SQLite" (Chromium OR Chrome) "LevelDB"` — *Finds official announcements, Intent to Ship threads, and technical overview tracking the Chromium migration from LevelDB to SQLite.* (8 returned)
-  - `"IndexedDB" ("SQLite backend" OR "backed by SQLite") (differences OR reliability OR corruption)` — *Surfaces developer guides, engineering blogs, and articles detailing why Chromium is rewriting IndexedDB and what differences developers must watch out for.* (0 returned)
-  - `"IndexedDB" "SQLite" ("enable-features" OR "chrome://flags" OR "chrome://indexeddb-internals")` — *Retrieves developer instructions, command-line flags, and browser internals inspection steps for testing and verifying the SQLite IndexedDB backend.* (8 returned)
-  - `"IndexedDB" ("SQLite" AND "LevelDB") (corruption OR "data loss" OR reliability) site:news.ycombinator.com OR site:reddit.com` — *Discovers developer reactions, sentiment, and war stories regarding IndexedDB LevelDB corruption issues and the transition to SQLite.* (3 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 12 result(s) found — **8 verified relevant**
+- **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
-- **Hacker News Algolia:** 6 result(s) found — **1 verified relevant**
+- **Dev.to Community Blogs:** 0 result(s) found — **1 verified relevant**
+- **Hacker News Algolia:** 8 result(s) found — **1 verified relevant**
 - **Standards Positions:** 0 result(s) found — **0 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*

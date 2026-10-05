@@ -1,6 +1,6 @@
 # Host and screenshot restrictions for chrome.debugger API
 
-> **Report Week:** 2026-W40 | **Milestone:** Chrome 155 | **Category:** Enabled by default
+> **Report Week:** 2026-W41 | **Milestone:** Chrome 155 | **Category:** Enabled by default
 
 ## Overview
 
@@ -8,7 +8,7 @@ The \[\`chrome.debugger\` extension API\](https://developer.chrome.com/docs/exte
 
 ## Ecosystem Status
 
-- **Momentum:** High (260 points)
+- **Momentum:** High (210 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Positive / High Interest
 - **Executive Take:** Host and screenshot restrictions for chrome.debugger API is currently Enabled by default in Chrome 155. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
@@ -17,86 +17,82 @@ The \[\`chrome.debugger\` extension API\](https://developer.chrome.com/docs/exte
 - Shipping enabled by default in Chrome 155. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+- Verified community discussion on Twitter / X: "Chrome 155 ships Oct 6 ⚠️  If your extension uses chrome.debugger on enterprise browsers, .attach() will now fail with p" (0 points, 0 comments).
+
+## Community Discussions & Social Pulse
+
+- 🐦 **Twitter / X:** [Chrome 155 ships Oct 6 ⚠️  If your extension uses chrome.debugger on enterprise browsers, .attach() will now fail with p](https://twitter.com/cwspycom/status/2106581110222209229) — *by @cwspycom, 0 likes/RTs, 0 replies*
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGcB2_VPTHdxHZFclbtEaiyb7ldyXML9htl2g2h5Arx6Crv2QaYsVPsoJHOn-3hdTMhso63CnaijQwYUH3lcEzMxcfJDwOBlrIYsDAkwOcPgmrazoT1A6lkmoJ_v3fwB0fH3WS92yhQc6fRFWTIID7ogTvTlo68q9KwrTRPvCWb) *(vertexaisearch.cloud.google.com)*
-  > Stricter enterprise policy enforcement for chrome.debugger in Chrome 155 | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русс...
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEx9-WOjxiblssaRRtZFGRtXpgnzOOuF5vXdx0l93boUAXwNgfalOq2x1N9Z9NUSjODlNcSR7YAhuFZDuMGlbrrv-8NaQeUUy35NmVFA-mi9c9q9Bt5xyH53qSIA9Wfzm5TkPc5nmEr10JTAufF5QDArVdEKrMDj3TD) *(vertexaisearch.cloud.google.com)*
-  > browser.debugger | API | Chrome for Developers 跳至主要內容 / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภาษาไทย 中文 – 简体 中文 – 繁體 日本語...
-- [google.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGmfr0Ucqn5zuzuxtMmvECifBh-7MuUTvIAQApDmJ6tkOVOATNGeLBJdmuRmZEIc0iu8dybYJVIwih4Lyt-dw6LKCCTtot5bSj6Vmb00RL6Sc5bwjWBZg5l-SZxbmbYoo89FCNITA==) *(vertexaisearch.cloud.google.com)*
-  > Google Issue Tracker Sign in
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEUgQ_NsGY3Bu-QX31EA5xuNngClHoDAeLVWx2njKfiguo7CPRxfGCL0cGnnI8Y0bipHDbmK5Jzbk9hOh_iFVgIC6GIQc9ZsHTTbOVW8mUrAWxDgeFhKJL-TtIjjBwTUsN7oF2NGKfX) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFyU8qboNeodTrd2p1UqKrsTJ-Po8fHcx4JdCfp8QPP-v57fsTa48JtQmz15ATbh-9vfehmFrVPut-vDRhgb2OJJysf0wlffD2HPvVbWyKkT2X0F86q2sASJIjisRCkmJLtcL9E1nqQpZkNKJc=) *(vertexaisearch.cloud.google.com)*
-  > [BUG] Screenshot and JavaScript tools fail with "Cannot access a chrome-extension:// URL of different extension" · Issue #16239 · anthropics/claude-code · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up App...
-- [browser.debugger \| API \| Chrome for Developers](https://developer.chrome.com/docs/extensions/reference/api/debugger) *(developer.chrome.com)*
-  > browser.debugger | API | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภาษาไทย 中文 – ...
-- [Chrome Remote Debugging: A Developer's Guide](https://www.browserless.io/blog/chrome-remote-debugging) *(browserless.io · 2026-07-28T00:00:00)*
-  > Chrome Remote Debugging: A Developer&#x27;s Guide Platform Overview The platform at a glance Browsers as a Service Managed headless browsers at scale APIs Browser tasks over simple HTTP MCP Server Browser automation over MCP Self-Hosted Run on your o...
-- [Tutorial: Debugging - Google Chrome Extensions - Google Code](http://www.dre.vanderbilt.edu/~schmidt/android/android-4.0/external/chromium/chrome/common/extensions/docs/tut_debugging.html) *(dre.vanderbilt.edu)*
-  > information in this page is significant, should be uniform across api docs and should be edited only with knowledge of the templating mechanism. 3) All .innerHTML is genereated as an rendering step. If viewed in a browser, it will be re-generated fro...
-- [Debug extensions \| Get started \| Chrome for Developers](https://developer.chrome.com/docs/extensions/get-started/tutorial/debug) *(developer.chrome.com · 2012-09-18T00:00:00)*
-  > Refer to the permissions article and the Chrome APIs to ensure an extension is requesting the correct permissions in the manifest. { &quot;name&quot;: &quot;Broken Background Color&quot;, ... &quot;permissions&quot;: [ &quot;activeTab&quot;, &quot;de...
-- [A Detailed Guide to Chrome Remote Debugging](https://www.headspin.io/blog/ultimate-guide-chrome-remote-debugging) *(headspin.io · 2024-05-31T00:00:00)*
-  > Chrome remote debugging is a powerful feature provided by Google Chrome that allows developers to debug web pages and web applications running on remote devices. This capability is particularly beneficial when users access the web from various device...
-- [Debugging in the browser](https://javascript.info/debugging-chrome) *(javascript.info)*
-  > The debugger statements. An error (if dev tools are open and the button is “on”). When paused, we can debug: examine variables and trace the code to see where the execution goes wrong. There are many more options in developer tools than covered here....
-- [Chrome DevTools \| Chrome for Developers](https://developer.chrome.com/docs/devtools) *(developer.chrome.com)*
-  > Explore our monthly video series taking you through common debugging scenarios in DevTools in a playful way. Chrome DevTools for agents lets your agent verify responsive layouts, test location-aware APIs, and simulate varied CPU or network speeds.
-- [Debug JavaScript \| Chrome DevTools \| Chrome for Developers](https://developer.chrome.com/docs/devtools/javascript) *(developer.chrome.com · 2024-05-22T00:00:00)*
-  > DevTools provides a lot of different tools for different tasks, such as changing CSS, profiling page load performance, and monitoring network requests. The Sources panel is where you debug JavaScript. Open DevTools and navigate to the Sources panel. ...
-- [A Beginner’s Guide to JavaScript Debugging in Chrome - CoderPad](https://coderpad.io/blog/development/javascript-debugging-in-chrome) *(coderpad.io · 2023-06-05T21:29:03)*
-  > Did you know your web browser can do more than allow you to doom scroll 24-hour news services, find all your dev questions answered on StackOverflow, and discover hilarious pictures of cats? It also works as an excellent tool for debugging your front...
-- [How do you launch the JavaScript debugger in Google Chrome? - Stack Overflow](https://stackoverflow.com/questions/66420/how-do-you-launch-the-javascript-debugger-in-google-chrome) *(stackoverflow.com)*
-  > <strong>Press the F12 function key in the Chrome browser to launch the JavaScript debugger and then click &quot;Scripts&quot;.</strong>
-- [Learn To Debug JavaScript Using Chrome Debugger \| by Tanmanydeo \| Medium](https://medium.com/@tanmanydeo321/learn-to-debug-javascript-using-chrome-debugger-f3f7b3b94469) *(medium.com · 2023-12-11T09:00:50)*
-  > ... To activate the JavaScript debugging, we can <strong>execute the code again by providing inputs on the web page and then clicking on the Calculate button</strong>. The Chrome debugger will pause the code’s execution and highlight the 11th line (w...
-- [How to Debug JavaScript in Chrome? \| BrowserStack](https://www.browserstack.com/guide/how-to-debug-js-in-chrome) *(browserstack.com · 2026-06-17T05:31:28)*
-  > Chrome Menu: <strong>Click the three dots at the top-right, navigate to More Tools &gt; Developer Tools, and select Sources</strong>. Inside the Sources tab, scripts can be viewed, breakpoints set, and code execution paused or stepped through for det...
-- [Debug JavaScript in Chrome \| WebStorm Documentation](https://www.jetbrains.com/help/webstorm/debugging-javascript-in-chrome.html) *(jetbrains.com · 2026-08-14T00:00:00)*
-  > Configure the built-in debugger as described in Configuring JavaScript debugger. To have the changes you make to your HTML, CSS, or JavaScript code immediately shown in the browser without reloading the page, activate the Live Edit functionality. For...
-- [How To Debug JavaScript using Chrome Debugger](https://www.testmuai.com/blog/chrome-debugger) *(testmuai.com · 2025-12-25T00:00:00)*
-  > To activate the JavaScript debugging, we can <strong>execute the code again by providing inputs on the web page and then clicking on the Calculate button</strong>. The Chrome debugger will pause the code’s execution and highlight the 11th line (where...
 - [Explore New Chrome Enterprise Browser, Core, Premium Features](https://chromeenterprise.google/intl/en_us/resources/release-notes) *(chromeenterprise.google · 2026-09-09T00:00:00)*
   > For screenshots, <strong>the enterprise policy DisableScreenshots enterprise policy disables screenshot capture or Data Loss Prevention (DLP) rules apply, returning the error Screenshot capture is restricted by policy</strong>.
-- [Stricter enterprise policy enforcement for chrome.debugger in Chrome 155 \| Chrome for Developers](https://developer.chrome.com/blog/debugger-enterprise-policy-restrictions) *(developer.chrome.com)*
-  > // Promise-based (Manifest V3) try { await chrome.debugger.attach({ tabId }, &quot;1.3&quot;); } catch (error) { if (error.message.includes(&quot;Host access is restricted by policy&quot;)) { console.warn(&quot;Debugger attach blocked: Extension has ...
-- [Chrome 155 的 chrome.debugger 被政策擋住？先查兩種錯誤 - ZeroOne](https://laplusda.com/posts/chrome-155-debugger-enterprise-policy) *(laplusda.com · 2026-09-17T00:00:00)*
-  > 直接答案是：先讀 attach() rejection 的完整訊息。若是 Host access is restricted by policy.，查 runtime_blocked_hosts；若是 Screenshot capture is restricted by policy.，查 DisableScreenshots 或 DLP。這兩類限制是在 attach 時一次性判定，不是替某個 origin 加進 allowlist 就能繞過。
+- [Google Chrome & PWAs － firt.dev](https://firt.dev/notes/chrome) *(firt.dev)*
+  > PWAs don&#x27;t need a Service Worker for WebAPK installation. More details 📺 Origin Private File System (OPFS) for Android 🧮 MathML Core 💳 Secure Payment Confirmation ... 🫙 CSS Container Queries 🪟 Window Controls Overlay API (desktop-only) ↕️ V...
+- [What's New In DevTools (Chrome 89) \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/new-in-devtools-89) *(developer.chrome.com · 2021-01-19T00:00:00)*
+  > Consider using the Chrome Canary, Dev, or Beta as your default development browser. These preview channels give you access to the latest DevTools features, let you test cutting-edge web platform APIs, and help you find issues on your site before your...
+- [Tools and debug \| web.dev](https://web.dev/learn/pwa/tools-and-debug) *(web.dev)*
+  > In that case, you can bridge a port on localhost on the Android device to any origin and port from your host computer, including your development computer&#x27;s localhost. Check this guide for more information. Chromium browsers offer many tools for...
+- [google chrome devtools - How can I remote debug a PWA that has been "added to homescreen" on Android? - Stack Overflow](https://stackoverflow.com/questions/59771348/how-can-i-remote-debug-a-pwa-that-has-been-added-to-homescreen-on-android) *(stackoverflow.com)*
+  > Turns out that <strong>PWAs that were open before you connected remote debugger will not show up</strong>. Simply close the app and start it after connecting the debugger. ... The &quot;Remote Devices&quot; option is not present anymore in current ch...
 - [Stricter enterprise policy enforcement for chrome.debugger in Chrome 155 \| Chrome for Developers](https://developer.chrome.com/blog/debugger-enterprise-policy-restrictions?hl=en) *(developer.chrome.com · 2026-09-07T21:16:38)*
   > Enterprise administrators managing extension policies should note that extensions requiring the debugger permission cannot operate with partial host restrictions (runtime_blocked_hosts). If an extension needs chrome.debugger, <strong>it must not have...
-- [Explore New Chrome Enterprise Browser, Core, Premium Features](https://chromeenterprise.google/resources/release-notes) *(chromeenterprise.google · 2026-09-09T00:00:00)*
-  > For screenshots, the enterprise policy DisableScreenshots enterprise policy <strong>disables screenshot capture or Data Loss Prevention (DLP) rules apply, returning the error Screenshot capture is restricted by policy</strong>.
-- [Chrome 155 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes) *(chromestatus.com)*
+- [Explore New Chrome Enterprise Browser, Core, Premium Features](https://chromeenterprise.google/resources/release-notes) *(chromeenterprise.google · 2026-09-23T00:00:00)*
+  > On enterprise devices, some policies ...attach()): For hosts, <strong>the ExtensionSettings enterprise policy can be configured to block hosts for an extension, returning the error Host access is restricted by policy</strong>....
+- [Chrome 155 的 chrome.debugger 被政策擋住？先查兩種錯誤 - ZeroOne](https://laplusda.com/posts/chrome-155-debugger-enterprise-policy) *(laplusda.com · 2026-09-17T00:00:00)*
+  > 直接答案是：先讀 attach() rejection 的完整訊息。若是 Host access is restricted by policy.，查 runtime_blocked_hosts；若是 Screenshot capture is restricted by policy.，查 DisableScreenshots 或 DLP。這兩類限制是在 attach 時一次性判定，不是替某個 origin 加進 allowlist 就能繞過。
+- [browser.debugger \| API \| Chrome for Developers](https://developer-chrome-com.translate.goog/docs/extensions/reference/api/debugger?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc) *(developer-chrome-com.translate.goog)*
+  > Host restrictions: If enterprise policy ExtensionSettings configures blocked hosts (runtime_blocked_hosts) for an extension, browser.debugger.attach() is blocked on all targets with the error &quot;Host access is restricted by policy.&quot; (even if ...
+- [Explore new Chrome Enterprise Browser, Core and Premium features](https://chromeenterprise.google/intl/en_uk/resources/release-notes) *(chromeenterprise.google · 2026-09-23T00:00:00)*
+  > On enterprise devices, some policies ...attach()): For hosts, <strong>the ExtensionSettings enterprise policy can be configured to block hosts for an extension, returning the error Host access is restricted by policy</strong>....
+- [Chrome 155 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/155) *(chromestatus.com)*
   > For screenshots, the enterprise policy DisableScreenshots enterprise policy <strong>disables screenshot capture or Data Loss Prevention (DLP) rules apply, returning the error Screenshot capture is restricted by policy</strong>.
 - [Microsoft Edge Browser Policy Documentation DisableScreenshots \| Microsoft Learn](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/disablescreenshots) *(learn.microsoft.com)*
   > As of Microsoft Edge version 154, enabling this policy also prevents extensions from attaching the debugger via &#x27;chrome.debugger.attach()&#x27;.
+- [Security: Enterprise Policy Bypass Allows Screenshot of Internal Sites \[41486643\] - Chromium](https://issues.chromium.org/issues/41486643) *(issues.chromium.org)*
+  > VULNERABILITY DETAILS By using the debugger screenshot method below, an extension could capture screenshots of internal sites or URLs, even when the enterprise strictly sets a policy to disallow screenshots. Here, I have created a demo showcasing the...
+- [Chrome Enterprise Policy List & Management \| Documentation](https://chromeenterprise.google/policies/?policy=DisableScreenshots) *(chromeenterprise.google)*
+  > Chrome Enterprise policies for businesses and organizations to manage Chrome Browser and ChromeOS.
+- [Configure ExtensionSettings policy - Chrome Enterprise and Education Help](https://support.google.com/chrome/a/answer/9867568) *(support.google.com)*
+  > Applies to managed Chrome browsers on Windows, Mac, and Linux. The ExtensionSettings policy controls multiple settings, including settings that are controlled by existing extension-related policies.
+- [Chrome 155 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes) *(chromestatus.com)*
+  > For hosts, <strong>the ExtensionSettings enterprise policy can be configured to block hosts for an extension</strong>, returning the error Host access is restricted by policy. For screenshots, the enterprise policy DisableScreenshots enterprise polic...
+- [Stricter enterprise policy enforcement for chrome.debugger in Chrome 155 \| Chrome for Developers](https://developer.chrome.com/blog/debugger-enterprise-policy-restrictions) *(developer.chrome.com)*
+  > <strong>Use the chrome.scripting API to execute scripts and insert styles into allowed pages</strong>. Use the chrome.declarativeNetRequest API to inspect, modify, or block network requests declaratively.
+- [API reference \| Chrome for Developers](https://developer.chrome.com/docs/extensions/reference/api) *(developer.chrome.com · 2026-07-16T00:00:00)*
+  > ... Use the chrome.declarativeContent API to take actions depending on the content of a page, without requiring permission to read the page&#x27;s content. ... The chrome.declarativeNetRequest API is <strong>used to block or modify network requests b...
+- [browser.declarativeNetRequest \| API \| Chrome for Developers](https://developer.chrome.com/docs/extensions/reference/api/declarativeNetRequest) *(developer.chrome.com)*
+  > Only available for unpacked extensions with the &quot;declarativeNetRequestFeedback&quot; permission as this is intended to be used for debugging purposes only. ... Except as otherwise noted, the content of this page is licensed under the Creative Co...
+- [Permissions \| Chrome for Developers](https://developer.chrome.com/docs/extensions/reference/permissions-list) *(developer.chrome.com · 2026-09-09T00:00:00)*
+  > Access the page debugger backend. Read and change all your data on all websites. ... Gives access to the chrome.declarativeContent API. ... Gives access to the chrome.declarativeNetRequest API.
+- [Chrome Enterprise Policy List & Management \| Documentation](https://chromeenterprise.google/policies) *(chromeenterprise.google)*
+  > Chrome Enterprise policies for businesses and organizations to manage Chrome Browser and ChromeOS.
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 44 result(s) found across 10 planned queries — **21 verified relevant**
+- **Brave Search:** 49 result(s) found across 11 planned queries — **21 verified relevant**
   - `"chromestatus.com/feature/5072259281715200" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
   - `"Host and screenshot restrictions for chrome.debugger API" API` — *Core feature API query* (0 returned)
   - `"Host and screenshot restrictions for chrome.debugger API" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"chrome.debugger" OR "chrome.scripting" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Host and screenshot restrictions for chrome.debugger API" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"Host and screenshot restrictions for chrome.debugger API" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"chrome.debugger.attach" ("Host access is restricted by policy" OR "Screenshot capture is restricted by policy")` — *Find JavaScript code examples, bug reports, and error-handling patterns dealing with runtime policy rejections during debugger target attachment.* (2 returned)
-  - `chrome extension "chrome.debugger" ("ExtensionSettings" OR "DisableScreenshots") enterprise guide` — *Locate practical developer tutorials and enterprise compliance guides for configuring and supporting managed Chrome extension policies with debugger permissions.* (8 returned)
-  - `"chrome.debugger" restricted policy ("chrome.scripting" OR "declarativeNetRequest") enterprise` — *Identify release announcements, migration guides, and ecosystem adoption patterns moving from debugger APIs to higher-level extension APIs in enterprise environments.* (8 returned)
-  - `site:groups.google.com/a/chromium.org/g/chromium-extensions "chrome.debugger" ("restricted by policy" OR enterprise)` — *Discover developer community feedback, troubleshooting threads, and Chromium Extensions group discussions on managed browser restrictions.* (0 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 5 result(s) found — **5 verified relevant**
-- **Twitter / X API v2:** *found 6 tweet(s)*
-- **Dev.to Community Blogs:** 6 result(s) found — **0 verified relevant**
+  - `"chrome.debugger" "Host access is restricted by policy" OR "Screenshot capture is restricted by policy"` — *Finds technical documentation, bug reports, and code snippets detailing handling for enterprise policy rejection errors in chrome.debugger.attach.* (6 returned)
+  - `"chrome.debugger.attach" (ExtensionSettings OR DisableScreenshots) enterprise policy` — *Surfaces developer guides, enterprise documentation, and blog posts explaining how Chrome enterprise policies restrict extension debugging capabilities.* (8 returned)
+  - `"chrome.debugger" (restrictions OR "managed browsers") site:developer.chrome.com/docs/extensions` — *Searches official Chrome Extension release notes, enterprise policy guides, and developer updates regarding debugger target restrictions.* (1 returned)
+  - `"Host access is restricted by policy" chrome.debugger (issues OR chromium OR error)` — *Identifies community forum discussions, Chromium bug tracker threads, and extension developer workarounds for enterprise debugger restrictions.* (3 returned)
+  - `"chrome.debugger" enterprise policy alternative ("chrome.scripting" OR "declarativeNetRequest")` — *Discovers developer migration strategies, sentiment, and best practices transitioning from chrome.debugger to higher-level extension APIs in enterprise environments.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
+- **Twitter / X API v2:** *found 7 tweet(s)*
+- **Dev.to Community Blogs:** 11 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 result(s) found — **0 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
 - **NPM Registry:** 5 result(s) found — **0 verified relevant**
-- **Web Platform Tests (wpt.fyi):** 413 item(s) inspected
+- **Web Platform Tests (wpt.fyi):** 414 item(s) inspected
 
 ### Content Inspected
 

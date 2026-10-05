@@ -1,6 +1,6 @@
 # Deprecate and Remove: document.requestStorageAccessFor
 
-> **Report Week:** 2026-W40 | **Milestone:** Chrome 153 | **Category:** Deprecated
+> **Report Week:** 2026-W41 | **Milestone:** Chrome 153 | **Category:** Deprecated
 
 ## Overview
 
@@ -15,42 +15,31 @@ Our metrics suggest that almost all of the usage of rSAFor is from websites that
 
 ## Ecosystem Status
 
-- **Momentum:** High (460 points)
+- **Momentum:** High (450 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Positive / High Interest
-- **Executive Take:** Deprecate and Remove: document.requestStorageAccessFor is currently Deprecated in Chrome 153. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
+- **Sentiment:** Neutral
+- **Executive Take:** document.requestStorageAccessFor (rSAFor) was introduced by Chrome as a proprietary extension to the Storage Access API, allowing top-level sites to request unpartitioned cookie access on behalf of embedded origins within Related Website Sets (RWS). Following Google's pivot to retain third-party cookies rather than execute an outright phaseout, Chrome is deprecating and removing rSAFor alongside RWS due to niche adoption and the absence of cross-engine momentum. Its removal eliminates an engine divergence and restores standard, cross-browser cookie access workflows around iframe-driven Storage Access API patterns.
 
 ### Recommendations
+- Actionable Advice: Immediately audit codebases to eliminate any invocations of document.requestStorageAccessFor and decommission reliance on Related Website Sets. Migrate embedded cross-origin flows to the standard iframe-level document.requestStorageAccess() API or adopt partitioned cookies using CHIPS (Cookies Having Independent Partitioned State).
 - Marked for deprecation in Chrome 153. Audit codebases and migrate to modern standard alternatives.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGbdV7i1b8HJPyjCr0ZVKDIm77NvArwLvpxiDhLOxJkB4FWVfGRIRIRCqje9qVmCRbuYsiD4iNWdiLbK9v6nfutHKIrBD5UuR-8uy-kz8r5jl65Cu8uewDxt9h9kDSefIYybwHM0wsq) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEYopq6vfCt4_Ab_fBhMUx9xB17bDgF0EjdqIfAx-XypCUWNUj4u0Iw0kiCw6hifqgc81ALMF60iBFDxGXHKxJ3N3aO-Ritpiq2Tb7W7_7tqFTCrWOHKu1beDptvHKvRJPHdxTkCgUazsTW) *(vertexaisearch.cloud.google.com)*
-  > GitHub - privacycg/requestStorageAccessFor: A proposed extension to the Storage Access API and discussion of how it may be integrated with First-Party Sets. · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up...
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHi8NfxEc2QtFe4mZeguLa7xaLKoXh3KeOrDS1TqFDyaYmNISFaxDl4t5_6cLU1jtNbwVv46mUP_3hQXRaaAwCf1tMJb-QHXU2ltvcgNhVlv080Qgx_7HhEBRZvNEp1F5fnN6UeWWMu) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [chromium.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4_PnbLD17o99rtaSdUgYoBFeMPhA1-_zElzfE1yiQBMxKOFobxd699JcP7fmexFKbh4CLxwdTsF3cx3-ZeG_JHS1GDnQXsl1rX64zq3N9AtLrUDUVc7Kuo5Q9SOjSVhJ9bOOu-s0NpQ==) *(vertexaisearch.cloud.google.com)*
-  > Chromium Sign in
-- [googleusercontent.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEr6SgjBtYw45kVOFURE2BAEmYHtcLuTjYRoZqDqWvPOqF7RTe5G_unL2yS1lLEfOYffI9ncIXJE1WEYsOp_MuMb34job_zGt_txr72PT4MMi_pzyzL5cmhLjy51XBjHBdHjIgnHTWJ32cj9n_Wsjg8xdOS0JoLRASP3gPKlaYj) *(vertexaisearch.cloud.google.com)*
-  > Google Issue Tracker Sign in
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpNbEKftT9EMh4oDBn8lN5U0fzQZupc5rLpjLsXD8s91C9T74emCRuFrPEy2CLT9CjCfZ8Vhw6VdPqHP6KjO2MVuWZ78GgEI2BL_Da5YVJYVb0M1pNP0wd67l4NBVW6kjbp7fl) *(vertexaisearch.cloud.google.com)*
-  > Chrome 153 | Release notes | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภาษาไทย 中...
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFh-_LSQyBqpu8IhewatGTfGHmIFXsu5_hf9YIYM__dUx2v0D2JBRfz9hxGLxMd924WF0z6_VW7hcQsobZAMCPPCQVBbWvS3edfwIE_-8tbwSkZeCqgIR16RfC0smMEo7RsWa42hOgN) *(vertexaisearch.cloud.google.com)*
-  > Chrome 144 Beta 版 | Blog | Chrome for Developers 跳至主要內容 / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภาษาไทย 中文 – 简体 中文 – 繁體 日...
-- [leapbuzz.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH2ndrzdemuwGOvPFZGyt6lPKr_LIqHnAHFymFiBKQkvRkH6kxSHSGDT0ZbkPtsonfbGaTOgSYegfUL8AUje4RyWxCW2mRrBQ9nEWjYGbLkwTU0y2zQwlQSg76IAjvHTVbqHTGRwt1nTNypRaDskf245jDFWkU=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Deprecation  The **`document.requestStorageAccessFor` (rSAFor)** API was introduced by Google Chrome as an extension to the standard Storage Access API (SAA). While the standard SAA requires an embedded `<iframe>` to call `document
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF0HVKagjCmFhYa2coZ8C9tGVJeIqr3DpY1gLfFSTXTZdAueNDTwgPsFN3OeLsOCno6NUXFVRJpbaTFVH696iuFt6Yt30W8lc7QFfbUU_k1xh976fi7pbydLmyZamIzXMGackyEFClda6yLaPYezjdCPRyc1TWyOYdNGVnYuNkQx5WtIx0Wf3Q=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Deprecation  The **`document.requestStorageAccessFor` (rSAFor)** API was introduced by Google Chrome as an extension to the standard Storage Access API (SAA). While the standard SAA requires an embedded `<iframe>` to call `document
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHUq8a--JQp1p_6NCO_hQwzP9UdK7_WuMrNFVi9lVhPx79UQv9UjV9DlBt0lQxm7v8iNb1D2YbJbUzh9mM1ngxQVeWu2cJX6Fisr5g_EnSHJS2wrW6emXcEk3SFPzd3s9jefZaILiCFO7_MixHsDQ4IOLGslYyEkAhq) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Deprecation  The **`document.requestStorageAccessFor` (rSAFor)** API was introduced by Google Chrome as an extension to the standard Storage Access API (SAA). While the standard SAA requires an embedded `<iframe>` to call `document
-- [tinuiti.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGq08YASuPgX_ScQLdWEOmi71q11dYCh1uQV-MLrtVy77qhK4v6zMrQt7vKQRK0wt9IfE55aGUHi-cii9IVmiGgQany-3YX7BthYrPIiSP_TizMomRcHbv5GSK6pLRE1jO0ChiijKjVAc1bA5XH1DtKSXM8rzwxXsZXc-o=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Deprecation  The **`document.requestStorageAccessFor` (rSAFor)** API was introduced by Google Chrome as an extension to the standard Storage Access API (SAA). While the standard SAA requires an embedded `<iframe>` to call `document
-- [winaero.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF7UmnIvznuDb6Iv-MVfHn5eudtLqC9MPMxfQnZiNmDNLycYS53bmUfgE6Q3Sbov_uAAn9bEynTOK7LhW44HzoqYFzIgnD8J0CjNl_6LatUlkYgwm4CHtcPvJxc6AU90S136ydgaCqhX1cmYLyi6KCkrFMhWXtFF88SAJww) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Deprecation  The **`document.requestStorageAccessFor` (rSAFor)** API was introduced by Google Chrome as an extension to the standard Storage Access API (SAA). While the standard SAA requires an embedded `<iframe>` to call `document
+- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_5ka4a_8B_qZ8u5CIzWWLjLk1u6R2t0T3CgLdN3TE58jK9HRBvEqPUaCMzLVeCIM4rJUi2WSoZmTxUwR5QezUFOBqvSJYCdoi5-xFFxNFlQR2zy7pC-jS4fztmFjOC6e_MqMjOQxUqKugL3UxdijZH05yZ3OzwiBF7z2y9vgjhUBTv9hHlWc=) *(vertexaisearch.cloud.google.com)*
+  > Document: requestStorageAccessFor() method - Web APIs | MDN Skip to main content Skip to search Toggle sidebar Web Web APIs Document requestStorageAccessFor() Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) ...
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQElBtDMIUVOYpcDeO2IAN2MLTRxJuu_pay-kx4vJgTA4E1ePhZ-xbtH9X3mgg2LlXExfnEpMZhEBCokf_ruZllkCiaUFznkCIwGP2p9BsZLsHb_J3o8ogB6Bg9bqLQWZjAikELMyeQ7) *(vertexaisearch.cloud.google.com)*
+  > ### Summary  **`document.requestStorageAccessFor` (rSAFor)** was introduced as a Chromium-specific extension to the standard Storage Access API (SAA). It allowed a top-level page to proactively request unpartitioned cookie access on behalf of embedde
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEV9zWJ0QSt3l9gM5cP_wDSS0KAamhk6lZwrOKXlz4bkW-DU6Z-FPqhuzhYLibbifpGWbFv0IE3Qr0nWxepHKGPY4h1gdgZZDXEtnw2Un2l-l9hj_jvzEU-9HJ2QcuJAuDOpyqickVzUgq44Xeh8HQ2cSo0noVPGw==) *(vertexaisearch.cloud.google.com)*
+  > ### Summary  **`document.requestStorageAccessFor` (rSAFor)** was introduced as a Chromium-specific extension to the standard Storage Access API (SAA). It allowed a top-level page to proactively request unpartitioned cookie access on behalf of embedde
+- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHr6Llre7WCew7vXKHszAYACw_-7XLz54IV5nqvAGVENGBZNri-hHXrVK4nrw8d_F6aZ65DvfiDU9EachjpoytPPaWjPeoI7ziKfEpHpPmuUnFiNuSuynSLBxSjTma9RlV0IBib58gucnslwIg6D5Gpks1BmW6aEMg1) *(vertexaisearch.cloud.google.com)*
+  > ### Summary  **`document.requestStorageAccessFor` (rSAFor)** was introduced as a Chromium-specific extension to the standard Storage Access API (SAA). It allowed a top-level page to proactively request unpartitioned cookie access on behalf of embedde
+- [xt.pt](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHsUeQp_rnOxhDp4r9Gbyz62cliTtli-Jd_U8z9HfgbjEANlzmWpYP698GtbEkqP_faoXUphQO_Hs3Es2_bAactW3h5pCasldJNCTuEc3ME3E0m6lNcBg84JDOMbVD_ICZlwa_Nm3s1jfu0ieTESLiepC50T5fljuHAvIeLFA5FAV7I7ZrJ7lR0Q-nKBAZJelS3D-8WS0i_qbtjq3bU) *(vertexaisearch.cloud.google.com)*
+  > ### Summary  **`document.requestStorageAccessFor` (rSAFor)** was introduced as a Chromium-specific extension to the standard Storage Access API (SAA). It allowed a top-level page to proactively request unpartitioned cookie access on behalf of embedde
+- [winaero.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGdekF5PrxwYiIjD6iES6ooq5TosoE9a6_PzVCuoWhDG6MBPjHzR35dNDFRv-xmf4vgFULOJXV7kTtbMk8AXqhby74pVpkEVtGo0i50cf42O4-K9f4VcchLUueb9VTg79Npi5MnEtFw_h-naDLZFTL2MoflVzSddihsy-to) *(vertexaisearch.cloud.google.com)*
+  > ### Summary  **`document.requestStorageAccessFor` (rSAFor)** was introduced as a Chromium-specific extension to the standard Storage Access API (SAA). It allowed a top-level page to proactively request unpartitioned cookie access on behalf of embedde
 - [Intent to Deprecate and Remove: document.requestStorageAccessFor](https://groups.google.com/a/chromium.org/g/blink-dev/c/bqHGZYHWxnQ) *(groups.google.com)*
   > Apologies, I used the wrong Chromestatus link (the original feature status), this one is correct: https://<strong>chromestatus.com/feature/5162221567082496</strong>
 - [\[blink-dev\] Intent to Deprecate and Remove: document.requestStorageAccessFor](http://www.mail-archive.com/blink-dev@chromium.org/msg15142.html) *(mail-archive.com)*
@@ -58,37 +47,49 @@ Our metrics suggest that almost all of the usage of rSAFor is from websites that
 - [Re: \[blink-dev\] Re: Intent to Deprecate and Remove: document.requestStorageAccessFor](http://www.mail-archive.com/blink-dev@chromium.org/msg17072.html) *(mail-archive.com)*
   > This allows for &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; use of &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; the Storage Access API by top-level sites. Following Chrome&#x27;s &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; announcement &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; that the curren...
 - [\[blink-dev\] Re: Intent to Deprecate and Remove: document.requestStorageAccessFor](http://www.mail-archive.com/blink-dev@chromium.org/msg15145.html) *(mail-archive.com)*
-  > This allows for use of the &gt; Storage ... approach to third-party cookies will be maintained, <strong>we are now &gt; planning to deprecate and remove rSAFor, as it is only usable in Chrome to &gt; request storage access between RWS sites</strong>....
+  > This allows for use of the &gt; Storage Access API by top-level sites. Following Chrome&#x27;s announcement that &gt; the current approach to third-party cookies will be maintained, we are now &gt; planning to deprecate and remove rSAFor, as <strong>...
 - [Search Conversations](https://groups.google.com/a/chromium.org/g/blink-dev/search?q=%22Intent+to+Deprecate+and+Remove%22) *(groups.google.com)*
   > [blink-dev] Intent to Deprecate and Remove: Attribution Reporting API · steps 2 and 3. /Daniel On 2026-06-26 10:21, Yoav Weiss (@Shopify) wrote: &gt; LGTM2 &gt; &gt; On Thu, Jun 25, 2026 at 11:12 PM Chris Harrelson &gt; wrote: &gt; &gt; LGTM1 &gt; &g...
 - [Google Privacy Sandbox API deprecations](https://learnfocus-sigma.vercel.app/?page=en-git-mdn-browser-compat-data-1762585883240) *(learnfocus-sigma.vercel.app · 2025-11-07T16:01:04)*
   > A number of Google Privacy Sandbox APIs are now deprecated. This is a blanket bug for covering these changes. Chromium (Chrome, Edge 79+, Opera, Samsung Internet) ... Intent to Deprecate and Remove: document.requestStorageAccessFor Intent to Deprecat...
-- [Related Website Sets: developer guide \| Privacy Sandbox](https://privacysandbox.google.com/cookies/related-website-sets-integration) *(privacysandbox.google.com · 2024-02-06T00:00:00)*
-  > If your application depends on access to cross-site cookies (also called third-party cookies) across sites within the same Related Website Set, you can use Storage Access API (SAA) and the requestStorageAccessFor API to request access to those cookie...
 - [Storage Access API \| Privacy Sandbox - Google](https://privacysandbox.google.com/cookies/storage-access-api) *(privacysandbox.google.com · 2023-12-15T00:00:00)*
   > Important: Storage Access Headers cannot be used to request the initial permission. Websites still need to embed an iframe calling document.requestStorageAccess() or document.requestStorageAccessFor() within Related Website Sets to request user permi...
 - [Storage Access API \| Privacy Sandbox \| Google for Developers](https://developers.google.com/privacy-sandbox/3pcd/storage-access-api) *(developers.google.com · 2023-12-15T00:00:00)*
   > For example, images or scripts which are restricted by cookies, which site owners may want to include directly in the top-level document rather than in an iframe. To address this use case Chrome has proposed an extension to the Storage Access API whi...
+- [Storage Access API for Embedded Content \| BotBrowser Blog](https://botbrowser.io/en/blog/storage-access-api-and-embedded-content) *(botbrowser.io · 2026-10-02T00:00:00)*
+  > A feature check such as &#x27;requestStorageAccess&#x27; in document tells you that the method exists. It does not tell you whether the call will prompt, resolve silently, or reject. Consult the compatibility tables on MDN and vendor guidance such as...
+- [Updates to the Storage Access API \| WebKit](https://webkit.org/blog/11545/updates-to-the-storage-access-api) *(webkit.org · 2021-02-10T18:29:51)*
+  > If a request for storage access is granted to embedee.example, access is now granted to all embedee.example resource loads under the current first party webpage. This includes sibling embedee.example iframes but also other, non-document resources.
 - [How to Deprecate a REST API: The Complete Developer's Guide - Zuplo](https://zuplo.com/learning-center/deprecating-rest-apis) *(zuplo.com · 2024-10-24T00:00:00)*
-  > Deprecating an API endpoint involves <strong>updating your API documentation and specifications to indicate the deprecation</strong>. ... paths: /v1/old-endpoint: get: deprecated: true summary: &quot;Deprecated endpoint for retrieving user data&quot;...
+  > API Deprecation is the process of signaling to developers that an API, or a part of it (ex. endpoint or field), is scheduled to be discontinued or replaced.
 - [How to deprecate content — Read the Docs user documentation](https://docs.readthedocs.com/platform/stable/guides/deprecating-content.html) *(docs.readthedocs.com)*
   > When you deprecate a feature from your project, you may want to deprecate its docs as well, and stop your users from reading that content. Deprecating content may sound as easy as delete it, but doing that will break existing links, and you don’t nec...
 - [Document API: requestStorageAccess \| Can I use... Support tables for HTML5, CSS3, etc](https://caniuse.com/mdn-api_document_requeststorageaccess) *(caniuse.com)*
   > &quot;Can I use&quot; provides up-to-date browser support tables for support of front-end web technologies on desktop and mobile web browsers.
+- [Privacy Sandbox History and Timeline - The Third-Party Cookie Phase-Out Plan, Its Reversal, API Deprecation and Removal in Chrome, and What Remains Supported \| hidekazu-konishi.com](https://hidekazu-konishi.com/entry/privacy_sandbox_history_and_timeline.html) *(hidekazu-konishi.com · 2026-10-02T00:00:01)*
+  > Where the deprecation in Chrome 144 is written: The deprecation of Attribution Reporting, Related Website Sets, document.requestStorageAccessFor, and Topics in Chrome 144 is written in the blink-dev Intents and, except for Attribution Reporting, in c...
 - [PWABuilder Suite Documentation - test](https://docs.pwabuilder.com) *(docs.pwabuilder.com)*
   > Documentation for building great progressive web apps with the PWABuilder tooling suite.
 - [Overview \| Magento PWA Documentation](https://magento.github.io/pwa-studio/technologies/overview) *(magento.github.io)*
   > Magento’s PWA Studio is a set of tools that let you create Progressive Web Apps (PWA). This page provides a brief description of a Progressive Web App and its relationship to the PWA Studio project · A Progressive Web App, or PWA, is a term for any w...
 - [Intent to Deprecate and Remove: document.requestStorageAccessFor](https://groups.google.com/a/chromium.org/g/blink-dev/c/bqHGZYHWxnQ/m/Bobim4thBQAJ) *(groups.google.com)*
   > This allows for use of the Storage Access API by top-level sites. Following Chrome&#x27;s announcement that the current approach to third-party cookies will be maintained, we are now planning to deprecate and remove rSAFor, as <strong>it is only usab...
-- [Related Website Sets: developer guide \| Privacy Sandbox](https://developers.google.com/privacy-sandbox/cookies/related-website-sets-integration) *(developers.google.com · 2024-02-06T00:00:00)*
-  > If your application depends on ... the same Related Website Set, you can <strong>use Storage Access API (SAA) and the requestStorageAccessFor API to request access to those cookies</strong>....
-- [Related Website Sets: developer guide \| Privacy Sandbox \| Google for Developers](https://developers.google.com/privacy-sandbox/3pcd/related-website-sets-integration) *(developers.google.com · 2024-02-06T00:00:00)*
-  > If your application depends on ... the same Related Website Set, you can <strong>use Storage Access API (SAA) and the requestStorageAccessFor API to request access to those cookies</strong>....
+- [First-Party Sets: developer guide - Chrome Developers](https://developer.chrome.com/en/docs/privacy-sandbox/first-party-sets-integration) *(developer.chrome.com · 2023-01-12T00:00:00)*
+  > To address this, Chrome has implemented a way for top-level sites to request storage access on behalf of specific origins with Document.requestStorageAccessFor() (rSAFor).
 - [Related Website Sets: developer guide - Chrome for Developers](https://developer.chrome.com/docs/privacy-sandbox/related-website-sets-integration) *(developer.chrome.com)*
-  > If your application depends on ... the same Related Website Set, you can <strong>use Storage Access API (SAA) and the requestStorageAccessFor API to request access to those cookies</strong>....
-- [Intent to Ship: Storage Access API (within First-Party Sets)](https://groups.google.com/a/chromium.org/g/blink-dev/c/V9PzoCvIIIs/m/b4R9G0xoCQAJ) *(groups.google.com)*
-  > To provide better developer ergonomics in non-iframe use cases for access to cross-site cookies within a first-party set, we intend to ship an extension to the Storage Access API called &quot;<strong>requestStorageAccessFor</strong>&quot; (see relate...
+  > Note that to protect the integrity of the embedded origin, this checks only permissions granted by the top-level document using <strong>document.requestStorageAccessFor</strong>.
+- [The origin private file system \| Articles \| web.dev](https://web.dev/articles/origin-private-file-system) *(web.dev · 2023-06-08T00:00:00)*
+  > When you think of files on your computer, you probably think about a file hierarchy: files organized in folders that you can explore with your operating system&#x27;s file explorer. For example, on Windows, for a user called Tom, their To Do list mig...
+- [Storage for the web \| Articles \| web.dev](https://web.dev/articles/storage-for-the-web) *(web.dev · 2024-09-23T00:00:00)*
+  > Safari (both desktop and mobile) appears to allow about 1GB. When the limit is reached, Safari will prompt the user, increasing the limit in 200MB increments. I was unable to find any official documentation on this.
+- [Re: \[blink-dev\] Re: Intent to Deprecate and Remove: document.requestStorageAccessFor](http://www.mail-archive.com/blink-dev@chromium.org/msg17078.html) *(mail-archive.com)*
+  > False Estimated milestones Deprecate in M144, and target M150 for removal. Link to entry on the Chrome Platform Status https://chromestatus.com/feature/5122534152863744 This intent message was generated by Chrome Platform Status &lt;https://chromesta...
+- [Privacy Sandbox feature status](https://privacysandbox.google.com/overview/status) *(privacysandbox.google.com · 2026-08-14T00:00:00)*
+  > Intent to Deprecate and Remove: document.requestStorageAccessFor · Including requestStorageAccessFor and Related Website Partition. Chrome Platform Status. Scheduled for phaseout. Explainer: Mitigating API Misuse for Browser Re-Identification. ... Ch...
+- [Intent to Deprecate and Remove: Related Website Sets (RWS)](https://groups.google.com/a/chromium.org/g/blink-dev/c/V-wPXyoruac) *(groups.google.com)*
+  > to Daniel Bratell, Mike Taylor, Rick Byers, blink-dev, Sathish Manickam, Kaustubha Govind · Hey, all, wanted to share a brief update on our progress here. As noted in my original email, our target to remove Related Website Sets and requestStorageAcce...
+- [Privacy Sandbox feature status](https://archive.is/YsOVp) *(archive.is · 2025-12-21T04:27:11)*
+  > Intent to Deprecate and Remove: document.requestStorageAccessFor · Including requestStorageAccessFor and Related Website Partition. Chrome Platform Status. Scheduled for phaseout. Explainer: Mitigating API Misuse for Browser Re-Identification. ... Ch...
 
 ## 🔗 Inbound Citations & Reverse Links
 
@@ -102,16 +103,15 @@ The following external publications and discussions explicitly link to or cite t
 - [Document: requestStorageAccess() method - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/requestStorageAccess) *(developer.mozilla.org)*
 - [content/files/en-us/web/api/document/requeststorageaccess/index.md at main · mdn/content](https://github.com/mdn/content/blob/main/files/en-us/web/api/document/requeststorageaccess/index.md) *(github.com)*
 - [content/files/en-us/web/api/document/hasstorageaccess/index.md at main · mdn/content](https://github.com/mdn/content/blob/main/files/en-us/web/api/document/hasstorageaccess/index.md) *(github.com)*
-- [Storage Access API - MDN Web Docs - Mozilla](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API) *(developer.mozilla.org)*
 - [Document: requestStorageAccessFor() method - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/requestStorageAccessFor) *(developer.mozilla.org)*
-- [Document: hasStorageAccess() method - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/hasStorageAccess) *(developer.mozilla.org)*
-- [Remove PWA Category · Issue #15535 · GoogleChrome/lighthouse](https://github.com/GoogleChrome/lighthouse/issues/15535) *(github.com)*
-- [magento-pwa/CHANGELOG.md at 2.3-develop · luke-denton-aligent/magento-pwa](https://github.com/luke-denton-aligent/magento-pwa/blob/2.3-develop/CHANGELOG.md) *(github.com)*
+- [Storage Access API - MDN Web Docs - Mozilla](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API) *(developer.mozilla.org)*
 - [GitHub - privacycg/requestStorageAccessFor: A proposed extension to the Storage Access API and discussion of how it may be integrated with First-Party Sets. · GitHub](https://github.com/privacycg/requestStorageAccessFor) *(github.com)*
-- [requestStorageAccessFor/index.bs at main · privacycg/requestStorageAccessFor](https://github.com/privacycg/requestStorageAccessFor/blob/main/index.bs) *(github.com)*
+- [Remove PWA Category · Issue #15535 · GoogleChrome/lighthouse](https://github.com/GoogleChrome/lighthouse/issues/15535) *(github.com)*
+- [Related Website Sets - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API/Related_website_sets) *(developer.mozilla.org)*
+- [chrome-storage-access-api/README.md at main · cfredric/chrome-storage-access-api](https://github.com/cfredric/chrome-storage-access-api/blob/main/README.md) *(github.com)*
 - [related-website-sets/RWS-Submission\_Guidelines.md at main · GoogleChrome/related-website-sets](https://github.com/GoogleChrome/related-website-sets/blob/main/RWS-Submission_Guidelines.md) *(github.com)*
-- [Should the RWP API be disallowed when the user is visiting an RWS service domain? · Issue #2 · explainers-by-googlers/related-website-partition-api](https://github.com/explainers-by-googlers/related-website-partition-api/issues/2) *(github.com)*
 - [Consider requestStorageAccessFor Method · Issue #107 · privacycg/storage-access](https://github.com/privacycg/storage-access/issues/107) *(github.com)*
+- [requestStorageAccessFor/index.bs at main · privacycg/requestStorageAccessFor](https://github.com/privacycg/requestStorageAccessFor/blob/main/index.bs) *(github.com)*
 - [Reputation attack on third parties through rSAFor prompts · Issue #29 · privacycg/requestStorageAccessFor](https://github.com/privacycg/requestStorageAccessFor/issues/29) *(github.com)*
 - [Consider patching up permissions query algorithm for "storage-access" to consider "top-level-storage-access" · Issue #18 · privacycg/requestStorageAccessFor](https://github.com/privacycg/requestStorageAccessFor/issues/18) *(github.com)*
 
@@ -119,19 +119,19 @@ The following external publications and discussions explicitly link to or cite t
 
 ### Searches Executed
 
-- **Brave Search:** 49 result(s) found across 11 planned queries — **34 verified relevant**
+- **Brave Search:** 50 result(s) found across 11 planned queries — **39 verified relevant**
   - `"chromestatus.com/feature/5162221567082496" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
-  - `"privacycg.github.io/requestStorageAccessFor" -site:privacycg.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (1 returned)
+  - `"privacycg.github.io/requestStorageAccessFor" -site:privacycg.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (0 returned)
   - `"Deprecate and Remove: document.requestStorageAccessFor" API` — *Core feature API query* (6 returned)
-  - `"Deprecate and Remove: document.requestStorageAccessFor" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (6 returned)
+  - `"Deprecate and Remove: document.requestStorageAccessFor" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"document.requeststorageaccessfor" OR "0.95" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Deprecate and Remove: document.requestStorageAccessFor" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"Deprecate and Remove: document.requestStorageAccessFor" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"document.requestStorageAccessFor" (github OR gist OR example OR snippet)` — *Find real-world JavaScript code snippets and GitHub implementations demonstrating the invocation of document.requestStorageAccessFor.* (8 returned)
-  - `"requestStorageAccessFor" "intent to deprecate and remove" OR "deprecated" chromium` — *Identify official Chromium intent announcements, tracker bugs, and browser vendor updates regarding the deprecation and removal of the API.* (8 returned)
-  - `"requestStorageAccessFor" ("Related Website Sets" OR RWS) (guide OR tutorial OR migration)` — *Discover developer documentation, explainers, and migration strategies transitioning away from requestStorageAccessFor.* (6 returned)
-  - `"requestStorageAccessFor" site:groups.google.com/a/chromium.org OR site:github.com/privacycg` — *Capture standards discussions, developer feedback, and PrivacyCG deliberations surrounding the deprecation of requestStorageAccessFor.* (8 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 12 result(s) found — **12 verified relevant**
+  - `"document.requestStorageAccessFor" site:developer.chrome.com OR site:web.dev` — *Finds official Chrome guides, documentation, and deprecation notices regarding requestStorageAccessFor and migration strategies.* (5 returned)
+  - `"document.requestStorageAccessFor" (promise OR then OR catch) ("Related Website Sets" OR RWS)` — *Locates concrete JavaScript code examples and implementation patterns showing how sites handle requestStorageAccessFor promises within Related Website Sets.* (6 returned)
+  - `"requestStorageAccessFor" "Intent to Deprecate and Remove" OR "Intent to Remove" blink-dev` — *Surfaces the Blink developer intent thread, web platform release announcements, and browser vendor timelines for API phase-out.* (8 returned)
+  - `"requestStorageAccessFor" site:github.com/privacycg OR site:github.com/GoogleChrome` — *Retrieves developer discussions, spec issues, and consensus tracking on the PrivacyCG repository and Chromium tracking issues.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 13 result(s) found — **6 verified relevant**
 - **Twitter / X API v2:** *HTTP 400*
 - **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
@@ -146,7 +146,7 @@ The following external publications and discussions explicitly link to or cite t
 - **Specification:** ✔ Formally verified
 - **Explainers:** 0 document(s) analyzed
 - **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 7 page(s)
+- **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links
 
