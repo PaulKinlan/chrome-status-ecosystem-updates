@@ -1,6 +1,6 @@
 # Responsively-sized &lt;iframe&gt;
 
-> **Report Week:** 2026-W38 | **Milestone:** Chrome 154 | **Category:** Enabled by default
+> **Report Week:** 2026-W41 | **Milestone:** Chrome 154 | **Category:** Enabled by default
 
 ## Overview
 
@@ -13,17 +13,18 @@ render the iframe content so that it looks seamless with the parent frame and av
 
 ## Ecosystem Status
 
-- **Momentum:** High (655 points)
+- **Momentum:** High (375 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Cautiously Optimistic
-- **Executive Take:** Responsively-sized iframes address one of the longest-standing developer friction points by allowing embedders to size &lt;iframe&gt; elements to their child document's content height and width without inner scrollbars. Chromium is shipping the capability enabled by default in Chrome 154 via CSS Box Sizing Module Level 4 primitives (such as the frame-sizing property and child document opt-ins). However, Gecko and WebKit have not yet committed to implementations or published official consensus, leaving the feature currently Chromium-exclusive.
+- **Executive Take:** Responsively-sized &lt;iframe&gt; support (featuring the CSS \`frame-sizing\` property, \`&lt;meta name="responsive-embedded-sizing"&gt;\` two-way opt-in, and \`window.requestResize()\`) shipped enabled by default in Chrome 154 under the CSS Box Sizing Module Level 4 draft. It natively resolves a decades-old web development headache—seamless embed sizing without scrollbars—yet currently remains an engine-isolated feature awaiting broader specification consensus. With W3C TAG review ongoing and neither Gecko nor WebKit having finalized positions, cross-browser interoperability is not yet established.
 
 ### Recommendations
-- Actionable Advice: Do not remove existing postMessage-driven iframe resizing solutions just yet, as native responsive iframe sizing is unsupported outside Chromium browsers. Evaluate the feature in Chromium-based test environments, but adopt it in production solely through progressive enhancement alongside fallback resizing mechanisms.
+- Actionable Advice: Adopt responsively-sized iframes purely as a progressive enhancement today by pairing \`frame-sizing\` and the embedded \`&lt;meta&gt;\` opt-in for modern Chromium browsers while strictly maintaining legacy \`postMessage()\` communication channels for Firefox and Safari. Avoid applying the wildcard origin tag (\`allow-origins=\*\`) to authenticated or sensitive embedded documents.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Standards Activity (Mozilla): Latest discussion from @emilio: "For context, a lot of the discussions here:   \* https://github.com/w3c/csswg-drafts/issues/1771  \* https://github.com/w3c/csswg-drafts/issues/13584  \*..."
 - Standards Activity (W3C TAG): Latest discussion from @dandclark: "Thanks for sending this to the TAG! We had a few points of feedback.  One is that the opt-in from the iframe isn't scoped in any way. The explainer \[p..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+- Verified community discussion on Twitter / X: "New in Chrome 154 \| Chrome for Developers (@ChromiumDev) on X" (0 points, 0 comments).
 
 ## Standards Positions
 
@@ -31,144 +32,96 @@ render the iframe content so that it looks seamless with the parent frame and av
 - **Mozilla:** [Responsively-sized iframes](https://github.com/mozilla/standards-positions/issues/1394) [open]
 - **W3C TAG:** [Other Spec Review: Responsively-sized iframes](https://github.com/w3ctag/design-reviews/issues/1223) [open]
 
+## Community Discussions & Social Pulse
+
+- 🐦 **Twitter / X:** [New in Chrome 154 \| Chrome for Developers (@ChromiumDev) on X](https://x.com/ChromiumDev/article/2102804599325528424) — *0 likes/RTs, 0 replies*
+- 🐦 **Twitter / X:** [Chrome for Developers (@ChromiumDev) on X](https://x.com/ChromiumDev/status/2102804599325528424) — *by @ChromiumDev, 0 likes/RTs, 0 replies*
+
 ## 📰 Ecosystem Blogs & Articles
 
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGygF1kRkHmsiY2qYFok0D_o-_1gyxA93-0oquMSQDHoJCB7N50rdi4dFGWtlAbYIpoks2x8j3CpXJW42fRMI6J_y9ltcJdwUUHxrLXqbZO4yTFiKENZTTrxM697rWX-Q_VYQBF99fv) *(vertexaisearch.cloud.google.com)*
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEvj6hHeBNtQVUK-UT5b5IfjXDp2xEicjozBVQFNfbGoWuvGEcl5OMwiwnSCcWFuTvdKLqbvhHmwjwq8N0iaBYysyb6C_mdKIV-sFSBmSd0hVMplCurfIsVbYGSCrYK6d5BtJANovUoPgc=) *(vertexaisearch.cloud.google.com)*
+  > جدید در کروم ۱۵۴ | Blog | Chrome for Developers رد شدن و رفتن به محتوای اصلی / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภาษา...
+- [daily.dev](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqMPLExEvT-SKlju5qNia_E0ekccOdsclR_ZIdSd18ehbtkQR-kpGlGpJaHOLDy2xTmbSoX06IYKNP3bf9IhDRa7wxa3-pabI3SxfGRTGB60sj-Hbqs4T7aPV7wX2uVeK6WABFvebjN-xPeKquJzfTVEji4f75pOw31h4BS6Dnsn-0QtxEWKShyYgGe84R-kbuUZmCcyWofR_DLTwBPVmxAlXrKaHl) *(vertexaisearch.cloud.google.com)*
+  > New in Chrome 154: iframes that automatically resize... Bram.us Read post New in Chrome 154: iframes that automatically resize themselves to their content Chrome 154 introduces responsively-sized iframes, allowing an iframe to automatically resize to...
+- [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEqQ4LNOfHuQq9TB7jXItOgpKDb16wed37Jd5b1c-6PzWjI1R7sCcrGSz4jAAGyw-QIvdRIiCCmPlWG_1kt2yhcmPz9xJLQhtOaQ_ai5zXoPYfmNUxovB11zmjMRlpTqQCVGlq0DgqnDBJThSmPN4djyq4kmVG0_AeIgHk7jARVpWR7Kw==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEHM0vCLZXdUWb0E767Z_U-XR-I-E1C_7gJOcQfteajpF4FeV77gxu0atVNfPKFqMTqemqdmZJ8Mj1Ux3Z7nari8S5-GS5BELLz8KuEjUSsoVMsboX0hTzmAqOyVfn4X4pnwxtPYVfbA2dH1vy4IvzUlh4jsLy2DUS63ipOT4_dCoKBTbo_) *(vertexaisearch.cloud.google.com)*
+  > Microsoft Edge 154 web platform release notes (Sep. 24, 2026) - Microsoft Edge Developer documentation | Microsoft Learn Skip to main content Skip to Ask Learn chat experience This browser is no longer supported. Upgrade to Microsoft Edge to take adv...
+- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF3Yr4vpBz_Fxal3XCtRHL8CqEBzgar8Ay4crJQ8rYprrrE87Fk63iIk45yXngnLIBQIvkjewZZTR9u7TgFiSjuHhursv7GtKFnmLaQggeZt7u3SQ3iVluZMkX3dCt_vmohy5Vz6EK4) *(vertexaisearch.cloud.google.com)*
   > Chrome Platform Status
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHh2EEM_YKPa7g9G0sk4wAHr7flhiNKJkpuf-Exlk3aMkNnL49VdTdHnYszSpi5IvXJBKS0TjLXyM5Y5qqBhgMzyf0fhfAtzv9DmVcNGzTeqJYYi_ZOkYSrCIUE_hEWVRCsxfyEqjCjnnS3jKe1vQ==) *(vertexaisearch.cloud.google.com)*
-  > Responsively-sized iframes · Issue #653 · WebKit/standards-positions · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your se...
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHhlsADT9jQhH6LBYjbxtIkPc7_GyyBcPLeQGfBrmhaqsJ3xxQ0HWNEgM0lrNtZO5TDbpn8WjqHS6yBFSv9NcWRi5Mbut4rtzWvqgyYwGT8_bnQ--sIkr7GPM2Cxph47wT_bqyXduXMsv_E3XJpE9ysml26WUsGM6gAC1Q=) *(vertexaisearch.cloud.google.com)*
-  > Window: requestResize() method - Web APIs | MDN Skip to main content Skip to search Toggle sidebar Web Web APIs Window requestResize() Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) Window: requestResize() ...
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEFlUHI-6IIbS8j1Ihzlw6oTX8Ih3X5PsuKZNGq7avoij0fHeYIwiQfC_nHHVH0VWc_yzhztnzRQxP6WZ9qfn-svAGM-tj_0qs23EY5iEPwX-_gLOkYnvz48qQmq3Ntqwx3itPkZbOcIkzZVKYi5rWMTX883qTbxZx3Vdpbep_BicUzOZKmSsFKYQoCxNfgbD0=) *(vertexaisearch.cloud.google.com)*
+- [carlana.net](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF_3qUtN-FArs3dv-pF4rdpTlqnUO1zZF_VA2qpArThq3iiz64OXp0Iw84K8EwDuqnLtNZAUKKXQWY5GnPKj08XlUyyvm-f04ED8P09GG9ksITF6-TjDBamhlSEpNwx5EmrsjTu1mgn7tL-3JBnFSeIPT7m_pjNmhlY9hk=) *(vertexaisearch.cloud.google.com)*
+  > Alternate Futures for “Web Components” &#183; The Ethically-Trained Programmer The Ethically-Trained Programmer &mldr; “It should be noted that no ethically-trained software engineer would ever consent to write a DestroyBaghdad procedure. Basic profe...
+- [livecast.co.jp](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHtpQVQ1OlqZi9etO5uc_RSM1ciZtbVnfpZE2xLSngIT4IuMc0dll55Eerb-I0n-R7coIJ0qUaMgGQ6AUBg99iCs5nnwj6yNmHfzTRd3eCSSj-0_PjpE4MuPz7MH1onEZVLzhhRtqIew7o8NU7SJ4n5luEygxEIWaS-VUQ53w==) *(vertexaisearch.cloud.google.com)*
+  > iframe の高さを CSS で合わせる frame-sizing ―― postMessage を外せるのは、どんな条件のときか &#8211; LIVECAST MAGAZINE MAGAZINE HTML/CSS/JS実践 2026.09.18 iframe の高さを CSS で合わせる frame-sizing ―― postMessage を外せるのは、どんな条件のときか 目次 1. 【HTML/CSS/JS】iframe の高さを CSS で合わせる frame-sizing ――...
+- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGsB46OxU1bWcO87KZznW9K-MzLtidYD-YvOo7yBC8ifKn3MyOjRUfjJCw0ROtw7t5gf2CwBIjhz8Sid1LoLWhouSbffSPydEL6sKgk_ZSqZmGbUD7ToXA5vsoCAG2WjOJrGSnP9np2NlcagKcJnvTf8eBixjcZC5Uvv7PhYRPWljKngmL-p7FGYOEMU5OB5A==) *(vertexaisearch.cloud.google.com)*
   > csswg-drafts/css-sizing-4/responsive-iframes-explainer.md at main · w3c/csswg-drafts · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to...
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFJzAlXnv65i03ghjLlDcHM7wWuCLUpU2a9Dxmiul-aX_kLGftMv32uSmTnHxcYMrJqIrTJ1mPVKRSCYfOnWAkGBfoU9gDcdcKWwYGMXdeC8xKXOrbocB7lYEjuPxxUiPThGhhNkhKgda9UQu1-FxKoCx9S25MISy-0Bbs4tSiYYGsiic7V98nnbe2Gu3VzoSk=) *(vertexaisearch.cloud.google.com)*
-  > csswg-drafts/css-sizing-4/responsive-iframes-explainer.md at main · w3c/csswg-drafts · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to...
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQElwUejBUOfJw-iP8RTMPmo5p0hGbmKmBhppMLSwUXqUy43-W59h5j_SrFQf9yhtEJUcuBbAryZbMMkrrpRouUVhPYwAV6QYtQGvTkqlUf2_uUfQD1psBJaFxbg0IA-PtmFR2K1_LMS) *(vertexaisearch.cloud.google.com)*
-  > نسخه بتای کروم ۱۵۴ | Blog | Chrome for Developers رد شدن و رفتن به محتوای اصلی / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภา...
-- [microsoft.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHM8x0aL7maRly7cSTJXrLMfJN4ggqeD9VMR3H-Nc7hat0Re2SNnJ6e9yQS5bqdLFvtTqUsHQmfuUAxT49XmNsyM65rtB4uBEGYVlnY2he28AnGl7MXMep9jTDyLtHCj-_H1MyfMPNb3_XsohoetHLmqRxqjDJc_AlZCq3nMfSnqnwF6Cb1) *(vertexaisearch.cloud.google.com)*
-  > Microsoft Edge 154 web platform release notes (Sep. 2026) - Microsoft Edge Developer documentation | Microsoft Learn Skip to main content Skip to Ask Learn chat experience This browser is no longer supported. Upgrade to Microsoft Edge to take advanta...
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF0tKnzYf4X0-hllTYo-KinIpYlzBh-l-zIPNeNPatUUFkQRcaDDOoS8KsuJ-5pX2jNs506KMbnmIwctwYdiwinPzV5K28w1rXhkJA23neDaFED_5UC_6bnNFVMwn_48wPmIZk2CWHZJWNd58I=) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG7KpB-kTJKyuhRrLKllPn5wyuNA64eUACfnCqSXuM4SLc6WaMKxzeKTlZE11wS-ywJuMzLdnvpm2MTDvql3L9CbH_lz2gXlwV2sVAeGUZDxIfj144en7gaaPUA5g==) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [chromestatus.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEWj1cUuDNKBbTUcXYphT_sWIYG7bg-THqhg6wMSWmf_PgrP5pV9o3P9NFaO-AfpWsh8MblA0YI7XKMBwRMLdDH0fHwThGlY7t3EZ8l9qU2-bms3nmWqsY3rHzUNa7Ry51n2FriImv1) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [appspot.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG-G2IlmLDUkMxeGJeiXFBc0-PPPevBs4OqOoC6ASaqW1WlI_tLY67EgdTVxYfkZFc-yZSWWTa8GkmNV1BnVv7CWJR3k1YdZ167FhBexulcP6PGMsTSPfPdpo_kp_aVfuxr1fRWiPqinm8TT2TwD93dcNogHEljimanuOTICPx2mZZIVG4YVg==) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [pengzhanbo.cn](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEc0LYcwVNEXwScwVZcjpMxvDnvc6zSQ9dnU2kNhXKls9-b23NcZpfxVDlAmyD-XjYf2SZJecLfdm_nKurfvHWnrNsx5LkXme5zGsmlrRs928hj0_k=) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGgrccMVXGTfMHdwblCrnnRlQRYj1I0GFTL-YFyEjsngAKJbLITqY5EQ_mqcVaV5y94Oz52kpDyWk96I-pFt7zuxqqtlMlscG1LUhEpYYT6zq7EtfnUNKw3oBM8BCcWjRRGEi7KVqNMJ45p16Kps85QttjcsvpCklbhvhZszAwXSObMb4kVhcgi) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEIkvOwpTMG9DEMUD5gKCtc35R0hjR35Yx6EsYF1NdVaOAKaa9w01J2q5JeQJv1FKyX7lOSBjUlUrKRu3HqJ14WfBKbMof--PTxR2hlSib5lfFR9NDnVKyBmPR9rPfa8FdlKyYWCEm9AKTMYokn4iuhc-y_Vcx35v5X3_HEI82ddn24H08qHi_3uaVEVmwnbnzrY_iUCKkGSvqB9-jIfSk=) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHJ4WofP6t5eR94EJy2tHW8M81WDPNvR4YAX8wbdLnwFAyrRy2ziR-Js9kXzMITWFgv3nKp3fbg4d0sI-AazeWs8fzEfBdbSp5Z4S0w1x3PgM5H38RnI0I1p_SiQVbBRemywpIGl7YkQr-XVRdnRy3awSEPCsk5e1W2Jg_3SMhSmAMlNV8OSg==) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [css-tricks.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGaY9ON7skHEqhlZlQfHV2exUPECq961gi6bPhW0Y8Ffmy8Ykq0nFiv31kxAVPc6rf5YAu26IdYtkC3bnh1dzjuLf6pa5NFGRf176fvaVc16t5hMAiP1EJ3T1aulvrQ) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [brainstormprojects.studio](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHPfWMbotZWKBj1s3hE2YRTo7kADBpoxKIjj1_75BhXxY7m26Pds2HaIAQ_jsgJ1H9cQOI6XutwYwJ-xkoahLHCd63cxwmy9YQK4Pu1asDJABB7vIyKnpeQUNQoApxmKlxdvIC9FGOz6-lsE9mxeIXdhIG9U_BEZBVFxKJS45Y=) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3GyxhVxIzKCVdcjExplDw65eNvQN101ywwwIpFyHYyTmeyxcs7Zs-YLcOBms4NRTTJ0hqg6DVkclf7kI4t7IdWquWBhQlgp7C-2PzaQObGpfD98gBG-ynKp6iHsTWyWS5UgYXkANKJ6E_3gJYq5uw7w==) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFTnZkmtef0Pvx28tIOvcXI8vEf3guvFcAWFWbgbnZ1g2RBSdxYHwLRtgzzIlGW9m9yC8TRc1NMZhu2z55-zXiBebNSz8zfiBf2k2BNFYvwIOwSUL6Jfbox5WXJembanLBKZ_Q2KcLPp_MNX3D5lirpyw==) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [w3.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHLx18a3riC4BaTHAW5YhNqmU889aCfRUE1md2yViJkgmoVHos5Z3qTHHmDeF590nKqmxJbxgeW8QB2fEJyzbDGyqYuU_qJVqV4N7CuutSR3l9H8EmQSlDV1-9edOWwXNGA2d8pabZl7P44TkieKLcIAQ==) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH1KGpWGYzDmGqT2gPxNFbT81jlipZU4G0octhZOT75ZOGmBBUmzEUhBvPJLA8sFBTIFlfPgBmPKvMTp9kjgaubtz6WccVxyhJNEEVYxAeq8K9reRLXeOzZWcpjGv7bffC2BCKRpu9UofmYwxybVUCj) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFUeoPXk8yuK-p9NKXZHmqJ7nmbADnPHrXeuY8N239ZUQv7UTkNYChN5pA67vjm1YRaZLvGuDTcjcDjl_pESCDDWQx9-AEwpgAEuRs07DVfaiLYEfjz2mdDPaiZVheaWp58Drbv61M=) *(vertexaisearch.cloud.google.com)*
-  > ### Feature Summary: Responsively-Sized `<iframe>`  The **Responsively-sized `<iframe>`** specification (part of the **CSS Box Sizing Module Level 4**) introduces a native, standardized mechanism for embedded `<iframe>` elements to automatically resi
+- [bram.us](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEMoJfr8f81v-uziUrF4xw0uuyAdLBqXI9yYSnfppoctuD8L7jmc8AbiH8ZjB0objzEAiFm0lZD0RpVdJiEc1yJIhQ3Uv5sbcG7S5jDaQcWoZpRrECpQooPtL6L0lwykTsMPjIG1yBRDQ==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHzaCuRjvhDnNb4SZ55X5sPEfG7x_rUjXyNePuzXYXI4stulqECxjA5WwSs4Rg3Z89tmqCYreuE8N9axYAdI5TazTCLwMnrw0xAIYhyJwnrEE4nq2np) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGNrG2GMqGia49BCOZ7imhu8ULZ3avdLwnXPnbVwycLfFkY8x6Dm3KWwrEuK8P3XyXrAzAUXcQ1O6OBmRGZav4dHee7k1V3HRSTshF_gTuw2INC1fcSSKIl2BGWd9rn1znZ6IjkoSq1M7vGCLZ9H6wx8byMm46hbycKQe8OMEhHZp6pN3923S4=) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECJHLQVuyNIa3n9JLqFqo_QmWz5WBnkGvF31o6VgdIVY6dmidtMx7kJFbia4fcTp3FA24T-FwwsK4Ms5kpIXXy-ZZQsM-s2HkG9GkXrFsLFCpM7fnhaAd7Gvc-AK2NrkbrPkzCQ1A1dom7B5c9Ch7oFVDFyiRy6nSPBvt3yxCDKUPBY1QTzyEPLTvb6SkI5ncMNEeVdZr8eUQphKYvew==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGt8XKhxKjxt9GPAytethHhs6DVCYlk4s6NPQ4G62MLPodQg9tMPGXf81L_RngM6SHU-bm2iOvZy45P2p_jRVrJP6uGycCMSd_YFY2a32rDpDrXiOAJGNMwp8SRuORwXQWz5Ure_z_y3M2b4nexhDZIG2uQXN0XvinHgqa3bUTY_X4c-w==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGNf_oROFOo-Xrf8APydfcsAszwNQwtfSDjEHZmpn0ES-CPnVgNTv0H0gnQC_ThB7lA5AAExUvGRyf5ToB0dx6_i6UlY94YQ3Aoc6cq77LnWHlWWfYBSKgXrh0_UhYyoohDy4li1HQ-FBS9A-7esGPImK24OJ9mVaq_VA==) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [bram.us](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHpnB5CxuX2Yhg9NSAXP70de2BgDxqG17eg3s0yv-soQgN5BXD0CDDogDYGXhyYHw5WNKq5zzG1fb3vo83gBg3Z8bQ-Ho9r63ySowt-hVSREM9bsDz-8KbAcbEgVfj0jy51HVGlN0Bv) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [w3.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHl5Ldw6STVQ1khsLpALVScDQbSoSg7DueLu1DxsJDsqs2A-2EIQDlFVWix2pVCAM9uUxS_nBGRjTRY9qL_UT_z9DuLTn45jzgYjEjPOAXID826OD9d90OE) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [daily.dev](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEUZLtiViMn1Ofs_NBR3ob75dpIJI0ACMDYBGYY5gHvH2mO2wUH6Mzjm2oTzrcEEmCMqAYXltFEdwsEZ1Au3RZTwQBCPz36cAUJGB-VoDn8gkCovkzUPhVrvVl68DFSV6Ul-9zvU7PwHF6Z) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [bsky.app](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGjr4mVXXDvJg6qvtr23uzfxucT7CMEcfx3V-KdBhTAEqnKOCurgrjufqtgOCu3IYpVyQz8lkkctvkT6TE6WnlYJNI_XiofGahs9gBHIdtuAvmgbdkSBx1z7TMZB8k=) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [codercops.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFfF3IGtTvW2sJ4JTC_Esa0o5JjV2IIVJvAG4LvsTyopz2tQLYt21SeR-k_ne-8DIm5wNyvuavo4Pdhef6jCKIkfXA3Dua7OtYUUlfH70K1yrwW1Neu0bD1KS18ic5Z4dom6YkI-Xdu4VMZFjDRAPf8SSrP2a87DpCXRkkZX330ulIA7TFInLygOjwqXNLUi0m6XcxawAa2) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [caniuse.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEks3Kkb7wLOjRQvHJrbnhCmw5Ci7hvnn-SJ5bAYJ8KIxXMTOQhrDNGn0f0puIqPSo02peRsOGSPXbGlncCOTwlzTS9YC3iQSMlnihSyW0GiOqizel57R0=) *(vertexaisearch.cloud.google.com)*
+  > ### Overview: Responsively-Sized `<iframe>`  For decades, getting an `<iframe>` to seamlessly match the height or width of its embedded content required JavaScript workarounds (such as `postMessage()` communication, ResizeObserver routines, or librar
+- [New feature: responsively-sized iframes. \[418397278\] - Chromium](https://issues.chromium.org/issues/418397278) *(issues.chromium.org)*
+  > https://<strong>chromestatus.com/feature/5108373464547328</strong> · Links (92) Hide all · “ See: https://<strong>chromestatus.com/feature/5108373464547328</strong> ” · ch...@ #1 · “ Link: https://chromium-review.googlesource.com/6554567 ” · dx...@ #...
 - [Intent to Prototype: Responsive iframes](https://groups.google.com/a/chromium.org/g/blink-dev/c/QirdSBIvM1k/m/rZdHOE59AQAJ) *(groups.google.com)*
   > https://<strong>chromestatus.com/feature/5108373464547328</strong>?gate=5167068974153728 · This intent message was generated by Chrome Platform Status. unread, May 20, 2025, 3:05:41 AMMay 20 ·  ·  ·  · Reply to author · Sign in to reply to author ...
-- [\[blink-dev\] Re: Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13733.html) *(mail-archive.com)*
-  > &gt; Contact emails chri...@chromium.org &gt; &gt; Explainer &gt; https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md &gt; &gt; &gt; Specification None &gt; &gt; Summary &gt; &gt; <strong>Allow sites to opt into...
-- [\[blink-dev\] Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13731.html) *(mail-archive.com)*
-  > Explainer https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md Specification None Summary <strong>Allow sites to opt into iframes having responsive sizing</strong> (sizing the &lt;iframe&gt; element in the parent...
 - [Re: \[blink-dev\] Re: Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13784.html) *(mail-archive.com)*
   > &gt;&gt; &gt;&gt; &gt;&gt;&gt; On Tuesday, 20 May 2025 ...-4/responsive-iframes-explainer.md &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt; Specification None &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt; Summary &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt; <strong>Allow sites to opt i...
+- [\[blink-dev\] Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13731.html) *(mail-archive.com)*
+  > Explainer https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md Specification None Summary <strong>Allow sites to opt into iframes having responsive sizing</strong> (sizing the &lt;iframe&gt; element in the parent...
+- [\[blink-dev\] Re: Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13733.html) *(mail-archive.com)*
+  > &gt; Contact emails chri...@chromium.org &gt; &gt; Explainer &gt; https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md &gt; &gt; &gt; Specification None &gt; &gt; Summary &gt; &gt; <strong>Allow sites to opt into...
 - [Responsively-sized &lt;iframe&gt;](https://chromestatus.com/feature/5108373464547328) *(chromestatus.com · 2025-05-18T00:00:00)*
   > We cannot provide a description for this page right now
-- [How To Create Responsive Iframes](https://www.w3schools.com/HOWTO/howto_css_responsive_iframes.asp) *(w3schools.com)*
-  > .container { position: relative; ... div with full height and width */ .<strong>responsive-iframe { position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; }</strong> Try it Yourself » ... If you want to use ...
-- [Responsive iframe - An easy bug fix](https://project27skills.com/blog/logbook/dev/2023/01/07/iframe.html) *(project27skills.com)*
-  > .responsive-iframe { <strong>position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%; }</strong> That’s it really. Simple and quick solution, which I found on the W3C tutorial site.
-- [How to Implement a Responsive iFrame – ASP Knowledge Base](https://support.asp.events/hc/en-us/articles/32428091778973-How-to-Implement-a-Responsive-iFrame) *(support.asp.events · 2025-12-09T00:00:00)*
-  > <strong>Use a wrapper div around your iFrame to make it responsive</strong>. Example: &lt;div class=&quot;iframe-wrapper&quot;&gt; &lt;iframe src=&quot;https://example.com&quot; title=&quot;Example iframe&quot; allowfullscreen&gt; &lt;/iframe&gt; &lt...
-- [How to make iFrames responsive — Primitus Consultancy](https://www.primitusconsultancy.co.uk/blog/how-to-make-iframes-responsive) *(primitusconsultancy.co.uk · 2025-05-13T18:04:46)*
-  > This tutorial will show you how to make your iframe responsive on Squarespace 7.0 and 7.1.
-- [Responsive iframes: Native CSS aspect-ratio Guide \| Ben Marshall](https://benmarshall.me/responsive-iframes) *(benmarshall.me · 2023-06-21T02:02:21)*
-  > Master cross-browser compliant, responsive iframes using the aspect-ratio property in CSS. Learn this with one code line.
-- [How to make an iframe responsive using HTML + CSS - Michael Sherry](https://www.michaelsherry.com.au/tutorials/how-to-make-an-iframe-responsive-using-html-css) *(michaelsherry.com.au · 2017-09-29T11:56:31)*
-  > Now we just have to style the &lt;iframe&gt; itself. .responsive-video iframe { width: 100%; /*make sure video takes up 100% of the width*/ height: 100%;/*make sure video takes up 100% of the height*/ position: absolute; /*required because container ...
-- [iFrame &gt; how do make the content responsive - Customize with code - Squarespace Forum](https://forum.squarespace.com/topic/328148-iframe-how-do-make-the-content-responsive) *(forum.squarespace.com · 2025-01-29T17:18:47)*
-  > An iframe loads content from another source, but isn&#x27;t aware of the content itself, so if you set the height to 100% it becomes Expand topic overview
-- [How to Optimize Iframes for Responsive Web Design](https://www.mindcatchingdesign.com/responsive-web-design-iframe) *(mindcatchingdesign.com · 2024-09-24T10:10:53)*
-  > Now that you understand how to optimize iframes for responsive web design, it’s time to implement them on your website. Here’s a step-by-step guide: <strong>Define the aspect ratio of your iframe to ensure proper scaling on different screen sizes</st...
-- [CSS Responsive Web Design](https://www.w3schools.com/css/css_rwd_intro.asp) *(w3schools.com)*
-  > CSS Reference CSS Selectors CSS ... web pages that look good on all devices! <strong>A responsive web design will automatically adjust for different screen sizes and viewports</strong>....
-- [Design as functions, not frames · ResponsiveJS](https://www.responsivejs.com) *(responsivejs.com)*
-  > import { useResponsive, useGeometry } from &#x27;@responsivejs/react&#x27;; import { fluid, whenWraps } from &#x27;@responsivejs/runtime&#x27;; function PriceCard() { const card = useRef(null); const tags = useRef(null); useResponsive(card, { padding...
-- [how to make a responsive website using html/css and javascript - Stack Overflow](https://stackoverflow.com/questions/33866454/how-to-make-a-responsive-website-using-html-css-and-javascript) *(stackoverflow.com)*
-  > The basics of a responsive layout are the <strong>use of percentage insteed of pixels and adding breakpoints with media queries</strong>. In your example, you have 3 divs floating so the css should look like this:
-- [HTML Responsive Web Design](https://www.w3schools.com/html/html_responsive.asp) *(w3schools.com)*
-  > Here you can create your website from scratch or use a template. Get started for free ❯ · All popular CSS Frameworks offer responsive design. They are free, and easy to use. W3.CSS is a modern CSS framework with support for desktop, tablet, and mobil...
-- [Responsive Web Design Basics with CSS and JavaScript](https://www.companionlink.com/blog/2024/07/responsive-web-design-basics-with-css-and-javascript) *(companionlink.com · 2024-07-12T16:26:55)*
-  > JavaScript takes things a step further. It <strong>dynamically resizes elements or rearranges them for optimal viewing on different devices</strong>. This guide empowers you with the core concepts of responsive web design using CSS and JavaScript.
-- [javascript - How to resize the element so it is responsive? html/css - Stack Overflow](https://stackoverflow.com/questions/66298779/how-to-resize-the-element-so-it-is-responsive-html-css) *(stackoverflow.com)*
-  > Remove the width and height from the .svg-file div in HTML.. and in CSS add this: ... Also add a max-width and max-height for .z-logo::before to the maximum allowed width in order to avoid extra large issue · Copy.z-logo::before { width: 60vw; max-wi...
-- [Expert guide to making your JavaScript responsive \| Creative Bloq](https://www.creativebloq.com/javascript/expert-guide-making-your-javascript-responsive-71412226) *(creativebloq.com · 2014-08-08T00:00:00)*
-  > Jonathan Fielding shows that handling JavaScript across responsive states doesn&#x27;t need to be a minefield. When you purchase through links on our site, we may earn an affiliate commission. Here’s how it works. ... When we think of responsive web ...
-- [Building Responsive Websites with HTML, CSS and JavaScript, \| by Shirhabeel Awan \| Medium](https://medium.com/@shirhabeel_awan/building-responsive-websites-with-html-css-and-javascript-9810b1de233e) *(medium.com · 2024-10-29T07:06:31)*
-  > Responsive design simply refers to the process whereby the design of your website auto-adjusts with varied screen sizes so that it’s ready to provide an optimum experience to users through any kind of platform. So, this article will basically look at...
-- [Progressive Web App (PWA) Development Ultimate Guide - Riseup Labs](https://riseuplabs.com/pwa-development-ultimate-guide) *(riseuplabs.com · 2025-12-10T05:24:22)*
-  > Adoption of Responsive Design: <strong>The integration of responsive design principles has enabled developers to create applications that adapt to varying screen sizes and orientations</strong>. This flexibility is essential for delivering a consiste...
-- [Showcase Your PWA In Your Website](https://daviddalbusco.com/blog/showcase-your-pwa-in-your-website) *(daviddalbusco.com · 2020-05-07T00:00:00)*
-  > That’s why, you can either <strong>encapsulate it in a container and make it responsive or assign it a size using styling</strong>.
-- [css - Making an iframe responsive - Stack Overflow](https://stackoverflow.com/questions/17838607/making-an-iframe-responsive) *(stackoverflow.com)*
-  > It&#x27;s the same,and it works the same but without confusing bits. jsfiddle.net/6NSX3/263 2015-08-06T14:39:55.43Z+00:00 ... IOS does not calculate height correctly, it takes navigation bar into account. Also Iframe on IOS is not scrollable. 2016-03...
-- [Responsive and Relative Vertical and Horizontal CSS for Iframes in HTML — tutorialpedia.org](https://www.tutorialpedia.org/blog/css-for-iframe-responsive-relative-vertically-and-horizontally-html) *(tutorialpedia.org)*
-  > <strong>This blog post aims to explore the fundamental concepts, usage methods, common practices, and best practices of using CSS to achieve responsive and relative iframe sizing in HTML</strong>.
-- [Our blog](https://blog.theodo.com/2018/01/responsive-iframes-css-trick) *(blog.theodo.com · 2018-01-15T00:00:00)*
-  > Discover how AI makes it possible to break free from legacy systems and unlock IT innovation · Discover how market leaders innovate, accelerate, and reinvent themselves alongside Theodo
-- [How to Make an Iframe Responsive Without Assuming Aspect Ratio: Fit Content Perfectly with JavaScript](https://www.javascriptroom.com/blog/how-to-make-an-iframe-responsive-without-aspect-ratio-assumption) *(javascriptroom.com)*
-  > Place scripts at the end of &lt;body&gt; ... the parent page’s layout may shift unexpectedly. To mitigate this: <strong>Use min-height: 400px as a fallback in CSS</strong>....
-- [Mobile Responsive iFrames \| DC Help - NC Digital Commons](https://digitalcommons.nc.gov/guide/help-topics/mobile-responsive-iframes) *(digitalcommons.nc.gov)*
-  > Digital Commons has two CSS classes ... stacks the contents on small screens, such as Tableau data. <strong>The 4x3 option sets the iFrame to a 4:3 ratio for tablets and desktops, but changes to a 3:4 ratio on mobile devices</strong>....
-- [Responsive Design with HTML Iframes: Best Practices \| Education](https://vocal.media/education/responsive-design-with-html-iframes-best-practices) *(vocal.media)*
-  > This ensures that the embedded content doesn&#x27;t appear distorted or out of proportion when viewed on different screen sizes. You can achieve this by <strong>using CSS techniques, such as the padding-bottom hack, to set the height relative to the ...
-- [Responsive iframe without a parent container - DEV Community](https://dev.to/bitdweller/responsive-iframe-without-a-parent-container-367k) *(dev.to · 2020-07-14T14:57:42)*
-  > Maybe it was a YouTube video, maybe it was a Google Maps embed. Whatever it was, you probably did it the most popular way: <strong>wrap the iframe in a div and use padding to maintain the aspect ratio</strong>.
-- [67940 – Add a depth limit for iframes](https://bugs.webkit.org/show_bug.cgi?id=67940) *(bugs.webkit.org)*
-  > WebKit Bugzilla · Browse · Search+ · Log In · Top of Page · Format For Printing · Clone This Bug · Reports
-- [9221 – resize property doesn't work on iframes](https://bugs.webkit.org/show_bug.cgi?id=9221) *(bugs.webkit.org)*
-  > WebKit Bugzilla · Bug 9221: resize property doesn&#x27;t work on iframes · New · Browse · Search · Reports · Requests · Help · New Account · Log In
-- [45950 – Implement HTML5's seamless attribute for iframes](https://bugs.webkit.org/show_bug.cgi?id=45950) *(bugs.webkit.org)*
-  > WebKit Bugzilla · Browse · Search+ · Log In · Top of Page · Format For Printing · Clone This Bug · Reports
-- [r/webdev on Reddit: Responsive iframes?](https://www.reddit.com/r/webdev/comments/1j5e8w9/responsive_iframes) *(reddit.com · 2025-03-07T03:31:09)*
-  > I thought aspect-ratio would work. My content has a definite aspect ratio... if the iframe had width=100% and the aspect-ratio was set to match the content... nope, not included in the allowlist.
-- [r/webdev on Reddit: Responsive Facebook iFrame?](https://www.reddit.com/r/webdev/comments/ehkj55/responsive_facebook_iframe) *(reddit.com · 2019-12-30T10:36:11)*
-  > If you&#x27;re using direct IFrames, though, then it should definitely be possible, it just requires CSS work on your end.
-- [Reframe.js – Responsive iFrames \| Hacker News](https://news.ycombinator.com/item?id=12500235) *(news.ycombinator.com · 2016-09-18T17:17:14)*
-  > In addition, I think you may be overloading the word &quot;responsive.&quot; This is not a post-message base iFrame resizer, it makes iFrames scale like images. This maintains an aspect ratio which is very desirable in many cases. Think a YouTube emb...
-- [r/webdev on Reddit: Auto sizing Ifames](https://www.reddit.com/r/webdev/comments/159t9cb/auto_sizing_ifames) *(reddit.com · 2023-07-26T02:42:38)*
-  > Here is what I have: &lt;iframe height=&quot;100%&quot; name=&quot;myIFrame&quot; scrolling=&quot;no&quot; src=&quot;https://jurkutaphotos.smugmug.com/&quot; style=&quot;border: solid #000000;&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt; Does any ...
+- [Responsive iframes in Chrome 154 \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/responsive-iframes) *(developer.chrome.com · 2026-09-16T00:00:00)*
+  > <strong>The new frame-sizing property controls which dimension is derived from the iframe&#x27;s content</strong>. ... frame-sizing: auto; frame-sizing: content-width; frame-sizing: content-height; frame-sizing: content-inline-size; frame-sizing: con...
+- [New in Chrome 154: iframes that automatically resize themselves to their content – Bram.us](https://www.bram.us/2026/09/23/responsive-iframes) *(bram.us · 2026-09-23T00:00:00)*
+  > Chrome 154 adds support for responsively-sized iframes, <strong>letting an &lt;iframe&gt; size itself based on the intrinsic size of its embedded document. This is perfect for seamlessly embedding third-party comment widgets, varying-height social me...
+- [iframe の高さをコンテンツに合わせる CSS の frame-sizing](https://azukiazusa.dev/blog/responsive-iframes) *(azukiazusa.dev)*
+  > この課題に対応するのが、CSS Box Sizing Module Level 4 の frame-sizing プロパティです。<strong>埋め込まれる文書がサイズの共有を許可すると、iframe の内容に基づいて枠の高さを決められます</strong>。この...
+- [Re: \[blink-dev\] Re: Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13791.html) *(mail-archive.com)*
+  > &gt;&gt;&gt; &gt;&gt;&gt; &gt;&gt;&gt;&gt; On Tuesday, 20 May ...e-iframes-explainer.md &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; Specification None &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; Summary &gt;&gt;&gt;&gt;&gt; &gt;&gt;&...
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
+- [New feature: responsively-sized iframes. \[418397278\] - Chromium](https://issues.chromium.org/issues/418397278) *(issues.chromium.org)* *(Cites: `https://chromestatus.com/feature/5108373464547328`)*
+  > https://<strong>chromestatus.com/feature/5108373464547328</strong> · Links (92) Hide all · “ See: https://<strong>chromestatus.com/feature/5108373464547328</strong> ” · ch...@ #1 · “ Link: https://chromium-review.googlesource.com/6554567 ” ...
+- [Responsive iframes · Issue #1443 · web-platform-tests/interop](https://github.com/web-platform-tests/interop/issues/1443) *(github.com · 2026-09-22T22:42:15)* *(Cites: `https://chromestatus.com/feature/5108373464547328`)*
+  > Shipped (https://<strong>chromestatus.com/feature/5108373464547328</strong>) Gecko / Firefox: Not implemented · Standards Position: no position · WebKit / Safari: Not implemented · Standards Position: no position · Reactions are currently u...
 - [Intent to Prototype: Responsive iframes](https://groups.google.com/a/chromium.org/g/blink-dev/c/QirdSBIvM1k/m/rZdHOE59AQAJ) *(groups.google.com)* *(Cites: `https://chromestatus.com/feature/5108373464547328`)*
   > https://<strong>chromestatus.com/feature/5108373464547328</strong>?gate=5167068974153728 · This intent message was generated by Chrome Platform Status. unread, May 20, 2025, 3:05:41 AMMay 20 ·  ·  ·  · Reply to author · Sign in to reply ...
 - [Responsively-sized &lt;iframe&gt; · Issue #4036 · web-platform-dx/web-features](https://github.com/web-platform-dx/web-features/issues/4036) *(github.com · 2026-05-14T09:39:56)* *(Cites: `https://chromestatus.com/feature/5108373464547328`)*
   > https://<strong>chromestatus.com/feature/5108373464547328</strong> · Reactions are currently unavailable · No one assigned ·
-- [\[blink-dev\] Re: Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13733.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md`)*
-  > &gt; Contact emails chri...@chromium.org &gt; &gt; Explainer &gt; https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md &gt; &gt; &gt; Specification None &gt; &gt; Summary &gt; &gt; <strong>Allow sites t...
-- [\[blink-dev\] Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13731.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md`)*
-  > Explainer https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md Specification None Summary <strong>Allow sites to opt into iframes having responsive sizing</strong> (sizing the &lt;iframe&gt; element in ...
 - [Re: \[blink-dev\] Re: Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13784.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md`)*
   > &gt;&gt; &gt;&gt; &gt;&gt;&gt; On Tuesday, 20 May 2025 ...-4/responsive-iframes-explainer.md &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt; Specification None &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt; Summary &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt; <strong>Allow site...
+- [\[blink-dev\] Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13731.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md`)*
+  > Explainer https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md Specification None Summary <strong>Allow sites to opt into iframes having responsive sizing</strong> (sizing the &lt;iframe&gt; element in ...
+- [\[blink-dev\] Re: Intent to Prototype: Responsive iframes](https://www.mail-archive.com/blink-dev@chromium.org/msg13733.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md`)*
+  > &gt; Contact emails chri...@chromium.org &gt; &gt; Explainer &gt; https://github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md &gt; &gt; &gt; Specification None &gt; &gt; Summary &gt; &gt; <strong>Allow sites t...
 
 ## 📚 Platform Documentation & Specifications
 
+- [Responsive iframes · Issue #1443 · web-platform-tests/interop](https://github.com/web-platform-tests/interop/issues/1443) *(github.com)*
 - [Responsively-sized &lt;iframe&gt; · Issue #4036 · web-platform-dx/web-features](https://github.com/web-platform-dx/web-features/issues/4036) *(github.com)*
 - [\[css-sizing\] How should auto-sizing of iframes work? · Issue #12229 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/issues/12229) *(github.com)*
 
@@ -176,36 +129,35 @@ The following external publications and discussions explicitly link to or cite t
 
 ### Searches Executed
 
-- **Brave Search:** 59 result(s) found across 13 planned queries — **39 verified relevant**
-  - `"chromestatus.com/feature/5108373464547328" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (2 returned)
+- **Brave Search:** 51 result(s) found across 12 planned queries — **13 verified relevant**
+  - `"chromestatus.com/feature/5108373464547328" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (4 returned)
   - `"github.com/w3c/csswg-drafts/blob/main/css-sizing-4/responsive-iframes-explainer.md" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (4 returned)
-  - `"drafts.csswg.org/css-sizing-4" -site:drafts.csswg.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (2 returned)
-  - `"Responsively-sized <iframe>" API` — *Core feature API query* (2 returned)
+  - `"drafts.csswg.org/css-sizing-4" -site:drafts.csswg.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (3 returned)
+  - `"Responsively-sized <iframe>" API` — *Core feature API query* (3 returned)
   - `"Responsively-sized <iframe>" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"responsively-sized" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Responsively-sized <iframe>" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"Responsively-sized <iframe>" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"responsively-sized iframe" OR "responsive iframes" "css-sizing-4" (explainer OR guide OR blog)` — *Finds early technical explainers, blog coverage, and guide overviews on the CSS Sizing 4 responsive iframe feature.* (8 returned)
-  - `"responsive iframes" "css-sizing-4" ("layout overflow" OR "intrinsic size") (CSS OR HTML) syntax` — *Retrieves concrete code examples, CSS rules, and markup patterns proposed in the specification for auto-sizing child documents.* (0 returned)
-  - `site:chromestatus.com OR site:bugs.webkit.org OR site:bugzilla.mozilla.org "responsive iframes" OR "responsively-sized iframe"` — *Tracks cross-engine implementation status, browser vendor intent-to-prototype signals, and bug tracker discussions.* (8 returned)
-  - `site:github.com/w3c/csswg-drafts/issues "responsive iframes" OR "responsively-sized"` — *Discovers active spec design debates, security/privacy considerations, and unresolved layout overflow edge cases in the CSSWG repository.* (1 returned)
-  - `("responsively-sized iframe" OR "responsive iframes") (site:news.ycombinator.com OR site:reddit.com/r/webdev OR "caniuse")` — *Surfaces developer sentiment, reactions, and discussions about eliminating legacy hacks like iframe resizing scripts and scrollbars.* (5 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 22 result(s) found — **22 verified relevant**
+  - `"responsively-sized iframe" OR "responsive iframes" "css-sizing-4" (tutorial OR guide OR explainer)` — *Finds web developer articles and technical write-ups explaining the responsive iframe sizing proposal and how it eliminates scrollbars.* (8 returned)
+  - `"drafts.csswg.org/css-sizing-4" "responsive-iframes" OR "responsive iframes"` — *Targets the exact CSS Sizing Module Level 4 draft specification, CSS rules, and sizing algorithm descriptions.* (8 returned)
+  - `("responsively-sized iframe" OR "responsive iframe") (site:github.com/WebKit/standards-positions OR site:github.com/mozilla/standards-positions OR site:chromestatus.com)` — *Tracks browser vendor consensus, signals, and implementation roadmaps from Chromium, Mozilla, and WebKit.* (0 returned)
+  - `("responsive-iframes-explainer" OR "responsively-sized iframe") (site:news.ycombinator.com OR site:reddit.com/r/webdev)` — *Surfaces community feedback, developer sentiment, and discussions comparing the native feature to existing resize workarounds.* (0 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 20 result(s) found — **20 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 0 result(s) found — **1 verified relevant**
+- **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 3 result(s) found — **3 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
 - **NPM Registry:** 5 result(s) found — **0 verified relevant**
-- **Web Platform Tests (wpt.fyi):** 785 item(s) inspected
+- **Web Platform Tests (wpt.fyi):** 790 item(s) inspected
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
 - **Standards Discussion Comments:** 5 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 8 page(s)
+- **Web Page Excerpts Ingested:** 7 page(s)
 
 ## Useful Links
 

@@ -1,10 +1,10 @@
-# Spell Check Custom Dictionary API
+# Spell check custom dictionary API
 
-> **Report Week:** 2026-W38 | **Milestone:** Chrome 153 | **Category:** In developer trial (Behind a flag)
+> **Report Week:** 2026-W41 | **Milestone:** Chrome 153 | **Category:** In developer trial (Behind a flag)
 
 ## Overview
 
-We are proposing a Spell Check Custom Dictionary API: a per‑document based, transient dictionary that supplements the browser's built-in spell-checking dictionaries. It does not change how those built-in dictionaries behave.  The API lets a web page add words to and remove words from the Spell Check Custom dictionary. During spell checking, the browser's spell checker also checks words against this dictionary, so matching words are not flagged for spelling errors.  This gives pages a way to programmatically suppress spell-check false positives within their own document, without requiring any action from users.
+Adds document.spellCheckCustomDictionary, which lets a page add words to and remove words from a per-document dictionary that the browser's spell checker consults alongside its built-in dictionaries. Matching words are no longer flagged as misspelled in that document, so sites with domain-specific vocabulary, such as product names, technical terms or proper nouns, can suppress false positives without asking users to edit their browser dictionary. The words last only for the document's lifetime and cannot be read back.
 
 ### Motivation
 
@@ -20,10 +20,10 @@ Authors need a way to treat domain‑specific words as “known” without requi
 
 ## Ecosystem Status
 
-- **Momentum:** High (285 points)
+- **Momentum:** High (255 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Positive / High Interest
-- **Executive Take:** Spell Check Custom Dictionary API is currently In developer trial (Behind a flag) in Chrome 153. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
+- **Executive Take:** Spell check custom dictionary API is currently In developer trial (Behind a flag) in Chrome 153. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
 
 ### Recommendations
 - Standards Activity (WebKit): Latest discussion from @ziransun: "&gt; Speaking in my personal capacity: &gt;  &gt; The \[explainer\](https://github.com/Igalia/explainers/blob/main/spell-check-dictionary/README.md) says entries..."
@@ -35,13 +35,6 @@ Authors need a way to treat domain‑specific words as “known” without requi
 - **WebKit:** [SpellCheckCustomDictionary](https://github.com/WebKit/standards-positions/issues/646) [open]
 - **Mozilla:** [SpellCheckCustomDictionary](https://github.com/mozilla/standards-positions/issues/1384) [open]
 
-## Packages & Polyfills
-
-- [@cspell/dict-html-symbol-entities](https://www.npmjs.com/package/@cspell/dict-html-symbol-entities) `v4.0.5` — Html Symbol Entities dictionary for cspell.
-- [@cspell/dict-css](https://www.npmjs.com/package/@cspell/dict-css) `v4.1.2` — CSS dictionary for cspell.
-- [@cspell/dict-markdown](https://www.npmjs.com/package/@cspell/dict-markdown) `v2.0.18` — Markdown dictionary for cspell.
-- [cspell-dictionary](https://www.npmjs.com/package/cspell-dictionary) `v10.3.1` — A spelling dictionary library useful for checking words and getting suggestions.
-
 ## 📰 Ecosystem Blogs & Articles
 
 - [Intent to Prototype: Document Local Dictionary API](https://groups.google.com/a/chromium.org/g/blink-dev/c/LB5SvNilyhA) *(groups.google.com · 2025-07-22T00:00:00)*
@@ -52,31 +45,37 @@ Authors need a way to treat domain‑specific words as “known” without requi
   > Re: [blink-dev] Intent to Prototype: Document Local Dictionary API Skip to site navigation (Press enter) Re: [blink-dev] Intent to Prototype: Document Local Dictionary API Ziran Sun Tue, 07 Jul 2026 03:00:58 -0700 Thanks everyone for the reviews! The...
 - [\[blink-dev\] Ready for Developer Testing: Spell Check Custom Dictionary API](http://www.mail-archive.com/blink-dev@chromium.org/msg17107.html) *(mail-archive.com)*
   > [blink-dev] Ready for Developer Testing: Spell Check Custom Dictionary API Skip to site navigation (Press enter) [blink-dev] Ready for Developer Testing: Spell Check Custom Dictionary API Chromestatus Tue, 04 Aug 2026 07:34:58 -0700 Contact emails [e...
+- [Custom spell check dictionaries — a must-have feature for sentence correctors - WProofreader Blog](https://blog.wproofreader.com/custom-spell-check-dictionaries-a-must-have-feature-for-sentence-correctors) *(blog.wproofreader.com · 2026-04-21T12:42:04)*
+  > Custom spell check dictionaries — a must-have feature for sentence correctors - WProofreader Blog WProofreader Blog Proofread now Custom spell check dictionaries — a must-have feature for sentence correctors April 26, 2023 Greetings. We continue writ...
+- [Android Developers Blog: Creating Your Own Spelling Checker Service](https://android-developers.googleblog.com/2012/08/creating-your-own-spelling-checker.html) *(android-developers.googleblog.com)*
+  > The implementation of this method can access your custom dictionary and any utility classes for extracting and ranking suggestions. For sentence-level checking, you can also implement onGetSuggestionsMultiple(), which accepts an array of TextInfo. In...
+- [Develop Your Own Spelling Check Toolkit with Python \| Towards Data Science](https://towardsdatascience.com/develop-your-own-spelling-check-toolkit-with-python-740bf84a865d) *(towardsdatascience.com · 2025-01-16T17:59:35)*
+  > While there are several tools that pinpoint these errors, it is extremely satisfying to build your own custom spell-check application that can be further upgraded to be the most suitable device for your liking. In this article, we learned how to buil...
+- [python - Spell checking with custom dictionary - Stack Overflow](https://stackoverflow.com/questions/12932671/spell-checking-with-custom-dictionary) *(stackoverflow.com)*
+  > Need your guidance! Want to check some text file for any spelling mistakes against custom dictionary. Here is the code: <strong>Dictionary=set(open(&quot;dictionary.</strong>txt&quot;).read().split()) print Dictionary Sear...
+- [Setting Up a Spell Checker for VS Code \| Medium](https://medium.com/@anticultist/setting-up-a-spell-checker-for-vs-code-8086462fce66) *(medium.com · 2024-10-09T15:42:20)*
+  > Adding unknown words to the previously configured dictionary is quickest when we <strong>right-click on the unknown word and select &quot;Spelling &gt; Add Words to Dictionary&quot; from the context menu</strong>.
+- [Grammar check API for web products \| WebSpellChecker](https://webspellchecker.com/wsc-web-api) *(webspellchecker.com · 2024-12-26T15:46:39)*
+  > Extend the grammar and spell check functionality of your application with WProofreader HTTP API. Gain developer access to WebSpellChecker robust proofreading engine via HTTP API requests.
+- [How to automatically check for spelling errors with Spell Check API \| TinyMCE](https://www.tiny.cloud/blog/spell-check-api) *(tiny.cloud · 2023-06-27T00:00:00)*
+  > The demo checks the length of the JSON object returned, and introduces a more immersive content creation experience, using the spell check API. You could also parse the object, and provide detailed information about what words need correction without...
+- [How to Ensure Correct Spelling of Complex or Unusual Terms \| PerfectIt](https://www.perfectit.com/blog/how-to-ensure-correct-spelling-of-complex-or-unusual-terms-across-your-entire-organization) *(perfectit.com · 2021-04-21T07:54:00)*
+  > The trick to adding all of the unusual terms in your style guide to a custom dictionary is to <strong>run spellcheck on the style guide itself</strong>.
 - [Enhanced Spell Checking on the Web](https://bkardell.com/blog/EnhancedSpellchecking.html) *(bkardell.com)*
-  > It is currently available in Chrome Canary behind the experimental web platform features flag, and is scheduled to be shipping in on <strong>September 8, 2026</strong> behind the same flag. Because of its simplicity, it also works with JSON pretty ni...
-- [Intent to Implement and Ship: spellcheck attribute in webview](https://groups.google.com/a/chromium.org/g/blink-dev/c/QdaQY0yyAiE/m/XCi_0Ul9CQAJ) *(groups.google.com)*
-  > Contact emails mig...@chromium.org to...@chromium.org · Spec https://html.spec.whatwg.org/multipage/interaction.html#spelling-and-grammar-checking
-- [Rebuilding the spellchecker \| Hacker News](https://news.ycombinator.com/item?id=25789099) *(news.ycombinator.com · 2021-01-15T19:39:50)*
-  > It&#x27;s amazing how difficult it is to encode rules for dealing with natural language, considering how easy it is for a person to resolve ambiguities, misspellings, and the like. Of course, we forget how much knowledge we have encoded in our own br...
-- [Spell Checking a Year's Worth of Hacker News \| Hacker News](https://news.ycombinator.com/item?id=47058308) *(news.ycombinator.com · 2026-02-21T09:49:35)*
-  > I love this about English! We are the most prolific word thieves of all time. We even stole an entire grammatically complete sentence from French (&quot;Je ne sais quoi&quot;) · If you want English to be more like Hungarian, start inserting Hungarian...
-- [Can you give me an example? Spell check only checks if a word is in dictionary. ... \| Hacker News](https://news.ycombinator.com/item?id=44059286) *(news.ycombinator.com · 2025-05-25T00:00:00)*
-  > Where doge is both the name of a title (like duke) but it is misspelt &quot;dog&quot;. The use of &quot;Venice&quot; where doge&#x27;s are could increase a the likelihood of a smarter spell check keeping doge and not correcting to dog. Looking at a w...
-- [r/firefox on Reddit: How to use custom Hunspell dictionaries for spell checking?](https://www.reddit.com/r/firefox/comments/b9d1k4/how_to_use_custom_hunspell_dictionaries_for_spell) *(reddit.com · 2019-04-04T13:58:16)*
-  > You will need a pair of a .aff and a .dic file in order to use a dictionary. Only a .dic file will not work. If you in install such a pair in /usr/share/hunspell/ all Hunspell spell checkers (on the system, in Firefox and in LibreOffice) will find th...
-- [AI can’t really spell check without risking changing the meaning of sentences. S... \| Hacker News](https://news.ycombinator.com/item?id=48370005) *(news.ycombinator.com · 2026-06-05T01:48:56)*
-  > To make this approach work better, feed it a bunch of English text (or whatever language your document is in) before the document you really want to &quot;spellcheck.&quot; · Essentially this isn&#x27;t a spell &quot;checker&quot; so much as a spell ...
-- [r/Ubuntu on Reddit: What's the best way to use a custom dictionary and spell check?](https://www.reddit.com/r/Ubuntu/comments/1lieoy0/whats_the_best_way_to_use_a_custom_dictionary_and) *(reddit.com · 2025-06-23T11:58:29)*
-  > You can also add new words to dictionary in a text field, like in a commenting space. Misspell a word as you make a comment. It will give you the red wavy line. <strong>Right click on that, and you should get the spell check/Add to Dictionary menu</s...
-- [Ask HN: Should HN have a built-in spellcheck? \| Hacker News](https://news.ycombinator.com/item?id=41648591) *(news.ycombinator.com · 2024-09-26T00:36:24)*
-  > I believe the first isn&#x27;t true and the second is: people comment and move on · 1) Browsers have spell check. One of my general rules is not to make a web site more complicated by re-inventing features that exist in the browser
-- [r/learnpython on Reddit: How do I spell-check text against a custom dictionary?](https://www.reddit.com/r/learnpython/comments/3pm1ze/how_do_i_spellcheck_text_against_a_custom) *(reddit.com · 2015-10-21T09:23:55)*
-  > You could ignore the training/frequency part and just have a 1 entry per item in your custom dictionary, but then you&#x27;d hit the
+  > So, there is a proposal currently in HTML for a new API called SpellCheck Custom Dictionary. For v1 the proposal is dead simple. It introduces a new document.spellCheckCustomDictionary with exactly two methods: .addWords(listOfWords) and .removeWords...
+- [Enhanced Spell Checking on the Web \| daily.dev](https://daily.dev/posts/enhanced-spell-checking-on-the-web-s6gvtp8ef) *(daily.dev · 2026-09-20T07:47:29)*
+  > A new proposed API, SpellCheck Custom Dictionary, adds document.<strong>spellCheckCustomDictionary with addWords/removeWords methods so pages can suppress false positives for domain-specific vocabulary for the lifetime of a document</strong>.
+- [Creating a Javascript spellingchecker with bjspell](https://esstudio.site/2018/10/22/javascript-spellingchecker.html) *(esstudio.site · 2018-10-22T20:11:31)*
+  > var check = document.querySele... var dictionary = &#x27;<strong>https://rawcdn.githack.com/maheshmurag/bjspell/master/dictionary.js/en_US.js&#x27;; var lang = BJSpell(dictionary, function() { check.disabled = false; });</strong>...
+- [Client-side Spell Checker In Pure JavaScript \| CSS Script](https://www.cssscript.com/client-side-spell-checker) *(cssscript.com · 2018-12-02T05:57:22)*
+  > Load the core JavaScript file spellchecker.js in the html document. ... Load the Word List in the document. ... Set the valid word list. ... Get Weekly Email on latest Web Dev &amp; Web Design resources. No spam, we promise! ... Alert autocomplete ba...
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
+- [Spell check custom dictionary (spellcheck-custom-dictionary) · Issue #4464 · web-platform-dx/web-features](https://github.com/web-platform-dx/web-features/issues/4464) *(github.com · 2026-10-02T14:21:12)* *(Cites: `https://chromestatus.com/feature/6185007701557248`)*
+  > Spell check custom dictionary (spellcheck-custom-dictionary) · Issue #4464 · web-platform-dx/web-features · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with a...
 - [Intent to Prototype: Document Local Dictionary API](https://groups.google.com/a/chromium.org/g/blink-dev/c/LB5SvNilyhA) *(groups.google.com · 2025-07-22T00:00:00)* *(Cites: `https://chromestatus.com/feature/6185007701557248`)*
   > Intent to Prototype: Document Local Dictionary API Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Prototype: Document Local Dicti...
 - [Re: \[blink-dev\] Intent to Prototype: Document Local Dictionary API](https://www.mail-archive.com/blink-dev@chromium.org/msg14251.html) *(mail-archive.com · 2025-07-22T00:00:00)* *(Cites: `https://chromestatus.com/feature/6185007701557248`)*
@@ -85,42 +84,43 @@ The following external publications and discussions explicitly link to or cite t
   > Re: [blink-dev] Intent to Prototype: Document Local Dictionary API Skip to site navigation (Press enter) Re: [blink-dev] Intent to Prototype: Document Local Dictionary API Ziran Sun Tue, 07 Jul 2026 03:00:58 -0700 Thanks everyone for the re...
 - [\[blink-dev\] Ready for Developer Testing: Spell Check Custom Dictionary API](http://www.mail-archive.com/blink-dev@chromium.org/msg17107.html) *(mail-archive.com)* *(Cites: `https://github.com/Igalia/explainers/tree/main/spell-check-dictionary`)*
   > [blink-dev] Ready for Developer Testing: Spell Check Custom Dictionary API Skip to site navigation (Press enter) [blink-dev] Ready for Developer Testing: Spell Check Custom Dictionary API Chromestatus Tue, 04 Aug 2026 07:34:58 -0700 Contact...
+- [Weekly github digest (HTML specs) from W3C Webmaster via GitHub API on 2026-06-22 (public-html@w3.org from June 2026)](https://lists.w3.org/Archives/Public/public-html/2026Jun/0003.html) *(lists.w3.org)* *(Cites: `https://github.com/whatwg/html/pull/12590`)*
+  > (1 by yisibl) https://github.c... (by lucacasonato) https://github.com/whatwg/html/pull/12593 - 12592 (by lukewarlow) https://github.com/whatwg/html/pull/12592 - 12590 (by bkardell) https://<strong>github.com/whatwg/html/pull/12590</strong>...
 
 ## 📚 Platform Documentation & Specifications
 
+- [Spell check custom dictionary (spellcheck-custom-dictionary) · Issue #4464 · web-platform-dx/web-features](https://github.com/web-platform-dx/web-features/issues/4464) *(github.com)*
+- [Weekly github digest (HTML specs) from W3C Webmaster via GitHub API on 2026-06-22 (public-html@w3.org from June 2026)](https://lists.w3.org/Archives/Public/public-html/2026Jun/0003.html) *(lists.w3.org)*
+- [GitHub - bkardell/words: Lists of words for spelling dictionaries · GitHub](https://github.com/bkardell/words) *(github.com)*
 - [explainers/spell-check-dictionary/README.md at main · Igalia/explainers](https://github.com/Igalia/explainers/blob/main/spell-check-dictionary/README.md) *(github.com)*
 - [SpellCheckCustomDictionary · Issue #646 · WebKit/standards-positions](https://github.com/WebKit/standards-positions/issues/646) *(github.com)*
-- [Preventing User Dictionary Leaks via ::spelling-error and ::grammar-error CSS Pseudo-Elements · Issue #546 · WebKit/standards-positions](https://github.com/WebKit/standards-positions/issues/546) *(github.com)*
-- [Using an external spell checker](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/3/Using_an_external_spell_checker) *(developer.mozilla.org)*
-- [Compression Dictionary Transport](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Compression_dictionary_transport) *(developer.mozilla.org)*
-- [Use-As-Dictionary header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Use-As-Dictionary) *(developer.mozilla.org)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 61 result(s) found across 12 planned queries — **17 verified relevant**
-  - `"chromestatus.com/feature/6185007701557248" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (2 returned)
+- **Brave Search:** 53 result(s) found across 12 planned queries — **21 verified relevant**
+  - `"chromestatus.com/feature/6185007701557248" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (3 returned)
   - `"github.com/Igalia/explainers/tree/main/spell-check-dictionary" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (3 returned)
-  - `"github.com/whatwg/html/pull/12590" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Specification* (2 returned)
-  - `"Spell Check Custom Dictionary API" API` — *Core feature API query* (1 returned)
-  - `"Spell Check Custom Dictionary API" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
-  - `"built-in" OR "spell-checking" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
-  - `"Spell Check Custom Dictionary API" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
-  - `"Spell Check Custom Dictionary API" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"Spell Check Custom Dictionary API" OR "spell check custom dictionary" blog OR tutorial OR guide` — *Discovers community developer guides, explainers, and practical blog posts introducing the transient custom spell check dictionary API.* (8 returned)
-  - `"Spell Check Custom Dictionary" OR "SpellcheckCustomDictionary" (addWord OR removeWord OR WebIDL OR javascript)` — *Finds technical specifications, WebIDL definitions, and sample JavaScript code demonstrating how to interact with the document custom dictionary.* (8 returned)
-  - `"whatwg/html/pull/12590" OR "spell-check-dictionary" ("standards-positions" OR ChromeStatus OR WebKit OR Mozilla)` — *Tracks browser vendor consensus, standards position discussions across Mozilla and WebKit, and WHATWG HTML pull request status.* (8 returned)
-  - `"Spell Check Custom Dictionary" (site:news.ycombinator.com OR site:reddit.com OR "Hacker News")` — *Surfaces community reactions, feedback, and developer discussions regarding browser spell-check customization on social aggregation platforms.* (8 returned)
+  - `"github.com/whatwg/html/pull/12590" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Specification* (1 returned)
+  - `"Spell check custom dictionary API" API` — *Core feature API query* (1 returned)
+  - `"Spell check custom dictionary API" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
+  - `"document.spellcheckcustomdictionary" OR "per-document" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
+  - `"Spell check custom dictionary API" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
+  - `"Spell check custom dictionary API" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
+  - `"document.spellCheckCustomDictionary" OR "spellCheckCustomDictionary.add"` — *Find code examples, WebIDL signatures, and implementation snippets for manipulating the custom spell check dictionary.* (8 returned)
+  - `"document.spellCheckCustomDictionary" (tutorial OR guide OR walkthrough OR "how to")` — *Identify developer tutorials and practical blog posts explaining how to suppress spell check false positives using the API.* (8 returned)
+  - `"spellCheckCustomDictionary" (Chrome OR Firefox OR Safari OR WebKit OR "intent to") -site:github.com/whatwg/html` — *Track browser vendor implementation status, intent-to-prototype/ship announcements, and platform release notes.* (8 returned)
+  - `"spell check custom dictionary" OR "spellCheckCustomDictionary" (site:news.ycombinator.com OR site:reddit.com OR site:lobste.rs OR "RFC")` — *Discover web developer sentiment, use cases, and feedback on Hacker News, Reddit, and technical forums.* (8 returned)
 - **Google Search Grounding (gemini-3.8-flash):** 0 result(s) found — **0 verified relevant**
 - **Twitter / X API v2:** *found 8 tweet(s)*
-- **Dev.to Community Blogs:** 1 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 2 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 2 result(s) found — **2 verified relevant**
-- **Engine Bug Trackers:** 1 result(s) found — **1 verified relevant**
+- **Engine Bug Trackers:** 1 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
-- **NPM Registry:** 6 result(s) found — **4 verified relevant**
-- **Web Platform Tests (wpt.fyi):** 27 item(s) inspected
+- **NPM Registry:** 5 result(s) found — **0 verified relevant**
+- **Web Platform Tests (wpt.fyi):** 28 item(s) inspected
 
 ### Content Inspected
 
