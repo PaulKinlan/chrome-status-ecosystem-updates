@@ -233,7 +233,11 @@ jobs:
   deploy-pages:
     name: Deploy to GitHub Pages
     needs: publish
-    if: github.event_name != 'pull_request'
+    # Without a status function (`!cancelled()` is one) GitHub skips this job whenever any job up its chain was
+    # skipped, although `publish` itself ran: on a push, or a manual run that skipped the crawl, `crawl` is skipped, so
+    # nothing would ever be deployed. What the deployment needs of `publish` is therefore written out: failing tests,
+    # a crawl that failed or refused, and a publication that lost a race all leave it skipped.
+    if: ${{ !cancelled() && github.event_name != 'pull_request' && needs.publish.result == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:

@@ -57,6 +57,15 @@ const jobField = (jobId, name) => new RegExp(`^ {4}${name}:[ \\t]*(.*)$`, 'm').e
 /** The `if:` of a step as written, or null. */
 const stepCondition = text => /^ {8}if:[ \t]*(.*)$/m.exec(code(text))?.[1].trim() || null;
 const needsOf = jobId => (jobField(jobId, 'needs') ?? '').replace(/[[\]]/g, '').split(',').map(name => name.trim()).filter(Boolean);
+/** Every job `jobId` depends on, directly or through the jobs those need: what GitHub calls its dependency chain. */
+function ancestorsOf(jobId, seen = new Set()) {
+  for (const name of needsOf(jobId)) {
+    if (seen.has(name)) continue;
+    seen.add(name);
+    ancestorsOf(name, seen);
+  }
+  return [...seen];
+}
 /** The lines of a `key: |` block in the `with:` of a step. */
 const withLines = (text, key) => {
   const block = new RegExp(`^ {10}${key}:[ \\t]*\\|[ \\t]*\\n((?: {12}\\S.*\\n?)+)`, 'm').exec(code(text))?.[1];
@@ -168,8 +177,10 @@ function contextFor({ event, skipCrawl = false, cancelled = false }, results, ne
 
 /**
  * What the jobs after `test` do for one kind of event, given how the jobs that ran ended (`crawl`, `publish`; both
- * succeed unless said otherwise). A job whose condition names no status function is skipped unless every job it
- * needs succeeded, which GitHub adds as an implicit `success()`.
+ * succeed unless said otherwise). A job whose condition names no status function is skipped unless every job in its
+ * dependency chain succeeded: GitHub adds an implicit `success()`, and it looks past the jobs named in `needs` to the
+ * jobs those need ("a failure or skip applies to all jobs in the dependency chain from the point of failure or skip
+ * onwards"). That is how a push once ran `publish` and then skipped the deployment: the crawl before it was skipped.
  */
 function plan(scenario) {
   const { test: testResult = 'success', crawl: crawlResult = 'success', publish: publishResult = 'success' } = scenario;
@@ -180,7 +191,7 @@ function plan(scenario) {
     const condition = jobField(id, 'if');
     const context = contextFor(scenario, results, needs);
     const names = /\b(always|success|failure|cancelled)\(\)/.test(condition ?? '');
-    const gated = !names && needs.some(name => results[name] !== 'success');
+    const gated = !names && ancestorsOf(id).some(name => results[name] !== 'success');
     const runs = !gated && (condition === null || truthy(evaluate(condition, context)));
     results[id] = runs ? endings[id] : 'skipped';
   }
@@ -195,6 +206,8 @@ test('the workflow is read the way these tests assume', () => {
   assert.deepStrictEqual(needsOf('crawl'), ['test']);
   assert.deepStrictEqual(needsOf('publish'), ['test', 'crawl']);
   assert.deepStrictEqual(needsOf('deploy-pages'), ['publish']);
+  assert.deepStrictEqual(ancestorsOf('deploy-pages').sort(), ['crawl', 'publish', 'test'], 'the chain runs through the jobs a job names');
+  assert.deepStrictEqual(ancestorsOf('test'), []);
 });
 
 test('the condition evaluator reads GitHub expressions the way these tests depend on', () => {
@@ -251,10 +264,25 @@ test('the job summary is the Executive Snapshot, never the whole report', () => 
 test('a run whose crawl failed or refused cannot deploy the site', () => {
   const deploy = code(jobs['deploy-pages']);
   assert.match(deploy, /^\s+needs:\s*publish\s*$/m);
-  assert.ok(!/always\(\)|failure\(\)|cancelled\(\)/.test(deploy), 'deploying after a failed job would defeat the safety checks');
+  assert.ok(!/always\(\)|failure\(\)/.test(deploy), 'deploying after a failed job would defeat the safety checks');
+  // A status function (`!cancelled()`) is what lets the deployment follow a run that had no crawl (see below), and it
+  // also switches off GitHub's implicit "every job up the chain succeeded", so what it needs of `publish` is asked for.
+  assert.match(jobField('deploy-pages', 'if'), /needs\.publish\.result\s*==\s*'success'/, 'the deployment must require a publication that succeeded');
 
   // `continue-on-error` would turn a refused crawl into a green job and let the publication follow it.
   assert.ok(!/continue-on-error/.test(code(workflow)));
+});
+
+test('a run with no crawl deploys what is committed: the skipped crawl does not skip the deployment with it', () => {
+  // test -> crawl -> publish -> deploy-pages. `deploy-pages` names only `publish`, which runs, but GitHub applies a skip
+  // to every later job whose condition has no status function. The first push of this workflow ran `publish` and then
+  // skipped the deployment, so the site stayed on the week before.
+  for (const [what, scenario] of [['a push to the reports', { event: 'push' }], ['a manual run that skips the crawl', { event: 'workflow_dispatch', skipCrawl: true }]]) {
+    const ran = plan(scenario);
+    assert.strictEqual(ran.crawl, 'skipped', what);
+    assert.strictEqual(ran.publish, 'success', what);
+    assert.strictEqual(ran['deploy-pages'], 'success', `${what} publishes but does not deploy`);
+  }
 });
 
 test('nothing is crawled or published unless the tests pass', () => {
