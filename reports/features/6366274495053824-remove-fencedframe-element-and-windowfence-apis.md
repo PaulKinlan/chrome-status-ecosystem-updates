@@ -1,6 +1,6 @@
 # Remove FencedFrame element and window.fence APIs
 
-> **Report Week:** 2026-W41 | **Milestone:** Chrome 156 | **Category:** Deprecated
+> **Report Week:** 2026-W42 | **Milestone:** Chrome 156 | **Category:** Deprecated
 
 ## Overview
 
@@ -12,92 +12,73 @@ As described in the summary section, since fenced frames are no longer able to b
 
 ## Ecosystem Status
 
-- **Momentum:** High (320 points)
+- **Momentum:** Moderate (footprint 200 points, ranked against this week's features because too few have an earlier number to work out a change)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Mixed / Skeptical
-- **Executive Take:** The \`&lt;fencedframe&gt;\` element and companion \`window.fence\` APIs are being formally removed from Chromium starting with stubbing in Chrome 156 and full removal targeted for Chrome 157. This deprecation directly follows the phase-out of dependent Privacy Sandbox APIs (Protected Audience and Shared Storage \`selectURL\`), which leaves fenced frames without valid navigation sources. The technology never attained cross-browser consensus, having received a formal 'negative' stance from Mozilla and indifference from WebKit, effectively terminating its existence as a Blink-only experiment.
+- **Sentiment:** Neutral
+- **Executive Take:** The \`&lt;fencedframe&gt;\` element and \`window.fence\` APIs are being formally decommissioned and removed from Chromium starting in Chrome 156 via non-throwing stubs, followed by complete removal in Chrome 157. This follows the deprecation and withdrawal of dependent Privacy Sandbox technologies—specifically Protected Audience auctions and Shared Storage \`selectURL\`—which rendered fenced frame navigation obsolete. The removal cleans up redundant browser internals after the feature failed to achieve cross-engine consensus, having never been adopted by other major engines.
 
 ### Recommendations
-- Actionable Advice: Immediately remove all references to \`&lt;fencedframe&gt;\`, \`FencedFrameConfig\`, and \`window.fence\` ads-reporting APIs from production codebases, migrating back to standard sandboxed \`&lt;iframe&gt;\`s where necessary. Ensure that feature detection or DOM queries do not rely on \`HTMLFencedFrameElement\`, as the constructor will downgrade to \`HTMLUnknownElement\` during Chrome 157 rollouts.
+- Actionable Advice: Development teams and ad-tech integrations should immediately remove dependencies on \`&lt;fencedframe&gt;\`, \`FencedFrameConfig\`, and \`window.fence\`, refactoring any remaining workflows back to standard partitioned iframes. Audits should ensure runtime scripts do not rely on fenced frame prototypes, as unrecognized elements will degrade to \`HTMLUnknownElement\` following the removal trial.
 - Marked for deprecation in Chrome 156. Audit codebases and migrate to modern standard alternatives.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHUda1p5ux00fAUw-NE54HjXkdVWZOuhc0KYMEc_1Y_v3MVFG4-WDOnurgYSK-LRx3F9AiFGBp4nrVD9CrZJm0SdQPWkTicllu_ph_jnZXrToD3xbbkylkrdd7QNrnCre1eqocQYN5mijaaJAipyIPp0OA1GtsRFc7O-IXAQMc4urp_p4MUQg==) *(vertexaisearch.cloud.google.com)*
-  > <fencedframe> HTML fenced frame element - HTML | MDN Skip to main content Skip to search Toggle sidebar Web HTML Reference Elements <fencedframe> Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) Français 日本語 ...
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE87nJzlnToYDMmon4mr6CmApR-YiSiiSJ_k0LPHTXfwluZjCekidDpS10qswhBWSU48TfVYtebwKPLNjsAbJwcTNUP2EE6pJnj8M16VJXUaWoj-L8bq481EN9HRjXID_UR9ODN-kGWeKA-olsxA0lxbGV3ALb00w==) *(vertexaisearch.cloud.google.com)*
-  > Fenced Frame API - Web APIs | MDN Skip to main content Skip to search Toggle sidebar Web Web APIs Fenced Frame API Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) Français 日本語 中文 (简体) Fenced Frame API Deprec...
-- [hidekazu-konishi.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQELfwzYTyR1r1iehXMx0RQKsECi_WMUsZd9VnZkZZSqFLmz2z_uQjwHZMNJL0QwcxL701rqaWqLF4sxjpVb8GuZY0yvaquTO50aGru_5vWx4-blOZfHMmN66FCHjNNmRK7CRsNn43bqiEG0DIaPuyXJ1Vc2QMCT2s-kTq9DMetepJ8y) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature Removal  Following the revised roadmap for the Privacy Sandbox and the deprecation of dependent APIs (such as **Protected Audience** and **Shared Storage `selectURL`**), the Chromium team published an **Intent to Remove the
-- [zenn.dev](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGzMfXcIwOIvRhGupsH5jIRtl38Zc7BrO-RTHioC4_Dp57Zp_N9K75wIUDhiaYT0GvG3qgzVpFgpTtNc1N9bHGanUieZdovTMSWWI_d31cVWdxRMaUdzEsijwWChISJqSNJqK0TV_9e5-1u0hW_bCp3rAjPUm7cqdvOHHk=) *(vertexaisearch.cloud.google.com)*
-  > ### Summary of the Feature Removal  Following the revised roadmap for the Privacy Sandbox and the deprecation of dependent APIs (such as **Protected Audience** and **Shared Storage `selectURL`**), the Chromium team published an **Intent to Remove the
-- [\[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17167.html) *(mail-archive.com)*
-  > &gt;&gt; &gt;&gt; [1] &gt;&gt; https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/html/fenced_frame/fenced_frame_config.idl &gt;&gt; &gt;&gt; [2] &gt;&gt; https://groups.google.com/a/chromium.org/g/blink-dev/c/k_...
+- [Fenced frames overview \| Privacy Sandbox - Google](https://privacysandbox.google.com/private-advertising/fenced-frame) *(privacysandbox.google.com)*
+  > fence APIs"\*\* on \`blink-dev\` and Chrome Platform Status marks the phaseout of the Fenced Frames specification \* \*\*Core Reason\*\*: Fenced frames were specifically designed to prevent cross-site data leakage when rendering isolated content from Privacy ...
+- [chromestatus.com](https://chromestatus.com/release-notes/156) *(chromestatus.com)*
+  > Official Chromium & Chrome Developers Announcements \* \*\*Chrome Platform Status & Chrome 156 Release Notes\*\*: \* Formally logged under tracking bug \*\*#538634423\*\* \* Listed in the \*Deprecations and Removals\* section of the Chrome 156 release notes
+- [Privacy Sandbox feature status](https://privacysandbox.google.com/overview/status) *(privacysandbox.google.com)*
+  > Intent to Ship: Remove FencedFrame element and window.fence APIs ... Scheduled for phaseout. Explainer: Fenced Storage Read API. Continue to support. See Content-Security-Policy: frame-ancestors directive.
+- [hidekazu-konishi.com](https://hidekazu-konishi.com/entry/privacy_sandbox_history_and_timeline.html) *(hidekazu-konishi.com)*
+  > Developer Blogs, Timelines, and Community Tracking \* \*\*Privacy Sandbox Timeline & History Trackers (e.g., Hidekazu Konishi)\*\*: \* Detailed ecosystem chronicles tracking the lifecycle of Privacy Sandbox features note that the withdrawal of Protected Au...
+- [zenn.dev](https://zenn.dev/cybozu_frontend/articles/web_standards_trends_202608) *(zenn.dev)*
+  > fence APIs\* alongside broader frame architecture discussions (such as persistent widgets and standard \`&lt;iframe&gt;\` credential protections)
+- [researchgate.net](https://www.researchgate.net/publication/408340951_The_Rise_and_Fall_of_Google's_Privacy_Sandbox) *(researchgate.net)*
+  > \* \*\*Academic & Industry Retrospectives (e.g., \*The Rise and Fall of Google's Privacy Sandbox\*)\*\*: \* In-depth analyses examine how the reliance of \`&lt;fencedframe&gt;\` on opaque URNs and specific auction APIs made it fragile as an isolated web standard onc...
 - [\[blink-dev\] Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17144.html) *(mail-archive.com)*
-  > Explainer https://<strong>github.com/WICG/fenced-frame/blob/master/explainer/README.md</strong> Specification https://wicg.github.io/fenced-frame Summary Fenced frames are nested frames that embed content onto a page without the ability to share data...
+  > \[blink-dev\] Intent to Ship: Remove FencedFrame element and window.fence APIs Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: Remove FencedFrame element and window.fence APIs Chromestatus Tue, 11 Aug 2026 13:17:20 -0700 Contact email...
+- [\[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17167.html) *(mail-archive.com)*
+  > \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs Skip to site navigation (Press enter) \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs Shivani Sharma Thu, 13 Aug 2026 09:42:40 -0700 Yes...
 - [Re: \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17248.html) *(mail-archive.com)*
-  > [1]https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/html/fenced_frame/fenced_frame_config.idl [2]https://groups.google.com/a/chromium.org/g/blink-dev/c/k_nubsMb97g/m/awPD4IGLBAAJ [3]https://groups.google.com/a/...
-- [Remove FencedFrame element and window.fence APIs](https://chromestatus.com/feature/6366274495053824) *(chromestatus.com · 2026-07-24T00:00:00)*
-  > We cannot provide a description for this page right now
+  > Re: \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs Mike Taylor Fri, 21 Aug 2026 08:31:09 -070...
 - [\[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17145.html) *(mail-archive.com)*
-  > These APIs &gt; are being deprecated and removed in M152 as per the following Intent &gt; threads: Protected Audience[2], Shared Storage[3]. Plan: Given that the &gt; fenced frames element can no longer be navigated, we propose removing the &gt; elem...
-- [Fenced frames overview \| Privacy Sandbox](https://privacysandbox.google.com/private-advertising/fenced-frame) *(privacysandbox.google.com · 2026-08-14T00:00:00)*
-  > Privacy Sandbox feature status provides more information about the status of individual APIs and platform features. ... Securely embed content onto a page without sharing cross-site data. Scheduled for phaseout. Intent to Ship: Remove FencedFrame ele...
-- [Fenced Frame: Guidelines for Feature Behavior](https://chromium.googlesource.com/chromium/src/+/master/content/browser/fenced_frame/README.md) *(chromium.googlesource.com)*
-  > If you determine that your feature needs a fenced frame to access the outer frame tree (i.e. act as an iframe), you must ensure that no information can leak across the fenced boundary. If any information can leak across the boundary, the feature must...
-- [1123606 - chromium - An open-source project to help move the web forward. - Monorail](https://bugs.chromium.org/p/chromium/issues/detail?id=1123606) *(bugs.chromium.org · 2022-05-26T00:00:00)*
-  > About Monorail User Guide Release Notes Feedback on Monorail Terms Privacy
-- [fenced-frame - external/github.com/web-platform-tests/wpt - Git at Google](https://chromium.googlesource.com/external/github.com/web-platform-tests/wpt/+/refs/heads/epochs/daily/fenced-frame) *(chromium.googlesource.com)*
-  > There is also a helper attachIFrameContext(), which does the same thing but for iframes instead of fencedframes. There is also a helper replaceFrameContext(frame, {options}) which will replace an existing frame context using the same underlying eleme...
-- [fenced-frame - external/w3c/web-platform-tests - Git at Google](https://chromium.googlesource.com/external/w3c/web-platform-tests/+/refs/tags/merge_pr_44503/fenced-frame) *(chromium.googlesource.com)*
-  > There is also a helper attachIFrameContext(), which does the same thing but for iframes instead of fencedframes. There is also a helper replaceFrameContext(frame, {options}) which will replace an existing frame context using the same underlying eleme...
-- [Window frameElement Property](https://www.w3schools.com/jsref/prop_win_frameelement.asp) *(w3schools.com)*
-  > Well organized and easy to understand Web building tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, Python, PHP, Bootstrap, Java, XML and more.
-- [\[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17173.html) *(mail-archive.com)*
-  > &gt;&gt;&gt;&gt; With the removal (or stub API replacement) of PA and selectURL, FFs can &gt;&gt;&gt;&gt; no longer be navigated and thus it is safe to remove them. &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt; Fenced frames are only able to be navigated using t...
+  > These APIs &gt; are being deprecated and removed in M152 as per the following Intent &gt; threads: Protected Audience\[2\], Shared Storage\[3\]. Plan: Given that the &gt; fenced frames element can no longer be navigated, we propose removing the &gt; elem...
+- [\[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17158.html) *(mail-archive.com)*
+  > With the removal (or &gt;&gt; stub API replacement) of PA and selectURL, FFs can no longer be navigated &gt;&gt; and thus it is safe to remove them. Fenced frames are only able to be &gt;&gt; navigated using the urn:uuid in a FencedFrameConfig\[1\], wh...
 - [Re: \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17565.html) *(mail-archive.com)*
-  > Skip to site navigation (Press enter) · Re: [blink-dev] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs · Shivani Sharma Mon, 28 Sep 2026 07:59:54 -0700 · Another quick update (already updated in the chromestatusentry): We landed...
-- [Search Conversations](https://groups.google.com/a/chromium.org/g/blink-dev/search?q=Intent+to+Ship) *(groups.google.com)*
-  > Intent to Ship: Remove FencedFrame element and window.fence APIs
-- [Privacy Sandbox feature status](https://privacysandbox.google.com/overview/status) *(privacysandbox.google.com · 2026-08-14T00:00:00)*
-  > Intent to Ship: Remove FencedFrame element and window.fence APIs
-- [FencedFrameConfig interface - WebIDLpedia](https://dontcallmedom.github.io/webidlpedia/names/FencedFrameConfig.html) *(dontcallmedom.github.io)*
-  > Fenced Frame defines FencedFrameConfig · [Exposed=Window, Serializable] interface FencedFrameConfig { constructor(USVString url); undefined setSharedStorageContext(DOMString contextString); }; FencedFrameConfig() HTMLFencedFrameElement.config · Fence...
-- [Fenced frames: Disallow window.fence.reportEvent from ad component fenced frames. \[chromium/src : main\]](https://groups.google.com/a/chromium.org/g/blink-reviews/c/MhTC-Qfb1IY) *(groups.google.com · 2023-03-31T11:50:04)*
-  > FencedFrameConfig 2. FencedFrameProperties 3. RedactedFencedFrameProperties This flag is used in renderer to disallow window.fence.reportEvent invocation from ad component fenced frames.
+  > Skip to site navigation (Press enter) · Re: \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs · Shivani Sharma Mon, 28 Sep 2026 07:59:54 -0700 · Another quick update (already updated in the chromestatusentry): We landed...
+- [Re: \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17273.html) *(mail-archive.com)*
+  > &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Fenced frames are only able to be navigated using the urn:uuid in a &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; FencedFrameConfig\[1\], which can only be created using the return &gt;&gt;&gt;&gt;&g...
+- [\[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17173.html) *(mail-archive.com)*
+  > &lt;strong&gt;These APIs are being deprecated and &gt;&gt;&gt;&gt; removed in M152 as per the following Intent threads: Protected &gt;&gt;&gt;&gt; Audience\[2\], &gt;&gt;&gt;&gt; Shared Storage\[3\]&lt;/strong&gt;. &gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt; Plan: Given that ...
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
-- [\[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17167.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/fenced-frame/blob/master/explainer/README.md`)*
-  > &gt;&gt; &gt;&gt; [1] &gt;&gt; https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/html/fenced_frame/fenced_frame_config.idl &gt;&gt; &gt;&gt; [2] &gt;&gt; https://groups.google.com/a/chromium.org/g/blin...
 - [\[blink-dev\] Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17144.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/fenced-frame/blob/master/explainer/README.md`)*
-  > Explainer https://<strong>github.com/WICG/fenced-frame/blob/master/explainer/README.md</strong> Specification https://wicg.github.io/fenced-frame Summary Fenced frames are nested frames that embed content onto a page without the ability to ...
+  > \[blink-dev\] Intent to Ship: Remove FencedFrame element and window.fence APIs Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: Remove FencedFrame element and window.fence APIs Chromestatus Tue, 11 Aug 2026 13:17:20 -0700 Con...
+- [\[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17167.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/fenced-frame/blob/master/explainer/README.md`)*
+  > \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs Skip to site navigation (Press enter) \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs Shivani Sharma Thu, 13 Aug 2026 09:42:40...
 - [Re: \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs](http://www.mail-archive.com/blink-dev@chromium.org/msg17248.html) *(mail-archive.com)* *(Cites: `https://github.com/WICG/fenced-frame/blob/master/explainer/README.md`)*
-  > [1]https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/html/fenced_frame/fenced_frame_config.idl [2]https://groups.google.com/a/chromium.org/g/blink-dev/c/k_nubsMb97g/m/awPD4IGLBAAJ [3]https://groups.goo...
+  > Re: \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: Remove FencedFrame element and window.fence APIs Mike Taylor Fri, 21 Aug 2026 08:...
 
 ## 📚 Platform Documentation & Specifications
 
+- [&lt;fencedframe&gt; HTML fenced frame element - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/fencedframe) *(developer.mozilla.org)*
+- [Fenced Frame API - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/Fenced_frame_API) *(developer.mozilla.org)*
 - [Remove FencedFrame element and window.fence APIs · Issue #30 · getsentry/browser-updates-radar](https://github.com/getsentry/browser-updates-radar/issues/30) *(github.com)*
 - [\[rule\] element/fencedframe · Issue #110 · cevdetta/deadhead](https://github.com/cevdetta/deadhead/issues/110) *(github.com)*
 - [\[rule\] element/fencedframe · Issue #431 · cevdetta/deadhead](https://github.com/cevdetta/deadhead/issues/431) *(github.com)*
-- [Window: fence property - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/fence) *(developer.mozilla.org)*
-- [Fenced Frame API - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/Fenced_frame_API) *(developer.mozilla.org)*
-- [Fence - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/Fence) *(developer.mozilla.org)*
-- [&lt;fencedframe&gt; HTML fenced frame element - HTML \| MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fencedframe) *(developer.mozilla.org)*
-- [Window - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window?retiredLocale=ar) *(developer.mozilla.org)*
-- [&lt;fencedframe&gt; HTML fenced frame element - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/fencedframe) *(developer.mozilla.org)*
-- [Fence: getNestedConfigs() method - Web APIs - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Fence/getNestedConfigs) *(developer.mozilla.org)*
-- [turtledove/Fenced\_Frames\_Ads\_Reporting.md at main · WICG/turtledove](https://github.com/WICG/turtledove/blob/main/Fenced_Frames_Ads_Reporting.md) *(github.com)*
+- [\[Fenced Frames\] Remove fenced frames code keeping stubs intact by chromium-wpt-export-bot · Pull Request #62917 · web-platform-tests/wpt](https://github.com/web-platform-tests/wpt/pull/62917) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 43 result(s) found across 13 planned queries — **28 verified relevant**
+- **Brave Search:** 45 result(s) found across 12 planned queries — **16 verified relevant**
   - `"chromestatus.com/feature/6366274495053824" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
   - `"github.com/WICG/fenced-frame/blob/master/explainer/README.md" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (4 returned)
   - `"wicg.github.io/fenced-frame" -site:wicg.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (5 returned)
@@ -106,27 +87,28 @@ The following external publications and discussions explicitly link to or cite t
   - `"window.fence" OR "element.config" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Remove FencedFrame element and window.fence APIs" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"Remove FencedFrame element and window.fence APIs" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"Intent to Deprecate and Remove" "FencedFrame" OR "window.fence" site:groups.google.com/a/chromium.org/g/blink-dev` — *Find official Blink-dev discussions, feedback, and intent threads regarding the deprecation and removal of fenced frames and window.fence.* (1 returned)
-  - `"fencedframe" OR "window.fence" "Protected Audience" "Privacy Sandbox" removal OR deprecation` — *Search industry analysis and ad tech ecosystem reactions to the removal of fenced frames in conjunction with Protected Audience changes.* (8 returned)
-  - `"HTMLFencedFrameElement" OR "window.fence" config "urn:uuid" code example` — *Discover JavaScript code samples and WebIDL implementations showing how fenced frame elements and window.fence APIs were originally structured.* (3 returned)
-  - `"fenced frame" OR "window.fence" "reportEvent" OR "getNestedConfigs" tutorial OR guide` — *Locate practical developer tutorials, guides, and explainers detailing how Fenced Frames Ads Reporting (FFAR) and nested configs operated.* (8 returned)
-  - `"fencedframe" site:github.com/WICG/fenced-frame/issues removal OR deprecate` — *Track standards development, issue tracking, and specification debate around winding down the fenced frame API in the official WICG repository.* (0 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 10 result(s) found — **4 verified relevant**
-- **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 8 result(s) found — **0 verified relevant**
+  - `("fenced frame" OR "fencedframe") ("window.fence" OR "FencedFrameConfig") (migration OR deprecated OR removal)` — *Discovers developer guides, technical writeups, and migration articles discussing the deprecation and removal of Fenced Frames and window.fence.* (8 returned)
+  - `("HTMLFencedFrameElement" OR "window.fence") ("FencedFrameConfig" OR "setSharedStorageContext" OR "reportEvent")` — *Finds actual JavaScript code snippets, WebIDL references, and implementation patterns using FencedFrame APIs and configs.* (8 returned)
+  - `"Intent to Deprecate and Remove" OR "Intent to Remove" ("fenced frame" OR "fencedframe" OR "window.fence")` — *Tracks official browser vendor intent threads, milestone timelines, and standardization status updates regarding the API removal.* (2 returned)
+  - `site:github.com/WICG/fenced-frame/issues ("removal" OR "deprecated" OR "Protected Audience")` — *Surfaces community questions, ad tech feedback, and ecosystem discussions in the official WICG repository regarding the retirement of fenced frames.* (0 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 9 result(s) found — **8 verified relevant**
+- **Twitter / X API v2:** *HTTP 401 Unauthorized (Check your TWITTER\_BEARER\_TOKEN or X\_BEARER\_TOKEN)*
+- **Dev.to Community Blogs:** 2 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 result(s) found — **0 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
 - **NPM Registry:** 6 result(s) found — **0 verified relevant**
-- **Web Platform Tests (wpt.fyi):** 9 item(s) inspected
+- **web-features mapping:** *not in a web-features group*
+- **Web Platform Tests (wpt.fyi):** *not in a web-features group*
+- **Sources cited by the AI synthesis:** 4 result(s) found — **3 verified relevant**
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
 - **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 8 page(s)
+- **Web Page Excerpts Ingested:** 7 page(s)
 
 ## Useful Links
 

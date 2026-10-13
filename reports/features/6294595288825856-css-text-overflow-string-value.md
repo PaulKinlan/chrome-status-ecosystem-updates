@@ -1,6 +1,6 @@
 # CSS text-overflow: &lt;string&gt; value
 
-> **Report Week:** 2026-W40 | **Milestone:** Chrome 156 | **Category:** Enabled by default
+> **Report Week:** 2026-W42 | **Milestone:** Chrome 157 | **Category:** Enabled by default
 
 ## Overview
 
@@ -8,129 +8,121 @@ Adds a &lt;string&gt; value to the text-overflow property.  This allows web auth
 
 ### Motivation
 
-Chromium's text-overflow implementation only supports the clip and ellipsis keywords, so authors who want a different truncation indicator must truncate the text themselves in JavaScript or overlay a positioned pseudo-element on the end of the line. Supporting the specified <string> value lets the browser truncate the text and render the author's chosen indicator together.
+Chromium's text-overflow implementation only supports the clip and ellipsis keywords, so authors who want a different truncation indicator must truncate the text themselves in JavaScript or overlay a positioned pseudo-element on the end of the line. Supporting the specified &lt;string&gt; value lets the browser truncate the text and render the author's chosen indicator together.
 
 ## Ecosystem Status
 
-- **Momentum:** High (235 points)
-- **Standards Alignment:** Chromium-Led
-- **Sentiment:** Positive / High Interest
-- **Executive Take:** CSS text-overflow: &lt;string&gt; value is currently Enabled by default in Chrome 156. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
+- **Momentum:** Moderate (footprint 215 points, ranked against this week's features because too few have an earlier number to work out a change)
+- **Standards Alignment:** Multi-Engine Consensus
+- **Sentiment:** Positive
+- **Executive Take:** The CSS text-overflow string value specified in CSS Overflow Module Level 4 allows authors to designate custom truncation tokens (such as localized strings or empty strings) natively in CSS. Gecko has supported string clipping since Firefox 9, WebKit has officially supported the spec and merged its implementation, and Chromium's rollout completes universal engine convergence. This resolves a decade-long interoperability gap, eliminating reliance on fragile JavaScript text measurement or positioned pseudo-element hacks.
 
 ### Recommendations
-- Shipping enabled by default in Chrome 156. Developers can begin adopting in production with progressive feature detection.
+- Actionable Advice: Web developers can safely begin using the feature today via progressive enhancement by declaring a fallback 'text-overflow: ellipsis' directly before the custom string declaration, or by querying it with '@supports (text-overflow: "...")'. JavaScript-based truncation scripts for single-line text containers should be audited and phased out in favor of native styling.
+- Shipping enabled by default in Chrome 157. Developers can begin adopting in production with progressive feature detection.
 - Standards Activity (WebKit): Latest discussion from @jja08111: "https://github.com/WebKit/WebKit/pull/72631 has been merged, so close this issue...."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-- Verified community discussion on Twitter / X: "Sketch on Twitter: "If a layer is sitting within 20px of the end of a text string, it will move when you update the text value on overrides… "" (0 points, 0 comments).
 
 ## Standards Positions
 
 - **WebKit:** [CSS text-overflow: &lt;string&gt; value](https://github.com/WebKit/standards-positions/issues/710) [closed]
 
-## Community Discussions & Social Pulse
+## Web-features Group
 
-- 🐦 **Twitter / X:** [Sketch on Twitter: "If a layer is sitting within 20px of the end of a text string, it will move when you update the text value on overrides… "](https://twitter.com/sketch/status/733285154215485440) — *by @sketch, 0 likes/RTs, 0 replies*
-- 🐦 **Twitter / X:** [Just add the following CSS snippet: "text-wrap: balance"](https://twitter.com/webflowtips/status/1760868437834846511) — *by @webflowtips, 0 likes/RTs, 0 replies*
-- 🐦 **Twitter / X:** [X on X / X](https://twitter.com/xah_lee/status/1084189479357669376) — *by @xah_lee, 0 likes/RTs, 0 replies*
-- 🐦 **Twitter / X:** [Safariで overflow-x:hidden; が効かない時はposition: relative](https://twitter.com/HOSPIT77/status/1642285910866657284) — *by @HOSPIT77, 0 likes/RTs, 0 replies*
+*group-level data: web-features [`custom-ellipses`](https://webstatus.dev/features/custom-ellipses), shared with 1 other ChromeStatus feature*
+
+- Share of tests passing in the web-features group `custom-ellipses` on [wpt.fyi](https://wpt.fyi/results?q=feature:custom-ellipses) (via webstatus.dev) — stable: Chrome 0% · Edge 0% · Firefox 34.8% · Safari 0%; experimental: Chrome 100% · Edge 100% · Firefox 34.8% · Safari 0%
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [google.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGtBTYtgzVNwh2IOilsjxvv9xZPJgqpjCPU03UZNCZX1rIfH9vPzbPoCMwFsnQUgQG9ihE3_D6K-MBHCz3uZKUeysk_z77gwZmWoSIebWY_h8nX64adaSxEA4VMFWYQszecucGzRFnSeEeKGVg1Uabp-CqdUmibo-eybFd73QYKYCCfNGc8kPOoEQ1OxAZRG-DdvnGlxFMq7xHps9LcVYaTjSt6uF4qU7E1nAN13gRYMkfsz7DAu-UTYEDAUKqc5xQNtgynBTNcDnkTXJN1Ee5r) *(vertexaisearch.cloud.google.com)*
-  > Request for Adding Support for the 'string' Value in CSS text-overflow Property for Chromium/Chrome - Google Chrome Community Skip to main content Google Chrome Help Sign in Google Help Help Center Community Google Chrome Privacy Policy Terms of Serv...
-- [smashingmagazine.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFfMxFI6w9jwZ1NxE3zYc4dLycAl7zGYP8ojZ4oge47ctwXSgkaw5y6cnGXQnrsWvj479_HDMcyJ1vOPpT-c_iCc-B5kg9hFiImod7C32dpIpv0Rv22K1TCPcLBQb2D_t8g1lgvx8esn7Fr9H_M60P46xLD9EU=) *(vertexaisearch.cloud.google.com)*
-  > ### Overview: CSS `text-overflow: <string>`  The CSS `text-overflow` property traditionally accepted keywords like `clip` and `ellipsis` to signal truncated inline content. The CSS Overflow Module Level 3 specification introduced the `<string>` synta
-- [cdeath.dev](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEQTgRzRXJQHOnZp769JlEr1XR-sPUm9yPkhpG2__5MfsENMlEN_8H0XMfy52Pu_jnTEBHuuaO-66Nq2EXHw1xHynADfDTzZEO4q28cR96ze3-M7Da6r9Gx0vXFdGU=) *(vertexaisearch.cloud.google.com)*
-  > ### Overview: CSS `text-overflow: <string>`  The CSS `text-overflow` property traditionally accepted keywords like `clip` and `ellipsis` to signal truncated inline content. The CSS Overflow Module Level 3 specification introduced the `<string>` synta
-- [stackoverflow.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFI7bWie7reg0f_kdnqZkxNuGPfbsxrt-RAIj9i0EDUfczFQEPMTRGrD-_IESQ2epf6rSBPyldU1EMQ2yzAuDIQo77rkEyugDFOEx5JBuFGckEEx-gJyur9EtUwdK-YMhDLDtpEI8vNrK54rOJyo8p0GilJK62zehYmTa4muJLNE4J3z2tY2QyCwV2_5FhOileyqwZFZTJNn4foJLGwKUkhfJVKC4ZaBl58EmgxQ_v7QQ1B) *(vertexaisearch.cloud.google.com)*
-  > ### Overview: CSS `text-overflow: <string>`  The CSS `text-overflow` property traditionally accepted keywords like `clip` and `ellipsis` to signal truncated inline content. The CSS Overflow Module Level 3 specification introduced the `<string>` synta
-- [styled-components.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2qthtGA44zFrashAgkIeHMgl1SsUiqTlz_YzAQRTXHHEyWsOnH7ShjE0hiwSFNXqzPWh7fsbgp_VxiOT1YFOUTMTUajT-ulZwSqQZrb4GAUbXFd6tOBogLnGpbQ==) *(vertexaisearch.cloud.google.com)*
-  > ### Overview: CSS `text-overflow: <string>`  The CSS `text-overflow` property traditionally accepted keywords like `clip` and `ellipsis` to signal truncated inline content. The CSS Overflow Module Level 3 specification introduced the `<string>` synta
-- [Re: \[blink-dev\] Re: Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17547.html) *(mail-archive.com)*
-  > &gt;&gt;&gt;&gt;&gt; *No information provided* &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; *Link to entry on the Chrome Platform Status* &gt;&gt;&gt;&gt;&gt; https://<strong>chromestatus.com/feature/6294595288825856</strong>?gate=5598631104217088 &gt;&...
-- [\[blink-dev\] Re: Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17513.html) *(mail-archive.com)*
-  > &gt;&gt; *No information provided* &gt;&gt; &gt;&gt; *Link to entry on the Chrome Platform Status* &gt;&gt; https://<strong>chromestatus.com/feature/6294595288825856</strong>?gate=5598631104217088 &gt;&gt; &gt;&gt; *Links to previous Intent discussio...
+- [realityripple.com](https://udn.realityripple.com/docs/Web/CSS/text-overflow) *(udn.realityripple.com)*
+  > The \*\*\`text-overflow: &lt;string&gt;\`\*\* value—specified as part of the \[CSS Overflow Module Level 4\](https://drafts.csswg.org/css-overflow-4/#text-overflow)—allows authors to provide an arbitrary string (e.g., \`text-overflow: "(more)"\`, \`text-overflow: " \[...
+- [zenn.dev](https://zenn.dev/cybozu_frontend/articles/web_standards_trends_202609) *(zenn.dev)*
+  > \*\*Chrome Platform Status & Blink Intent to Ship\*\* \* \*\*Announcement\*\*: The Chromium team posted the feature entry and \*\*Intent to Ship\*\* for \*CSS \`text-overflow: &lt;string&gt;\` value\* \* \*\*Developer Blogs & Standards Trackers (e.g., Zenn, Frontend Dogma)\*\*:...
+- [webkit.org](https://webkit.org/standards-positions) *(webkit.org)*
+  > \*\*WebKit Implementation\*\* \* \*\*Status & Commits\*\*: WebKit officially supported the specification in its Standards Positions and merged the implementation pull request (\*\`\[css-overflow-4\] Support text-overflow: &lt;string&gt;\`\*)
+- [webkit.org](https://results.webkit.org/commit/next?repository_id=webkit&ref=6da13b652a6ee8c9b536a3ef38bf3050a5d76416) *(results.webkit.org)*
+  > \* Tim Nguyen and Frédéric Wang Nélar synchronized upstream WPTs covering bidirectional line clamping, \`&lt;input&gt;\` integration, and custom string overflow, bringing Safari/WebKit to feature parity
+- [webkit.org](https://results.webkit.org/commit/next?repository_id=webkit&ref=651c2a2cdcac1fb8bde41eb878db83fbf0525f31) *(results.webkit.org)*
+  > \* Tim Nguyen and Frédéric Wang Nélar synchronized upstream WPTs covering bidirectional line clamping, \`&lt;input&gt;\` integration, and custom string overflow, bringing Safari/WebKit to feature parity
+- [chromium.org](https://issues.chromium.org/555895001) *(issues.chromium.org)*
+  > \* Tim Nguyen and Frédéric Wang Nélar synchronized upstream WPTs covering bidirectional line clamping, \`&lt;input&gt;\` integration, and custom string overflow, bringing Safari/WebKit to feature parity
+- [caniuse.com](https://caniuse.com/mdn-css_properties_text-overflow_string) *(caniuse.com)*
+  > custom-overflow { white-space: nowrap; overflow: hidden; text-overflow: " \[..\]"; } MDN highlights that Firefox was an early adopter of this value (dating back to Firefox 9), but it remained largely unused across the broader ecosystem due to missing e...
+- [Custom text-overflow CSS? - Stack Overflow](https://stackoverflow.com/questions/8401846/custom-text-overflow-css) *(stackoverflow.com)*
+  > custom-overflow { white-space: nowrap; overflow: hidden; text-overflow: " \[..\]"; } MDN highlights that Firefox was an early adopter of this value (dating back to Firefox 9), but it remained largely unused across the broader ecosystem due to missing e...
+- [stackoverflow.com](https://stackoverflow.com/questions/36063044/text-overflow-string-invalid-property-value-chrome) *(stackoverflow.com)*
+  > dev Guides\*\*: \* Historically, CSS-Tricks and community threads on Stack Overflow cited the string syntax with an asterisk, warning developers that \`text-overflow: "---"\` yielded an \`invalid property value\` error in Chromium and WebKit browsers
+- [text-overflow \| CSS-Tricks](https://css-tricks.com/almanac/properties/t/text-overflow) *(css-tricks.com)*
+  > dev Guides\*\*: \* Historically, CSS-Tricks and community threads on Stack Overflow cited the string syntax with an asterisk, warning developers that \`text-overflow: "---"\` yielded an \`invalid property value\` error in Chromium and WebKit browsers
+- [web.dev](https://web.dev/learn/css/overflow) *(web.dev)*
+  > dev\` (\*"Overflow"\*) and CSS guides discuss single-line text management and emphasize that adding arbitrary strings completes the truncation toolkit—especially when paired with modern container sizing and internationalized bidi layouts where standard ...
 - [\[blink-dev\] Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17500.html) *(mail-archive.com)*
-  > No information provided Link to entry on the Chrome Platform Status https://<strong>chromestatus.com/feature/6294595288825856</strong>?gate=5598631104217088 Links to previous Intent discussions Intent to Prototype: https://groups.google.com/a/chromiu...
+  > \[blink-dev\] Intent to Ship: CSS text-overflow: value Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: CSS text-overflow: value Chromestatus Sun, 20 Sep 2026 22:03:42 -0700 Contact emails \[email&#160;protected\] Explainer https://devel...
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17547.html) *(mail-archive.com)*
+  > Re: \[blink-dev\] Re: Intent to Ship: CSS text-overflow: value Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS text-overflow: value Rick Byers Thu, 24 Sep 2026 07:16:32 -0700 LGTM3 On Tue, Sep 22, 2026 at 7:55 AM Minseong ...
 - [\[blink-dev\] Re: Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17512.html) *(mail-archive.com)*
-  > &gt; *Contact emails* &gt; [email protected] &gt; &gt; *Explainer* &gt; &gt; https://<strong>developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-overflow</strong>#string &gt; &gt; *Specification* &gt; https://drafts.csswg.org/css-overf...
-- [Re: \[blink-dev\] Re: Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17514.html) *(mail-archive.com)*
-  > Ian On Mon, Sep 21, 2026 at 11:51 AM Alex Russell &lt;[email protected]&gt; wrote: &gt; LGTM2 &gt; &gt; On Monday, September 21, 2026 at 11:51:32 AM UTC-7 [email protected] &gt; wrote: &gt; &gt;&gt; LGTM1 &gt;&gt; &gt;&gt; On Sunday, September 20, 20...
-- [CSS text-overflow property](https://www.w3schools.com/cssref/css3_pr_text-overflow.php) *(w3schools.com)*
-  > <strong>The text-overflow property specifies how overflowed content that is not displayed should be signaled to the user</strong>. It can be clipped, display an ellipsis (...), or display a custom string.
-- [CSS - text-overflow Property](https://www.tutorialspoint.com/css/css_text-overflow.htm) *(tutorialspoint.com)*
-  > This keyword value truncates text ... the ellipsis if space is limited. string − <strong>This value allows you to specify a custom string to be used as the indicator for truncated text</strong>....
-- [CSS Text Overflow Guide: How to Handle Single & Multi-Line Ellipsis \| How To Learn](https://learnhowto.vercel.app/blog/css/a-deep-dive-into-css-text-overflow-from-ellipsis-to-multi-line-clamping) *(learnhowto.vercel.app · 2026-01-19T00:00:00)*
-  > .truncated-text-ellipsis { width: 200px; border: 1px solid #ddd; padding: 8px; /* Required properties */ overflow: hidden; white-space: nowrap; /* The ellipsis value */ text-overflow: ellipsis; } This is the go-to for almost all UI truncation needs, ...
-- [CSS Text-Overflow Guide & Examples - Tillitsdone](https://tillitsdone.com/blogs/css-property-text-overflow) *(tillitsdone.com)*
-  > The text-overflow property can accept one or two values. <strong>text-overflow: clip | ellipsis | &lt;string&gt; | initial | inherit;</strong>
-- [Mastering CSS \`text-overflow\`: A Comprehensive Guide](https://webdevfundamentals.com/mastering-css-text-overflow-a-comprehensive-guide) *(webdevfundamentals.com · 2026-02-22T16:56:11)*
-  > `[string]`: This allows you to specify a custom string to represent the overflow. This string will replace the truncated text. To effectively use `text-overflow`, you need to <strong>combine it with other CSS properties</strong>.
-- [CSS text-overflow \| i2tutorials](https://i2tutorials.com/css-tutorial/css-text-overflow) *(i2tutorials.com · 2021-01-02T04:10:27)*
-  > ⦁ string: The user using the string of the programmer’s choice. It works only in the · Firefox browser. ⦁ initial: It sets the property to its default value. ⦁ inherit: It inherits the property from its parent element. &lt;!DOCTYPE html&gt; &lt;html&...
-- [Handling Text Overflow in CSS3 - Tutorial Republic](https://www.tutorialrepublic.com/css-tutorial/css3-text-overflow.php) *(tutorialrepublic.com)*
-  > Warning: The string value for the text-overflow property is not supported in most of the web browsers, you should better avoid this. You can also break a long word and force it to wrap onto a new line that overflows the boundaries of containing eleme...
-- [text-overflow \| Codrops](https://tympanus.net/codrops/css_reference/text-overflow) *(tympanus.net · 2016-12-11T00:00:00)*
-  > So, you can use white space (which is considered a string), or any other custom string. See the Examples and Live Demo sections below for examples. Also in CSS3, the property syntax allows you to specify the overflow at the left and right edges using...
-- [CSS Text Overflow \| CODE4EDUCATION](https://codes4education.com/courses/css-tutorial/lesson/css-text-overflow) *(codes4education.com · 2023-03-27T07:01:09)*
-  > Syntax: <strong>text-overflow: clip|string|ellipsis|initial|inherit;</strong> Property Values: All the properties are described well with the example below. clip: Text is clipped and cannot be seen. This is the default value. ellipsis: Text is clippe...
-- [Re: \[blink-dev\] Re: Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17519.html) *(mail-archive.com)*
-  > The expected behavior is that <strong>text-overflow: &lt;string&gt; applies to inline overflow inside the clamp container</strong>, while -webkit-line-clamp still uses its own default ellipsis. This follows CSSWG #10823 &lt;https://github.com/w3c/css...
-- [\[blink-dev\] Intent to Prototype: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17287.html) *(mail-archive.com)*
-  > Initial public proposal No information provided Search tags text-overflow Goals for experimentation None Requires code in //chrome? False Tracking bug https://issues.chromium.org/issues/41492459 Estimated milestones No milestones specified Link to en...
+  > \[blink-dev\] Re: Intent to Ship: CSS text-overflow: value Skip to site navigation (Press enter) \[blink-dev\] Re: Intent to Ship: CSS text-overflow: value 'Dan Clark' via blink-dev Mon, 21 Sep 2026 11:51:41 -0700 LGTM1 On Sunday, September 20, 2026 at 1...
+- [CSS text-overflow property](http://w3schools-fa.ir/cssref/css3_pr_text-overflow.html) *(w3schools-fa.ir)*
+  > More &quot;Try it Yourself&quot; examples below. &lt;strong&gt;The text-overflow property specifies how overflowed content that is not displayed should be signaled to the user&lt;/strong&gt;. It can be clipped, display an ellipsis (...), or display a custom stri...
+- [CSS text-overflow property](https://devcom.w3schools.com/cssref/css3_pr_text-overflow.php) *(devcom.w3schools.com)*
+  > More &quot;Try it Yourself&quot; examples below. &lt;strong&gt;The text-overflow property specifies how overflowed content that is not displayed should be signaled to the user&lt;/strong&gt;. It can be clipped, display an ellipsis (...), or display a custom stri...
+- [CSS text-overflow Property - GeeksforGeeks](https://www.geeksforgeeks.org/css/css-text-overflow-property) *(geeksforgeeks.org · 2025-07-11T17:58:40)*
+  > Example: &lt;strong&gt;This example illustrates the use of the text-overflow property where its value is set to a specific string value&lt;/strong&gt;. ... &lt;html&gt; &lt;head&gt; &lt;title&gt; CSS \| text-overflow Property &lt;/title&gt; &lt;style type=&quot;t...
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
-- [Re: \[blink-dev\] Re: Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17547.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/6294595288825856`)*
-  > &gt;&gt;&gt;&gt;&gt; *No information provided* &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; *Link to entry on the Chrome Platform Status* &gt;&gt;&gt;&gt;&gt; https://<strong>chromestatus.com/feature/6294595288825856</strong>?gate=559863110421...
-- [\[blink-dev\] Re: Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17513.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/6294595288825856`)*
-  > &gt;&gt; *No information provided* &gt;&gt; &gt;&gt; *Link to entry on the Chrome Platform Status* &gt;&gt; https://<strong>chromestatus.com/feature/6294595288825856</strong>?gate=5598631104217088 &gt;&gt; &gt;&gt; *Links to previous Intent...
-- [\[blink-dev\] Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17500.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/6294595288825856`)*
-  > No information provided Link to entry on the Chrome Platform Status https://<strong>chromestatus.com/feature/6294595288825856</strong>?gate=5598631104217088 Links to previous Intent discussions Intent to Prototype: https://groups.google.com...
-- [\[blink-dev\] Re: Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17512.html) *(mail-archive.com)* *(Cites: `https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-overflow#string`)*
-  > &gt; *Contact emails* &gt; [email protected] &gt; &gt; *Explainer* &gt; &gt; https://<strong>developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-overflow</strong>#string &gt; &gt; *Specification* &gt; https://drafts.csswg.org...
-- [Re: \[blink-dev\] Re: Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17514.html) *(mail-archive.com)* *(Cites: `https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-overflow#string`)*
-  > Ian On Mon, Sep 21, 2026 at 11:51 AM Alex Russell &lt;[email protected]&gt; wrote: &gt; LGTM2 &gt; &gt; On Monday, September 21, 2026 at 11:51:32 AM UTC-7 [email protected] &gt; wrote: &gt; &gt;&gt; LGTM1 &gt;&gt; &gt;&gt; On Sunday, Septem...
+- [\[blink-dev\] Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17500.html) *(mail-archive.com)* *(Cites: `https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-overflow#string`)*
+  > \[blink-dev\] Intent to Ship: CSS text-overflow: value Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: CSS text-overflow: value Chromestatus Sun, 20 Sep 2026 22:03:42 -0700 Contact emails \[email&#160;protected\] Explainer htt...
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS text-overflow: &lt;string&gt; value](http://www.mail-archive.com/blink-dev@chromium.org/msg17547.html) *(mail-archive.com)* *(Cites: `https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-overflow#string`)*
+  > Re: \[blink-dev\] Re: Intent to Ship: CSS text-overflow: value Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS text-overflow: value Rick Byers Thu, 24 Sep 2026 07:16:32 -0700 LGTM3 On Tue, Sep 22, 2026 at 7:55 AM...
+- [csswg-drafts/css-overflow-4/Overview.bs at main · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/blob/main/css-overflow-4/Overview.bs) *(github.com)* *(Cites: `https://drafts.csswg.org/css-overflow-4/#text-overflow`)*
+  > csswg-drafts/css-overflow-4/Overview.bs at main · w3c/csswg-drafts · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh...
 
 ## 📚 Platform Documentation & Specifications
 
-- [text-overflow CSS property - CSS \| MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow) *(developer.mozilla.org)*
+- [github.com](https://github.com/mdn/content/blob/main/files/en-us/web/css/reference/properties/text-overflow/index.md?plain=1) *(github.com)*
+- [github.com](https://github.com/w3c/csswg-drafts/issues/12617) *(github.com)*
+- [csswg-drafts/css-overflow-4/Overview.bs at main · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/blob/main/css-overflow-4/Overview.bs) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 57 result(s) found across 12 planned queries — **17 verified relevant**
-  - `"chromestatus.com/feature/6294595288825856" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (3 returned)
-  - `"developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-overflow" -site:developer.mozilla.org` *(Reverse Citation)* — *Inbound citations linking to Explainer* (4 returned)
-  - `"drafts.csswg.org/css-overflow-4" -site:drafts.csswg.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (4 returned)
+- **Brave Search:** 45 result(s) found across 12 planned queries — **9 verified relevant**
+  - `"chromestatus.com/feature/6294595288825856" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
+  - `"developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/text-overflow" -site:developer.mozilla.org` *(Reverse Citation)* — *Inbound citations linking to Explainer* (3 returned)
+  - `"drafts.csswg.org/css-overflow-4" -site:drafts.csswg.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (3 returned)
   - `"CSS text-overflow: <string> value" API` — *Core feature API query* (0 returned)
   - `"CSS text-overflow: <string> value" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"text-overflow" OR "user-friendly" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"CSS text-overflow: <string> value" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"CSS text-overflow: <string> value" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"text-overflow" custom string tutorial OR "how to"` — *Discovers developer tutorials, practical guides, and blog articles demonstrating how to style custom text truncation indicators natively in CSS.* (8 returned)
-  - `"text-overflow:" "<string>" OR "..." OR "[more]" codepen OR jsfiddle` — *Searches for practical CSS code snippets and interactive demos showcasing custom string values passed to text-overflow.* (8 returned)
-  - `"text-overflow" string "Intent to Ship" OR "Chrome Platform Status" OR "Can I use"` — *Tracks browser engine compatibility announcements, feature shipments, and platform status updates across Chromium, Gecko, and WebKit.* (7 returned)
-  - `"text-overflow" string (site:news.ycombinator.com OR site:reddit.com/r/webdev)` — *Surfaces developer reactions, discussions, and comparisons between native text-overflow string values and previous JavaScript or pseudo-element workarounds.* (4 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 12 result(s) found — **5 verified relevant**
-- **Twitter / X API v2:** *HTTP 400*
-- **Dev.to Community Blogs:** 6 result(s) found — **0 verified relevant**
+  - `"text-overflow" custom string OR "(more)" css tutorial guide` — *Finds practical developer tutorials demonstrating how to replace standard ellipsis with custom text truncation indicators.* (8 returned)
+  - `css "text-overflow:" string example "overflow: hidden" "white-space: nowrap"` — *Targets code snippets and implementation examples combining text-overflow string values with standard CSS truncation properties.* (8 returned)
+  - `"text-overflow" "<string>" "css-overflow-4" ("intent to ship" OR "intent to prototype" OR "caniuse")` — *Tracks browser engine implementation announcements, standardization status, and compatibility updates across Chromium, Gecko, and WebKit.* (0 returned)
+  - `"text-overflow" string value site:news.ycombinator.com OR site:reddit.com/r/webdev` — *Discovers community reactions, alternative workarounds, and discussions regarding custom text truncation indicators on developer forums.* (4 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 17 result(s) found — **13 verified relevant**
+- **Twitter / X API v2:** *HTTP 401 Unauthorized (Check your TWITTER\_BEARER\_TOKEN or X\_BEARER\_TOKEN)*
+- **Tweets found by web search:** 8 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 4 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 1 result(s) found — **1 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
-- **Baseline (baseline.dev):** *untracked*
+- **Baseline (baseline.dev):** *limited*
 - **NPM Registry:** 6 result(s) found — **0 verified relevant**
-- **Web Platform Tests (wpt.fyi):** 899 item(s) inspected
+- **web-features mapping:** *group "custom-ellipses", shared with 1 other ChromeStatus feature(s)*
+- **Web Platform Tests (wpt.fyi):** *group "custom-ellipses": Chrome 0% passing (stable)*
+- **Sources cited by the AI synthesis:** 2 result(s) found — **1 verified relevant**
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
 - **Standards Discussion Comments:** 1 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 8 page(s)
+- **Web Page Excerpts Ingested:** 9 page(s)
 
 ## Useful Links
 

@@ -1,6 +1,6 @@
 # Deprecate and Remove Protected Audience
 
-> **Report Week:** 2026-W41 | **Milestone:** Chrome 153 | **Category:** Deprecated
+> **Report Week:** 2026-W42 | **Milestone:** Chrome 153 | **Category:** Deprecated
 
 ## Overview
 
@@ -12,104 +12,104 @@ Chrome has announced that the current approach to third-party cookies will be ma
 
 ## Ecosystem Status
 
-- **Momentum:** High (150 points)
+- **Momentum:** Moderate (footprint 200 points, ranked against this week's features because too few have an earlier number to work out a change)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Positive / High Interest
-- **Executive Take:** Deprecate and Remove Protected Audience is currently Deprecated in Chrome 153. Verified ecosystem momentum is High with Chromium-Led standards alignment and positive / high interest developer pulse.
+- **Sentiment:** Mixed / Skeptical
+- **Executive Take:** Following Chrome's decision to maintain third-party cookies through user choice controls rather than universal blocking, Google scheduled the Protected Audience API for deprecation and removal by Chrome 153. Usage telemetry reported in the blink-dev intent showed that real-world utilization collapsed, with joinAdInterestGroup invocations declining nearly a hundredfold and virtually no auctions resulting in winning bids. With Mozilla and Apple having consistently opposed the proposal, the removal officially ends Chrome's browser-mediated ad auction experiment.
 
 ### Recommendations
+- Actionable Advice: Audit first-party scripts and third-party advertising tags immediately to rip out invocations of navigator.joinAdInterestGroup() and navigator.runAdAuction() before execution fails entirely. Development teams should decommission dependent worklets and related Fenced Frame wrappers in favor of durable server-side and standard cross-browser web primitives.
 - Marked for deprecation in Chrome 153. Audit codebases and migrate to modern standard alternatives.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-- Verified community discussion on Twitter / X: "Do Not Reach Lists" (0 points, 0 comments).
-
-## Community Discussions & Social Pulse
-
-- 🐦 **Twitter / X:** [Do Not Reach Lists](https://business.twitter.com/en/help/campaign-setup/campaign-targeting/do-not-reach-lists.html) — *0 likes/RTs, 0 replies*
-- 🐦 **Twitter / X:** [Custom Audience Permissions \| Docs \| Twitter Developer Platform](https://developer.twitter.com/en/docs/twitter-ads-api/audiences/api-reference/custom-audience-permissions) — *0 likes/RTs, 0 replies*
-- 🐦 **Twitter / X:** [Overview \| Docs \| X Developer Platform](https://developer.twitter.com/en/docs/ads/audiences/api-reference/tailored-audience-permissions) — *0 likes/RTs, 0 replies*
-- 🐦 **Twitter / X:** [Tailored Audience Changes — Twitter Developers](https://developer.twitter.com/en/docs/ads/audiences/api-reference/tailored-audience-changes.html) — *0 likes/RTs, 0 replies*
-- 🐦 **Twitter / X:** [X Developer Platform - X](https://developer.twitter.com/en/docs/ads/audiences/api-reference/audience.html) — *0 likes/RTs, 0 replies*
-- 🐦 **Twitter / X:** [Website Activity Custom Audiences \| X Help Center](https://business.twitter.com/en/help/campaign-setup/campaign-targeting/custom-audiences/website-activity.html) — *0 likes/RTs, 0 replies*
-- 🐦 **Twitter / X:** [Browser Elements: Part 3: Navigators, Promises, and Beacons \| The Privacy Sandbox](https://www.theprivacysandbox.com/post/promises-navigators-and-beacons) — *0 likes/RTs, 0 replies*
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [hidekazu-konishi.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHwmNdaTDlLwo2ChzgTcbQHVlPkINnRtFg8Oln-HrL3PU0Cx1J1XiGZhWdomvpzJ2ssrwjuCQqAKo1-akkbWhidO8Esa5bzhnGK3x3fUb6A_1EmbtQsLxnEkFwRc-FEXFPtlQ6msNtTGuha-PCq8XUy7vfoq5Xn6uBKrYBbe7nPaR8=) *(vertexaisearch.cloud.google.com)*
-  > Privacy Sandbox History and Timeline - The Third-Party Cookie Phase-Out Plan, Its Reversal, API Deprecation and Removal in Chrome, and What Remains Supported | hidekazu-konishi.com hidekazu-konishi.com https://hidekazu-konishi.com/images/privacy_sand...
-- [chrome.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGEDMfj9hDIFNKkqyVG4ENJqXEQ86h2ABSChR7K-WeJeRV0CFrimjZkTr0LfYRac-2zJ2iH-t4DyTZ2Zd5h12m89q3j30pI4e93NmGes9CZbJundNOqYuHus-WyaP79toL8tZg=) *(vertexaisearch.cloud.google.com)*
-  > Chrome 153 | Release notes | Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภาษาไทย 中...
-- [google.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEbZXMBQUMIPaSdo1BGB_Z9VAIafo9XVkVRf16OdzBvudDKLXsQ-iCyNqo-SRs3fhVt_oGPnUizbdRi2yhE1sAIIQ_955NUANc0TWqFAZ5l1a7VN_annsViHezSm80NyfrKme2Mksg=) *(vertexaisearch.cloud.google.com)*
-  > Status do recurso do Sandbox de privacidade | Privacy Sandbox Ir para o conteúdo principal / English Deutsch Español – América Latina Français Indonesia Italiano Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंदी বাংলা ภ...
-- [arxiv.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHfGyvULqGey6KlC9j_2AHpSRcqA9nrL3MIphZvFYfFh0aYNK_jwjVQViNWrHDk2w-qnxYRwibUYNe1_JomcFBJhujJvYVyOq-b0iF0aAScun5ASpnFMg==) *(vertexaisearch.cloud.google.com)*
-  > Longitudinal Adoption and Deprecation of the Privacy Sandbox Web APIs Report GitHub Issue × Title: Content selection saved. Describe the issue below: Description: arXiv is now an independent nonprofit! Learn more &times; Back to arXiv License: CC BY ...
+- [Privacy Sandbox History and Timeline - The Third-Party Cookie Phase-Out Plan, Its Reversal, API Deprecation and Removal in Chrome, and What Remains Supported \| hidekazu-konishi.com](https://hidekazu-konishi.com/entry/privacy_sandbox_history_and_timeline.html) *(hidekazu-konishi.com)*
+  > Google announced that Chrome would maintain its existing approach to third-party cookies (offering users an opt-in/opt-out choice framework rather than enforcing complete deprecation across the browser) Consequently, the browser vendor initiated the ...
+- [leapbuzz.com](https://leapbuzz.com/blog/privacy-sandbox-wind-down-cookieless) *(leapbuzz.com)*
+  > Google announced that Chrome would maintain its existing approach to third-party cookies (offering users an opt-in/opt-out choice framework rather than enforcing complete deprecation across the browser) \*\*Frustration Over Sunk Costs\*\*: Several adtech...
+- [secureprivacy.ai](https://secureprivacy.ai/blog/google-killed-privacy-sandbox-what-changes-for-cookie-consent-in-2026) *(secureprivacy.ai)*
+  > Consequently, the browser vendor initiated the \*\*deprecation and removal of several Privacy Sandbox ad-targeting and measurement APIs\*\*, most notably the \*\*Protected Audience API\*\* (formerly FLEDGE), alongside the Topics API, Attribution Reporting AP...
+- [chromestatus.com](https://chromestatus.com/feature/6366274495053824) *(chromestatus.com)*
+  > The deprecation process began in \*\*Chrome 144\*\*, with staged stubbing and removals advancing through \*\*Chrome 152 and 153\*\*, ultimately leading to the phaseout of associated downstream components like Fenced Frames (\`&lt;fencedframe&gt;\`) fence\` APIs\*\*
+- [chromium.org](https://issues.chromium.org/460501344) *(issues.chromium.org)*
+  > Blink-dev & Chromium Issue Tracker \* \*\*Intent to Deprecate and Remove\*\*: Filed on the \`blink-dev\` mailing list and tracked via Chromium Issue Tracker (Issue #460501344), engineers laid out the phased sun-setting schedule
+- [google.com](https://support.google.com/chrome/a/answer/10314655?hl=en-eu) *(support.google.com)*
+  > \* \*\*Decommissioning Infrastructure\*\*: The deprecation also prompted the shutdown and archiving of related server-side infrastructure, including the open-source Bidding and Auction Services and k-anonymity server dependencies
+- [chromestatus.com](https://chromestatus.com/feature/5733583115255808) *(chromestatus.com)*
+  > \* \*\*Decommissioning Infrastructure\*\*: The deprecation also prompted the shutdown and archiving of related server-side infrastructure, including the open-source Bidding and Auction Services and k-anonymity server dependencies
+- [The Protected Audience API Made Simple \| RTB House](https://www.rtbhouse.com/blog/your-guide-to-protected-audience-api) *(rtbhouse.com)*
+  > Implementing Protected Audience required immense technical overhead, including client-side JavaScript execution in restricted worklets, Trusted Execution Environments (TEEs), and complex Key/Value server orchestration Removing it lifts a significant ...
+- [arxiv.org](https://arxiv.org/html/2609.36153) *(arxiv.org)*
+  > \*\*Persistent Regulatory and Multi-Browser Realities\*\*: Compliance experts and web consultants emphasize that the cancellation of Protected Audience does not revert web privacy to pre-2020 norms: \* \*\*Safari and Firefox\*\* continue to block third-party ...
 - [Intent to Deprecate and Remove: Protected Audience](https://groups.google.com/a/chromium.org/g/blink-dev/c/k_nubsMb97g) *(groups.google.com)*
-  > https://<strong>chromestatus.com/feature/6552486106234880</strong> · unread, Nov 12, 2025, 11:30:32 AM11/12/25 ·  ·  ·  · Reply to author · Sign in to reply to author · Forward · Sign in to forward · Delete · You do not have permission to delete m...
-- [Deprecate and Remove Protected Audience](https://chromestatus.com/feature/6552486106234880) *(chromestatus.com · 2025-11-05T00:00:00)*
-  > We cannot provide a description for this page right now
-- [Privacy Sandbox History and Timeline - The Third-Party Cookie Phase-Out Plan, Its Reversal, API Deprecation and Removal in Chrome, and What Remains Supported \| hidekazu-konishi.com](https://hidekazu-konishi.com/entry/privacy_sandbox_history_and_timeline.html) *(hidekazu-konishi.com · 2026-10-02T00:00:01)*
-  > <strong>Both Protected Audience and Related Website Sets are currently being removed</strong>. Other browsers support CHIPS. The release notes for Firefox 141 describe CHIPS support as now re-enabled, and WebKit says that Safari 26.2 ships CHIPS agai...
+  > Intent to Deprecate and Remove: Protected Audience Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Deprecate and Remove: Protected Audience ...
 - [PSA: Protected Audience API deprecation and removal](https://groups.google.com/a/chromium.org/g/fledge-api-announce/c/TNCI-S129nM) *(groups.google.com · 2025-12-04T00:00:00)*
-  > Following the announcement that Chrome will maintain its current approach to third-party cookies, <strong>the Protected Audience API will be deprecated in Chrome 144</strong>, along with certain other APIs as outlined on the Privacy Sandbox feature s...
-- [Google Privacy Sandbox Update 2026: Why Google Shut It Down](https://segwise.ai/blog/google-privacy-sandbox-shutdown-reason) *(segwise.ai · 2026-09-03T14:19:52)*
-  > <strong>January to July 2026 (Chrome removes the APIs): Chrome started · deprecating Topics, Protected Audience, Attribution Reporting, and related APIs in Chrome 144 (January 2026), with full removal targeted for Chrome 150 (July 2026).</strong>
-- [Privacy Sandbox feature status](https://privacysandbox.google.com/overview/status) *(privacysandbox.google.com · 2026-08-14T00:00:00)*
-  > Explainer: Fenced Storage Read API. Continue to support. See Content-Security-Policy: frame-ancestors directive. Scheduled for phaseout. Chrome Platform Status. Scheduled for phaseout. ... Chrome Platform Status. Scheduled for phaseout. ... Chrome Pl...
+  > Following the announcement that Chrome will maintain its current approach to third-party cookies, &lt;strong&gt;the Protected Audience API will be deprecated in Chrome 144&lt;/strong&gt;, along with certain other APIs as outlined on the Privacy Sandbox feature s...
+- [Re: \[blink-dev\] Intent to Deprecate and Remove: Protected Audience](http://www.mail-archive.com/blink-dev@chromium.org/msg16918.html) *(mail-archive.com)*
+  > LGTM1 On Fri, Jun 12, 2026 at 2:32 AM Paul Jensen &lt;\[email protected\]&gt; wrote: Hi API Owners, &lt;strong&gt;Protected Audience API was deprecated in Chrome-144 with a plan to remove it in Chrome-150&lt;/strong&gt;. Currently the usage is 1.1% of page loads.&...
+- [\[blink-dev\] Intent to Deprecate and Remove: Protected Audience](http://www.mail-archive.com/blink-dev@chromium.org/msg15140.html) *(mail-archive.com)*
+  > Explainer https://github.com/WICG/turtledove/blob/main/FLEDGE.md Specification https://wicg.github.io/turtledove/ SummaryThe Protected Audience API provides a method of interest-group advertising without third-party cookies or user tracking across si...
+- [Re: \[blink-dev\] Intent to Deprecate and Remove: Protected Audience](http://www.mail-archive.com/blink-dev@chromium.org/msg17523.html) *(mail-archive.com)*
+  > &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; Initial public proposal &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; https://privacysandbo...
 - [Google Pulls The Plug On Topics, PAAPI And Other Major Privacy Sandbox APIs (As The CMA Says ‘Cheerio’) \| AdExchanger](https://www.adexchanger.com/privacy/google-pulls-the-plug-on-topics-paapi-and-other-major-privacy-sandbox-apis-as-the-cma-says-cheerio) *(adexchanger.com · 2025-10-19T03:27:47)*
   > Simultaneously, Google announced that it’s “decided to retire” a whole pile of Privacy Sandbox technologies, including (and strap in): the attribution reporting API on both Chrome and Android; IP protection; on-device personalization; private aggrega...
-- [Google Privacy Sandbox: Topics API Deprecation and Chrome 144 150 Milestones \| Windows Forum](https://windowsforum.com/threads/google-privacy-sandbox-topics-api-deprecation-and-chrome-144-150-milestones.388538) *(windowsforum.com · 2025-11-09T07:16:42)*
-  > Separately, Chromium mailing‑list activity and related “intent” posts show removal work on parts of the Protected Audience (formerly FLEDGE) implementation — in some cases earlier, lower‑impact elements were already flagged for removal — because usag...
-- [FLEDGE API announcements - Google Groups](https://groups.google.com/a/chromium.org/g/fledge-api-announce) *(groups.google.com)*
-  > PSA: Protected Audience API deprecation and removal · Following the announcement that Chrome will maintain its current approach to third-party cookies, the ... As we announced in the recent Protected Audience Intent to Deprecate and Remove, Protected...
-- [Re: PSA: Protected Audience k-Anonymity Enforcement](https://groups.google.com/a/chromium.org/g/fledge-api-announce/c/RfVlFkbZMXI) *(groups.google.com · 2024-04-03T00:00:00)*
-  > As we announced in the recent Protected Audience Intent to Deprecate and Remove, <strong>Protected Audience features that were never launched beyond 20% Stable will be ramped down by the end of 2025</strong>. This includes Protected Audience k-Anonym...
+- [Google Privacy Sandbox Update 2026: Why Google Shut It Down](https://segwise.ai/blog/google-privacy-sandbox-shutdown-reason) *(segwise.ai · 2026-09-03T14:19:52)*
+  > January to July 2026 (Chrome removes the APIs): Chrome started · deprecating Topics, Protected Audience, Attribution Reporting, and related APIs in &lt;strong&gt;Chrome 144 (January 2026), with full removal targeted for Chrome 150 (July 2026).&lt;/strong&gt;
+- [Re: \[blink-dev\] Intent to Deprecate and Remove: Protected Audience](http://www.mail-archive.com/blink-dev@chromium.org/msg16998.html) *(mail-archive.com)*
+  > &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; At this time, we are ... The Protected Audience API provides a method of &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; interest-group advertising without third-party cookies or user &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; tracki...
+- [Chrome Platform Status](https://img536-dot-cr-status.appspot.com/feature/6552486106234880) *(img536-dot-cr-status.appspot.com)*
+  > Chrome Platform Status
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
 - [Deprecate and Remove Protected Audience · Issue #1141 · GoogleChrome/modern-web-guidance-src](https://github.com/GoogleChrome/modern-web-guidance-src/issues/1141) *(github.com · 2026-07-29T21:48:26)* *(Cites: `https://chromestatus.com/feature/6552486106234880`)*
-  > https://<strong>chromestatus.com/feature/6552486106234880</strong> · Reactions are currently unavailable · Sign up for free to join this conversation on GitHub. Already have an account? Sign in to comment · rowan-m · new-featureprivacy · No...
+  > Deprecate and Remove Protected Audience · Issue #1141 · GoogleChrome/modern-web-guidance-src · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or...
 - [Intent to Deprecate and Remove: Protected Audience](https://groups.google.com/a/chromium.org/g/blink-dev/c/k_nubsMb97g) *(groups.google.com)* *(Cites: `https://chromestatus.com/feature/6552486106234880`)*
-  > https://<strong>chromestatus.com/feature/6552486106234880</strong> · unread, Nov 12, 2025, 11:30:32 AM11/12/25 ·  ·  ·  · Reply to author · Sign in to reply to author · Forward · Sign in to forward · Delete · You do not have permission t...
+  > Intent to Deprecate and Remove: Protected Audience Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Deprecate and Remove: Protected...
 
 ## 📚 Platform Documentation & Specifications
 
+- [mozilla.org](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/Privacy_sandbox) *(developer.mozilla.org)*
 - [Deprecate and Remove Protected Audience · Issue #1141 · GoogleChrome/modern-web-guidance-src](https://github.com/GoogleChrome/modern-web-guidance-src/issues/1141) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 70 result(s) found across 12 planned queries — **11 verified relevant**
-  - `"chromestatus.com/feature/6552486106234880" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (3 returned)
+- **Brave Search:** 64 result(s) found across 11 planned queries — **11 verified relevant**
+  - `"chromestatus.com/feature/6552486106234880" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (4 returned)
   - `"wicg.github.io/turtledove" -site:wicg.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (2 returned)
-  - `"Deprecate and Remove Protected Audience" API` — *Core feature API query* (2 returned)
+  - `"Deprecate and Remove Protected Audience" API` — *Core feature API query* (8 returned)
   - `"Deprecate and Remove Protected Audience" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"ads.interestgroup" OR "auction.result" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Deprecate and Remove Protected Audience" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
-  - `"Deprecate and Remove Protected Audience" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (7 returned)
-  - `"Protected Audience API" (deprecate OR deprecation OR removal) Chrome "Privacy Sandbox"` — *Find official announcements, industry news, and analysis of Chrome's decision to deprecate and remove the Protected Audience API.* (8 returned)
-  - `"navigator.joinAdInterestGroup" OR "navigator.runAdAuction" (example OR snippet OR github)` — *Discover concrete JavaScript code snippets and implementation usages of the core Protected Audience API methods.* (8 returned)
-  - `"Protected Audience" OR "FLEDGE" deprecation ("third-party cookies" OR AdTech) (site:adexchanger.com OR site:digiday.com OR site:news.ycombinator.com)` — *Explore adtech community sentiment, publisher reactions, and technical discussions around dropping Protected Audience in favor of retaining third-party cookies.* (8 returned)
-  - `"Protected Audience API" OR "TURTLEDOVE" "runAdAuction" (tutorial OR guide OR "how to")` — *Locate technical guides, explainers, and architectural overviews detailing how on-device ad auctions were designed and implemented.* (8 returned)
-  - `"Intent to Deprecate and Remove" "Protected Audience" site:groups.google.com/a/chromium.org` — *Retrieve the exact Chromium blink-dev discussion thread containing vendor signals, telemetry metrics, and the formal intent notice.* (8 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 8 result(s) found — **4 verified relevant**
-- **Twitter / X API v2:** *found 0 tweet(s)*
+  - `"Deprecate and Remove Protected Audience" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
+  - `"Protected Audience API" ("deprecate" OR "deprecation" OR "remove") Privacy Sandbox` — *Industry news, announcements, and adtech reports on Chrome's decision to deprecate the Protected Audience API.* (8 returned)
+  - `navigator.joinAdInterestGroup navigator.runAdAuction code example` — *JavaScript usage examples and API syntax for interest group auctions in the Protected Audience implementation.* (8 returned)
+  - `"Protected Audience API" OR "FLEDGE" ("third-party cookies" OR "Privacy Sandbox") guide OR tutorial` — *Technical developer writeups, architecture overviews, and tutorials analyzing Protected Audience implementation.* (8 returned)
+  - `site:groups.google.com/a/chromium.org/g/blink-dev "Protected Audience" ("Intent to Deprecate" OR "Intent to Remove")` — *Official Chromium Blink-dev discussions, standards feedback, and community sentiment regarding the API removal.* (7 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 15 result(s) found — **10 verified relevant**
+- **Twitter / X API v2:** *HTTP 401 Unauthorized (Check your TWITTER\_BEARER\_TOKEN or X\_BEARER\_TOKEN)*
 - **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 result(s) found — **0 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
 - **NPM Registry:** 6 result(s) found — **0 verified relevant**
-- **Web Platform Tests (wpt.fyi):** 27 item(s) inspected
+- **web-features mapping:** *not in a web-features group*
+- **Web Platform Tests (wpt.fyi):** *not in a web-features group*
+- **Sources cited by the AI synthesis:** 9 result(s) found — **4 verified relevant**
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 0 document(s) analyzed
 - **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 8 page(s)
+- **Web Page Excerpts Ingested:** 13 page(s)
 
 ## Useful Links
 
