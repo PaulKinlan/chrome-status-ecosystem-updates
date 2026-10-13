@@ -7,12 +7,34 @@ import { searchTwitter } from './twitter.js';
 import { searchDevToBlogs } from './blogs.js';
 import { searchNpmEcosystem } from './npm.js';
 import { searchWpt } from './wpt.js';
+import { webFeatureFor } from './web-features.js';
 import { planEcosystemQueries } from './query-planner.js';
-import { searchWeb, extractDomain, cleanUrl, getActiveSearchProviders } from './web.js';
-import { fetchExplainerSummary, fetchArticleExcerpt } from './content-fetcher.js';
-import { filterRelevantItems } from './verifier.js';
+import { searchWeb, extractDomain, cleanUrl, getActiveSearchProviders, parseTweetUrl } from './web.js';
+import { canonicalUrl } from './urls.js';
+import { partitionArticles, applyPageDetails } from './articles.js';
+import { fetchExplainerSummary, fetchArticlePage } from './content-fetcher.js';
+import { filterRelevantItems, rankByLikelyRelevance } from './verifier.js';
 import { logger } from '../logger.js';
-import { config } from '../config.js';
+import { config, TWITTER_TOKEN_VARIABLES } from '../config.js';
+
+/** How many article candidates have their page fetched; the verifier and the model read the excerpt it yields. */
+const EXCERPT_FETCH_LIMIT = 8;
+
+/** The audit line for a feature's Web Platform Tests: whose results they are, and how Chrome fares in them. */
+function describeWpt(wpt, webFeature) {
+  if (!wpt) return webFeature ? `group "${webFeature.id}" has no test results` : 'not in a web-features group';
+
+  const chrome = wpt.passRates?.stable?.chrome;
+  return typeof chrome === 'number'
+    ? `group "${wpt.webFeatureId}": Chrome ${chrome}% passing (stable)`
+    : `group "${wpt.webFeatureId}": no stable pass rate for Chrome yet`;
+}
+
+/** The audit line for the web-features mapping: which group the feature is in and how many other features share it. */
+function describeWebFeature(webFeature) {
+  if (!webFeature) return 'not in a web-features group';
+  return `group "${webFeature.id}", shared with ${webFeature.groupSize - 1} other ChromeStatus feature(s)`;
+}
 
 /**
  * Searches the web and developer ecosystem for activity around an API/feature,
@@ -20,13 +42,21 @@ import { config } from '../config.js';
  * documentation, blogs, and community channels.
  */
 export async function gatherEcosystemData(feature) {
+  // Keyed by `canonicalUrl`, so the same page found as http:// and https://, with and without www.,
+  // is one article; what is stored and shown stays the `cleanUrl` form.
   const seenUrls = new Set();
   const candidateArticles = [];
   const resources = [];
 
+  // The feature's own ChromeStatus pages and bug are not coverage of it, whichever search turns them up.
+  for (const own of [feature.chromeStatusUrl, feature.chromeStatusLiteUrl, feature.bugUrl]) {
+    const key = canonicalUrl(own);
+    if (key) seenUrls.add(key);
+  }
+
   // Register ChromeStatus official link URLs
   if (feature.specUrl) {
-    seenUrls.add(cleanUrl(feature.specUrl));
+    seenUrls.add(canonicalUrl(feature.specUrl));
     resources.push({
       source: 'W3C / WHATWG Spec',
       type: 'spec',
@@ -38,9 +68,9 @@ export async function gatherEcosystemData(feature) {
 
   // Inspect Explainer links
   for (const explainerUrl of feature.explainerUrls || []) {
-    const cleaned = cleanUrl(explainerUrl);
-    if (!seenUrls.has(cleaned)) {
-      seenUrls.add(cleaned);
+    const key = canonicalUrl(explainerUrl);
+    if (!seenUrls.has(key)) {
+      seenUrls.add(key);
       const summary = await fetchExplainerSummary(explainerUrl);
       resources.push({
         source: 'Feature Explainer',
@@ -54,9 +84,9 @@ export async function gatherEcosystemData(feature) {
   }
 
   for (const docUrl of feature.docUrls || []) {
-    const cleaned = cleanUrl(docUrl);
-    if (!seenUrls.has(cleaned)) {
-      seenUrls.add(cleaned);
+    const key = canonicalUrl(docUrl);
+    if (!seenUrls.has(key)) {
+      seenUrls.add(key);
       resources.push({
         source: 'Chrome Platform Docs',
         type: 'documentation',
@@ -68,9 +98,9 @@ export async function gatherEcosystemData(feature) {
   }
 
   for (const sampleUrl of feature.sampleUrls || []) {
-    const cleaned = cleanUrl(sampleUrl);
-    if (!seenUrls.has(cleaned)) {
-      seenUrls.add(cleaned);
+    const key = canonicalUrl(sampleUrl);
+    if (!seenUrls.has(key)) {
+      seenUrls.add(key);
       resources.push({
         source: 'Demo / Sample',
         type: 'demo',
@@ -95,9 +125,15 @@ export async function gatherEcosystemData(feature) {
   logger.debug(`Hacker News query: "${feature.name}"`);
 
   // Plan multifaceted search queries (reverse searches for ChromeStatus, explainers, spec + LLM semantic queries)
-  const queryPlan = await planEcosystemQueries(feature);
+  // Only Brave runs the plan, so an LLM call for extra queries is wasted without it.
+  const queryPlan = await planEcosystemQueries(feature, { useLlm: activeSearchProviders.includes('brave') });
   const reverseQueryCount = queryPlan.filter(q => q.isReverseLink).length;
   logger.substep('Query Planner', `Planned ${queryPlan.length} queries (${reverseQueryCount} reverse citations, ${queryPlan.length - reverseQueryCount} semantic)`);
+
+  // The web-features group the feature belongs to (see web-features.js). Baseline, the test pass rates, the other engines'
+  // positions and Chrome's use counters are all read for that group, so it is looked up once and handed to each of them.
+  // It does not reject: a mapping that cannot be loaded is the same answer as a feature that is not in it, null.
+  const webFeature = await webFeatureFor(feature);
 
   const [
     webResult,
@@ -131,7 +167,7 @@ export async function gatherEcosystemData(feature) {
       logger.debug(`Bugzilla search error: ${err.message}`);
       return [];
     }),
-    searchBaseline(feature).catch(err => {
+    searchBaseline(feature, webFeature).catch(err => {
       logger.debug(`Baseline query error: ${err.message}`);
       return null;
     }),
@@ -147,7 +183,7 @@ export async function gatherEcosystemData(feature) {
       logger.debug(`NPM search error: ${err.message}`);
       return [];
     }),
-    searchWpt(feature).catch(err => {
+    searchWpt(feature, webFeature).catch(err => {
       logger.debug(`WPT search error: ${err.message}`);
       return null;
     }),
@@ -166,8 +202,9 @@ export async function gatherEcosystemData(feature) {
   for (const hn of rawHnResults) {
     if (hn.url && !hn.url.includes('news.ycombinator.com')) {
       const cleaned = cleanUrl(hn.url);
-      if (cleaned && !seenUrls.has(cleaned)) {
-        seenUrls.add(cleaned);
+      const key = canonicalUrl(cleaned);
+      if (key && !seenUrls.has(key)) {
+        seenUrls.add(key);
         candidateArticles.push({
           source: 'Hacker News Link',
           type: 'article',
@@ -186,21 +223,21 @@ export async function gatherEcosystemData(feature) {
   const tweetsFromWeb = [];
   for (const item of [...rawWebResults, ...devToResults, ...mdnResult]) {
     const cleaned = cleanUrl(item.url);
-    if (!cleaned || seenUrls.has(cleaned)) continue;
-    seenUrls.add(cleaned);
+    const key = canonicalUrl(cleaned);
+    if (!key || seenUrls.has(key)) continue;
+    seenUrls.add(key);
 
-    const isTwitterUrl = cleaned.includes('twitter.com') || cleaned.includes('x.com');
-    if (isTwitterUrl) {
-      const match = cleaned.match(/https?:\/\/(?:twitter\.com|x\.com)\/([A-Za-z0-9_]+)\/status\/(\d+)/i);
+    const tweet = parseTweetUrl(cleaned);
+    if (tweet) {
       tweetsFromWeb.push({
         source: 'Twitter / X',
         type: 'discussion',
-        id: match ? match[2] : null,
+        id: tweet.id,
         title: item.title,
         content: item.snippet || item.title,
         snippet: item.snippet || item.title,
         url: cleaned,
-        author: match ? `@${match[1]}` : null,
+        author: `@${tweet.author}`,
         points: item.points || 0,
         commentsCount: item.commentsCount || 0,
         createdAt: item.publishedAt || null,
@@ -210,16 +247,17 @@ export async function gatherEcosystemData(feature) {
     }
   }
 
-  // Fetch page content excerpts for candidate articles to inspect what is happening inside the links
+  // Fetch page content excerpts for candidate articles to inspect what is happening inside the links.
+  // Only a few pages can be read, so they are the ones most likely to be about the feature rather than
+  // whichever the providers happened to list first. The candidates themselves keep their order.
   if (candidateArticles.length > 0) {
-    logger.substep('Ingesting page contents', `Fetching HTTP body text for ${Math.min(candidateArticles.length, 8)} article candidate(s)...`);
+    const toRead = rankByLikelyRelevance(feature, candidateArticles).slice(0, EXCERPT_FETCH_LIMIT);
+    logger.substep('Ingesting page contents', `Fetching HTTP body text for ${toRead.length} article candidate(s)...`);
     await Promise.all(
-      candidateArticles.slice(0, 8).map(async (art) => {
+      toRead.map(async (art) => {
         if (!art.contentExcerpt) {
-          const excerpt = await fetchArticleExcerpt(art.url);
-          if (excerpt) {
-            art.contentExcerpt = excerpt;
-          }
+          // The page also names itself: a source that only came with its site's name gets the real title.
+          applyPageDetails(art, await fetchArticlePage(art.url));
         }
       })
     );
@@ -249,16 +287,17 @@ export async function gatherEcosystemData(feature) {
     filterRelevantItems(feature, bugsResult),
   ]);
 
+  // Tweets reach the report from two places: the X API and links to x.com / twitter.com
+  // that the web search returned. Both are "Twitter / X" discussions, so each source
+  // is counted against its own candidates. The audit used to set every verified
+  // tweet against the API's count alone and could print "2/1 verified".
+  const apiTweets = new Set(twitterResult);
+  const isTweet = d => (d.source || '').includes('Twitter');
+  const verifiedApiTweets = verifiedDiscussions.filter(d => isTweet(d) && apiTweets.has(d));
+  const verifiedWebTweets = verifiedDiscussions.filter(d => isTweet(d) && !apiTweets.has(d));
+
   // Partition verified articles into Ecosystem Blogs/Tutorials vs Reference Documentation
-  const verifiedBlogs = verifiedArticles.filter(a =>
-    a.isBlog ||
-    (a.domain &&
-     !a.domain.includes('w3.org') &&
-     !a.domain.includes('mozilla.org') &&
-     !a.domain.includes('whatwg.org') &&
-     !a.domain.includes('github.com'))
-  );
-  const verifiedDocs = verifiedArticles.filter(a => !verifiedBlogs.includes(a));
+  const { blogs: verifiedBlogs, docs: verifiedDocs } = partitionArticles(verifiedArticles);
   const verifiedReverseLinks = verifiedArticles.filter(a => a.isReverseCitation);
 
   // Standards positions from WebKit/Mozilla/TAG issues
@@ -287,15 +326,21 @@ export async function gatherEcosystemData(feature) {
   }
 
   if (config.twitterBearerToken) {
-    logger.audit('Twitter / X API v2', verifiedDiscussions.filter(d => (d.source || '').includes('Twitter')).length, twitterResult.length, twitterAudit.status || '');
+    logger.audit('Twitter / X API v2', verifiedApiTweets.length, twitterResult.length, twitterAudit.status || '');
   } else {
-    logger.audit('Twitter / X API v2', 0, 0, 'disabled: TWITTER_BEARER_TOKEN not configured');
+    logger.audit('Twitter / X API v2', 0, 0, `disabled: ${TWITTER_TOKEN_VARIABLES} not configured`);
+  }
+  if (tweetsFromWeb.length > 0) {
+    logger.audit('Tweets found by web search', verifiedWebTweets.length, tweetsFromWeb.length);
   }
 
   logger.audit('Standards Positions', standards.length, standards.length, `${standards.map(s => s.vendor).join(', ') || 'none'}`);
   logger.audit('Engine Bug Trackers', verifiedBugs.length, bugsResult.length, `${verifiedBugs.map(b => b.vendor).join(', ') || 'none'}`);
   if (baselineResult) {
     logger.audit('Baseline Status', 1, 1, `${baselineResult.statusLabel}`);
+  }
+  if (wptResult) {
+    logger.audit('Web Platform Tests', 1, 1, describeWpt(wptResult, webFeature));
   }
   logger.audit('Community Discussions', verifiedDiscussions.length, candidateDiscussions.length, verifiedDiscussions.length < candidateDiscussions.length ? `filtered ${candidateDiscussions.length - verifiedDiscussions.length} unrelated` : '');
   logger.audit('NPM Packages', verifiedPackages.length, rawNpmResults.length, verifiedPolyfill ? `polyfill: ${verifiedPolyfill.name}` : 'no polyfill');
@@ -336,22 +381,34 @@ export async function gatherEcosystemData(feature) {
       provider: 'Twitter / X API v2',
       query: twitterAudit.query || `"${feature.name}"`,
       rawFound: twitterResult.length,
-      verified: verifiedDiscussions.filter(d => (d.source || '').includes('Twitter')).length,
+      verified: verifiedApiTweets.length,
       status: twitterAudit.status || (twitterResult.length === 0 ? '0 tweets returned' : undefined),
     }] : [{
       type: 'twitter',
       provider: 'Twitter / X API v2',
-      status: 'Inactive (TWITTER_BEARER_TOKEN not configured)',
+      status: `Inactive (${TWITTER_TOKEN_VARIABLES} not configured)`,
       rawFound: 0,
       verified: 0,
     }]),
+    ...(tweetsFromWeb.length > 0 ? [{
+      type: 'twitter_web',
+      provider: 'Tweets found by web search',
+      rawFound: tweetsFromWeb.length,
+      verified: verifiedWebTweets.length,
+    }] : []),
     { type: 'devto_blogs', provider: 'Dev.to Community Blogs', query: feature.name, rawFound: devToResults.length, verified: verifiedBlogs.filter(b => b.source === 'Dev.to Community' || (b.domain || '').includes('dev.to')).length },
     { type: 'hackernews', provider: 'Hacker News Algolia', query: feature.name, rawFound: rawHnResults.length, verified: verifiedDiscussions.filter(d => d.source.includes('Hacker News')).length },
     { type: 'standards', provider: 'Standards Positions', rawFound: standardsResults.length, verified: standards.length, count: standards.length, vendors: standards.map(s => s.vendor) },
     { type: 'bugzilla', provider: 'Engine Bug Trackers', rawFound: bugsResult.length, verified: verifiedBugs.length, count: verifiedBugs.length, vendors: verifiedBugs.map(b => b.vendor) },
     { type: 'baseline', provider: 'Baseline (baseline.dev)', status: baselineResult?.status || 'untracked', url: baselineResult?.url || null },
     { type: 'npm', provider: 'NPM Registry', rawFound: rawNpmResults.length, verified: verifiedPackages.length, polyfillFound: hasPolyfill },
-    { type: 'wpt', provider: 'Web Platform Tests (wpt.fyi)', testCount: wptResult?.testCount || 0 },
+    {
+      type: 'web_features',
+      provider: 'web-features mapping',
+      status: describeWebFeature(webFeature),
+      url: webFeature?.url || null,
+    },
+    { type: 'wpt', provider: 'Web Platform Tests (wpt.fyi)', scope: 'group', webFeatureId: wptResult?.webFeatureId || null, status: describeWpt(wptResult, webFeature) },
   ];
 
   const auditTrail = {
@@ -379,6 +436,7 @@ export async function gatherEcosystemData(feature) {
     standards,
     bugs: verifiedBugs,
     baseline: baselineResult,
+    webFeature,
     packages: verifiedPackages,
     resources,
     wpt: wptResult,
@@ -406,7 +464,6 @@ export async function gatherEcosystemData(feature) {
       twitterCount: twitterDiscussions.length,
       hasPolyfill,
       hasDemos: (feature.sampleUrls || []).length > 0,
-      wptTestCount: wptResult?.testCount || 0,
     },
   };
 }

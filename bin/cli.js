@@ -7,8 +7,9 @@ import { fetchChannels, fetchFeatureDetails, normalizeFeature } from '../src/chr
 import { gatherEcosystemData } from '../src/search/index.js';
 import { analyzeFeature } from '../src/analyzer/index.js';
 import { startServer } from '../src/server.js';
-import { config } from '../src/config.js';
+import { config, DEFAULT_FEATURE_STATUSES } from '../src/config.js';
 import { logger } from '../src/logger.js';
+import { reportFatalToActions } from '../src/github-actions.js';
 
 const COMMANDS = new Set(['run', 'inspect', 'channels', 'serve', 'help']);
 
@@ -38,10 +39,12 @@ Commands:
 Options for 'run':
   --milestone, -m      Milestone number, list, or range (e.g. 154, 150-154, 150,151,152, or last-5)
   --last               Inspect the last N Chrome milestones (e.g. --last 5)
-  --limit, -l          Max number of features to inspect (default: all)
+  --limit, -l          Max number of features to inspect, newest milestones first (default: all)
   --feature, -f        Inspect a specific feature ID only
-  --status, -s         Comma-separated status filters (enabled,origin-trial,flagged,deprecated)
+  --status, -s         Comma-separated status filters (default: ${DEFAULT_FEATURE_STATUSES.join(',')}; removed is also accepted)
   --concurrency, -c    Features to investigate in parallel (default: ${config.concurrency})
+  --force              Publish even if a safety check fails (ChromeStatus returned no features,
+                       or far fewer than the published report; or most features failed)
   --serve              Start preview server after report generation
   --port, -p           Port for preview server (default: ${config.port})
   --host               Interface for preview server (default: ${config.host})
@@ -142,7 +145,8 @@ async function cmdInspect(args) {
   const analysis = await analyzeFeature(feature, ecosystem);
 
   console.log('\n📊 Ecosystem Analysis:');
-  console.log(`   Momentum: ${analysis.momentumLevel} (Score: ${analysis.momentumScore})`);
+  // One feature without a history: its size can be shown, its growth (momentum) only the weekly run can tell.
+  console.log(`   Footprint: ${analysis.momentumScore} points (${analysis.momentumLevel} on the absolute scale; momentum is the change in this over four weeks, from the weekly run)`);
   console.log(`   Consensus: ${analysis.consensus}`);
   console.log(`   Developer Sentiment: ${analysis.sentiment}`);
   console.log(`   Executive Take: ${analysis.executiveSummary}\n`);
@@ -188,6 +192,7 @@ async function cmdRun(args) {
     feature: { type: 'string', short: 'f' },
     status: { type: 'string', short: 's' },
     concurrency: { type: 'string', short: 'c' },
+    force: { type: 'boolean', default: false },
     serve: { type: 'boolean', default: false },
     port: { type: 'string', short: 'p' },
     host: { type: 'string' },
@@ -206,6 +211,8 @@ async function cmdRun(args) {
       ? values.status.split(',').map(s => s.trim().toLowerCase()).filter(Boolean)
       : config.featureStatuses,
     concurrency: values.concurrency ? positiveInt(values.concurrency, '--concurrency') : config.concurrency,
+    // FORCE_REPORT lets an unattended job (e.g. a manually dispatched workflow) opt in.
+    force: values.force || /^(1|true|yes)$/i.test(process.env.FORCE_REPORT || ''),
     verbose: values.verbose,
   });
 
@@ -255,5 +262,6 @@ async function main() {
 main().catch(err => {
   logger.error(`\n❌ Fatal error: ${err.message}`);
   if (process.env.DEBUG) console.error(err);
+  reportFatalToActions(err);
   process.exit(1);
 });

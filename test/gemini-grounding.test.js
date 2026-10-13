@@ -1,3 +1,4 @@
+import './_support/setup.js'; // keep first: blanks credentials, redirects output, blocks real network
 import test from 'node:test';
 import assert from 'node:assert';
 import { extractJsonFromText } from '../src/search/gemini-grounding.js';

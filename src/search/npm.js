@@ -7,14 +7,14 @@ import { fetchWithTimeout } from '../http.js';
 export async function searchNpmEcosystem(feature) {
   const results = [];
   const searchQueries = [
-    feature.name.toLowerCase().replace(/^(css|web|api)\s+/i, '').trim(),
+    feature.name.toLowerCase().replace(/^(css|web|api)\s+/, '').trim(),
     feature.name,
   ];
 
   const seenPackages = new Set();
 
   for (const q of searchQueries) {
-    if (!q || q.length < 3) continue;
+    if (q.length < 3) continue;
     try {
       const url = `https://registry.npmjs.org/-/v1/search?text=${encodeURIComponent(q)}&size=5`;
       const res = await fetchWithTimeout(url, {

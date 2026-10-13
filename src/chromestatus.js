@@ -150,16 +150,94 @@ export function slugify(text) {
 
 /**
  * Map raw ChromeStatus category name to normalized category code
+ *
+ * Order matters because a label can mention more than one stage: "Origin
+ * trial" is tested before "enabled", or a trial described as "enabled for a
+ * share of users" would be reported as shipped.
  */
 function normalizeCategoryType(categoryName) {
   const lower = (categoryName || '').toLowerCase();
-  if (lower.includes('enabled')) return 'enabled';
   if (lower.includes('origin trial')) return 'origin-trial';
+  if (lower.includes('enabled')) return 'enabled';
   if (lower.includes('flag') || lower.includes('developer trial')) return 'flagged';
   if (lower.includes('deprecated')) return 'deprecated';
   if (lower.includes('removed')) return 'removed';
   if (lower.includes('rollout')) return 'rollout';
   return 'other';
+}
+
+/**
+ * Status types from least to most advanced. When ChromeStatus lists one feature
+ * under several milestones of the window, the more advanced stage is the one to
+ * report. An unrecognised type ranks with `other`, the lowest.
+ */
+export const STATUS_PROGRESSION = Object.freeze([
+  'other', 'flagged', 'origin-trial', 'rollout', 'enabled', 'deprecated', 'removed',
+]);
+
+function statusRank(statusType) {
+  return Math.max(0, STATUS_PROGRESSION.indexOf(statusType));
+}
+
+/** Numeric ids compare as numbers, anything else as text, so the order never depends on how they were typed. */
+function compareIds(a, b) {
+  const x = Number(a);
+  const y = Number(b);
+  return Number.isFinite(x) && Number.isFinite(y) ? x - y : String(a).localeCompare(String(b));
+}
+
+/**
+ * Is `candidate` a better listing of the same feature than `current`?
+ * The more advanced stage wins; for the same stage the EARLIER milestone does.
+ * Earlier, not later, so the milestone shown for a stage does not creep forward
+ * whenever the window slides (an origin trial listed under Chrome 153-156 would
+ * otherwise look like a different status every release).
+ */
+function isBetterListing(candidate, current) {
+  const gap = statusRank(candidate.normalized.statusType) - statusRank(current.normalized.statusType);
+  if (gap !== 0) return gap > 0;
+  return candidate.milestone < current.milestone;
+}
+
+/** The order features are investigated in, and the order a cap cuts from. */
+function compareListings(a, b) {
+  return (b.milestone - a.milestone)
+    || (statusRank(b.normalized.statusType) - statusRank(a.normalized.statusType))
+    || String(a.normalized.name).localeCompare(String(b.normalized.name))
+    || compareIds(a.normalized.id, b.normalized.id);
+}
+
+/**
+ * Reduces the window's listings to one per feature.
+ *
+ * ChromeStatus lists a feature once for every milestone it has a stage in, so
+ * a feature that moved from a developer trial in Chrome 152 to "Enabled by
+ * default" in 153 appears twice. Keeping the first one (as this used to) showed
+ * the stale stage for 4 of 9 such features; this keeps the most advanced
+ * listing instead. Each result also carries `firstListedMilestone`, the
+ * earliest milestone of the window the feature appears under.
+ *
+ * The result is sorted: newest milestone first, then furthest along, then by
+ * name and id. That is the order work is done in, and what a cap (`--limit`,
+ * MAX_FEATURES) cuts from, so a cap keeps the newest, most advanced features
+ * rather than whatever the oldest milestone happened to list first.
+ *
+ * @param {Array<{milestone: number, normalized: {id: number|string, name?: string, statusType: string}}>} listings
+ */
+export function chooseListings(listings) {
+  const byId = new Map();
+  for (const listing of listings) {
+    const known = byId.get(listing.normalized.id);
+    if (!known) {
+      byId.set(listing.normalized.id, { best: listing, firstListedMilestone: listing.milestone });
+      continue;
+    }
+    known.firstListedMilestone = Math.min(known.firstListedMilestone, listing.milestone);
+    if (isBetterListing(listing, known.best)) known.best = listing;
+  }
+  return [...byId.values()]
+    .map(({ best, firstListedMilestone }) => ({ ...best, firstListedMilestone }))
+    .sort(compareListings);
 }
 
 /**

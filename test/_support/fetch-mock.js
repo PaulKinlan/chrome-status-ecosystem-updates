@@ -14,16 +14,19 @@
  *
  * @param {Array<{match: string|RegExp|((url: string) => boolean), status?: number, json?: unknown, text?: string, headers?: Record<string,string>}>} routes
  * @param {{onUnmatched?: 'throw'|'empty'}} [options]
- * @returns {{restore: () => void, calls: string[]}}
+ * @returns {{restore: () => void, calls: string[], requests: Array<{url: string, method: string, headers: object}>}}
+ *   `calls` is every URL requested; `requests` adds the method and headers each was sent with.
  */
 export function installFetchMock(routes = [], options = {}) {
   const onUnmatched = options.onUnmatched || 'throw';
   const original = globalThis.fetch;
   const calls = [];
+  const requests = [];
 
   globalThis.fetch = async (input, init = {}) => {
     const url = typeof input === 'string' ? input : input?.url ?? String(input);
     calls.push(url);
+    requests.push({ url, method: init.method || 'GET', headers: init.headers || {} });
 
     if (init.signal?.aborted) {
       throw Object.assign(new Error('The operation was aborted'), { name: 'AbortError' });
@@ -49,13 +52,14 @@ export function installFetchMock(routes = [], options = {}) {
 
   return {
     calls,
+    requests,
     restore() {
       globalThis.fetch = original;
     },
   };
 }
 
-function makeResponse({ status = 200, json, text, headers = {} }) {
+export function makeResponse({ status = 200, json, text, headers = {} }) {
   const bodyText = text !== undefined ? text : JSON.stringify(json ?? {});
   const headerMap = new Map(
     Object.entries({ 'content-type': 'application/json', ...headers }).map(([k, v]) => [k.toLowerCase(), v])

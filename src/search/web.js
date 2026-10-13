@@ -2,36 +2,38 @@ import { config } from '../config.js';
 import { callGeminiWithSearchGrounding } from './gemini-grounding.js';
 import { logger } from '../logger.js';
 import { fetchWithTimeout } from '../http.js';
+import { cleanUrl, extractDomain, canonicalUrl } from './urls.js';
+import { isHostnameTitle } from './articles.js';
+
+// These two used to be defined here and are still imported from this module in many places.
+export { cleanUrl, extractDomain };
 
 /**
- * Normalizes and strips tracking parameters from URLs for clean canonical deduplication
+ * Reads a link to a single tweet: a `/<user>/status/<id>` path on twitter.com or
+ * x.com (or one of their subdomains, such as mobile.twitter.com). Anything else
+ * returns null.
+ *
+ * Tweets used to be recognised by `url.includes('x.com')`, which also matched
+ * 3cx.com, linux.com and dropbox.com, and `includes('twitter.com')`, which
+ * matched help.twitter.com's documentation: 12 of the 99 "tweets" in one weekly
+ * report were not tweets at all.
+ *
+ * @returns {{author: string, id: string}|null}
  */
-export function cleanUrl(rawUrl) {
-  if (!rawUrl) return '';
+export function parseTweetUrl(url) {
+  let parsed;
   try {
-    const u = new URL(rawUrl);
-    u.searchParams.delete('utm_source');
-    u.searchParams.delete('utm_medium');
-    u.searchParams.delete('utm_campaign');
-    u.searchParams.delete('utm_term');
-    u.searchParams.delete('utm_content');
-    u.hash = '';
-    return u.toString().replace(/\/$/, '');
+    parsed = new URL(url);
   } catch {
-    return rawUrl;
+    return null;
   }
-}
-
-/**
- * Helper to extract clean hostname/domain from URL
- */
-export function extractDomain(urlStr) {
-  try {
-    const u = new URL(urlStr);
-    return u.hostname.replace(/^www\./, '');
-  } catch {
-    return '';
-  }
+  if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return null;
+  const host = parsed.hostname; // already lower-case: the URL parser normalises it
+  const isTwitter = ['twitter.com', 'x.com'].some(domain => host === domain || host.endsWith(`.${domain}`));
+  if (!isTwitter) return null;
+  // Handles are at most 15 characters of letters, digits and underscores.
+  const match = parsed.pathname.match(/^\/([A-Za-z0-9_]{1,15})\/status\/(\d+)(?:\/|$)/);
+  return match ? { author: match[1], id: match[2] } : null;
 }
 
 /**
@@ -47,7 +49,7 @@ Summary: "${summary}".
 Find articles from web.dev, developer.chrome.com, MDN, CSS-Tricks, Smashing Magazine, and developer blogs.
 Return a brief summary and discuss the key articles found.`;
 
-    const result = await callGeminiWithSearchGrounding(prompt, { temperature: 0.1 });
+    const result = await callGeminiWithSearchGrounding(prompt, { temperature: 0.1, stage: 'gemini/search' });
     return result?.groundedArticles || [];
   } catch (err) {
     logger.debug(`Gemini search error: ${err.message}`);
@@ -134,10 +136,11 @@ async function searchBrave(query, options = {}) {
       });
 
       for (const item of res.items) {
-        const canonical = cleanUrl(item.url);
-        if (canonical && !seenUrls.has(canonical)) {
-          seenUrls.add(canonical);
-          allItems.push({ ...item, url: canonical });
+        const display = cleanUrl(item.url);
+        const key = canonicalUrl(item.url);
+        if (display && !seenUrls.has(key)) {
+          seenUrls.add(key);
+          allItems.push({ ...item, url: display });
         }
       }
 
@@ -297,19 +300,22 @@ export async function searchWeb(query, options = {}) {
     }
 
     for (const item of items || []) {
-      const canonical = cleanUrl(item.url);
-      if (!canonical) continue;
+      const display = cleanUrl(item.url);
+      if (!display) continue;
+      // One entry per page: another provider's spelling of the same page (http
+      // against https, with or without www.) is a second vote for it, not a second result.
+      const key = canonicalUrl(item.url);
 
-      if (!mergedMap.has(canonical)) {
-        mergedMap.set(canonical, {
+      if (!mergedMap.has(key)) {
+        mergedMap.set(key, {
           ...item,
-          url: canonical,
+          url: display,
           providers: [provider],
           sources: [item.source],
           searchConsensusCount: 1,
         });
       } else {
-        const existing = mergedMap.get(canonical);
+        const existing = mergedMap.get(key);
         if (!existing.providers.includes(provider)) {
           existing.providers.push(provider);
           existing.sources.push(item.source);
@@ -318,6 +324,10 @@ export async function searchWeb(query, options = {}) {
         }
         if ((!existing.snippet || existing.snippet.length < 50) && item.snippet) {
           existing.snippet = item.snippet;
+        }
+        // A provider that only names the site (Gemini's grounding does) gives way to one that says what the page is.
+        if (isHostnameTitle(existing.title) && item.title && !isHostnameTitle(item.title)) {
+          existing.title = item.title;
         }
       }
     }

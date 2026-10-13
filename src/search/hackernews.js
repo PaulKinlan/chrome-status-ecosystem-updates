@@ -1,5 +1,8 @@
 import { fetchHackerNewsItemDetails } from './content-fetcher.js';
-import { fetchWithTimeout } from '../http.js';
+import { fetchWithTimeout, mapWithConcurrency } from '../http.js';
+
+/** Item lookups in flight at once: a handful, so one search is quick without stampeding the API. */
+const ITEM_FETCH_CONCURRENCY = 4;
 
 /**
  * Hacker News Algolia Search API client (Free, public, no authentication required)
@@ -28,13 +31,14 @@ export async function searchHackerNews(query, options = {}) {
     const data = await res.json();
     const hits = data.hits || [];
 
-    for (const hit of hits) {
-      const points = hit.points || 0;
-      if (points < minPoints && hits.length > 3) continue;
+    const selected = hits.filter(hit => !((hit.points || 0) < minPoints && hits.length > 3));
 
-      // Fetch top comments to inspect actual developer discussion content
-      const itemDetails = await fetchHackerNewsItemDetails(hit.objectID);
-      const topComments = itemDetails?.topComments || [];
+    // Fetch top comments to inspect actual developer discussion content. The lookups used to run one
+    // after another, eight round trips in a row; the results keep the order of the hits.
+    const lookups = await mapWithConcurrency(selected, ITEM_FETCH_CONCURRENCY, hit => fetchHackerNewsItemDetails(hit.objectID));
+
+    for (const [index, hit] of selected.entries()) {
+      const topComments = lookups[index]?.value?.topComments || [];
 
       results.push({
         source: 'Hacker News',

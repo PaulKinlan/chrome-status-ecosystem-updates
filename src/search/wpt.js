@@ -1,121 +1,48 @@
 import { logger } from '../logger.js';
-import { fetchWithTimeout } from '../http.js';
-
-const cache = new Map();
-
-// Words that appear in almost every feature title and match thousands of
-// unrelated WPT paths, so they are never useful on their own.
-const WPT_STOPWORDS = new Set([
-  'api', 'web', 'css', 'the', 'for', 'and', 'new', 'support', 'attribute',
-  'property', 'element', 'method', 'interface', 'feature', 'update', 'value',
-]);
+import { lookupWebStatus } from './webstatus.js';
+import { wptResultsUrl } from './web-features.js';
 
 /**
- * Generates candidate search terms for wpt.fyi, most likely to match first.
+ * Web Platform Tests results for the web-features group a feature belongs to.
  *
- * wpt.fyi's `q` matches against test *file paths* (`/css/css-anchor-position/...`),
- * which are named after spec shortnames and directories rather than prose
- * titles. The previous version tried the hyphenated feature name first
- * ("web-install-api"), which matches no path in the repository, so the very
- * common case was that the first query returned nothing and the reported test
- * count was 0 for almost every feature.
+ * The pass rates come from webstatus.dev, which aggregates the wpt.fyi runs per
+ * browser for each group (`stable` and `experimental` channels); the link is the
+ * group's results page on wpt.fyi.
+ *
+ * This used to search wpt.fyi for test *paths containing a word* taken from the
+ * feature's name or spec address and report how many matched. The winning word
+ * was often generic (`html`, `deprecate`, `125`), the count ran to 114,452, and
+ * it said nothing about whether anything passes. It is gone: a feature that is
+ * not in a web-features group has no test results here rather than a made-up
+ * number.
+ *
+ * What is returned describes the whole group (`scope: 'group'`), which can be
+ * broader than the one ChromeStatus feature; null when the feature has no group.
+ *
+ * @param {object} feature
+ * @param {object|null} webFeature the group from `webFeatureFor`, if the feature has one
+ * @returns {Promise<null | {
+ *   source: string, type: string, scope: 'group', webFeatureId: string, url: string,
+ *   passRates: null | {stable: Record<string, number> | null, experimental: Record<string, number> | null},
+ * }>}
  */
-function generateWptQueries(feature) {
-  const queries = new Set();
+export async function searchWpt(feature, webFeature = null) {
+  const found = await lookupWebStatus(feature, webFeature);
+  const passRates = found?.record.wpt || null;
+  const groupId = webFeature?.id || found?.record.id || null;
 
-  // 1. Spec shortname. WPT directories are conventionally named after it, so
-  //    this is by far the strongest signal.
-  if (feature.specUrl) {
-    try {
-      const u = new URL(feature.specUrl);
-      const parts = u.pathname.split('/').filter(Boolean);
-      const last = (parts[parts.length - 1] || '').replace(/\.html?$/, '');
-      if (last && !/^index$/i.test(last)) {
-        queries.add(last);
-        // Levelled specs ("css-anchor-position-1") map to unlevelled dirs.
-        queries.add(last.replace(/-\d+$/, ''));
-      }
-      // csswg-drafts style: /css-anchor-position-1/ sits under the host root,
-      // while WHATWG specs put the shortname in the hostname.
-      const host = u.hostname.split('.')[0];
-      if (host && host !== 'www' && host !== 'w3c' && host !== 'github') {
-        queries.add(host);
-      }
-    } catch {}
-  }
+  // A group with neither a results page nor any pass rate has nothing to show. (A page or a rate
+  // only exists for a feature that has a group, so `groupId` is set whenever `url` is.)
+  const url = webFeature?.wptUrl || (passRates ? wptResultsUrl(groupId) : null);
+  if (!url) return null;
 
-  const nameClean = feature.name.toLowerCase().replace(/[()]/g, '').trim();
-
-  // 2. Individual significant words. A single distinctive token ("popover",
-  //    "scrollend") is what actually appears in a WPT path.
-  const tokens = nameClean
-    .split(/[^a-z0-9]+/)
-    .filter(t => t.length >= 4 && !WPT_STOPWORDS.has(t));
-  for (const t of tokens) queries.add(t);
-
-  // 3. Hyphenated forms, last, as a best-effort exact directory match.
-  queries.add(nameClean.replace(/^(css|web|api)\s+/i, '').replace(/\s+/g, '-'));
-  queries.add(nameClean.replace(/\s+/g, '-'));
-
-  return Array.from(queries).filter(q => q.length >= 3);
-}
-
-
-/**
- * Web Platform Tests (wpt.fyi) client
- */
-export async function searchWpt(feature) {
-  const queries = generateWptQueries(feature);
-  const primaryQuery = queries[0] || feature.name.toLowerCase().replace(/\s+/g, '-');
-  const wptUrl = `https://wpt.fyi/results/?q=${encodeURIComponent(primaryQuery)}`;
-
-  const cacheKey = `wpt_${primaryQuery}`;
-  if (cache.has(cacheKey)) return cache.get(cacheKey);
-
-  for (const q of queries) {
-    try {
-      const apiUrl = `https://wpt.fyi/api/search?q=${encodeURIComponent(q)}`;
-
-      const res = await fetchWithTimeout(apiUrl, {
-        label: 'WPT',
-        timeoutMs: 8_000,
-        headers: {
-          'Accept': 'application/json',
-          'User-Agent': 'chrome-status-ecosystem-tracker/1.0',
-        },
-      });
-
-      if (!res.ok) continue;
-
-      const data = await res.json();
-      const results = data.results || [];
-
-      if (results.length > 0) {
-        const resultObj = {
-          source: 'Web Platform Tests',
-          type: 'test',
-          url: `https://wpt.fyi/results/?q=${encodeURIComponent(q)}`,
-          queryUsed: q,
-          testCount: results.length,
-          sampleTests: results.slice(0, 5).map(r => r.test || r),
-        };
-        logger.debug(`[WPT] Found ${results.length} test(s) on wpt.fyi using query "${q}"`);
-        cache.set(cacheKey, resultObj);
-        return resultObj;
-      }
-    } catch (err) {
-      logger.debug(`[WPT] Error querying "${q}": ${err.message}`);
-    }
-  }
-
-  const fallback = {
+  logger.debug(`[WPT] "${feature.name}": web-features group "${groupId}"${passRates ? ', pass rates found' : ', no pass rates'}`);
+  return {
     source: 'Web Platform Tests',
     type: 'test',
-    url: wptUrl,
-    queryUsed: primaryQuery,
-    testCount: 0,
-    sampleTests: [],
+    scope: 'group',
+    webFeatureId: groupId,
+    url,
+    passRates,
   };
-  cache.set(cacheKey, fallback);
-  return fallback;
 }

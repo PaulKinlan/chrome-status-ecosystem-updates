@@ -116,12 +116,37 @@ export function escapeMarkdownCell(str) {
 
 /**
  * Wraps a URL for Markdown link syntax. Bare parentheses in a URL truncate the
- * link, so angle-bracket form is used whenever they appear.
+ * link, so angle-bracket form is used whenever they appear (or whitespace).
+ *
+ * That form ends at the first `>` and cannot span lines, so those characters are
+ * percent-encoded: a crawled URL such as `https://x.test/a b><img src=x>` would
+ * otherwise close the brackets early and leave the rest as live HTML.
  */
 export function markdownUrl(url) {
   if (!isSafeUrl(url)) return '';
   const str = String(url);
-  return /[()\s]/.test(str) ? `<${str}>` : str;
+  if (!/[()\s]/.test(str)) return str;
+  return `<${str.replace(/[<>\r\n]/g, c => encodeURIComponent(c))}>`;
+}
+
+/**
+ * Wraps text in a Markdown code span that the text cannot break out of.
+ *
+ * Inside a code span nothing is interpreted: backslash escapes and entities are
+ * shown literally, so escapeMarkdown must NOT be used there. The only way out
+ * of a span is a backtick, so the delimiter is a run of backticks longer than
+ * any run in the text, padded with a space where the text itself starts or ends
+ * with a backtick. Line breaks become spaces (a blank line would end the
+ * paragraph, and the span with it). Empty text yields an empty string.
+ */
+export function markdownCode(str) {
+  if (str === null || str === undefined) return '';
+  const text = String(str).replace(/\r?\n/g, ' ');
+  if (text === '') return '';
+  const longestRun = (text.match(/`+/g) || []).reduce((longest, run) => Math.max(longest, run.length), 0);
+  const fence = '`'.repeat(longestRun + 1);
+  const pad = text.startsWith('`') || text.endsWith('`') ? ' ' : '';
+  return `${fence}${pad}${text}${pad}${fence}`;
 }
 
 // XML 1.0 forbids most C0 control characters outright; a single stray one makes

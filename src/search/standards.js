@@ -1,20 +1,38 @@
-import { config } from '../config.js';
-import { fetchGitHubIssueComments, parseGitHubIssueUrl } from './content-fetcher.js';
+import { fetchGitHubIssueComments, getGitHubHeaders, parseGitHubIssueUrl } from './content-fetcher.js';
 import { fetchWithTimeout } from '../http.js';
 
-function getGitHubHeaders() {
-  const headers = {
-    'Accept': 'application/vnd.github+json',
-    'User-Agent': 'chrome-status-ecosystem-tracker/1.0',
-  };
-  if (config.githubToken) {
-    headers['Authorization'] = `Bearer ${config.githubToken}`;
+/** The repository each vendor publishes its standards positions in. */
+const POSITION_REPOS = {
+  Mozilla: 'mozilla/standards-positions',
+  WebKit: 'webkit/standards-positions',
+};
+
+/**
+ * Is `issueUrl` an issue in `vendorName`'s official standards-positions repo?
+ * Deliberately strict (exact host, exact repo): this decides whether an item
+ * skips relevance verification, so a look-alike URL must never qualify.
+ */
+export function isOfficialPositionIssue(issueUrl, vendorName) {
+  try {
+    const url = new URL(issueUrl);
+    if (url.protocol !== 'https:' || url.hostname.toLowerCase() !== 'github.com') return false;
+    const [owner, repo, kind, number] = url.pathname.split('/').filter(Boolean);
+    return kind === 'issues' && /^\d+$/.test(number || '') &&
+      `${owner}/${repo}`.toLowerCase() === POSITION_REPOS[vendorName];
+  } catch {
+    return false;
   }
-  return headers;
 }
 
 /**
  * Fetches direct details of a known standards position issue, including comment highlights
+ *
+ * The issue URL comes from the feature's own ChromeStatus entry, where the
+ * Chrome team links the exact position issue for it. When that is genuinely the
+ * vendor's position repo the result is marked `trusted`, so the relevance
+ * filter does not second-guess a link a human curated: 41 of 393 such links
+ * (10%) were being thrown away because the issue title did not resemble the
+ * feature name.
  */
 async function fetchDirectIssue(issueUrl, vendorName) {
   const parsed = parseGitHubIssueUrl(issueUrl);
@@ -52,6 +70,9 @@ async function fetchDirectIssue(issueUrl, vendorName) {
       snippet: (data.body || '').slice(0, 300).replace(/\r?\n/g, ' '),
       comments,
       commentSummary,
+      // Both the link as written and where GitHub says the issue now lives
+      // (issues can be transferred) must be the vendor's own position repo.
+      trusted: isOfficialPositionIssue(issueUrl, vendorName) && isOfficialPositionIssue(data.html_url, vendorName),
     };
   } catch {
     return null;

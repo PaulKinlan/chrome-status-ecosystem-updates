@@ -74,6 +74,9 @@ export async function searchDevToBlogs(feature) {
             domain: 'dev.to',
             author: item.user?.name || item.user?.username || null,
             publishedAt: item.readable_publish_date || item.published_at || null,
+            // The readable date has no year for this year's posts and two digits for older ones, so it cannot say how old
+            // a post is; the ISO timestamp can, and is what the rule for what counts as news reads (src/storage/seen.js).
+            createdAt: item.published_at || null,
             snippet: item.description || '',
             tags: item.tag_list || [],
             points: item.public_reactions_count || 0,

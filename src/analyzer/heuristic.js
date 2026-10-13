@@ -1,8 +1,43 @@
 /**
  * Heuristic Ecosystem Analyzer
- * Evaluates ecosystem momentum, browser consensus, community engagement, and developer readiness
- * based strictly on verified ecosystem findings and inspected linked resources.
+ * Evaluates the ecosystem footprint (momentum is its growth, see src/momentum.js), browser consensus, community engagement,
+ * and developer readiness based strictly on verified ecosystem findings and inspected linked resources.
  */
+import { SENTIMENT } from './sentiment.js';
+import { footprintLevel } from '../momentum.js';
+
+/**
+ * Reduces a vendor's stated position (the `view` text ChromeStatus records for
+ * Firefox and Safari) to one of:
+ *
+ *   shipped    - Shipped/Shipping
+ *   committed  - In development
+ *   positive   - Positive, Support, Worth prototyping, Important
+ *   neutral    - Neutral, Defer, Under consideration, Non-harmful,
+ *                Closed Without a Position, and anything unrecognised
+ *   negative   - Negative, Oppose(d), Harmful
+ *   none       - No signal, N/A, or nothing recorded
+ *
+ * The vocabulary is closed but irregular (Mozilla and WebKit name the same
+ * stances differently). Matching only `support|positive|worth` used to ignore
+ * "Shipped/Shipping" and "In development" completely, so a feature that both
+ * Firefox and Safari already ship was reported as "Chromium-Led": 124 of 513
+ * historical feature rows were mislabelled that way.
+ */
+export function classifyStance(view) {
+  const text = String(view ?? '').trim().toLowerCase();
+  if (!text || /^(no (public )?signals?|n\/a|none)$/.test(text)) return 'none';
+  if (/\b(shipped|shipping)\b/.test(text)) return 'shipped';
+  if (/\bin development\b/.test(text)) return 'committed';
+  // `(?<!non-)` keeps Mozilla's "non-harmful" from reading as "harmful".
+  if (/oppos|negative|(?<!non-)harmful|\bnot support/.test(text)) return 'negative';
+  if (/support|positive|worth|important/.test(text)) return 'positive';
+  return 'neutral';
+}
+
+/** Stances that mean an engine is actively behind a feature. */
+const ENGAGED_STANCES = new Set(['shipped', 'committed', 'positive']);
+
 export function analyzeEcosystemData(feature, ecosystemData) {
   const { metrics, discussions, standards, packages, articles, resources, verifiedPolyfill } = ecosystemData;
 
@@ -22,23 +57,19 @@ export function analyzeEcosystemData(feature, ecosystemData) {
   if (metrics.hasPolyfill) momentumScore += 20;
   if (metrics.hasDemos) momentumScore += 15;
 
-  let momentumLevel = 'Quiet';
-  if (momentumScore >= 80) {
-    momentumLevel = 'High';
-  } else if (momentumScore >= 35) {
-    momentumLevel = 'Moderate';
-  } else if (momentumScore >= 10) {
-    momentumLevel = 'Emerging';
-  }
+  // The size of the ecosystem, read in isolation. What the report calls momentum is the growth of this number, in
+  // tiers relative to the other features, and can only be worked out across the whole run (src/momentum.js, which
+  // replaces `momentumLevel` below); this level is the one the sentiment below reads and what a run too small to rank shows.
+  const momentumLevel = footprintLevel(Math.round(momentumScore));
 
   // 2. Evaluate Browser Alignment & Consensus from standards positions and comments
-  const ffSignal = (feature.browsers?.firefox?.view || 'No signal').toLowerCase();
-  const safariSignal = (feature.browsers?.safari?.view || 'No signal').toLowerCase();
+  const ffStance = classifyStance(feature.browsers?.firefox?.view);
+  const safariStance = classifyStance(feature.browsers?.safari?.view);
 
-  const isFfPositive = ffSignal.includes('support') || ffSignal.includes('positive') || ffSignal.includes('worth');
-  const isFfNegative = ffSignal.includes('oppose') || ffSignal.includes('negative') || ffSignal.includes('harmful');
-  const isSafariPositive = safariSignal.includes('support') || safariSignal.includes('positive');
-  const isSafariNegative = safariSignal.includes('oppose') || safariSignal.includes('negative');
+  const isFfEngaged = ENGAGED_STANCES.has(ffStance);
+  const isSafariEngaged = ENGAGED_STANCES.has(safariStance);
+  const isFfNegative = ffStance === 'negative';
+  const isSafariNegative = safariStance === 'negative';
 
   // Check standards position labels and comment highlights from GitHub issues
   const allLabels = standards.flatMap(s => s.labels || []).map(l => l.toLowerCase());
@@ -46,24 +77,24 @@ export function analyzeEcosystemData(feature, ecosystemData) {
   const hasOpposeLabel = allLabels.some(l => l.includes('oppose') || l.includes('negative'));
 
   let consensus = 'Pending Signals';
-  if (isFfPositive && isSafariPositive) {
+  if (isFfEngaged && isSafariEngaged) {
     consensus = 'Multi-Engine Consensus';
   } else if (isFfNegative || isSafariNegative || hasOpposeLabel) {
     consensus = 'Contested / Concerns Raised';
-  } else if (isFfPositive || isSafariPositive) {
+  } else if (isFfEngaged || isSafariEngaged) {
     consensus = 'Partial Multi-Engine Interest';
   } else {
     consensus = 'Chromium-Led';
   }
 
   // 3. Developer Sentiment
-  let sentiment = 'Neutral';
+  let sentiment = SENTIMENT.NEUTRAL;
   if (isFfNegative || isSafariNegative || hasOpposeLabel) {
-    sentiment = 'Mixed / Skeptical';
+    sentiment = SENTIMENT.MIXED;
   } else if (momentumLevel === 'High' && !hasSecurityConcerns) {
-    sentiment = 'Positive / High Interest';
+    sentiment = SENTIMENT.POSITIVE;
   } else if (momentumLevel === 'Moderate') {
-    sentiment = 'Cautiously Optimistic';
+    sentiment = SENTIMENT.CAUTIOUS;
   }
 
   // 4. Generate Key Insights & Recommendations informed by linked resources
@@ -113,6 +144,7 @@ export function analyzeEcosystemData(feature, ecosystemData) {
     hasSecurityConcerns,
     takeaways,
     verifiedPolyfill,
-    executiveSummary: `${feature.name} is currently ${feature.category} in Chrome ${feature.milestone || ''}. Verified ecosystem momentum is ${momentumLevel} with ${consensus} standards alignment and ${sentiment.toLowerCase()} developer pulse.`,
+    // The footprint, not the tier: the tier is assigned later, across the run, and this text is written now.
+    executiveSummary: `${feature.name} is currently ${feature.category} in Chrome ${feature.milestone || ''}. Verified ecosystem footprint is ${Math.round(momentumScore)} points with ${consensus} standards alignment and ${sentiment.toLowerCase()} developer pulse.`,
   };
 }

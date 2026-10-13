@@ -5,6 +5,8 @@ import { config } from '../../config.js';
 import { h, raw } from '../escape.js';
 import { STYLES } from './styles.js';
 import { renderCard } from './templates/card.js';
+import { describeBasis } from '../../momentum.js';
+import { describeCrawl } from '../../crawl-budget.js';
 
 // The browser script lives in a real .js file so editors lint and highlight it,
 // but it is inlined into the single-file dashboard rather than served as a
@@ -50,12 +52,31 @@ export function generateDashboardHtml(reportData) {
     ? `${Math.min(...milestones)}–${Math.max(...milestones)} (${milestones.length} releases)`
     : milestones.join(', ');
 
+  const aiCoverage = reportData.telemetry?.aiCoverage;
+  const momentum = reportData.telemetry?.momentum ? describeBasis(reportData.telemetry.momentum) : null;
+  const partial = describeCrawl(reportData.telemetry?.crawl);
+  const overrides = Array.isArray(reportData.telemetry?.qualityOverrides) ? reportData.telemetry.qualityOverrides : [];
   const providerBadges = [
     reportData.telemetry?.searchProvider
       ? h`<span class="badge" title="Web Search Engine">🔎 ${reportData.telemetry.searchProvider}</span>`
       : '',
     reportData.telemetry?.aiProvider
       ? h`<span class="badge" title="AI Analysis Engine">🤖 ${reportData.telemetry.aiProvider}</span>`
+      : '',
+    aiCoverage?.configured
+      ? h`<span class="badge" title="Features whose analysis includes AI synthesis; the rest use the heuristic engine only">🧠 AI synthesis ${aiCoverage.withAi}/${aiCoverage.total}</span>`
+      : '',
+    // What the momentum tiers rest on: a change, or (while too few features have an earlier number) the footprint ranked.
+    momentum
+      ? h`<span class="badge" title="${momentum.detail}">📈 Momentum: ${momentum.label}</span>`
+      : '',
+    // The crawl ran out of time: the features it did not reach are not on this dashboard.
+    partial
+      ? h`<span class="badge badge-warning" title="${partial.detail}">⏱ ${partial.label}</span>`
+      : '',
+    // Published with --force: a safety check refused this report and was overridden.
+    overrides.length > 0
+      ? h`<span class="badge badge-danger" title="${overrides.join(' ')}">⚠ Safety check overridden</span>`
       : '',
   ].join('\n        ');
 

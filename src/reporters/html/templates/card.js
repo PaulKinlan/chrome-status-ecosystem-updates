@@ -1,5 +1,6 @@
 import { escapeHtml, h, raw, safeUrl, isSafeUrl } from '../../escape.js';
 import { toFeatureView } from '../../viewmodel.js';
+import { describeMomentum } from '../../../momentum.js';
 
 export function renderCard(item) {
   const view = toFeatureView(item);
@@ -35,11 +36,20 @@ export function renderCard(item) {
   ` : '';
 
   const baseline = eco.baseline;
+  // Baseline describes the web-features group, which can be broader than this one feature, and the badge says so.
+  const group = view.webGroup;
+  const baselineTitle = group
+    ? `Baseline status of the web-features group ${group.id}${group.sharedWith > 0 ? `, shared with ${group.sharedWith} other ChromeStatus feature${group.sharedWith === 1 ? '' : 's'}` : ''}. Open it on webstatus.dev`
+    : 'View Baseline Status on baseline.dev';
   const baselineBadge = baseline ? h`
-    <a href="${safeUrl(baseline.url)}" target="_blank" rel="noopener" class="badge ${baseline.status === 'widely' ? 'badge-success' : baseline.status === 'newly' ? 'badge-primary' : 'badge-warning'}" title="View Baseline Status on baseline.dev">
+    <a href="${safeUrl(baseline.url)}" target="_blank" rel="noopener" class="badge ${baseline.status === 'widely' ? 'badge-success' : baseline.status === 'newly' ? 'badge-primary' : 'badge-warning'}" title="${baselineTitle}">
       <span aria-hidden="true">🌐</span> ${baseline.statusLabel} ↗
     </a>
   ` : '';
+
+  const milestoneBadge = view.milestoneNote
+    ? h`<span class="badge" title="${view.milestoneNote}">Chrome ${f.milestone || ''}</span>`
+    : h`<span class="badge">Chrome ${f.milestone || ''}</span>`;
 
   const stdCount = (eco.standards || []).length;
   const bzCount = (eco.bugs || []).length;
@@ -86,8 +96,8 @@ export function renderCard(item) {
           <a href="${safeUrl(f.chromeStatusUrl)}" target="_blank" rel="noopener">${f.name}</a>
         </h2>
         <div class="feature-badges">
-          <span class="badge">Chrome ${f.milestone || ''}</span>
-          <span class="badge ${momentumBadgeClass}">${a.momentumLevel} Momentum</span>
+          ${raw(milestoneBadge)}
+          <span class="badge ${momentumBadgeClass}" title="${describeMomentum(a)}">${a.momentumLevel} Momentum</span>
           <span class="badge ${consensusBadgeClass}">${a.consensus}</span>
           ${raw(deltaBadges)}
           ${raw(baselineBadge)}
@@ -113,7 +123,7 @@ export function renderCard(item) {
             <span class="name">Chromium</span>
             <span class="external-arrow">↗</span>
           </div>
-          <div class="val">${f.browsers?.chrome?.status || 'Active'}</div>
+          <div class="val">${view.chromiumStage}</div>
           <div class="subtext">Tracking Bug & CLs</div>
         </a>
 

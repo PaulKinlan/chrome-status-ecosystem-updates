@@ -1,29 +1,41 @@
 import { analyzeEcosystemData as analyzeHeuristic } from './heuristic.js';
 import { synthesizeWithAI } from './ai.js';
+import { adoptGroundedSources } from './grounded.js';
+import { LLM_FAILURE, recordLlmFailure } from '../llm-stats.js';
+import { logger } from '../logger.js';
 
 /**
  * Analyzes a feature's ecosystem data combining heuristic metrics and optional AI synthesis
  * with native Google Search Grounding.
+ *
+ * Order matters. The synthesis runs first because the sources it finds are
+ * evidence: they are read, verified and added to `ecosystemData` (which this
+ * function therefore updates in place) BEFORE the heuristic engine scores the
+ * feature, so the momentum score counts them.
  */
 export async function analyzeFeature(feature, ecosystemData) {
+  // Attempt AI synthesis with Gemini search grounding if keys are configured.
+  // Failures of the models themselves are counted where they happen; an
+  // exception that gets this far is a bug, and a feature quietly losing its AI
+  // synthesis is exactly what the run's statistics are there to show.
+  const aiResult = await synthesizeWithAI(feature, ecosystemData).catch(err => {
+    recordLlmFailure('analysis/synthesis', LLM_FAILURE.INTERNAL, `"${feature?.name}": ${err.message}`);
+    return null;
+  });
+
+  // Incorporate the sources Gemini found through Google Search: the ones that
+  // are about the feature join its articles, the rest are dropped.
+  let groundedSources = [];
+  if (aiResult?.groundedSources?.length > 0) {
+    groundedSources = await adoptGroundedSources(feature, ecosystemData, aiResult.groundedSources).catch(err => {
+      logger.warn(`[Grounded Sources] Could not add the sources Gemini found for "${feature?.name}": ${err.message}`);
+      return [];
+    });
+  }
+
   const heuristic = analyzeHeuristic(feature, ecosystemData);
 
-  // Attempt AI synthesis with Gemini search grounding if keys are configured
-  const aiResult = await synthesizeWithAI(feature, ecosystemData, heuristic).catch(() => null);
-
   if (aiResult) {
-    // Incorporate grounded articles discovered by Google Search via Gemini
-    if (aiResult.groundedSources && aiResult.groundedSources.length > 0) {
-      const existingUrls = new Set(ecosystemData.articles.map(a => a.url));
-      for (const src of aiResult.groundedSources) {
-        if (!existingUrls.has(src.url)) {
-          existingUrls.add(src.url);
-          ecosystemData.articles.push(src);
-          ecosystemData.metrics.totalArticles++;
-        }
-      }
-    }
-
     const takeaways = [...heuristic.takeaways];
     if (aiResult.developerActionableAdvice) {
       takeaways.unshift(`Actionable Advice: ${aiResult.developerActionableAdvice}`);
@@ -40,7 +52,7 @@ export async function analyzeFeature(feature, ecosystemData) {
       isAiEnhanced: true,
       isGroundedWithGoogleSearch: aiResult.isGroundedWithGoogleSearch || false,
       groundedQueries: aiResult.groundedQueries || [],
-      groundedSources: aiResult.groundedSources || [],
+      groundedSources,
     };
   }
 

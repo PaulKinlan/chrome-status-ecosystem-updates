@@ -35,7 +35,8 @@ function send(res, status, body, headers = {}) {
  * local network (or, on a CI runner, to the world).
  */
 export function startServer(options = {}) {
-  const port = options.port || config.port;
+  // `??`, not `||`: 0 asks the system for any free port, which is how the tests start a server without racing for one.
+  const port = options.port ?? config.port;
   const host = options.host || config.host;
   const reportsDir = path.resolve(options.reportsDir || config.reportsDir);
 
@@ -125,7 +126,7 @@ export function startServer(options = {}) {
   server.listen(port, host, () => {
     const shown = host === '0.0.0.0' || host === '::' ? 'localhost' : host;
     logger.info(`\n🚀 Chrome Ecosystem Updates Dashboard running at:`);
-    logger.info(`   http://${shown}:${port}\n`);
+    logger.info(`   http://${shown}:${server.address().port}\n`);
     logger.info(`   Serving ${reportsDir}\n`);
   });
 

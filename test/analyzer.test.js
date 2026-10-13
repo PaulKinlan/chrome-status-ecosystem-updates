@@ -1,7 +1,8 @@
+import './_support/setup.js'; // keep first: blanks credentials, redirects output, blocks real network
 import test from 'node:test';
 import assert from 'node:assert';
 import fs from 'node:fs';
-import { analyzeEcosystemData } from '../src/analyzer/heuristic.js';
+import { analyzeEcosystemData, classifyStance } from '../src/analyzer/heuristic.js';
 
 /**
  * Builds an ecosystem payload using the SAME key names that
@@ -89,6 +90,115 @@ test('analyzeEcosystemData detects Contested / Concerns Raised', () => {
   assert.strictEqual(result.hasSecurityConcerns, true);
 });
 
+test('classifyStance understands every position ChromeStatus records for Firefox and Safari', () => {
+  const expected = {
+    // shipped / committed: an engine that has shipped or is building it is engaged
+    'Shipped/Shipping': 'shipped',
+    'Shipping': 'shipped',
+    'In development': 'committed',
+    // positive
+    'Positive': 'positive',
+    'Support': 'positive',
+    'Public support': 'positive',
+    'Worth prototyping': 'positive',
+    'Important': 'positive',
+    // neutral: a stated position that is not an endorsement
+    'Neutral': 'neutral',
+    'Defer': 'neutral',
+    'Under consideration': 'neutral',
+    'Closed Without a Position': 'neutral',
+    'Non-harmful': 'neutral',
+    'something ChromeStatus invents next year': 'neutral',
+    // negative
+    'Negative': 'negative',
+    'Oppose': 'negative',
+    'Opposed': 'negative',
+    'Harmful': 'negative',
+    'Not supported': 'negative',
+    // none
+    'No signal': 'none',
+    'No signals': 'none',
+    'No public signals': 'none',
+    'N/A': 'none',
+    '': 'none',
+    '   ': 'none',
+  };
+  for (const [view, stance] of Object.entries(expected)) {
+    assert.strictEqual(classifyStance(view), stance, `classifyStance(${JSON.stringify(view)})`);
+  }
+  assert.strictEqual(classifyStance(undefined), 'none');
+  assert.strictEqual(classifyStance(null), 'none');
+  assert.strictEqual(classifyStance('SHIPPED/SHIPPING'), 'shipped', 'case-insensitive');
+});
+
+test('consensus follows what Firefox and Safari have actually done (observed ChromeStatus value pairs)', () => {
+  // [firefox view, safari view, expected consensus]. Rows marked (was ...) are
+  // real combinations the old substring matching got wrong.
+  const cases = [
+    ['No signal', 'No signal', 'Chromium-Led'],
+    ['Neutral', 'Neutral', 'Chromium-Led'],
+    ['Under consideration', 'No signal', 'Chromium-Led'],
+    ['No signal', 'Closed Without a Position', 'Chromium-Led'],
+    ['No signal', 'N/A', 'Chromium-Led'],
+    ['Defer', 'No signal', 'Chromium-Led'],
+
+    ['Positive', 'Support', 'Multi-Engine Consensus'],
+    ['Positive', 'Positive', 'Multi-Engine Consensus'],
+    ['Shipped/Shipping', 'Shipped/Shipping', 'Multi-Engine Consensus'], // (was Chromium-Led, 52 rows)
+    ['Shipped/Shipping', 'In development', 'Multi-Engine Consensus'],   // (was Chromium-Led, 25 rows)
+    ['In development', 'Shipped/Shipping', 'Multi-Engine Consensus'],
+    ['Positive', 'Shipped/Shipping', 'Multi-Engine Consensus'],         // (was Partial, 9 rows)
+    ['Shipped/Shipping', 'Support', 'Multi-Engine Consensus'],          // (was Partial, 5 rows)
+    ['Positive', 'In development', 'Multi-Engine Consensus'],
+
+    ['Positive', 'No signal', 'Partial Multi-Engine Interest'],
+    ['No signal', 'Support', 'Partial Multi-Engine Interest'],
+    ['Shipped/Shipping', 'No signal', 'Partial Multi-Engine Interest'], // (was Chromium-Led, 26 rows)
+    ['No signal', 'Shipped/Shipping', 'Partial Multi-Engine Interest'], // (was Chromium-Led, 10 rows)
+    ['Shipped/Shipping', 'Closed Without a Position', 'Partial Multi-Engine Interest'],
+    ['Under consideration', 'Shipped/Shipping', 'Partial Multi-Engine Interest'],
+
+    ['No signal', 'Oppose', 'Contested / Concerns Raised'],
+    ['Negative', 'Negative', 'Contested / Concerns Raised'],
+    ['Negative', 'Support', 'Contested / Concerns Raised'],
+    ['Negative', 'No signal', 'Contested / Concerns Raised'],
+    ['Shipped/Shipping', 'Oppose', 'Contested / Concerns Raised'],
+  ];
+
+  for (const [firefox, safari, expected] of cases) {
+    const feature = {
+      name: 'F', milestone: 154, category: 'Enabled by default', statusType: 'enabled',
+      browsers: { firefox: { view: firefox }, safari: { view: safari } },
+    };
+    const { consensus } = analyzeEcosystemData(feature, ecosystem());
+    assert.strictEqual(consensus, expected, `Firefox "${firefox}" + Safari "${safari}"`);
+  }
+});
+
+test('consensus labels stay stable, because reporters and history key off them', () => {
+  const labels = new Set();
+  for (const [firefox, safari] of [['No signal', 'No signal'], ['Positive', 'Support'], ['Positive', 'No signal'], ['Negative', 'No signal']]) {
+    labels.add(analyzeEcosystemData(
+      { name: 'F', browsers: { firefox: { view: firefox }, safari: { view: safari } } },
+      ecosystem()
+    ).consensus);
+  }
+  assert.deepStrictEqual(
+    [...labels].sort(),
+    ['Chromium-Led', 'Contested / Concerns Raised', 'Multi-Engine Consensus', 'Partial Multi-Engine Interest']
+  );
+});
+
+test('a vendor standards-position label of oppose/negative still marks a feature contested', () => {
+  const feature = {
+    name: 'F', browsers: { firefox: { view: 'No signal' }, safari: { view: 'No signal' } },
+  };
+  const result = analyzeEcosystemData(feature, ecosystem({
+    standards: [{ vendor: 'Mozilla', labels: ['position: negative'] }],
+  }));
+  assert.strictEqual(result.consensus, 'Contested / Concerns Raised');
+});
+
 test('standards positions, packages and demos actually move the momentum score', () => {
   const feature = {
     name: 'Signal Feature',
@@ -156,4 +266,43 @@ test('CONTRACT: every metrics key heuristic.js reads is emitted by search/index.
     `heuristic.js reads metrics keys that gatherEcosystemData never emits: ${missing.join(', ')}. ` +
     'These silently evaluate to undefined and score zero.'
   );
+});
+
+// --- the level the heuristic engine can see: the footprint ----------------
+
+const plainFeature = {
+  name: 'Sized Feature',
+  milestone: 154,
+  category: 'Enabled by default',
+  statusType: 'enabled',
+  browsers: { firefox: { view: 'No signal' }, safari: { view: 'No signal' } },
+};
+
+test('the level is read from the score that is shown: 79.5 points is shown as 80 and is High', () => {
+  // One Hacker News point is 1.5 points and a comment is 2, so these add up to a score ending in .5.
+  const cases = [
+    [{ hnPoints: 1, hnComments: 39 }, 80, 'High'],
+    [{ hnPoints: 1, hnComments: 38 }, 78, 'Moderate'],
+    [{ hnPoints: 1, hnComments: 16, twitterLikes: 2 }, 35, 'Moderate'],
+    [{ hnPoints: 1, hnComments: 15, twitterLikes: 2 }, 33, 'Emerging'],
+    [{ hnPoints: 1, hnComments: 4 }, 10, 'Emerging'],
+    [{ hnPoints: 1, hnComments: 3 }, 8, 'Quiet'],
+    [{}, 0, 'Quiet'],
+  ];
+
+  for (const [metrics, score, level] of cases) {
+    const result = analyzeEcosystemData(plainFeature, ecosystem({ metrics }));
+    assert.strictEqual(result.momentumScore, score, JSON.stringify(metrics));
+    assert.strictEqual(result.momentumLevel, level, `a score of ${score}`);
+  }
+});
+
+test('the written summary quotes the footprint, not a tier that is only assigned once the whole run is known', () => {
+  const result = analyzeEcosystemData(plainFeature, ecosystem({ metrics: { hnPoints: 1, hnComments: 39 } }));
+
+  assert.strictEqual(
+    result.executiveSummary,
+    'Sized Feature is currently Enabled by default in Chrome 154. Verified ecosystem footprint is 80 points with Chromium-Led standards alignment and positive developer pulse.'
+  );
+  assert.ok(!/momentum/i.test(result.executiveSummary), result.executiveSummary);
 });

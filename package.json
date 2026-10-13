@@ -12,9 +12,9 @@
     "report": "node bin/cli.js run",
     "report:feature": "node bin/cli.js inspect",
     "serve": "node bin/cli.js serve",
-    "test": "node --test",
-    "test:coverage": "node --test --experimental-test-coverage",
-    "test:integration": "INTEGRATION=1 node --test"
+    "test": "node --test --test-timeout=30000",
+    "test:coverage": "node --test --test-timeout=30000 --experimental-test-coverage",
+    "test:integration": "INTEGRATION=1 node --test --test-timeout=120000"
   },
   "keywords": [
     "chromestatus",
@@ -30,6 +30,6 @@
   "author": "Paul Kinlan",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   }
 }

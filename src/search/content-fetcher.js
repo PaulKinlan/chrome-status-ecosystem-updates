@@ -1,10 +1,21 @@
 import { config } from '../config.js';
 import { logger } from '../logger.js';
-import { fetchWithTimeout } from '../http.js';
+import { fetchWithTimeout, readTextLimited } from '../http.js';
+import { fetchPublicUrl, isPublicHostname } from '../safe-fetch.js';
+import { stripInvisibleCharacters } from '../text.js';
 
 const cache = new Map();
 
-function getGitHubHeaders() {
+/**
+ * Upper bounds on how much of an untrusted page is read. Only the first few
+ * hundred characters of text are ever used, so these are generous; they exist
+ * so that a hostile or broken server cannot make the crawler buffer gigabytes.
+ */
+const MAX_ARTICLE_BYTES = 1024 * 1024;
+const MAX_EXPLAINER_BYTES = 256 * 1024;
+
+/** Headers for GitHub API requests: authenticated when GITHUB_TOKEN is set (5,000 requests an hour instead of 60). */
+export function getGitHubHeaders() {
   const headers = {
     'Accept': 'application/vnd.github+json',
     'User-Agent': 'chrome-status-ecosystem-tracker/1.0',
@@ -15,14 +26,37 @@ function getGitHubHeaders() {
   return headers;
 }
 
+/** GitHub owner and repository names: letters, digits, `-`, `_` and `.` only. */
+const GITHUB_NAME = /^[A-Za-z0-9_.-]+$/;
+
 /**
- * Parses GitHub issue URL into owner, repo, and issue number
+ * Parses a GitHub issue URL into owner, repo, and issue number.
+ *
+ * The URL is checked as a URL, not searched as text. The old pattern was not
+ * anchored, so `https://example.com/?r=github.com/a/b/issues/1` and
+ * `https://notgithub.com/a/b/issues/1` both "parsed", and a `..` or `?` in the
+ * owner went straight into the GitHub API path built from the result.
  */
 export function parseGitHubIssueUrl(url) {
-  if (!url) return null;
-  const match = url.match(/github\.com\/([^/]+)\/([^/]+)\/issues\/(\d+)/);
+  // Only a string is an address: `new URL()` would happily parse an array that holds one.
+  if (typeof url !== 'string') return null;
+
+  let parsed;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return null;
+  }
+  if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') return null;
+  if (parsed.username || parsed.password) return null;
+  const host = parsed.hostname.toLowerCase();
+  if (host !== 'github.com' && host !== 'www.github.com') return null;
+
+  const match = parsed.pathname.match(/^\/([^/]+)\/([^/]+)\/issues\/(\d+)(?:\/|$)/);
   if (!match) return null;
-  return { owner: match[1], repo: match[2], issueNumber: match[3] };
+  const [, owner, repo, issueNumber] = match;
+  if (!GITHUB_NAME.test(owner) || !GITHUB_NAME.test(repo) || /^\.+$/.test(owner) || /^\.+$/.test(repo)) return null;
+  return { owner, repo, issueNumber };
 }
 
 /**
@@ -60,7 +94,10 @@ export async function fetchGitHubIssueComments(issueUrl) {
 }
 
 /**
- * Fetches the raw content or summary of an explainer / markdown URL
+ * Fetches the raw content or summary of an explainer / markdown URL.
+ *
+ * The URL comes from a ChromeStatus entry, i.e. it is not ours to trust, so it
+ * goes through the same public-hosts-only fetch as article excerpts.
  */
 export async function fetchExplainerSummary(explainerUrl) {
   if (!explainerUrl) return null;
@@ -77,20 +114,22 @@ export async function fetchExplainerSummary(explainerUrl) {
 
     // Only fetch text for raw or direct markdown/html
     if (fetchUrl.includes('raw.githubusercontent.com') || fetchUrl.endsWith('.md') || fetchUrl.endsWith('.txt')) {
-      const res = await fetchWithTimeout(fetchUrl, {
+      const res = await fetchPublicUrl(fetchUrl, {
         label: 'Explainer',
         timeoutMs: 8_000,
         headers: { 'User-Agent': 'chrome-status-ecosystem-tracker/1.0' },
       });
       if (res.ok) {
-        const text = await res.text();
+        const text = await readTextLimited(res, MAX_EXPLAINER_BYTES);
         const snippet = text.slice(0, 600).replace(/\r?\n/g, ' ').trim();
         cache.set(cacheKey, snippet);
         return snippet;
       }
     }
-  } catch {
-    // Ignore fetch error
+  } catch (err) {
+    // An explainer is only enrichment, so a refusal or failure is not an error;
+    // leave a trace for anyone running with --verbose.
+    logger.debug(`[Content Fetcher] Skipped explainer ${explainerUrl}: ${err.message}`);
   }
 
   return null;
@@ -174,7 +213,8 @@ export async function fetchNpmPackageDetails(packageName) {
 }
 
 /**
- * Decides whether a URL discovered in third-party search results is safe to fetch.
+ * Cheap synchronous pre-check: is this a plain http(s) URL whose literal host
+ * looks publicly routable?
  *
  * Unlike every other fetch in this module, `fetchArticleExcerpt` is pointed at
  * arbitrary URLs that came from Brave/Google/Gemini results, so the target is
@@ -183,10 +223,9 @@ export async function fetchNpmPackageDetails(packageName) {
  * reachable and hold credentials, so a malicious result could otherwise turn
  * the crawler into a proxy for reading internal services (SSRF).
  *
- * Only plain http(s) URLs aimed at what looks like a publicly routable host
- * are allowed. This is a cheap pre-flight check on the literal URL; it does
- * not defend against a public hostname whose DNS resolves to a private
- * address (DNS rebinding), which would need a custom agent to fix properly.
+ * This only judges the literal URL. The fetch itself goes through
+ * `fetchPublicUrl` (src/safe-fetch.js), which also resolves the hostname and
+ * re-checks every redirect hop; see that module for what remains uncovered.
  *
  * Exported for testing.
  */
@@ -201,37 +240,149 @@ export function isFetchableExternalUrl(rawUrl) {
   // Rejects file:, data:, ftp:, gopher: and other non-web schemes.
   if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return false;
 
-  // URL keeps IPv6 literals wrapped in brackets; strip them for comparison.
-  const host = parsed.hostname.toLowerCase().replace(/^\[/, '').replace(/\]$/, '');
-  if (!host) return false;
-
-  // Loopback / unspecified addresses reachable by name.
-  if (host === 'localhost' || host.endsWith('.localhost')) return false;
-  if (host === '::1' || host === '::' || host === '0.0.0.0') return false;
-
-  // IPv4-mapped IPv6 (e.g. ::ffff:127.0.0.1) would slip past the checks below.
-  if (host.startsWith('::ffff:')) return false;
-
-  // The WHATWG URL parser normalises octal/decimal IPv4 forms (0177.0.0.1,
-  // 2130706433) into dotted quads, so matching on the dotted form is enough.
-  const ipv4 = host.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
-  if (ipv4) {
-    const [a, b] = ipv4.slice(1, 3).map(Number);
-    if (a === 0) return false;                          // 0.0.0.0/8 "this network"
-    if (a === 10) return false;                         // 10.0.0.0/8 private
-    if (a === 127) return false;                        // 127.0.0.0/8 loopback
-    if (a === 169 && b === 254) return false;           // 169.254.0.0/16 link-local (cloud metadata)
-    if (a === 172 && b >= 16 && b <= 31) return false;  // 172.16.0.0/12 private
-    if (a === 192 && b === 168) return false;           // 192.168.0.0/16 private
-  }
-
-  return true;
+  // The WHATWG URL parser normalises octal/hex/decimal IPv4 forms (0177.0.0.1,
+  // 0x7f.1, 2130706433) into dotted quads, so judging the parsed host is enough.
+  return isPublicHostname(parsed.hostname);
 }
 
 /**
- * Fetches an article or blog post URL and extracts a clean text excerpt of the content
+ * Removes every `<tag ...> ... </tag>` block, in time linear in the input.
+ *
+ * The markup comes from an arbitrary server and is cleaned synchronously, so no
+ * timeout can interrupt a slow pattern. The obvious regex for this job (and the
+ * one used here before) rescans the rest of the document from every opening
+ * tag when the closing tag is missing, which is quadratic: 100 KB of `<nav `
+ * took 3.5 s of CPU, so the 1 MiB body cap allowed minutes. Looking for the
+ * opener and the closer separately visits each character once. An opener with
+ * no closer is left in place (the tag stripper then drops just the tag), as it
+ * always was.
  */
-export async function fetchArticleExcerpt(url, maxChars = 1200) {
+function stripBlocks(html, tag) {
+  const opener = new RegExp(`<${tag}\\b`, 'gi');
+  const closer = new RegExp(`</${tag}\\s*>`, 'gi');
+  let out = '';
+  let from = 0;
+  for (;;) {
+    opener.lastIndex = from;
+    const open = opener.exec(html);
+    if (!open) break;
+    closer.lastIndex = open.index + open[0].length;
+    const close = closer.exec(html);
+    if (!close) break;
+    out += html.slice(from, open.index) + ' ';
+    from = close.index + close[0].length;
+  }
+  return out + html.slice(from);
+}
+
+/**
+ * Replaces every `<...>` with a space, in time linear in the input. (`/<[^>]+>/g`
+ * is quadratic on a long run of `<` with no `>`; see `stripBlocks`.) A lone `<`
+ * with no `>` after it, and the empty `<>`, are text and stay.
+ */
+function stripTags(html) {
+  let out = '';
+  let from = 0;
+  for (;;) {
+    const open = html.indexOf('<', from);
+    if (open === -1) break;
+    const close = html.indexOf('>', open + 1);
+    if (close === -1) break;
+    if (close === open + 1) {
+      out += html.slice(from, close + 1);
+    } else {
+      out += html.slice(from, open) + ' ';
+    }
+    from = close + 1;
+  }
+  return out + html.slice(from);
+}
+
+const HTML_ENTITY_TEXT = { '&nbsp;': ' ', '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"' };
+
+/**
+ * Reduces a page to its readable text: drops script, style, nav, footer and SVG
+ * blocks, then every remaining tag, decodes the handful of entities that matter
+ * and collapses whitespace.
+ *
+ * Entities are decoded in one pass. Decoding `&amp;` first and the others
+ * afterwards would turn the literal text `&amp;lt;` into `<`.
+ *
+ * Exported for testing.
+ */
+export function htmlToText(html) {
+  let text = String(html ?? '');
+  for (const tag of ['script', 'style', 'nav', 'footer', 'svg']) text = stripBlocks(text, tag);
+  return stripTags(text)
+    .replace(/&(?:nbsp|amp|lt|gt|quot);/g, entity => HTML_ENTITY_TEXT[entity])
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** The title sits in `<head>`; looking further than this only costs time on a 1 MiB body. */
+const TITLE_SEARCH_LIMIT = 128 * 1024;
+const TITLE_MAX_LENGTH = 200;
+
+const TITLE_ENTITY_TEXT = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+
+/** A code point a person could have typed into a title: not a control character, not a surrogate, in range. */
+function isTitleCodePoint(codePoint) {
+  if (codePoint === 9 || codePoint === 10 || codePoint === 13) return true;
+  return codePoint >= 0x20 && codePoint <= 0x10FFFF &&
+    !(codePoint >= 0x7F && codePoint <= 0x9F) &&
+    !(codePoint >= 0xD800 && codePoint <= 0xDFFF);
+}
+
+/**
+ * Reads the `<title>` of a page, or null when it has none.
+ *
+ * Titles are full of character references (`&amp;`, `&#8217;`, `&#x2019;`),
+ * which are decoded in one pass (see `htmlToText` for why one pass). Control
+ * and invisible formatting characters are dropped, whitespace is collapsed and
+ * the result is capped at 200 characters.
+ *
+ * The markup comes from an arbitrary server and is searched synchronously, so
+ * only the first 128 KB is looked at and the opener and closer are searched for
+ * separately (see `stripBlocks` for why a single pattern would not do).
+ *
+ * Exported for testing.
+ */
+export function extractHtmlTitle(html) {
+  if (typeof html !== 'string') return null;
+  const head = html.slice(0, TITLE_SEARCH_LIMIT);
+
+  const opener = /<title\b/gi;
+  const open = opener.exec(head);
+  if (!open) return null;
+  const tagEnd = head.indexOf('>', open.index + open[0].length);
+  if (tagEnd === -1) return null;
+
+  const closer = /<\/title\s*>/gi;
+  closer.lastIndex = tagEnd + 1;
+  const close = closer.exec(head);
+  if (!close) return null;
+
+  const decoded = head.slice(tagEnd + 1, close.index)
+    .replace(/&(?:#(\d{1,7})|#[xX]([0-9a-fA-F]{1,6})|(amp|lt|gt|quot|apos|nbsp));/g, (entity, decimal, hex, name) => {
+      if (name) return TITLE_ENTITY_TEXT[name];
+      const codePoint = decimal !== undefined ? Number(decimal) : parseInt(hex, 16);
+      return isTitleCodePoint(codePoint) ? String.fromCodePoint(codePoint) : entity;
+    });
+  // After the entities, so that `&#8238;` (a right-to-left override) goes the way the character itself does.
+  const title = stripInvisibleCharacters(decoded)
+    .replace(/\s+/g, ' ')
+    .trim();
+  return title ? title.slice(0, TITLE_MAX_LENGTH) : null;
+}
+
+/**
+ * Fetches an article or blog post URL and reads what the page says about
+ * itself: a clean text excerpt of its content and its title.
+ *
+ * @returns {Promise<{excerpt: string, title: string|null}|null>} null when the
+ *   page could not be read (refused URL, error, not a text page)
+ */
+export async function fetchArticlePage(url, maxChars = 1200) {
   if (!url || typeof url !== 'string') return null;
 
   // Refuse anything that is not a public http(s) target; see isFetchableExternalUrl.
@@ -240,13 +391,13 @@ export async function fetchArticleExcerpt(url, maxChars = 1200) {
     return null;
   }
 
-  const cacheKey = `article_excerpt_${url}`;
+  const cacheKey = `article_page_${maxChars}_${url}`;
   if (cache.has(cacheKey)) return cache.get(cacheKey);
 
   try {
     // Deliberately short and barely retried: this runs for up to 8 URLs per
     // feature against unknown hosts, and the excerpt is only an enrichment.
-    const res = await fetchWithTimeout(url, {
+    const res = await fetchPublicUrl(url, {
       label: 'Article Excerpt',
       timeoutMs: 5_000,
       retries: 1,
@@ -262,29 +413,21 @@ export async function fetchArticleExcerpt(url, maxChars = 1200) {
       return null;
     }
 
-    const html = await res.text();
-    // Strip scripts, styles, nav, footer, and SVG
-    const cleaned = html
-      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, ' ')
-      .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, ' ')
-      .replace(/<nav\b[^<]*(?:(?!<\/nav>)<[^<]*)*<\/nav>/gi, ' ')
-      .replace(/<footer\b[^<]*(?:(?!<\/footer>)<[^<]*)*<\/footer>/gi, ' ')
-      .replace(/<svg\b[^<]*(?:(?!<\/svg>)<[^<]*)*<\/svg>/gi, ' ')
-      .replace(/<[^>]+>/g, ' ')
-      .replace(/&nbsp;/g, ' ')
-      .replace(/&amp;/g, '&')
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&quot;/g, '"')
-      .replace(/\s+/g, ' ')
-      .trim();
-
-    const excerpt = cleaned.slice(0, maxChars);
-    logger.debug(`[Content Fetcher] Page content fetched for ${url}: HTTP ${res.status}, extracted ${excerpt.length} chars`);
-    cache.set(cacheKey, excerpt);
-    return excerpt;
+    const html = await readTextLimited(res, MAX_ARTICLE_BYTES);
+    const page = { excerpt: htmlToText(html).slice(0, maxChars), title: extractHtmlTitle(html) };
+    logger.debug(`[Content Fetcher] Page content fetched for ${url}: HTTP ${res.status}, extracted ${page.excerpt.length} chars`);
+    cache.set(cacheKey, page);
+    return page;
   } catch (err) {
     logger.debug(`[Content Fetcher] Failed fetching ${url}: ${err.message}`);
     return null;
   }
+}
+
+/**
+ * Fetches an article or blog post URL and extracts a clean text excerpt of the content
+ */
+export async function fetchArticleExcerpt(url, maxChars = 1200) {
+  const page = await fetchArticlePage(url, maxChars);
+  return page ? page.excerpt : null;
 }

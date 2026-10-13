@@ -64,13 +64,34 @@ export function toFeatureView(item) {
 
   const isContested = (a.consensus || '').includes('Contested') || (a.consensus || '').includes('Concerns');
 
+  // ChromeStatus's per-browser `status` field is a legacy value that is rarely
+  // maintained: in a typical report 92% of features still say "Proposed",
+  // including ones that already shipped. The category a feature is listed under
+  // for its milestone is far better maintained, so prefer it.
+  //
+  // Which listing, though: a feature can appear under several milestones in the
+  // window (say "In origin trial" in 151 and "Enabled by default" in 153). The
+  // runner keeps the MOST ADVANCED one (see `chooseListings`), and `category`
+  // and `milestone` are a consistent pair taken from it. `firstListedMilestone`
+  // says where the feature first appeared, so the earlier stage is not hidden.
+  const chromiumStage = f.category || f.browsers?.chrome?.status || 'Active';
+
+  // A missing value must not read as milestone 0 (`Number(null)` and `Number('')`
+  // are 0); NaN compares false, so a note needs two real milestones.
+  const asMilestone = value => (value === null || value === '' ? NaN : Number(value));
+  const firstListed = asMilestone(f.firstListedMilestone);
+  const milestoneNote = firstListed < asMilestone(f.milestone)
+    ? `first listed in Chrome ${firstListed}`
+    : '';
+
   return {
     ...item,
     f, a, eco, delta, metrics, slug,
     blogs, docs, discussions,
     twitterDiscussions, hnDiscussions, topDiscussion,
     communityUrl, communityTileTitle, communityTileVal,
-    deltaSummary, hasDelta, isContested,
+    deltaSummary, hasDelta, isContested, chromiumStage, milestoneNote,
+    webGroup: describeWebGroup(eco),
     // Shared truncation limits so HTML and Markdown show the same evidence.
     sliceLimits: {
       discussions: 8,
@@ -80,5 +101,25 @@ export function toFeatureView(item) {
       newActivityFeatures: 10,
       newFeatures: 10,
     },
+  };
+}
+
+/**
+ * The web-features group that Baseline, the test pass rates, the vendor positions
+ * and the usage figure of a feature describe, or null when it has none.
+ *
+ * All of that data belongs to the GROUP (one group often spans several
+ * ChromeStatus features), so every reporter says so next to it. `sharedWith` is
+ * how many other ChromeStatus features the group has, known when the group came
+ * from the web-features mapping.
+ */
+export function describeWebGroup(eco) {
+  const id = eco.webFeature?.id || eco.baseline?.featureId || eco.wpt?.webFeatureId || null;
+  if (!id) return null;
+  const size = eco.webFeature?.groupSize;
+  return {
+    id,
+    url: `https://webstatus.dev/features/${encodeURIComponent(id)}`,
+    sharedWith: Number.isInteger(size) && size > 0 ? size - 1 : 0,
   };
 }

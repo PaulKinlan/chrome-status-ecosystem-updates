@@ -1,3 +1,4 @@
+import './_support/setup.js'; // keep first: blanks credentials, redirects output, blocks real network
 import test from 'node:test';
 import assert from 'node:assert';
 import { clearProviderKeys } from './_support/fetch-mock.js';
@@ -56,4 +57,65 @@ test('planEcosystemQueries generates code syntax and tutorial queries as fallbac
 
   const tutorialQuery = queries.find(q => q.intent === 'tutorials-blogs');
   assert.ok(tutorialQuery, 'Generates tutorial / blog query');
+});
+
+// --- the LLM extension of the plan is optional ---------------------------------
+
+const { config } = await import('../src/config.js');
+const { installGeminiMock, answer } = await import('./_support/gemini-mock.js');
+
+const PLANNER_FEATURE = { id: 77, name: 'Blorp Panels', summary: 'Panels that blorp.' };
+const LLM_QUERY = '"Blorp Panels" hands-on review';
+
+/** A planner whose Gemini answers with one extra query, and a record of what it was asked. */
+function withPlannerGemini(t) {
+  const saved = config.geminiApiKey;
+  config.geminiApiKey = 'test-key';
+  const gemini = installGeminiMock(() => answer(JSON.stringify({
+    queries: [{ query: LLM_QUERY, intent: 'tutorials-blogs', description: 'reviews' }],
+  })));
+  t.after(() => {
+    gemini.restore();
+    config.geminiApiKey = saved;
+  });
+  return gemini;
+}
+
+test('the planner asks the LLM for extra queries by default', async (t) => {
+  const gemini = withPlannerGemini(t);
+
+  const queries = await planEcosystemQueries(PLANNER_FEATURE);
+
+  assert.strictEqual(gemini.calls.length, 1);
+  assert.ok(queries.some(q => q.query === LLM_QUERY));
+});
+
+test('useLlm: false skips the LLM call and plans only the deterministic queries', async (t) => {
+  const gemini = withPlannerGemini(t);
+
+  const queries = await planEcosystemQueries(PLANNER_FEATURE, { useLlm: false });
+
+  assert.strictEqual(gemini.calls.length, 0, 'not a single request may be made');
+  assert.ok(!queries.some(q => q.query === LLM_QUERY));
+  assert.ok(queries.some(q => q.intent === 'core-api'));
+  assert.ok(queries.some(q => q.intent === 'reverse-link-chromestatus'));
+});
+
+test('the plan is the same with or without the LLM apart from the LLM\'s own queries', async (t) => {
+  withPlannerGemini(t);
+
+  const withLlm = await planEcosystemQueries(PLANNER_FEATURE);
+  const without = await planEcosystemQueries(PLANNER_FEATURE, { useLlm: false });
+
+  assert.deepStrictEqual(withLlm.filter(q => q.query !== LLM_QUERY), without);
+});
+
+test('standards-position issues are not turned into reverse-link queries (nothing ever supplied them)', async () => {
+  const queries = await planEcosystemQueries(PLANNER_FEATURE, {
+    useLlm: false,
+    standards: [{ vendor: 'Mozilla', url: 'https://github.com/mozilla/standards-positions/issues/1' }],
+  });
+
+  assert.ok(!queries.some(q => q.intent === 'reverse-link-standards'));
+  assert.ok(!queries.some(q => q.query.includes('standards-positions/issues/1')));
 });

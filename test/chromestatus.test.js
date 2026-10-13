@@ -1,3 +1,4 @@
+import './_support/setup.js'; // keep first: blanks credentials, redirects output, blocks real network
 import test from 'node:test';
 import assert from 'node:assert';
 import {
@@ -61,6 +62,29 @@ test('normalizeFeature maps fields accurately', () => {
   assert.strictEqual(normalized.browsers.safari.view, 'Support');
   assert.strictEqual(normalized.chromeStatusUrl, 'https://chromestatus.com/feature/123456789');
   assert.strictEqual(normalized.chromeStatusLiteUrl, 'https://chromestatuslite.com/feature/123456789');
+});
+
+test('normalizeFeature files every ChromeStatus category under one status type', () => {
+  const cases = [
+    ['Enabled by default', 'enabled'],
+    ['Origin trial', 'origin-trial'],
+    ['In developer trial (Behind a flag)', 'flagged'],
+    ['Deprecated', 'deprecated'],
+    ['Removed', 'removed'],
+    ['Stepped rollout', 'rollout'],
+    ['Browser Intervention', 'other'],
+    ['No longer pursuing', 'other'],
+    ['', 'other'],
+    // A label can mention two stages. A trial is still a trial when it is "enabled".
+    ['Origin trial (enabled for 10% of users)', 'origin-trial'],
+    ['Enabled in an origin trial', 'origin-trial'],
+    ['ORIGIN TRIAL: ENABLED', 'origin-trial'],
+  ];
+  for (const [label, expected] of cases) {
+    assert.strictEqual(normalizeFeature({ id: 1, name: 'X' }, 154, label).statusType, expected, `"${label}"`);
+  }
+  assert.strictEqual(normalizeFeature({ id: 1, name: 'X' }, 154).statusType, 'other', 'no label at all');
+  assert.strictEqual(normalizeFeature({ id: 1, name: 'X', category: 'Origin trial' }, 154).statusType, 'origin-trial', 'the raw category is the fallback');
 });
 
 test('resolveTargetMilestones parses last-N, ranges, lists, and numbers', async (t) => {

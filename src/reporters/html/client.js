@@ -90,13 +90,16 @@ function initFilters() {
     searchInput.value = currentSearch;
   }
 
-  // Update active states on buttons
+  // Update active states on buttons. `val` can come straight from the address bar
+  // (?milestone=...), so it is escaped: a quote or bracket in it would make the
+  // selector invalid, querySelector would throw, and no feature would render.
+  // (`type` is always one of the four literals below.)
   const applyActive = (type, val) => {
     document.querySelectorAll(`[data-filter-type="${type}"]`).forEach(b => {
       b.classList.remove('active');
       b.setAttribute('aria-pressed', 'false');
     });
-    const btn = document.querySelector(`[data-filter-type="${type}"][data-filter-val="${val}"]`);
+    const btn = document.querySelector(`[data-filter-type="${type}"][data-filter-val="${CSS.escape(val)}"]`);
     if (btn) {
       btn.classList.add('active');
       btn.setAttribute('aria-pressed', 'true');
