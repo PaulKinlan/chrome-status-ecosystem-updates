@@ -1,6 +1,6 @@
 # Digital Credentials API (issuance support)
 
-> **Report Week:** 2026-W42 | **Milestone:** Chrome 155 | **Category:** Enabled by default
+> **Report Week:** 2026-W43 | **Milestone:** Chrome 155 | **Category:** Enabled by default
 
 ## Overview
 
@@ -15,10 +15,10 @@ Without this, websites and wallets can only communicate in ways that are more op
 - **Momentum:** High (footprint 380 points, ranked against this week's features because too few have an earlier number to work out a change)
 - **Standards Alignment:** Contested / Concerns Raised
 - **Sentiment:** Cautiously Optimistic
-- **Executive Take:** The Digital Credentials API issuance capability extends the Credential Management API via \`navigator.credentials.create()\` to let issuing authorities securely provision credentials into mobile wallets without relying on fragile custom URI schemes or deep links. While Chromium is leading the rollout with default support backed by Android Credential Manager and cross-device CTAP flows, cross-browser consensus remains fractured. WebKit supports the overarching digital credential specification with cautionary reservations, while Mozilla formally opposes the API over systemic privacy and user agency concerns.
+- **Executive Take:** The Digital Credentials API (issuance support) extends browser-mediated identity handling to allow issuing bodies like universities and banks to provision credentials directly into user mobile wallets. Currently rolling out in Chrome (targeting Milestone 155), it relies heavily on native mobile infrastructure like Android's Credential Manager and OpenID4VCI protocols, though it lacks cross-browser interoperability and Baseline status.
 
 ### Recommendations
-- Actionable Advice: Issuing platforms should treat the API strictly as a progressive enhancement behind protocol and feature checks such as \`DigitalCredential.userAgentAllowsProtocol()\`. Teams should keep standard fallback mechanisms active—notably QR-based provisioning and custom deep links—to ensure seamless issuance across Safari, Firefox, and desktop platforms lacking cross-device support.
+- Actionable Advice: Web development teams should treat this feature as strictly experimental, using it only behind flags or via feature detection while maintaining fallback flows (such as traditional deep links or QR codes) for users on Firefox, Safari, and older browser versions.
 - Shipping enabled by default in Chrome 155. Developers can begin adopting in production with progressive feature detection.
 - Standards Activity (WebKit): Latest discussion from @marcoscaceres: "Update on Venue: https://github.com/w3c/strategy/issues/450  We also made strides on the OpenID / request format...."
 - Standards Activity (Mozilla): Latest discussion from @RByers: "Hey Mozilla folks, is there anything you can share here about your position on the use of custom schemes like openid4vp://? Today Firefox allows infor..."
@@ -32,59 +32,69 @@ Without this, websites and wallets can only communicate in ways that are more op
 ## 📰 Ecosystem Blogs & Articles
 
 - [Digital Credentials API for credential issuance \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/digital-credentials-api-143-issuance-ot) *(developer.chrome.com)*
-  > create()\` Historically, issuing institutions (such as motor vehicle departments, banks, or universities) had to rely on custom URI schemes or proprietary deep links to push credentials into mobile wallets
-- [credenco.com](https://www.credenco.com/glossary/digital-credentials-api) *(credenco.com)*
-  > create()\` Historically, issuing institutions (such as motor vehicle departments, banks, or universities) had to rely on custom URI schemes or proprietary deep links to push credentials into mobile wallets
-- [chrome.com](https://developer.chrome.com/blog/digital-credentials-api-143-issuance-ot?hl=fr) *(developer.chrome.com)*
-  > create()\` with a structured \`digital\` request payload containing an issuance offer (typically implementing \*\*OpenID4VCI\*\* or ISO/IEC 18013 standards) create({ digital: { requests: \[...\] } })\`
-- [youtube.com](https://www.youtube.com/watch?v=pgoaZjYMGJY) *(youtube.com)*
-  > \* \*\*On Desktop:\*\* The browser initiates a cross-device flow over the \*\*CTAP/FIDO hybrid protocol\*\*, using a QR code and Bluetooth Low Energy (BLE) proximity checks to route the credential offer securely to the user's mobile device
-- [chrome.com](https://developer.chrome.com/blog/digital-credentials-cross-device-ot) *(developer.chrome.com)*
-  > \* \*\*On Desktop:\*\* The browser initiates a cross-device flow over the \*\*CTAP/FIDO hybrid protocol\*\*, using a QR code and Bluetooth Low Energy (BLE) proximity checks to route the credential offer securely to the user's mobile device \* \*\*Consistent Desk...
-- [Online Identity Verification with the Digital Credentials API \| WebKit](https://webkit.org/blog/17431/online-identity-verification-with-the-digital-credentials-api) *(webkit.org)*
-  > \* \*\*On Desktop:\*\* The browser initiates a cross-device flow over the \*\*CTAP/FIDO hybrid protocol\*\*, using a QR code and Bluetooth Low Energy (BLE) proximity checks to route the credential offer securely to the user's mobile device
-- [chrome.com](https://developer.chrome.com/blog/chrome-143-beta) *(developer.chrome.com)*
-  > \* Explains cross-device desktop issuance, showing how users browsing on a laptop can seamlessly trigger issuance directly to their phone's wallet via CTAP-based pairing
-- [appspot.com](https://cr-status.appspot.com/feature/6492906882990080) *(cr-status.appspot.com)*
-  > Chrome Platform Status & Release Notes (Chrome 143 through 155+) \* \*\*Sources:\*\* \*developer.chrome.com\* and \*chromestatus.com\* \* Outlines ongoing work in the \*\*W3C Federated Identity Working Group (FedID WG)\*\* to transition from generic, opaque URI ex...
-- [chrome.com](https://developer.chrome.com/release-notes/143) *(developer.chrome.com)*
-  > Chrome Platform Status & Release Notes (Chrome 143 through 155+) \* \*\*Sources:\*\* \*developer.chrome.com\* and \*chromestatus.com\* Chrome Platform Status & Release Notes (Chrome 143 through 155+) \* \*\*Sources:\*\* \*developer.chrome.com\* and \*chromestatus.com...
-- [What is the Digital Credentials API? The Developer's Guide (2026)](https://docs.walt.id/concepts/data-exchange-protocols/dc-api) *(docs.walt.id)*
-  > Identity Ecosystem Developer Guides (walt.id & Credenco) \* \*\*Sources:\*\* \*walt.id Developer Documentation\* & \*Credenco Technical Deep-Dives\* Identity Ecosystem Developer Guides (walt.id & Credenco) \* \*\*Sources:\*\* \*walt.id Developer Documentation\* & \*C...
-- [Digital Credentials API: Secure and private identity on the web \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/digital-credentials-api-shipped) *(developer.chrome.com)*
-  > \* TAG review conversations emphasized the importance of standardizing the issuance lifecycle alongside presentation to prepare for digital wallet mandates, such as the \*\*EU Digital Identity Wallet (eIDAS 2.0)\*\* and US Mobile Driver's License (mDL) de...
+  > The \*\*Digital Credentials API (issuance support)\*\* is an evolving web platform capability that streamlines how issuing entities (such as universities, banks, or government bodies) provision digital credentials directly into a user's mobile wallet app...
+- [android.com](https://developer.android.com/identity/digital-credentials/credential-issuer/issue-credentials) *(developer.android.com)*
+  > On mobile environments like Android, this leverages the \*\*Android IdentityCredential/Credential Manager\*\* system create()\` with protocols like OpenID4VCI, issuers can cleanly invoke device-level system sheets so users can choose a preferred wallet ap...
+- [googleblog.com](https://android-developers.googleblog.com/2025/04/announcing-android-support-of-digital-credentials.html) *(android-developers.googleblog.com)*
+  > \*\*Focus:\*\* Ecosystem-wide alignment on mobile operating system level support for open identity standards (OpenID4VP for presentation and OpenID4VCI for issuance) \*\*Key Takeaway:\*\* Explains how Android’s Jetpack Credential Manager bridges native appli...
 - [Intent to Experiment: Digital Credentials API (issuance support)](https://groups.google.com/a/chromium.org/g/blink-dev/c/Gy-NvwoSODo/m/UYrJvdQ1BwAJ) *(groups.google.com)*
   > Intent to Experiment: Digital Credentials API (issuance support) Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Experiment: Digital Credent...
+- [Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support)](https://www.mail-archive.com/blink-dev@chromium.org/msg14883.html) *(mail-archive.com)*
+  > Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Skip to site navigation (Press enter) Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Mike Taylor Sat, 18 Oct 2025 09:56:56 -0700 Could ...
 - [\[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support)](https://www.mail-archive.com/blink-dev@chromium.org/msg14755.html) *(mail-archive.com)*
   > \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Skip to site navigation (Press enter) \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Chromestatus Mon, 13 Oct 2025 10:08:35 -0700 Contact email...
-- [\[blink-dev\] Intent to Extend Experiment: Digital Credentials API (issuance support)](http://www.mail-archive.com/blink-dev@chromium.org/msg16897.html) *(mail-archive.com)*
-  > \[blink-dev\] Intent to Extend Experiment: Digital Credentials API (issuance support) Skip to site navigation (Press enter) \[blink-dev\] Intent to Extend Experiment: Digital Credentials API (issuance support) Chromestatus Mon, 29 Jun 2026 03:18:14 -0700...
-- [Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support)](https://www.mail-archive.com/blink-dev@chromium.org/msg14837.html) *(mail-archive.com)*
-  > Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Skip to site navigation (Press enter) Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Mike Taylor Sat, 18 Oct 2025 00:24:03 -0700 On 10/...
+- [Re: \[blink-dev\] Re: Intent to Ship: Digital Credentials API (issuance support)](http://www.mail-archive.com/blink-dev@chromium.org/msg17416.html) *(mail-archive.com)*
+  > Re: \[blink-dev\] Re: Intent to Ship: Digital Credentials API (issuance support) Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: Digital Credentials API (issuance support) Rick Byers Wed, 09 Sep 2026 08:28:33 -0700 On Wed, Sep...
 - [\[blink-dev\] Intent to Ship: Digital Credentials API (issuance support)](http://www.mail-archive.com/blink-dev@chromium.org/msg17347.html) *(mail-archive.com)*
   > \[blink-dev\] Intent to Ship: Digital Credentials API (issuance support) Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: Digital Credentials API (issuance support) Chromestatus Wed, 02 Sep 2026 09:44:50 -0700 Contact emails \[email&#16...
+- [Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support)](https://www.mail-archive.com/blink-dev@chromium.org/msg14837.html) *(mail-archive.com)*
+  > Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Skip to site navigation (Press enter) Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Mike Taylor Sat, 18 Oct 2025 00:24:03 -0700 On 10/...
+- [Digital Credentials](https://simoneonofri.github.io/digital-credentials) *(simoneonofri.github.io)*
+  > https://&lt;strong&gt;w3c-fedid.github.io/digital-credentials&lt;/strong&gt;/ Latest published version: https://www.w3.org/TR/digital-credentials/ Latest editor&#x27;s draft: https://&lt;strong&gt;w3c-fedid.github.io/digital-credentials&lt;/strong&gt;/ History: https://www....
+- [Digital Credentials API (issuance support) - Chrome Platform Status](https://chromestatus.com/feature/5099333963874304?gate=6251005352214528) *(chromestatus.com · 2026-09-01T00:00:00)*
+  > We cannot provide a description for this page right now
 - [Digital Credentials API (issuance support)](https://cr-status.appspot.com/feature/5099333963874304?gate=5199087129460736) *(cr-status.appspot.com)*
   > Sign in with GoogleSign in with Google. Opens in new tab
-- [Digital Credentials API (issuance support) - Chrome Platform Status](https://cr-status.appspot.com/feature/5099333963874304) *(cr-status.appspot.com)*
-  > Sign in with GoogleSign in with Google. Opens in new tab
-- [Chrome 155 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/155) *(chromestatus.com · 2026-10-06T13:24:25)*
+- [What is the Digital Credentials API? The Developer's Guide (2026)](https://docs.walt.id/concepts/data-exchange-protocols/dc-api) *(docs.walt.id · 2026-08-24T00:00:00)*
+  > Formally, the W3C Digital Credentials API is a JavaScript API that enables user agents (browsers) to mediate presentation and issuance of digital credentials (such as mobile IDs, mDLs, or verifiable credentials). It: Builds on Credential Management L...
+- [About digital credentials \| Identity \| Android Developers](https://developer.android.com/identity/digital-credentials) *(developer.android.com · 2026-09-16T00:00:00)*
+  > Issuance: &lt;strong&gt;Digital credentials are issued using the OpenID4VCI standard&lt;/strong&gt;.
+- [Step 3: Integrate as a Relying Party \| Verify with Google Wallet \| Google for Developers](https://developers.google.com/wallet/identity/verify/accepting-ids-from-wallet-online) *(developers.google.com · 2026-10-05T00:00:00)*
+  > This guide explains how Direct Relying Parties (RPs)—individual merchants, businesses, and app developers—integrate the Digital Credentials API to request and validate digital identity credentials across Android apps and the web.
+- [Digital Credentials API](https://docs.walt.id/community-stack/mobile-wallet/digital-credentials-api) *(docs.walt.id · 2026-09-29T00:00:00)*
+  > Platform Digital Credentials support — Android Credential Manager for get/create; iOS Identity Document Services for ISO 18013-7 presentation. Check wallet.digitalCredentialCapabilities() at runtime. Registration can fail independently of wallet load...
+- [Chrome 155 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/155) *(chromestatus.com · 2026-10-06T00:00:00)*
   > This Web Platform feature enables issuing websites (e.g., a university, government agency, or bank) to securely initiate the provisioning (issuance) process of digital credentials directly into a user&#x27;s mobile wallet application. On Android, thi...
 - [Digital Credentials API (DC API) - Overview \| EUDI Wallet and European Business Wallet Developer Docs and APIs \| iGrant.io](https://docs.igrant.io/docs/openID4vc-dcapi-overview) *(docs.igrant.io · 2026-07-27T13:02:03)*
   > Why adopt it despite the rough edges: The DC API brings real benefits: &lt;strong&gt;in-browser, phishing-resistant presentation with no redirect, browser and OS mediation, and selective disclosure&lt;/strong&gt;.
-- [Intent to Extend Experiment: Digital Credential API](https://groups.google.com/a/chromium.org/g/blink-dev/c/GBjkRkSKI9c/m/S0Bje3PRCAAJ) *(groups.google.com)*
+- [Digital ID is going mainstream in 2026](https://www.authsignal.com/blog/articles/digital-id-is-going-mainstream-in-2026) *(authsignal.com · 2026-05-18T03:04:58)*
+  > &lt;strong&gt;In late April 2026, Google added Aadhaar Verifiable Credentials to Google Wallet for India&lt;/strong&gt;. Around the same time, Chrome 141 and iOS 26 both shipped the W3C Digital Credentials API, and the EU confirmed its end-of-year deadline for e...
+- [Intent to Extend Experiment: Digital Credential API](https://groups.google.com/a/chromium.org/g/blink-dev/c/GBjkRkSKI9c) *(groups.google.com)*
   > Mozilla feedback from Martin (also on the TAG) suggests we need to invest more in the threat model for the larger space and clarify specific privacy mitigations before shipping or requesting TAG review.
-- [Methods \| Vidos](https://vidos.id/docs/explanations/standards/w3c/digital-credentials/api-methods) *(vidos.id)*
-  > Section titled “Presentation request (navigator.credentials.get)” · A presentation request uses CredentialRequestOptions.digital with one or more DigitalCredentialGetRequest items: ... Issuance uses CredentialCreationOptions.digital with one or more ...
-- [Re: \[blink-dev\] Re: Intent to Ship: Digital Credentials API (issuance support)](http://www.mail-archive.com/blink-dev@chromium.org/msg17408.html) *(mail-archive.com)*
-  > Sparkasse will issue their customers an 18+ age credential from their website based on verified information with the bank to Google Wallet, that can be used online to prove their adulthood with websites and apps online \*Chromium Trial Name\* WebIdenti...
+- [Digital Credentials API \| Vidos](https://vidos.id/docs/explanations/standards/w3c/digital-credentials) *(vidos.id)*
+  > Issuance: an issuer site requests credential issuance via navigator.credentials.create(). In both cases, the site provides one or more protocol-specific requests. Each request contains: ... See Methods for the WebIDL structures. Section titled “The c...
+- [Technical Implementation Guide - One ID Technical Implementation Guide - Confluence](https://standards.atlassian.net/wiki/spaces/OneID/pages/2947416082/Technical+Implementation+Guide) *(standards.atlassian.net · 2026-09-30T00:00:00)*
+  > This section defines the technical reference and guide for remote online presentation of the digital credentials from holder wallet to verifier. Two presentation profiles are specified, and both share a common architectural element which is \[W3C Digi...
+- [How to integrate Digital Credentials into your App](https://www.digital-credentials.io/developer) *(digital-credentials.io)*
+  > // Pseudocode for Issuing a W3C VC (JWT) function issueCredential(subjectData, issuerPrivateKey) { const claims = { &quot;@context&quot;: \[&quot;https://www.w3.org/2018/credentials/v1&quot;\], type: \[&quot;VerifiableCredential&quot;, &quot;YourCustomC...
+- [Android \| Digital Credentials Developer](https://digitalcredentials.dev/docs/references/platforms/android) *(digitalcredentials.dev)*
+  > Android does not restrict which document types a credential manager, issuer, or verifier can use with the Digital Credentials API (web or native) or the credential manager APIs (for wallets).
+- [Credenceid](https://credenceid.com/resources/developer-documentation/wallet-issuance/sdk-integration) *(credenceid.com)*
+  > &lt;strong&gt;Verify the device is running Android API 29+ and Chrome 128+&lt;/strong&gt;. Confirm Google Play Services is up to date. Ensure at least one credential has been provisioned with VALID status — the SDK only registers VALID credentials with Credentia...
+- [Digital Credentials API for credential issuance \| daily.dev](https://daily.dev/posts/digital-credentials-api-for-credential-issuance-tpov6wf4y) *(daily.dev · 2025-11-28T15:55:48)*
+  > &lt;strong&gt;Chrome 143 introduces an origin trial for the Digital Credentials API issuance feature&lt;/strong&gt;, enabling websites to provision digital credentials directly to users&#x27; preferred wallet apps.
 - [\[blink-dev\] Re: Intent to Ship: Digital Credentials API (issuance support)](http://www.mail-archive.com/blink-dev@chromium.org/msg17389.html) *(mail-archive.com)*
-  > &gt; &gt; \*Initial public proposal\* &gt; https://w3c-fedid.github.io/digital-credentials/ &gt; &gt; \*TAG review\* &gt; https://github.com/w3ctag/design-reviews/issues/1119 &gt; &gt; \*TAG review status\* &gt; Issues addressed &gt; &gt; \*Origin Trial Nam...
-- [\[blink-dev\] Re: Intent to Extend Experiment: Digital Credentials API (issuance support)](http://www.mail-archive.com/blink-dev@chromium.org/msg17307.html) *(mail-archive.com)*
-  > One of the initial use cases of &gt;&gt;&gt; digital credentials issuance via the origin trial will be the &lt;strong&gt;Sparkasse age &gt;&gt;&gt; credential in Google Wallet&lt;/strong&gt;. Sparkasse is a network of regional German &gt;&gt;&gt; savings banks w...
+  > Rick On &lt;strong&gt;Wed, Sep 2, 2026 at 12:41&lt;/strong&gt; ... https://w3c-fedid.github.io/digital-credentials &gt; &gt; \*Summary\* &gt; This Web Platform feature enables issuing websites (e.g., a university, &gt; government agency, or bank) to securely initi...
 - [\[blink-dev\] Intent to Extend Experiment: Digital Credentials API (issuance support)](http://www.mail-archive.com/blink-dev@chromium.org/msg17272.html) *(mail-archive.com)*
-  > Gecko: Negative (https://githu... is shipped, but timeline for adding issuance support yet. Web developers: No signals Other signals: Activation The primary activation concern is enabling existing deployments using technology like OpenID4VCI to be ab...
-- [Digital Credentials API (2026): Chrome, Safari & Firefox](https://www.corbado.com/blog/digital-credentials-api) *(corbado.com)*
-  > Digital Credentials API (2026): Chrome, Safari & Firefox Free The +45-page Authentication Analytics Whitepaper — measuring real login journeys Download Back to Overview Copy Page Copy Page Copied 🇬🇧 En English Digital Credentials API (2026): Chrome...
+  > Reason this experiment is being extended Partners made great progress and they are shipping a use case that is using the API, and this should be enough signal to ship the DC API Issuance support in Chrome. However, there is one pending issue https://...
+- [Topic F - Digital Credentials API - European Digital Identity](https://eudi.dev/latest/discussion-topics/f-digital-credential-api) *(eudi.dev · 2025-11-06T00:00:00)*
+  > Table for support on Issuance (expected rapid changes, as draft evolves) Yes, some EUDI discussions profile the Digital Credentials API alongside OpenID4VP and ISO 18013-7 remote flows, treating it as a secure transport/mediation layer (with strong v...
+- [What is the DC API? Mechanisms, Browser Support, and Future Trends｜VESS Labs](https://note.com/vesslabs/n/nce6ee40f7b27?hl=en) *(note.com · 2026-05-08T04:38:46)*
+  > The web standard that supports these experiences is the Digital Credentials API (DC API). With Chrome 141 and Safari 26 reaching stable release in September 2025, the mechanism for browsers to interact directly with digital wallets has entered the im...
+- [Digital Credentials API: Balancing Usability and Privacy \| Gataca](https://gataca.io/resources/blog/digital-credential-api) *(gataca.io · 2025-03-31T10:33:47)*
+  > Additionally, beyond privacy another long-term structural concern looms: &lt;strong&gt;the risk of vendor lock-in&lt;/strong&gt;. Since browsers are controlled by Big Tech companies and will inevitably drive usability improvements, this approach is likely to bec...
+- [Digital Credentials \| FIDO Alliance](https://fidoalliance.org/fido-alliance-digital-credentials) *(fidoalliance.org · 2025-12-05T01:15:56)*
+  > Seth Dobbs, President &amp; CEO, the World Wide Web Consortium (W3C) said, “It will take the cooperation of many to address the challenges and opportunities of Digital Identities on the Web. The W3C Verifiable Credentials and Digital Credentials API ...
 
 ## 🔗 Inbound Citations & Reverse Links
 
@@ -92,47 +102,46 @@ The following external publications and discussions explicitly link to or cite t
 
 - [Intent to Experiment: Digital Credentials API (issuance support)](https://groups.google.com/a/chromium.org/g/blink-dev/c/Gy-NvwoSODo/m/UYrJvdQ1BwAJ) *(groups.google.com)* *(Cites: `https://chromestatus.com/feature/5099333963874304`)*
   > Intent to Experiment: Digital Credentials API (issuance support) Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Intent to Experiment: Digit...
-- [\[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support)](https://www.mail-archive.com/blink-dev@chromium.org/msg14755.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c-fedid/digital-credentials/blob/main/explainer.md`)*
+- [Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support)](https://www.mail-archive.com/blink-dev@chromium.org/msg14883.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5099333963874304`)*
+  > Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Skip to site navigation (Press enter) Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Mike Taylor Sat, 18 Oct 2025 09:56:56 -0...
+- [\[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support)](https://www.mail-archive.com/blink-dev@chromium.org/msg14755.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5099333963874304`)*
   > \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Skip to site navigation (Press enter) \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Chromestatus Mon, 13 Oct 2025 10:08:35 -0700 Con...
-- [\[blink-dev\] Intent to Extend Experiment: Digital Credentials API (issuance support)](http://www.mail-archive.com/blink-dev@chromium.org/msg16897.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c-fedid/digital-credentials/blob/main/explainer.md`)*
-  > \[blink-dev\] Intent to Extend Experiment: Digital Credentials API (issuance support) Skip to site navigation (Press enter) \[blink-dev\] Intent to Extend Experiment: Digital Credentials API (issuance support) Chromestatus Mon, 29 Jun 2026 03:1...
-- [Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support)](https://www.mail-archive.com/blink-dev@chromium.org/msg14837.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c-fedid/digital-credentials/blob/main/explainer.md`)*
-  > Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Skip to site navigation (Press enter) Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Mike Taylor Sat, 18 Oct 2025 00:24:03 -0...
+- [Re: \[blink-dev\] Re: Intent to Ship: Digital Credentials API (issuance support)](http://www.mail-archive.com/blink-dev@chromium.org/msg17416.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c-fedid/digital-credentials/blob/main/explainer.md`)*
+  > Re: \[blink-dev\] Re: Intent to Ship: Digital Credentials API (issuance support) Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: Digital Credentials API (issuance support) Rick Byers Wed, 09 Sep 2026 08:28:33 -0700 O...
 - [\[blink-dev\] Intent to Ship: Digital Credentials API (issuance support)](http://www.mail-archive.com/blink-dev@chromium.org/msg17347.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c-fedid/digital-credentials/blob/main/explainer.md`)*
   > \[blink-dev\] Intent to Ship: Digital Credentials API (issuance support) Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: Digital Credentials API (issuance support) Chromestatus Wed, 02 Sep 2026 09:44:50 -0700 Contact emails ...
-- [digital-credentials/index.html at main · w3c-fedid/digital-credentials](https://github.com/w3c-fedid/digital-credentials/blob/main/index.html) *(github.com)* *(Cites: `https://w3c-fedid.github.io/digital-credentials`)*
-  > shortName: &quot;digital-credentials&quot;,       specStatus: &quot;ED&quot;,       edDraftURI: &quot;https://&lt;strong&gt;w3c-fedid.github.io/digital-credentials&lt;/strong&gt;/&quot;,       group: &quot;fedid&quot;,       github: &quot;https://githu...
+- [Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support)](https://www.mail-archive.com/blink-dev@chromium.org/msg14837.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c-fedid/digital-credentials/blob/main/explainer.md`)*
+  > Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Skip to site navigation (Press enter) Re: \[blink-dev\] Intent to Experiment: Digital Credentials API (issuance support) Mike Taylor Sat, 18 Oct 2025 00:24:03 -0...
+- [eudi-doc-architecture-and-reference-framework/docs/discussion-topics/f-digital-credential-api.md at main · eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/discussion-topics/f-digital-credential-api.md) *(github.com)* *(Cites: `https://w3c-fedid.github.io/digital-credentials`)*
+  > Digital Credentials, Draft Community Group Report, 20 February 2025, available at https://&lt;strong&gt;w3c-fedid.github.io/digital-credentials&lt;/strong&gt;/
+- [Digital Credentials](https://simoneonofri.github.io/digital-credentials) *(simoneonofri.github.io)* *(Cites: `https://w3c-fedid.github.io/digital-credentials`)*
+  > https://&lt;strong&gt;w3c-fedid.github.io/digital-credentials&lt;/strong&gt;/ Latest published version: https://www.w3.org/TR/digital-credentials/ Latest editor&#x27;s draft: https://&lt;strong&gt;w3c-fedid.github.io/digital-credentials&lt;/strong&gt;/ History: ht...
 
 ## 📚 Platform Documentation & Specifications
 
-- [w3.org](https://tag-github-bot.w3.org/gh/w3ctag/design-reviews/1119) *(tag-github-bot.w3.org)*
-- [GitHub - w3c-fedid/digital-credentials: Digital Credentials API · GitHub](https://github.com/w3c-fedid/digital-credentials) *(github.com)*
-- [Digital Credentials](https://www.w3.org/TR/digital-credentials) *(w3.org)*
-- [w3.org](https://www.w3.org/TR/2025/WD-digital-credentials-20251006) *(w3.org)*
-- [digital-credentials/index.html at main · w3c-fedid/digital-credentials](https://github.com/w3c-fedid/digital-credentials/blob/main/index.html) *(github.com)*
-- [digital-credentials/explainer.md at main · w3c-fedid/digital-credentials](https://github.com/WICG/digital-credentials/blob/main/explainer.md) *(github.com)*
+- [eudi-doc-architecture-and-reference-framework/docs/discussion-topics/f-digital-credential-api.md at main · eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/blob/main/docs/discussion-topics/f-digital-credential-api.md) *(github.com)*
 - [W3C Digital Credentials API publication: the next step to privacy-preserving identities on the web \| 2025 \| Blog \| W3C](https://www.w3.org/blog/2025/w3c-digital-credentials-api-publication-the-next-step-to-privacy-preserving-identities-on-the-web) *(w3.org)*
-- [Digital Credentials & Payments Tim Cappalli & Ian Jacobs TPAC 2024](https://www.w3.org/2024/Talks/TPAC/digital-credentials-payments-20240923.pdf) *(w3.org)*
+- [Topic F: Digital Credentials API (former known as browser API) · eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework · Discussion #361](https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework/discussions/361) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 61 result(s) found across 12 planned queries — **25 verified relevant**
-  - `"chromestatus.com/feature/5099333963874304" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
+- **Brave Search:** 55 result(s) found across 12 planned queries — **33 verified relevant**
+  - `"chromestatus.com/feature/5099333963874304" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (3 returned)
   - `"github.com/w3c-fedid/digital-credentials/blob/main/explainer.md" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (8 returned)
   - `"w3c-fedid.github.io/digital-credentials" -site:w3c-fedid.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (5 returned)
   - `"Digital Credentials API (issuance support)" API` — *Core feature API query* (2 returned)
   - `"Digital Credentials API (issuance support)" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"cross-device" OR "(issuance" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
-  - `"Digital Credentials API (issuance support)" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
+  - `"Digital Credentials API (issuance support)" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (7 returned)
   - `"Digital Credentials API (issuance support)" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (2 returned)
-  - `"Digital Credentials API" (issuance OR provisioning) ("developer guide" OR tutorial OR "getting started")` — *Finds developer-focused tutorials and guides for issuing credentials via the Digital Credentials API* (7 returned)
-  - `"Digital Credentials API" (issue OR issuance) ("navigator.credentials.create" OR "navigator.identity")` — *Discovers real-world JavaScript code snippets and WebIDL dictionary usage for credential issuance* (8 returned)
-  - `"Digital Credentials" issuance ("Intent to Prototype" OR "Intent to Ship" OR "Origin Trial")` — *Tracks browser vendor status, feature flags, and official shipment timelines in Chromium and WebKit* (8 returned)
-  - `"Digital Credentials API" (wallet OR issuance) ("W3C FedID" OR "OpenID4VCI") (discussion OR feedback OR privacy)` — *Surfaces community debates, standards group discussions, and architectural feedback regarding wallet provisioning* (8 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 15 result(s) found — **15 verified relevant**
-- **Twitter / X API v2:** *HTTP 401 Unauthorized (Check your TWITTER\_BEARER\_TOKEN or X\_BEARER\_TOKEN)*
+  - `"Digital Credentials API" issuance tutorial OR guide` — *Finds practical developer guides and tutorials on how to implement digital credential issuance.* (8 returned)
+  - `"Digital Credentials API" Credential Manager Android issuance code example` — *Searches for real-world JavaScript code and WebIDL usage involving Android CredMan and issuance.* (8 returned)
+  - `"Digital Credentials API" issuance "W3C" OR Android CredMan announcement` — *Discovers official announcements, ecosystem updates, and spec discussions regarding credential issuance.* (8 returned)
+  - `"Digital Credentials API" browser support issuance sentiment OR discussion` — *Gauges developer and community sentiment, feedback, and discussions about the issuance feature.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 6 result(s) found — **3 verified relevant**
+- **Twitter / X API v2:** *found 10 tweet(s)*
 - **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 1 result(s) found — **0 verified relevant**
 - **Standards Positions:** 2 result(s) found — **2 verified relevant**
@@ -141,14 +150,13 @@ The following external publications and discussions explicitly link to or cite t
 - **NPM Registry:** 6 result(s) found — **0 verified relevant**
 - **web-features mapping:** *not in a web-features group*
 - **Web Platform Tests (wpt.fyi):** *not in a web-features group*
-- **Sources cited by the AI synthesis:** 7 result(s) found — **6 verified relevant**
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
 - **Standards Discussion Comments:** 10 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 10 page(s)
+- **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links
 

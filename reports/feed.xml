@@ -6,21 +6,21 @@
     <atom:link href="https://chromestatuslite.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>Weekly web intelligence on ChromeStatus features, web standards, and developer community pulse</description>
     <language>en</language>
-    <lastBuildDate>Mon, 12 Oct 2026 22:29:12 GMT</lastBuildDate>
-    <generator>chrome-status-ecosystem-updates (2026-W42)</generator>
+    <lastBuildDate>Mon, 19 Oct 2026 10:12:24 GMT</lastBuildDate>
+    <generator>chrome-status-ecosystem-updates (2026-W43)</generator>
     <item>
       <title>HTML-in-canvas — Chrome 157 Ecosystem Update</title>
       <link>https://chromestatus.com/feature/5172548013916160</link>
       <guid isPermaLink="false">chromestatus-feature-5172548013916160</guid>
-      <pubDate>Mon, 12 Oct 2026 17:31:49 GMT</pubDate>
+      <pubDate>Wed, 14 Oct 2026 08:02:24 GMT</pubDate>
       <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>HTML-in-canvas</strong> (Chrome 157, Enabled by default)</p><p>HTML-in-canvas enables customizing the rendering of html using canvas with new primitives to manage canvas layout, drawing capabilities, rendering events for DOM-to-canvas synchronization, and geometry update capabilities for canvas-to-DOM synchronization.</p><p><strong>Ecosystem Analysis:</strong> HTML-in-canvas bridges high-performance 2D, WebGL, and WebGPU canvas contexts with native browser capabilities like accessibility, styled multiline text, and built-in form interactivity, reaching enabled-by-default status in Chromium 157. While Chromium has rapidly pushed the feature through origin trials and WHATWG pull requests, full cross-engine consensus is still developing as API shape ergonomics and security boundaries are finalized.</p>]]></description>
+      <description><![CDATA[<p><strong>HTML-in-canvas</strong> (Chrome 157, Enabled by default)</p><p>HTML-in-canvas enables customizing the rendering of html using canvas with new primitives to manage canvas layout, drawing capabilities, rendering events for DOM-to-canvas synchronization, and geometry update capabilities for canvas-to-DOM synchronization.</p><p><strong>Ecosystem Analysis:</strong> The HTML-in-canvas feature (shipping in Chrome 157) bridges a long-standing gap by allowing native HTML/CSS rendering, accessibility, and interactivity inside high-performance WebGL/WebGPU canvases. While it solves major pain points for rich graphics applications and UI frameworks, it is still navigating early-stage multi-stakeholder design reviews across browser engines.</p>]]></description>
     </item>
     <item>
       <title>Local network access restrictions — Chrome 156 Ecosystem Update</title>
       <link>https://chromestatus.com/feature/5152728072060928</link>
       <guid isPermaLink="false">chromestatus-feature-5152728072060928</guid>
-      <pubDate>Wed, 15 Jul 2026 11:31:13 GMT</pubDate>
+      <pubDate>Wed, 15 Jul 2026 12:31:13 GMT</pubDate>
       <category>Stepped rollout</category>
       <description><![CDATA[<p><strong>Local network access restrictions</strong> (Chrome 156, Stepped rollout)</p><p>Chrome 142 restricted the ability to make requests to the user&apos;s local network, gated behind a permission prompt. A local network request is any request from a public website to a local IP address or loopback, or from a local website (for example, intranet) to loopback. 
 
@@ -43,13 +43,13 @@ Chrome 146 introduces two new enterprise policies for managing local network acc
 
 Chrome 147 expands Local Network Access restrictions to include WebSocket and WebTransport connections.
 
-In Chrome 156, the [LocalNetworkAccessRestrictionsTemporaryOptOut](https://chromeenterprise.google/policies/#LocalNetworkAccessRestrictionsTemporaryOptOut) policy will be removed.</p><p><strong>Ecosystem Analysis:</strong> Local Network Access (LNA) restrictions gate public-to-private and public-to-loopback network requests behind explicit browser permission prompts, replacing the older preflight-based Private Network Access (PNA) model while offering mixed-content relief for local devices. Chromium is leading full enforcement through a phased rollout spanning Chrome 142 to Chrome 156, having refined the model in Chrome 145 into distinct &apos;local-network&apos; and &apos;loopback-network&apos; permissions. Cross-engine consensus on the security rationale is strong, though multi-browser parity remains pending complete enforcement in WebKit and Gecko.</p>]]></description>
+In Chrome 156, the [LocalNetworkAccessRestrictionsTemporaryOptOut](https://chromeenterprise.google/policies/#LocalNetworkAccessRestrictionsTemporaryOptOut) policy will be removed.</p><p><strong>Ecosystem Analysis:</strong> Chrome has moved forward with Local Network Access restrictions, shifting away from the complex Private Network Access preflight model to an explicit browser permission prompt split into local-network and loopback-network controls. While this hardens security against cross-site request forgery and local network fingerprinting, it introduces severe friction for web apps that interface with local hardware, developer tooling, and intranet servers. The feature currently sits in limited availability, heavily driven by Chromium with other engine stances still materializing.</p>]]></description>
     </item>
     <item>
       <title>Support for WebHID — Chrome 154 Ecosystem Update</title>
       <link>https://chromestatus.com/feature/5172464636133376</link>
       <guid isPermaLink="false">chromestatus-feature-5172464636133376</guid>
-      <pubDate>Wed, 07 Oct 2026 12:12:19 GMT</pubDate>
+      <pubDate>Wed, 07 Oct 2026 13:12:19 GMT</pubDate>
       <category>In developer trial (Behind a flag)</category>
       <description><![CDATA[<p><strong>Support for WebHID</strong> (Chrome 154, In developer trial (Behind a flag))</p><p>WebHID allows web applications to interact with a wider range of devices. Standard examples of Human Interface Devices (HIDs)  include mice, keyboards, touchscreens, and gamepads. Those are accessible with high-level input events. However, specialized HIDs and HID features (for example, custom keyboards, game controllers, and call control headsets) require extended access. 
 
@@ -61,26 +61,176 @@ This feature can be controlled by the following enterprise policies:
 * [WebHidAllowDevicesForUrls](https://chromeenterprise.google/policies/#WebHidAllowDevicesForUrls)
 * [WebHidAllowDevicesWithHidUsagesForUrls](https://chromeenterprise.google/policies/#WebHidAllowDevicesWithHidUsagesForUrls)
 * [WebHidAskForUrls](https://chromeenterprise.google/policies/#WebHidAskForUrls)
-* [WebHidBlockedForUrls](https://chromeenterprise.google/policies/#WebHidBlockedForUrls)</p><p><strong>Ecosystem Analysis:</strong> WebHID provides low-level bidirectional communication with specialized human interface devices—such as custom keyboard configurators, flight controllers, and telephony headsets—but remains strictly confined to Chromium browsers. Having launched on desktop platforms in Chrome 89, its current expansion into developer trials on Android represents an effort to achieve mobile hardware parity. However, broader web interoperability is non-existent due to resolute and enduring architectural opposition from non-Chromium browser vendors.</p>]]></description>
+* [WebHidBlockedForUrls](https://chromeenterprise.google/policies/#WebHidBlockedForUrls)</p><p><strong>Ecosystem Analysis:</strong> The WebHID API allows web applications to communicate directly with specialized Human Interface Devices, expanding from its initial desktop launch to support extension service workers, dedicated workers, and upcoming Android integration. Despite its utility for hardware-interactive web applications and companion tools, it remains a Chromium-specific feature with limited cross-browser consensus. Mozilla holds a negative standards position due to security and fingerprinting considerations.</p>]]></description>
     </item>
     <item>
-      <title>Algorithm Updates in WebCrypto — Chrome 155 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5198951632470016</link>
-      <guid isPermaLink="false">chromestatus-feature-5198951632470016</guid>
-      <pubDate>Fri, 11 Sep 2026 14:47:26 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Algorithm Updates in WebCrypto</strong> (Chrome 155, Enabled by default)</p><p>Add post-quantum cryptography and a common symmetric AEAD to the set of cryptographic algorithms available in the Web Cryptography API. This will enable developers to have access browser-provided implementations of common quantum-resistant cryptographic algorithms standardized by NIST.
+      <title>Deprecate and remove: Attribution Reporting API — Chrome 153 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/6320639375966208</link>
+      <guid isPermaLink="false">chromestatus-feature-6320639375966208</guid>
+      <pubDate>Fri, 21 Aug 2026 17:48:27 GMT</pubDate>
+      <category>Deprecated</category>
+      <description><![CDATA[<p><strong>Deprecate and remove: Attribution Reporting API</strong> (Chrome 153, Deprecated)</p><p>The Attribution Reporting API is a privacy-preserving web API designed to measure ad conversions without third-party cookies or user tracking across sites.
 
-* ML-KEM - 768, 1024
-* ML-DSA - 44, 65, 87
-* ChaCha20-Poly1305
-* X-Wing</p><p><strong>Ecosystem Analysis:</strong> The Modern Algorithms in WebCrypto specification is transitioning into real-world availability, led by Chromium shipping post-quantum primitives (ML-KEM, ML-DSA, X-Wing) and ChaCha20-Poly1305 enabled by default in Chrome 155. Cross-runtime interest is high across Node.js, Deno, and Cloudflare Workers, but cross-browser consensus remains split, with non-Chromium engines offering neutral stances rather than uniform commitments.</p>]]></description>
+Following Chrome&apos;s announcement that the current approach to third-party cookies will be maintained, we are now planning to deprecate and remove the Attribution Reporting API (along with other Privacy Sandbox APIs).
+
+[0]: https://privacysandbox.com/news/privacy-sandbox-next-steps/</p><p><strong>Ecosystem Analysis:</strong> Following Google&apos;s decision to maintain third-party cookies rather than phase them out, the Attribution Reporting API is being deprecated and removed in Chrome 153. Due to low industry adoption and a lack of cross-browser support from Safari/WebKit and Firefox/Gecko, Google is scaling back these Privacy Sandbox components to refocus on alternative interoperable standards.</p>]]></description>
+    </item>
+    <item>
+      <title>CSS scroll-marker-group modes — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5109685301673984</link>
+      <guid isPermaLink="false">chromestatus-feature-5109685301673984</guid>
+      <pubDate>Mon, 31 Aug 2026 09:05:26 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>CSS scroll-marker-group modes</strong> (Chrome 154, Enabled by default)</p><p>The scroll-marker-group property is enhaced to support modes:
+1) &apos;links&apos; - The generated ::scroll-marker-group operates in &quot;links&quot; mode, functioning like a navigation list. This is the default mode if omitted.
+2) &apos;tabs&apos; - The generated ::scroll-marker-group operates in &quot;tabs&quot; mode, functioning like a tablist.
+
+Each mode changes focus order and accessibility behavior of ::scroll-marker-group and ::scroll-markers, following WAI-ARIA patterns.
+
+More details:
+# The links mode (default)
+This mode is designed to mimic standard Navigation Landmarks combined with fragment anchors.
+
+## Semantic roles
+The ::scroll-marker-group takes on the navigation role, and the ::scroll-marker elements take on the link role. This perfectly maps to the &lt;nav&gt; + &lt;a&gt; structural pattern.
+
+## Keyboard navigation
+All ::scroll-marker elements are sequential tab stops, natively acting like a list of standard anchor links.
+
+## Unaffected targets
+The originating elements do not get forced into any role, leaving the document&apos;s natural semantic structure intact.
+
+## Activation focus management
+When a link marker is activated, it sets the sequential focus navigation starting point to the target element (the originating element), and focus is lost from the marker. This mimics the native behavior of clicking a standard internal &lt;a href=&quot;#target&quot;&gt; link.
+
+# The tabs mode
+This mode is designed to natively replicate the Tabs Pattern and serves as the interactive foundation for the Tabbed Carousel Pattern.
+
+## Semantic roles
+The ::scroll-marker-group is implicitly assigned the tablist role, ::scroll-marker elements act as tab roles, and their originating elements get the tabpanel role. This mirrors the required WAI-ARIA Tabs structure.
+
+## Keyboard navigation (roving tabindex)
+It follows the complex keyboard interactions outlined in standard practices. Only the active ::scroll-marker acts as a tab stop. Users use arrow keys to navigate the focusgroup (switching between markers), preventing the &quot;tab trap&quot; of having to tab through 20 carousel dots.
+
+## Focus scope management
+The marker acts as a focus navigation scope owner. Pressing Tab from the active marker moves focus directly into the active tabpanel content, matching the specification for tabbed interfaces.
+
+## Tree pruning
+Content from inactive tabs is explicitly hidden from the accessibility tree. This mimics the expected behavior of aria-hidden=&quot;true&quot; or inert on inactive tab panels, saving developers from manually scripting state changes.
+
+## Activation focus
+When a marker is activated, focus is retained on the marker, which is exactly how standard tabs operate.</p><p><strong>Ecosystem Analysis:</strong> The CSS scroll-marker-group modes feature introduces native &apos;links&apos; and &apos;tabs&apos; behaviors to scroll markers, dramatically improving semantic alignment and keyboard navigation for declarative carousels and tabs. While Chromium has advanced implementation to enabled-by-default status, the feature lacks cross-browser baseline status and faces substantial accessibility scrutiny from other vendors.</p>]]></description>
+    </item>
+    <item>
+      <title>Language Detector API on Android — Chrome 157 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5087964794322944</link>
+      <guid isPermaLink="false">chromestatus-feature-5087964794322944</guid>
+      <pubDate>Fri, 16 Oct 2026 19:14:49 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>Language Detector API on Android</strong> (Chrome 157, Enabled by default)</p><p>Exposes the LanguageDetector JavaScript Web API on Chrome for Android (Clank). This allows web applications to detect text languages locally on mobile devices using fast, privacy-preserving, and offline-capable on-device machine learning models and not rely on cloud endpoints.</p><p><strong>Ecosystem Analysis:</strong> The Language Detector API rolling out in Chrome 157 for Android brings local, privacy-preserving, and offline-capable text language identification to mobile web apps via built-in AI models. However, the ecosystem remains heavily fragmented as the feature lacks cross-browser consensus, sitting at Limited Availability with a negative position from Mozilla and an open, cautious posture from WebKit.</p>]]></description>
+    </item>
+    <item>
+      <title>Digital Credentials API (issuance support) — Chrome 155 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5099333963874304</link>
+      <guid isPermaLink="false">chromestatus-feature-5099333963874304</guid>
+      <pubDate>Mon, 14 Sep 2026 14:24:05 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>Digital Credentials API (issuance support)</strong> (Chrome 155, Enabled by default)</p><p>This Web Platform feature enables issuing websites (e.g., a university, government agency, or bank) to securely initiate the provisioning (issuance) process of digital credentials directly into a user&apos;s mobile wallet application. On Android, this capability leverages the Android IdentityCredential CredMan system (Credential Manager). On Desktop, it leverages cross-device approaches using the CTAP protocol similar to Digital Credentials presentation.</p><p><strong>Ecosystem Analysis:</strong> The Digital Credentials API (issuance support) extends browser-mediated identity handling to allow issuing bodies like universities and banks to provision credentials directly into user mobile wallets. Currently rolling out in Chrome (targeting Milestone 155), it relies heavily on native mobile infrastructure like Android&apos;s Credential Manager and OpenID4VCI protocols, though it lacks cross-browser interoperability and Baseline status.</p>]]></description>
+    </item>
+    <item>
+      <title>Deprecate and Remove Protected Audience — Chrome 153 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/6552486106234880</link>
+      <guid isPermaLink="false">chromestatus-feature-6552486106234880</guid>
+      <pubDate>Fri, 21 Aug 2026 17:44:30 GMT</pubDate>
+      <category>Deprecated</category>
+      <description><![CDATA[<p><strong>Deprecate and Remove Protected Audience</strong> (Chrome 153, Deprecated)</p><p>The Protected Audience API provides a method of interest-group advertising without third-party cookies or user tracking across sites.
+
+Following Chrome&apos;s announcement that the current approach to third-party cookies will be maintained, we are now planning to deprecate and remove the Protected Audience API (along with certain other Privacy Sandbox APIs, as outlined on the Privacy Sandbox feature status page).</p><p><strong>Ecosystem Analysis:</strong> The Protected Audience API (formerly FLEDGE) is slated for deprecation and removal in Chrome 153 following Google&apos;s decision to maintain third-party cookies. With ecosystem interest having collapsed and usage metrics dropping significantly, the feature is being phased out alongside other targeted Privacy Sandbox advertising components.</p>]]></description>
+    </item>
+    <item>
+      <title>JPEG XL decoding support (image/jxl) in blink — Chrome 155 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5114042131808256</link>
+      <guid isPermaLink="false">chromestatus-feature-5114042131808256</guid>
+      <pubDate>Mon, 31 Aug 2026 09:04:56 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>JPEG XL decoding support (image/jxl) in blink</strong> (Chrome 155, Enabled by default)</p><p>Adds support for decoding JPEG XL (image/jxl) images in Blink using jxl-rs, a memory-safe pure Rust decoder (https://github.com/libjxl/jxl-rs).
+JPEG XL is a modern image format standardized as ISO/IEC 18181 that offers progressive decoding for improved perceived loading performance, support for wide color gamut, HDR, and high bit depth, and support for animation.</p><p><strong>Ecosystem Analysis:</strong> JPEG XL (`image/jxl`) decoding support has officially achieved cross-browser availability, marked by Chrome 155 enabling the format by default in Blink using `jxl-rs`, a memory-safe pure Rust decoder developed by Google Research. Following Safari&apos;s baseline adoption in version 17 and Firefox enabling default support in version 158, all major browser engines now support native JXL decoding. The browser consensus has shifted from past C++ attack surface concerns to enthusiastic alignment around a shared, memory-safe Rust architecture.</p>]]></description>
+    </item>
+    <item>
+      <title>CSS position-visibility:anchor{s}-valid — Chrome 157 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5136856479039488</link>
+      <guid isPermaLink="false">chromestatus-feature-5136856479039488</guid>
+      <pubDate>Tue, 29 Sep 2026 22:14:03 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>CSS position-visibility:anchor{s}-valid</strong> (Chrome 157, Enabled by default)</p><p>The `anchors-valid` value was implemented as part of https://crbug.com/329703412 but subsequently reverted, due to spec questions about the exact definition of the value. Since that time, the value has been renamed to `anchor-valid` (see https://chromestatus.com/feature/5136123851571200) and also better defined to be clear that only the default anchor matters, resolving a lot of ambiguity, and making this value shippable.</p><p><strong>Ecosystem Analysis:</strong> The `position-visibility: anchor-valid` property value (formerly `anchors-valid`) has been stabilized and implemented to automatically hide anchor-positioned elements like tooltips or dropdowns if their default anchor reference cannot be resolved. Following recent spec clarifications resolving ambiguities around multi-anchor definitions, the feature has been successfully shipped in modern browser milestones, driving improved alignment across the CSS Anchor Positioning ecosystem.</p>]]></description>
+    </item>
+    <item>
+      <title>Long Animation Frames style and layout duration — Chrome 157 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5171478175809536</link>
+      <guid isPermaLink="false">chromestatus-feature-5171478175809536</guid>
+      <pubDate>Fri, 16 Oct 2026 00:48:58 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>Long Animation Frames style and layout duration</strong> (Chrome 157, Enabled by default)</p><p>Add `styleDuration` and `forcedStyleDuration` information to the Long Animation Frame API, enabling developers to distinguish style and layout times.</p><p><strong>Ecosystem Analysis:</strong> The Long Animation Frames (LoAF) API has been expanded to include granular sub-metrics like `styleDuration` and `forcedStyleDuration` (along with layout durations), offering unprecedented visibility into CSS performance bottlenecks. While fully enabled in Chromium-based browsers, it lacks baseline interoperability as other engines have yet to ship matching implementations.</p>]]></description>
+    </item>
+    <item>
+      <title>Renewed HTML insertion&amp;streaming methods — Chrome 157 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5054329641893888</link>
+      <guid isPermaLink="false">chromestatus-feature-5054329641893888</guid>
+      <pubDate>Mon, 19 Oct 2026 09:02:56 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>Renewed HTML insertion&amp;streaming methods</strong> (Chrome 157, Enabled by default)</p><p>Expose multiple HTML setting methods that provide a coherent story for dynamically inserting markup into an existing document.
+
+- Positional methods (before/after/append/prepend/replaceWith) that take HTML as argument, effectively replacing insertAdjacentHTML.
+- Streaming methods (stream{Append}HTML{Unsafe}) which return a WritableStream, receiving text as input and parsing HMHL.
+- Passing {runScripts} as part of SetHTMLUnsafeOptions, mimicking createContextualFragment behavior.
+- Supporting createParserOptions in trusted types, allowing trusted types to override scripting mode and sanitizer.</p><p><strong>Ecosystem Analysis:</strong> The &apos;Renewed HTML insertion &amp; streaming methods&apos; feature unifies and modernizes dynamic markup injection and parsing into a coherent set of positional, streaming, and safe/unsafe variants. It is enabled by default in Chrome, addressing historical developer fragmentation issues related to disjointed APIs like insertAdjacentHTML.</p>]]></description>
+    </item>
+    <item>
+      <title>Margin-trim — Chrome 155 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5197863732772864</link>
+      <guid isPermaLink="false">chromestatus-feature-5197863732772864</guid>
+      <pubDate>Mon, 14 Sep 2026 09:39:13 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>Margin-trim</strong> (Chrome 155, Enabled by default)</p><p>The `margin-trim` CSS property may be used to omit margins before or after the first or last child of a container. This is supported on regular block containers and multicol containers.
+
+This is somewhat similar to the effect caused by the margin quirk that is applied to P, H1, H2... elements inside BODY and table cell elements (in quirks mode), but more powerful, generic, and expressive.
+
+Note: A previous version of the spec also applied this for flex and grid containers, but this has been removed.</p><p><strong>Ecosystem Analysis:</strong> The margin-trim CSS property enables containers to cleanly discard adjoining child margins, eliminating classic container-edge spacing bugs and fragile structural selectors. Long pioneered exclusively by Safari since version 16.4, the specification underwent refinements to focus on block and multi-column containers, with Chromium shipping default enablement in Chrome 155. Cross-browser Baseline availability remains limited, but engine consensus is firmly positive across all major vendors.</p>]]></description>
+    </item>
+    <item>
+      <title>Avoid caching module failures — Chrome 156 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5214647044145152</link>
+      <guid isPermaLink="false">chromestatus-feature-5214647044145152</guid>
+      <pubDate>Sat, 19 Sep 2026 09:49:45 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>Avoid caching module failures</strong> (Chrome 156, Enabled by default)</p><p>Currently web developers cannot retry failed module loads, as these failures are being cached (and retries just result in immediate failures).
+This change to the module loading behavior enables failed module loads to be manually retried (e.g. by calling `import()` again), solving real developer (and user) pain when it comes to using modules over unstable networks.</p><p><strong>Ecosystem Analysis:</strong> The &apos;Avoid caching module failures&apos; update resolves a longstanding flaw in the HTML specification where transient network or HTTP fetch failures were permanently cached in the document&apos;s module map. With the merge of the specification update in the WHATWG HTML standard, all major browser engines have moved to align, eliminating sticky fetch errors and allowing dynamic imports to be retried. The platform consensus shifts module loading priorities from strict failure determinism toward real-world network resilience.</p>]]></description>
+    </item>
+    <item>
+      <title>Optional browser optimization for Service Workers — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5194817700364288</link>
+      <guid isPermaLink="false">chromestatus-feature-5194817700364288</guid>
+      <pubDate>Wed, 09 Sep 2026 19:28:43 GMT</pubDate>
+      <category>Stepped rollout</category>
+      <description><![CDATA[<p><strong>Optional browser optimization for Service Workers</strong> (Chrome 154, Stepped rollout)</p><p>Chrome 154 includes an optional browser optimization mode that changes existing service worker behavior. In ServiceWorkerAutoPreload mode, the browser issues the network request in parallel with the service worker bootstrap. 
+
+If the `fetch` handler returns the response with `respondWith()`, the browser consumes the network request result inside the `fetch` handler. If the `fetch` handler result is fallback, it passes the network response directly to the browser. 
+
+Admins can control this feature using an enterprise policy called [ServiceWorkerAutoPreloadEnabled](https://chromeenterprise.google/policies/#ServiceWorkerAutoPreloadEnabled).</p><p><strong>Ecosystem Analysis:</strong> ServiceWorkerAutoPreload has successfully merged into the W3C Service Worker specification and is rolling out across Chromium-based engines as a browser-level optimization to eradicate worker cold-start latency. By dispatching navigation requests concurrently during service worker bootstrap and reusing the in-flight response inside fetch handlers, the feature transparently solves a long-standing PWA performance bottleneck. Cross-vendor alignment is firmly established following Mozilla&apos;s formal endorsement and collaborative refinement during the specification process.</p>]]></description>
+    </item>
+    <item>
+      <title>Single-axis scroll containers — Chrome 156 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5067363861004288</link>
+      <guid isPermaLink="false">chromestatus-feature-5067363861004288</guid>
+      <pubDate>Tue, 22 Sep 2026 19:18:35 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>Single-axis scroll containers</strong> (Chrome 156, Enabled by default)</p><p>Extends the `overflow` property to support scrollable values together with `clip` (for example, `overflow: scroll clip`). This allows `position: sticky` to be constrained by different ancestor scroll containers per axis, and gives authors a way to ensure an axis using `overflow: clip` stays in place.</p><p><strong>Ecosystem Analysis:</strong> Single-axis scroll containers resolve a decade-old CSS limitation by permitting scrollable overflow values to pair with `clip`, ending the automatic coercion of containers into two-dimensional scrollers. Chromium leads implementation by enabling the capability by default in Chrome 156 following extensive testing channels, resolving foundational pain points for simultaneous horizontal scrolling and vertical sticky positioning. While the W3C CSS Working Group formally resolved the specification change under Issue #865 and the W3C TAG closed review as satisfied, multi-engine interoperability is still pending stable rollouts across Gecko and WebKit.</p>]]></description>
     </item>
     <item>
       <title>CSS random() function — Chrome 156 Ecosystem Update</title>
       <link>https://chromestatus.com/feature/5324559251275776</link>
       <guid isPermaLink="false">chromestatus-feature-5324559251275776</guid>
-      <pubDate>Mon, 28 Sep 2026 08:02:50 GMT</pubDate>
+      <pubDate>Mon, 28 Sep 2026 09:02:50 GMT</pubDate>
       <category>Enabled by default</category>
       <description><![CDATA[<p><strong>CSS random() function</strong> (Chrome 156, Enabled by default)</p><p>The random() function brings generative randomness to CSS, allowing web authors to generate a random numeric value within a specified range.
 
@@ -92,252 +242,155 @@ For example, web authors can use random() to scatter elements randomly within th
   left: random(0%, 100%);
 }
 
-This feature also includes caching controls. By default, each random() function resolves to a new, distinct value. Web authors can override this default by passing a &lt;random-key&gt; value as the function&apos;s first argument to control how random values are shared across properties and elements.</p><p><strong>Ecosystem Analysis:</strong> The CSS random() function from CSS Values and Units Module Level 5 is rapidly maturing into a core styling primitive, introducing declarative generative values and caching keys without requiring JavaScript or Sass preprocessors. Safari established early implementation leadership in Safari 26, Chromium has enabled support by default starting in Chrome 156, and Mozilla maintains an officially positive stance with active engine development. Developer reception is enthusiastically receptive to native visual randomization, balanced by careful consideration of caching behavior and layout stability.</p>]]></description>
+This feature also includes caching controls. By default, each random() function resolves to a new, distinct value. Web authors can override this default by passing a &lt;random-key&gt; value as the function&apos;s first argument to control how random values are shared across properties and elements.</p><p><strong>Ecosystem Analysis:</strong> The CSS random() function brings generative numeric randomness natively into stylesheets, eliminating long-standing reliance on JavaScript hacks and precalculated variables for organic UI variation. Spearheaded by WebKit and enabled by default in Chrome 156, the feature has achieved unanimous vendor alignment across the CSS Working Group. While Safari and Chromium lead browser availability, ecosystem-wide Baseline interoperability awaits Gecko&apos;s pending implementation release.</p>]]></description>
     </item>
     <item>
-      <title>JPEG XL decoding support (image/jxl) in blink — Chrome 155 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5114042131808256</link>
-      <guid isPermaLink="false">chromestatus-feature-5114042131808256</guid>
-      <pubDate>Mon, 31 Aug 2026 08:04:56 GMT</pubDate>
+      <title>Immersive Audio Model and Formats (IAMF) decoding support — Chrome 153 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5113656292540416</link>
+      <guid isPermaLink="false">chromestatus-feature-5113656292540416</guid>
+      <pubDate>Mon, 17 Aug 2026 20:13:48 GMT</pubDate>
       <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>JPEG XL decoding support (image/jxl) in blink</strong> (Chrome 155, Enabled by default)</p><p>Adds support for decoding JPEG XL (image/jxl) images in Blink using jxl-rs, a memory-safe pure Rust decoder (https://github.com/libjxl/jxl-rs).
-JPEG XL is a modern image format standardized as ISO/IEC 18181 that offers progressive decoding for improved perceived loading performance, support for wide color gamut, HDR, and high bit depth, and support for animation.</p><p><strong>Ecosystem Analysis:</strong> Google has reversed its controversial 2022 deprecation by enabling JPEG XL decoding by default in Chrome 155, powered by Google Research&apos;s memory-safe Rust decoder, jxl-rs. Coupled with Safari&apos;s support since version 17 and Mozilla Firefox enabling it by default in Firefox 158 using the same Rust engine, JPEG XL has officially achieved cross-browser consensus. The move eliminates historical security hesitations around complex C++ decoders while bringing advanced progressive decoding, lossless JPEG transcoding, and HDR fidelity to the mainstream web.</p>]]></description>
+      <description><![CDATA[<p><strong>Immersive Audio Model and Formats (IAMF) decoding support</strong> (Chrome 153, Enabled by default)</p><p>Adds support for decoding and playing back the Immersive Audio Model and Formats (IAMF) container within HTML media elements via Media Source Extensions (MSE). IAMF is an open, royalty-free spatial audio format that supports channel-based, scene-based, and object-based audio presentations. Supporting this standard allows web developers to deliver consistent, immersive 3D audio experiences across different devices without relying on proprietary formats or managing complex discrete audio channel routing in JavaScript.</p><p><strong>Ecosystem Analysis:</strong> IAMF (Immersive Audio Model and Formats) decoding support has landed natively in Chromium (Chrome 153) via Media Source Extensions, offering an open and royalty-free alternative to proprietary 3D audio formats like Dolby Atmos. While Google and hardware partners like Samsung are pushing adoption—commercializing it under names like Eclipsa Audio—cross-browser consensus is still in its infancy. Mozilla and WebKit engineers have recently opened standards-position evaluation threads, but neither Gecko nor Safari has committed to an implementation timeline yet.</p>]]></description>
     </item>
     <item>
-      <title>Digital Credentials API (issuance support) — Chrome 155 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5099333963874304</link>
-      <guid isPermaLink="false">chromestatus-feature-5099333963874304</guid>
-      <pubDate>Mon, 14 Sep 2026 13:24:05 GMT</pubDate>
+      <title>Algorithm Updates in WebCrypto — Chrome 155 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5198951632470016</link>
+      <guid isPermaLink="false">chromestatus-feature-5198951632470016</guid>
+      <pubDate>Fri, 11 Sep 2026 15:47:26 GMT</pubDate>
       <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Digital Credentials API (issuance support)</strong> (Chrome 155, Enabled by default)</p><p>This Web Platform feature enables issuing websites (e.g., a university, government agency, or bank) to securely initiate the provisioning (issuance) process of digital credentials directly into a user&apos;s mobile wallet application. On Android, this capability leverages the Android IdentityCredential CredMan system (Credential Manager). On Desktop, it leverages cross-device approaches using the CTAP protocol similar to Digital Credentials presentation.</p><p><strong>Ecosystem Analysis:</strong> The Digital Credentials API issuance capability extends the Credential Management API via `navigator.credentials.create()` to let issuing authorities securely provision credentials into mobile wallets without relying on fragile custom URI schemes or deep links. While Chromium is leading the rollout with default support backed by Android Credential Manager and cross-device CTAP flows, cross-browser consensus remains fractured. WebKit supports the overarching digital credential specification with cautionary reservations, while Mozilla formally opposes the API over systemic privacy and user agency concerns.</p>]]></description>
+      <description><![CDATA[<p><strong>Algorithm Updates in WebCrypto</strong> (Chrome 155, Enabled by default)</p><p>Add post-quantum cryptography and a common symmetric AEAD to the set of cryptographic algorithms available in the Web Cryptography API. This will enable developers to have access browser-provided implementations of common quantum-resistant cryptographic algorithms standardized by NIST.
+
+* ML-KEM - 768, 1024
+* ML-DSA - 44, 65, 87
+* ChaCha20-Poly1305
+* X-Wing</p><p><strong>Ecosystem Analysis:</strong> Chromium&apos;s addition of NIST post-quantum primitives (ML-KEM, ML-DSA, X-Wing) and ChaCha20-Poly1305 in Chrome 155 brings native, side-channel-resistant cryptographic operations directly to the browser via the Web Cryptography API. While security engineers and cryptographic library maintainers welcome the ability to replace heavy WebAssembly or JavaScript implementations with BoringSSL-backed routines, formal consensus across browser engines remains divided. Because modern algorithms are not strictly mandatory to implement across all engines, the update currently acts as a forward-looking Chromium enhancement rather than an interoperable baseline.</p>]]></description>
     </item>
     <item>
-      <title>Margin-trim — Chrome 155 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5197863732772864</link>
-      <guid isPermaLink="false">chromestatus-feature-5197863732772864</guid>
-      <pubDate>Mon, 14 Sep 2026 08:39:13 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Margin-trim</strong> (Chrome 155, Enabled by default)</p><p>The `margin-trim` CSS property may be used to omit margins before or after the first or last child of a container. This is supported on regular block containers and multicol containers.
+      <title>Connection Allowlists - Embedded Enforcement — Chrome 157 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5657801797009408</link>
+      <guid isPermaLink="false">chromestatus-feature-5657801797009408</guid>
+      <pubDate>Thu, 08 Oct 2026 21:03:26 GMT</pubDate>
+      <category>Origin trial</category>
+      <description><![CDATA[<p><strong>Connection Allowlists - Embedded Enforcement</strong> (Chrome 157, Origin trial)</p><p>Connection Allowlists (https://chromestatus.com/feature/5175745573945344) is a feature designed to provide explicit control over external endpoints by restricting connections initiated via the Fetch API or other web platform APIs from a document or worker. This aspect of the feature extends Connection Allowlists to support embedded enforcement on iFrames and nested documents/workers. This allows the parent document to enforce restrictions on embedded content where they can choose to opt in or not load.
 
-This is somewhat similar to the effect caused by the margin quirk that is applied to P, H1, H2... elements inside BODY and table cell elements (in quirks mode), but more powerful, generic, and expressive.
-
-Note: A previous version of the spec also applied this for flex and grid containers, but this has been removed.</p><p><strong>Ecosystem Analysis:</strong> The margin-trim property provides a declarative mechanism to strip unwanted outer margins from child elements inside block and multi-column containers, resolving a decades-old layout pain point historically patched with negative margins or targeted :last-child resets. Having been confined to Safari since version 16.4, the feature reaches a major milestone with Chromium enabling it by default in Chrome 155. Complete cross-browser baseline status is still pending Gecko implementation, but engine alignment is firmly established in specification and intent.</p>]]></description>
-    </item>
-    <item>
-      <title>Renewed HTML insertion&amp;streaming methods — Chrome 157 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5054329641893888</link>
-      <guid isPermaLink="false">chromestatus-feature-5054329641893888</guid>
-      <pubDate>Tue, 29 Sep 2026 10:46:19 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Renewed HTML insertion&amp;streaming methods</strong> (Chrome 157, Enabled by default)</p><p>Expose multiple HTML setting methods that provide a coherent story for dynamically inserting markup into an existing document.
-
-- Positional methods (before/after/append/prepend/replaceWith) that take HTML as argument, effectively replacing insertAdjacentHTML.
-- Streaming methods (stream{Append}HTML{Unsafe}) which return a WritableStream
-- Passing {runScripts} as part of SetHTMLUnsafeOptions, mimicking createContextualFragment behavior.
-- Supporting createParserOptions in trusted types, allowing trusted types to override scripting mode and sanitizer.</p><p><strong>Ecosystem Analysis:</strong> The renewed HTML insertion and streaming methods proposal—developed under the WICG Declarative Partial Updates initiative and WHATWG HTML discussions—unifies fragmented legacy DOM APIs into an ergonomic, modern suite of positional and streaming insertion methods like appendHTML and streamAppendHTML. While Chromium has committed to shipping the feature, multi-engine interoperability is still maturing as the specification progresses through standardisation bodies. Ecosystem perception is enthusiastic, particularly for how native WritableStream integration and consistent sanitizer controls simplify dynamic HTML updates without heavy framework runtimes.</p>]]></description>
-    </item>
-    <item>
-      <title>WebAudio: Configurable render quantum — Chrome 153 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5078190552907776</link>
-      <guid isPermaLink="false">chromestatus-feature-5078190552907776</guid>
-      <pubDate>Mon, 24 Aug 2026 16:05:39 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>WebAudio: Configurable render quantum</strong> (Chrome 153, Enabled by default)</p><p>Adds an optional renderSizeHint to AudioContext and OfflineAudioContext. This allows developers to customize the WebAudio render quantum size by passing a specific integer, use the default of 128 frames by omitting the hint or passing &quot;default&quot;, or request that the User-Agent select an optimal size by specifying &quot;hardware&quot;.</p><p><strong>Ecosystem Analysis:</strong> The configurable render quantum feature in Web Audio officially shipped enabled by default in Chrome 153 following earlier origin trials, resolving a long-standing architectural constraint of the fixed 128-frame processing block. While the specification in the W3C Web Audio API 1.1 working draft was co-developed with key engine contributors, Chromium is currently the sole shipping engine. Developers view the addition as a major architectural leap for low-latency web DAWs, synthesizers, and WebRTC engines, but cross-browser parity remains incomplete.</p>]]></description>
-    </item>
-    <item>
-      <title>Optional browser optimization for Service Workers — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5194817700364288</link>
-      <guid isPermaLink="false">chromestatus-feature-5194817700364288</guid>
-      <pubDate>Wed, 09 Sep 2026 18:28:43 GMT</pubDate>
-      <category>Stepped rollout</category>
-      <description><![CDATA[<p><strong>Optional browser optimization for Service Workers</strong> (Chrome 154, Stepped rollout)</p><p>Chrome 154 includes an optional browser optimization mode that changes existing service worker behavior. In ServiceWorkerAutoPreload mode, the browser issues the network request in parallel with the service worker bootstrap. 
-
-If the `fetch` handler returns the response with `respondWith()`, the browser consumes the network request result inside the `fetch` handler. If the `fetch` handler result is fallback, it passes the network response directly to the browser. 
-
-Admins can control this feature using an enterprise policy called [ServiceWorkerAutoPreloadEnabled](https://chromeenterprise.google/policies/#ServiceWorkerAutoPreloadEnabled).</p><p><strong>Ecosystem Analysis:</strong> ServiceWorkerAutoPreload is an engine-level optimization introduced to eliminate startup latency by dispatching network navigation requests concurrently with Service Worker boot. Having formally integrated into the W3C Service Worker specification, Chromium-based browsers like Chrome and Edge are rolling it out broadly with enterprise policy fallback controls. Developer reception is cautiously welcoming because it delivers automated navigation preload without boilerplate code, though edge cases around extra network traffic and test runners have surfaced.</p>]]></description>
-    </item>
-    <item>
-      <title>Deprecate and Remove: Shared Storage API — Chrome 153 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5076349064708096</link>
-      <guid isPermaLink="false">chromestatus-feature-5076349064708096</guid>
-      <pubDate>Fri, 21 Aug 2026 16:45:43 GMT</pubDate>
-      <category>Deprecated</category>
-      <description><![CDATA[<p><strong>Deprecate and Remove: Shared Storage API</strong> (Chrome 153, Deprecated)</p><p>The Shared Storage API is a privacy-preserving web API to enable storage that is not partitioned by first-party site.
-
-Following Chrome&apos;s announcement that the current approach to third-party cookies will be maintained, we are now planning to deprecate and remove the Shared Storage API (along with certain other Privacy Sandbox APIs, as outlined on the Privacy Sandbox feature status page).
-
-[0]: https://privacysandbox.com/news/privacy-sandbox-next-steps/</p><p><strong>Ecosystem Analysis:</strong> Following Google&apos;s decision to preserve user-choice third-party cookies rather than deprecating them outright, Chrome has slated the Shared Storage API for formal deprecation and removal starting in Chrome 153. The API operated exclusively within Chromium as part of the Privacy Sandbox suite, never establishing cross-browser interoperability or gaining traction beyond ad-tech pilots. With low standalone utility and fading ecosystem adoption, Chrome is dismantling the storage worklet infrastructure and aligning its storage architecture back toward standard models.</p>]]></description>
-    </item>
-    <item>
-      <title>Additional Windowing Controls — Chrome 155 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5201832664629248</link>
-      <guid isPermaLink="false">chromestatus-feature-5201832664629248</guid>
-      <pubDate>Mon, 14 Sep 2026 15:42:38 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Additional Windowing Controls</strong> (Chrome 155, Enabled by default)</p><p>Enables web applications with the window-management permission to maximize(), minimize(), and restore() their windows, and to prevent resizing through setResizable(). Additionally, new CSS media features display-state and resizable enable scripts and content to adapt to the respective window states and resizability. These features improve the usability of VDI remote application windows in Web clients, especially when it comes to titlebar window controls. The new functionality enhances existing Window Management API features: https://chromestatus.com/feature/5252960583942144</p><p><strong>Ecosystem Analysis:</strong> Additional Windowing Controls expands the Window Management API with programmatic window state methods and CSS media features tailored primarily for enterprise Virtual Desktop Infrastructure (VDI) and desktop Progressive Web Apps. The API is shipping enabled-by-default in Chromium-based browsers such as Chrome and Microsoft Edge, but it remains a single-engine capability with zero cross-browser interoperability. While welcomed by specialized remote-desktop vendors, non-Chromium browser engines remain unaligned due to long-standing user experience and privacy reservations.</p>]]></description>
-    </item>
-    <item>
-      <title>WebRTC Diagnostic Logging API — Chrome 156 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5091582546149376</link>
-      <guid isPermaLink="false">chromestatus-feature-5091582546149376</guid>
-      <pubDate>Thu, 08 Oct 2026 11:41:19 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>WebRTC Diagnostic Logging API</strong> (Chrome 156, Enabled by default)</p><p>The Real-time Communication for the Web ([WebRTC](https://webrtc.org/)) Diagnostic Logging API allows authorized web applications to trigger the collection of WebRTC diagnostic data so that it can be used for local debugging. It also allows an application to share the WebRTC diagnostic data with the user agent vendor, subject to user authorization, with the purpose of providing information that can help fix bugs in or improve the user agent.
-
-Admins can enable diagnostic logs with the enterprise policy [WebRtcDiagnosticLogCollectionAllowedForOrigins](https://chromeenterprise.google/policies/#WebRtcDiagnosticLogCollectionAllowedForOrigins).</p><p><strong>Ecosystem Analysis:</strong> The WebRTC Diagnostic Logging API introduces programmatic controls for capturing internal WebRTC diagnostic logs and reporting them for browser bug triage or local debugging. While Chromium is shipping the feature enabled by default in Chrome 156 under enterprise policy management, it remains a vendor-isolated initiative without cross-browser consensus. Other major engines have not implemented the API, leaving it largely as a Chromium-centric enterprise tool.</p>]]></description>
-    </item>
-    <item>
-      <title>Responsively-sized &lt;iframe&gt; — Chrome 154 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5108373464547328</link>
-      <guid isPermaLink="false">chromestatus-feature-5108373464547328</guid>
-      <pubDate>Mon, 31 Aug 2026 05:43:50 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Responsively-sized &lt;iframe&gt;</strong> (Chrome 154, Enabled by default)</p><p>Allow sites to opt into iframes having responsive sizing (sizing the &lt;iframe&gt; element in the parent document to the iframe document&apos;s layout overflow sizing, so that scrolling in the child document is avoided).</p><p><strong>Ecosystem Analysis:</strong> Responsively-sized iframes, standardized under CSS Box Sizing Module Level 4 via the &apos;frame-sizing&apos; property and a paired meta tag opt-in, have shipped enabled by default in Chromium browsers as of version 154. The feature solves long-standing iframe layout clipping issues by natively negotiating intrinsic dimensions without script-heavy postMessage bridges. However, the capability remains limited to Chromium while standards review and multi-engine alignment proceed across other browser vendors.</p>]]></description>
-    </item>
-    <item>
-      <title>scroll-axis-lock — Chrome 153 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5908461532610560</link>
-      <guid isPermaLink="false">chromestatus-feature-5908461532610560</guid>
-      <pubDate>Mon, 24 Aug 2026 13:02:03 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>scroll-axis-lock</strong> (Chrome 153, Enabled by default)</p><p>scroll-axis-lock is a CSS property that authors can use to instruct browsers not to constrain a user&apos;s scrolling gesture to one axis.
-
-Web browsers often &quot;lock&quot; a user&apos;s scrolling gesture to a single axis when that gesture starts with significantly more movement in one axis than in the perpendicular axis. In many cases, this behavior improves the user&apos;s experience by avoiding accidental scrolls along the perpendicular axis when the user&apos;s intent was to scroll only one axis. However, in cases where an author wishes their element to always be diagonally scrollable, this locking behavior forces the user to start their gesture at an angle that doesn&apos;t trigger the locking, often not in alignment with the author&apos;s intended user experience.</p><p><strong>Ecosystem Analysis:</strong> Introduced in the CSS Overflow Module Level 5 specification and enabled by default starting in Chrome 153, the `scroll-axis-lock` property gives authors control over browser-level heuristic rail-locking to enable fluid diagonal panning. The feature has achieved cross-engine momentum, supported by a satisfied W3C TAG review, receptive tracking in Mozilla standards discussions, and active implementation underway in WebKit.</p>]]></description>
+More details on the proposal can be found here: https://github.com/WICG/connection-allowlists</p><p><strong>Ecosystem Analysis:</strong> Connection Allowlists - Embedded Enforcement extends the emerging native browser &apos;egress firewall&apos; to nested contexts, ensuring iframes and workers cannot circumvent parent network restrictions or act as data exfiltration vectors. Incubated within the WICG by Google and Microsoft Edge engineers, the core specification aims to replace the ergonomic pitfalls of CSP connect-src, with the embedded enforcement mechanism advancing into Chrome Origin Trials. While cross-browser engine consensus is generally favorable towards cleaner exfiltration primitives, production cross-engine availability remains in development.</p>]]></description>
     </item>
     <item>
       <title>CSS corner shorthand properties  — Chrome 157 Ecosystem Update</title>
       <link>https://chromestatus.com/feature/5152215540039680</link>
       <guid isPermaLink="false">chromestatus-feature-5152215540039680</guid>
-      <pubDate>Thu, 01 Oct 2026 17:38:38 GMT</pubDate>
+      <pubDate>Thu, 01 Oct 2026 18:38:38 GMT</pubDate>
       <category>Enabled by default</category>
       <description><![CDATA[<p><strong>CSS corner shorthand properties </strong> (Chrome 157, Enabled by default)</p><p>Implements the CSS corner shorthand and per-corner sub-shorthands (corner-top-left, corner-top-right, corner-bottom-left, corner-bottom-right) as well as physical (corner-top, corner-bottom) and logical (corner-block-start, corner-block-end, etc.) edge  shorthands. These allow setting both border-radius and corner-shape for individual corners in a single declaration. Additionally, corners is retained as a compat alias for the corner shorthand.
 
 
 sampler: https://static.januschka.com/i-425897047/
 
-CL: https://chromium-review.googlesource.com/c/chromium/src/+/7747994</p><p><strong>Ecosystem Analysis:</strong> The CSS corner shorthand properties consolidate border-radius and corner-shape into ergonomic per-corner and directional declarations, including physical and logical edge sub-shorthands. Resolved by the CSS Working Group in the CSS Borders and Box Decorations Module Level 4 specification, the feature eliminates redundant declarations for complex silhouettes like squircles and bevels. While Chromium has moved to ship the shorthands by default, the feature group currently remains in limited baseline availability pending broader stable rollouts in rival engines.</p>]]></description>
+CL: https://chromium-review.googlesource.com/c/chromium/src/+/7747994</p><p><strong>Ecosystem Analysis:</strong> The CSS corner shorthand feature streamlines modern UI layout design by combining border-radius and corner-shape values into a single property declaration per corner, edge, or logical block. Landing natively in Chromium-based browsers, it addresses a long-standing developer pain point by eliminating the need for separate properties or external hacks like clip-path and SVGs. While Chrome implements the spec directly, overall cross-browser web platform tests and adoption remain in early experimental states.</p>]]></description>
     </item>
     <item>
-      <title>Enhanced Canvas TextMetrics — Chrome 157 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5075532483657728</link>
-      <guid isPermaLink="false">chromestatus-feature-5075532483657728</guid>
-      <pubDate>Wed, 07 Oct 2026 04:29:11 GMT</pubDate>
+      <title>WebAudio: Configurable render quantum — Chrome 153 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5078190552907776</link>
+      <guid isPermaLink="false">chromestatus-feature-5078190552907776</guid>
+      <pubDate>Mon, 24 Aug 2026 17:05:39 GMT</pubDate>
       <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Enhanced Canvas TextMetrics</strong> (Chrome 157, Enabled by default)</p><p>Expand the TextMetrics Canvas API to support selection rectangles, bounding box queries, and glyph cluster-based operations.
-
-This new functionality should enable complex text editing applications with accurate selection, caret positioning, and hit testing.  Additionally, cluster-based rendering facilitates sophisticated text effects such as independent character animations and styling.</p><p><strong>Ecosystem Analysis:</strong> Enhanced Canvas TextMetrics expands the 2D Canvas API by providing sub-string selection rectangles, caret index mapping, and glyph cluster bounding boxes to replace expensive binary-search measurement workarounds. While Chromium and Igalia have pushed the implementation forward to ship out-of-the-box in Chromium, universal cross-engine consensus remains pending in WHATWG specifications. Ecosystem debates continue regarding its long-term scope alongside complementary HTML-in-Canvas proposals.</p>]]></description>
+      <description><![CDATA[<p><strong>WebAudio: Configurable render quantum</strong> (Chrome 153, Enabled by default)</p><p>Adds an optional renderSizeHint to AudioContext and OfflineAudioContext. This allows developers to customize the WebAudio render quantum size by passing a specific integer, use the default of 128 frames by omitting the hint or passing &quot;default&quot;, or request that the User-Agent select an optimal size by specifying &quot;hardware&quot;.</p><p><strong>Ecosystem Analysis:</strong> Configurable render quantum in WebAudio introduces the `renderSizeHint` option to AudioContext and OfflineAudioContext, allowing engines to diverge from the historically rigid 128-sample-frame processing block. Standardized as part of the Web Audio API 1.1 specification and enabled by default in Chromium, it addresses a longstanding architectural bottleneck for browser-based digital audio workstations (DAWs), DSP libraries, and low-latency communication tools. While developer interest is high and specification roots stem directly from working group consensus, formal multi-engine implementation remains uneven across Safari and Firefox.</p>]]></description>
     </item>
     <item>
-      <title>Deprecate and remove: Attribution Reporting API — Chrome 153 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/6320639375966208</link>
-      <guid isPermaLink="false">chromestatus-feature-6320639375966208</guid>
-      <pubDate>Fri, 21 Aug 2026 16:48:27 GMT</pubDate>
+      <title>js-profiling in dedicated workers — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5159559872249856</link>
+      <guid isPermaLink="false">chromestatus-feature-5159559872249856</guid>
+      <pubDate>Thu, 10 Sep 2026 20:17:12 GMT</pubDate>
+      <category>In developer trial (Behind a flag)</category>
+      <description><![CDATA[<p><strong>js-profiling in dedicated workers</strong> (Chrome 154, In developer trial (Behind a flag))</p><p>Allows js-profiling in dedicated workers
+
+This feature enables the JavaScript Self‑Profiling (js-profiling) API in Dedicated Workers, while remaining gated by Document Policy. It allows developers to obtain low‑overhead CPU attribution for JavaScript execution in workers, with Document Policy support for workers tracked separately.</p><p><strong>Ecosystem Analysis:</strong> The &apos;js-profiling in dedicated workers&apos; feature extends the JavaScript Self-Profiling API to background worker threads, addressing a critical visibility gap for offloaded performance-critical tasks. While currently progressing in Chromium (behind a developer trial flag), it remains constrained by cross-browser interoperability challenges due to its complex dependency on Document Policy semantics in workers.</p>]]></description>
+    </item>
+    <item>
+      <title>Use scroll-snap-type: pair to snap to a single element — Chrome 156 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5124378896498688</link>
+      <guid isPermaLink="false">chromestatus-feature-5124378896498688</guid>
+      <pubDate>Thu, 01 Oct 2026 18:52:02 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>Use scroll-snap-type: pair to snap to a single element</strong> (Chrome 156, Enabled by default)</p><p>https://github.com/w3c/csswg-drafts/issues/9519
+
+Add a &quot;pair&quot; keyword to scroll-snap-type. If used, when the container scroll snaps to an element on one axis, it should snap to the same element on the other axis. In the existing spec, the &quot;both&quot; keyword allows the scroll container to select snap targets in X and Y axes independently and snap to different targets.</p><p><strong>Ecosystem Analysis:</strong> The `scroll-snap-type: pair` keyword resolves a longstanding CSS Scroll Snap limitation where `both` evaluates horizontal and vertical axes independently, potentially snapping to two disparate targets. By treating multi-axis snap targets as unified 2D coordinates, `pair` guarantees the scroller locks onto the same element across both dimensions. Chromium is shipping the feature enabled by default in Chrome 156 with upstreamed Web Platform Tests, while broad multi-engine consensus is forming.</p>]]></description>
+    </item>
+    <item>
+      <title>Deprecate and Remove: document.requestStorageAccessFor — Chrome 153 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5162221567082496</link>
+      <guid isPermaLink="false">chromestatus-feature-5162221567082496</guid>
+      <pubDate>Fri, 21 Aug 2026 18:41:01 GMT</pubDate>
       <category>Deprecated</category>
-      <description><![CDATA[<p><strong>Deprecate and remove: Attribution Reporting API</strong> (Chrome 153, Deprecated)</p><p>The Attribution Reporting API is a privacy-preserving web API designed to measure ad conversions without third-party cookies or user tracking across sites.
-
-Following Chrome&apos;s announcement that the current approach to third-party cookies will be maintained, we are now planning to deprecate and remove the Attribution Reporting API (along with other Privacy Sandbox APIs).
-
-[0]: https://privacysandbox.com/news/privacy-sandbox-next-steps/</p><p><strong>Ecosystem Analysis:</strong> The Attribution Reporting API is officially deprecated and slated for phased removal through Chrome 153 following Google&apos;s reversal on eliminating third-party cookies in Chrome. The API never achieved multi-engine adoption, and its deprecation has now been formally documented on Chrome Platform Status and MDN Web Docs. As Chromium retires the mechanism, cross-browser focus is shifting toward collaborative, standards-based measurement proposals within the W3C.</p>]]></description>
-    </item>
-    <item>
-      <title>Capability elements: &lt;camera&gt; and &lt;microphone&gt; — Chrome 153 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5153829504024576</link>
-      <guid isPermaLink="false">chromestatus-feature-5153829504024576</guid>
-      <pubDate>Wed, 19 Aug 2026 14:08:19 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Capability elements: &lt;camera&gt; and &lt;microphone&gt;</strong> (Chrome 153, Enabled by default)</p><p>The &lt;camera&gt; and &lt;microphone&gt; capability elements are declarative, user-activated HTML controls that share the same underlying mechanism as the &lt;usermedia&gt; MVP element, with one key distinction: they are designed to request a single capability. The &lt;camera&gt; element specifically requests video capture, while the &lt;microphone&gt; element specifically requests audio capture. Like the &lt;usermedia&gt; MVP, they embed a browser-controlled, strictly styled UI into the page, ensuring a strong, intentional user signal (a click) before a permission prompt is triggered or a stream is started.
-
-The &lt;camera&gt; and &lt;microphone&gt; elements provide a dedicated, semantic HTML control for these single-capability use cases. They maintain the identical security model, strict styling constraints, and built-in permission recovery path as the &lt;usermedia&gt; MVP, but offer a more tailored and ergonomic API for developers who do not need mixed media access.</p><p><strong>Ecosystem Analysis:</strong> The &lt;camera&gt; and &lt;microphone&gt; capability elements represent Chromium&apos;s evolution of the Page-Embedded Permission Control (PEPC) initiative, refining generic permission elements into semantic, single-stream media controls. Enabled by default starting in Chrome 153 following earlier rollouts of &lt;usermedia&gt; and &lt;geolocation&gt;, these elements provide native in-page permission recovery and anti-clickjacking protections. However, the broader web ecosystem remains fragmented, as Gecko and WebKit have not yet shipped native implementations.</p>]]></description>
-    </item>
-    <item>
-      <title>Immersive Audio Model and Formats (IAMF) decoding support — Chrome 153 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5113656292540416</link>
-      <guid isPermaLink="false">chromestatus-feature-5113656292540416</guid>
-      <pubDate>Mon, 17 Aug 2026 19:13:48 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Immersive Audio Model and Formats (IAMF) decoding support</strong> (Chrome 153, Enabled by default)</p><p>Adds support for decoding and playing back the Immersive Audio Model and Formats (IAMF) container within HTML media elements via Media Source Extensions (MSE). IAMF is an open, royalty-free spatial audio format that supports channel-based, scene-based, and object-based audio presentations. Supporting this standard allows web developers to deliver consistent, immersive 3D audio experiences across different devices without relying on proprietary formats or managing complex discrete audio channel routing in JavaScript.</p><p><strong>Ecosystem Analysis:</strong> Native Immersive Audio Model and Formats (IAMF) decoding support has launched enabled by default in Chrome 153 via Media Source Extensions (MSE), introducing an open, royalty-free spatial audio container developed under the Alliance for Open Media (AOMedia). Web developers view native browser decoding as an essential step toward replacing proprietary ecosystems like Dolby Atmos and heavy Web Audio JavaScript pipelines. However, the feature is currently confined to Chromium, with other engine implementations pending formal alignment.</p>]]></description>
-    </item>
-    <item>
-      <title>Spell check custom dictionary API — Chrome 153 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/6185007701557248</link>
-      <guid isPermaLink="false">chromestatus-feature-6185007701557248</guid>
-      <pubDate>Tue, 06 Oct 2026 05:37:44 GMT</pubDate>
-      <category>In developer trial (Behind a flag)</category>
-      <description><![CDATA[<p><strong>Spell check custom dictionary API</strong> (Chrome 153, In developer trial (Behind a flag))</p><p>Adds document.spellCheckCustomDictionary, which lets a page add words to and remove words from a per-document dictionary that the browser&apos;s spell checker consults alongside its built-in dictionaries. Matching words are no longer flagged as misspelled in that document, so sites with domain-specific vocabulary, such as product names, technical terms or proper nouns, can suppress false positives without asking users to edit their browser dictionary. The words last only for the document&apos;s lifetime and cannot be read back.</p><p><strong>Ecosystem Analysis:</strong> Spearheaded by Igalia with Bloomberg Tech support, the Spell Check Custom Dictionary API introduces an in-memory, document-scoped interface (`document.spellCheckCustomDictionary`) designed to suppress false-positive spellcheck squiggles for domain-specific vocabulary. The proposal is currently being standardized via a WHATWG HTML specification pull request and is available for developer trials behind an experimental flag in Chromium. Cross-engine consensus remains in early stages: Mozilla has officially adopted a neutral stance, WebKit is still reviewing the proposal, and the feature is not yet indexed in Baseline.</p>]]></description>
-    </item>
-    <item>
-      <title>Language Detector API on Android — Chrome 157 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5087964794322944</link>
-      <guid isPermaLink="false">chromestatus-feature-5087964794322944</guid>
-      <pubDate>Mon, 12 Oct 2026 17:47:39 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Language Detector API on Android</strong> (Chrome 157, Enabled by default)</p><p>Exposes the LanguageDetector JavaScript Web API on Chrome for Android (Clank). This allows web applications to detect text languages locally on mobile devices using fast, privacy-preserving, and offline-capable on-device machine learning models and not rely on cloud endpoints.</p><p><strong>Ecosystem Analysis:</strong> The expansion of the Language Detector API to Chrome on Android broadens Chromium&apos;s built-in on-device AI capabilities to mobile web apps, enabling privacy-preserving, zero-cost language identification. However, the feature currently sits in Limited Availability on Baseline without cross-vendor consensus. While developers appreciate the efficiency over cloud round-trips, the absence of multi-engine support prevents it from becoming a dependable web standard.</p>]]></description>
-    </item>
-    <item>
-      <title>CSS position-visibility:anchor{s}-valid — Chrome 157 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5136856479039488</link>
-      <guid isPermaLink="false">chromestatus-feature-5136856479039488</guid>
-      <pubDate>Tue, 29 Sep 2026 21:14:03 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>CSS position-visibility:anchor{s}-valid</strong> (Chrome 157, Enabled by default)</p><p>The `anchors-valid` value was implemented as part of https://crbug.com/329703412 but subsequently reverted, due to spec questions about the exact definition of the value. Since that time, the value has been renamed to `anchor-valid` (see https://chromestatus.com/feature/5136123851571200) and also better defined to be clear that only the default anchor matters, resolving a lot of ambiguity, and making this value shippable.</p><p><strong>Ecosystem Analysis:</strong> The position-visibility property&apos;s anchor-valid keyword (previously specified as the plural anchors-valid) resolves a key architectural ambiguity in the CSS Anchor Positioning specification by scoping validity checks exclusively to the default anchor box rather than multiple disparate anchor references. Following consensus within the CSS Working Group to adopt the singular syntax while retaining plural aliases for backwards compatibility, the feature has achieved solid cross-engine convergence. Safari shipped support in version 27, and Chromium is enabling it by default in Chrome 157, solidifying declarative visibility controls for tooltips and floating popovers.</p>]]></description>
-    </item>
-    <item>
-      <title>Single-axis scroll containers — Chrome 156 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5067363861004288</link>
-      <guid isPermaLink="false">chromestatus-feature-5067363861004288</guid>
-      <pubDate>Tue, 22 Sep 2026 18:18:35 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Single-axis scroll containers</strong> (Chrome 156, Enabled by default)</p><p>Extends the `overflow` property to support scrollable values together with `clip` (for example, `overflow: scroll clip`). This allows `position: sticky` to be constrained by different ancestor scroll containers per axis, and gives authors a way to ensure an axis using `overflow: clip` stays in place.</p><p><strong>Ecosystem Analysis:</strong> Single-axis scroll containers extend the CSS overflow property to pair scrollable values with clip (such as `overflow: auto clip`), preventing the browser from coercing the clipped axis into a two-dimensional scroller. Shipped by Chromium and endorsed by a closed W3C TAG design review, the specification directly addresses a decade-old CSS Working Group bottleneck that broke directional sticky positioning and DOM scroll APIs. While cross-browser interoperability awaits official Gecko and WebKit implementations, consensus around the technical direction is solid.</p>]]></description>
-    </item>
-    <item>
-      <title>WebTransport Datagram writable streams and prioritization — Chrome 155 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/5183354944225280</link>
-      <guid isPermaLink="false">chromestatus-feature-5183354944225280</guid>
-      <pubDate>Fri, 09 Oct 2026 16:45:34 GMT</pubDate>
-      <category>In developer trial (Behind a flag)</category>
-      <description><![CDATA[<p><strong>WebTransport Datagram writable streams and prioritization</strong> (Chrome 155, In developer trial (Behind a flag))</p><p>Adds the modern WebTransport Datagram sending API.
-
-WebTransportDatagramDuplexStream.createWritable() creates independent WebTransportDatagramsWritable streams. Each writable has mutable sendGroup and sendOrder attributes for expressing relative priority among queued WebTransport data in the same send group. Chromium currently applies this ordering among Datagram writables.
-
-The implementation also reports the negotiated maximum outgoing Datagram payload size and discards oversized writes as required by the WebTransport specification.</p><p><strong>Ecosystem Analysis:</strong> The WebTransport Datagram writable streams and prioritization update modernizes client-server QUIC networking by replacing the legacy singleton writable stream with `createWritable()`, bringing fine-grained scheduling via `sendGroup` and `sendOrder` to datagrams. Reaching maturity within the W3C Candidate Recommendation track and tracked under Interop 2026, the specification resolves longstanding architectural bottlenecks for high-frequency gaming and Media over QUIC (MoQ) stacks. Ecosystem alignment is exceptionally strong, with Safari and Firefox already supporting the API while Chromium advances it behind flags.</p>]]></description>
-    </item>
-    <item>
-      <title>CSS text-overflow: &lt;string&gt; value — Chrome 157 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/6294595288825856</link>
-      <guid isPermaLink="false">chromestatus-feature-6294595288825856</guid>
-      <pubDate>Tue, 29 Sep 2026 01:43:46 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>CSS text-overflow: &lt;string&gt; value</strong> (Chrome 157, Enabled by default)</p><p>Adds a &lt;string&gt; value to the text-overflow property.
-
-This allows web authors to specify a custom string (e.g., &quot;(more)&quot;) to indicate that text has been clipped. This provides more design flexibility and can be used to create more user-friendly and context-aware overflow indicators.</p><p><strong>Ecosystem Analysis:</strong> The CSS text-overflow string value specified in CSS Overflow Module Level 4 allows authors to designate custom truncation tokens (such as localized strings or empty strings) natively in CSS. Gecko has supported string clipping since Firefox 9, WebKit has officially supported the spec and merged its implementation, and Chromium&apos;s rollout completes universal engine convergence. This resolves a decade-long interoperability gap, eliminating reliance on fragile JavaScript text measurement or positioned pseudo-element hacks.</p>]]></description>
-    </item>
-    <item>
-      <title>CSS4 text-decoration-skip-spaces — Chrome 155 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/4832783806627840</link>
-      <guid isPermaLink="false">chromestatus-feature-4832783806627840</guid>
-      <pubDate>Fri, 11 Sep 2026 01:28:56 GMT</pubDate>
-      <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>CSS4 text-decoration-skip-spaces</strong> (Chrome 155, Enabled by default)</p><p>The text-decoration-skip-spaces CSS property controls whether text decoration lines (underlines, overlines, line-throughs, etc.) skip over whitespace characters. This allows authors to prevent decorations from being drawn under spaces, which is often more visually appealing.</p><p><strong>Ecosystem Analysis:</strong> Defined in the CSS Text Decoration Module Level 4 specification to replace older monolithic skip shorthand properties, text-decoration-skip-spaces gives authors granular control over whitespace underlines and strike-throughs. Chrome has enabled the feature by default starting in Chrome 155, addressing longstanding developer requests for cleaner inline links and navigation elements. However, widespread cross-engine consensus is still developing, leaving the property currently limited to Chromium-based browsers.</p>]]></description>
+      <description><![CDATA[<p><strong>Deprecate and Remove: document.requestStorageAccessFor</strong> (Chrome 153, Deprecated)</p><p>The requestStorageAccessFor (rSAFor) API is an extension to the Storage Access API that allows a top-level site to request access to unpartitioned (&quot;first-party&quot;) cookies on behalf of embedded sites. Browsers will have discretion to grant or deny access, with mechanisms like Related Website Sets (RWS) membership as a potential signal. This allows for use of the Storage Access API by top-level sites. Following Chrome&apos;s announcement that the current approach to third-party cookies will be maintained, we are now planning to deprecate and remove rSAFor, as it is only usable in Chrome to request storage access between RWS sites. Related Website Sets will also be deprecated via a separate intent.</p><p><strong>Ecosystem Analysis:</strong> The `document.requestStorageAccessFor()` (rSAFor) API is being deprecated and removed in Chrome (targeting milestones such as Chrome 153), following Chrome&apos;s shift in its third-party cookie strategy. Because the API was largely tied to Chrome&apos;s Related Website Sets (RWS) ecosystem and lacked multi-browser standardization interest, its removal trims proprietary tech debt. Developers relying on it must audit their codebases and transition away from top-level storage access requests.</p>]]></description>
     </item>
     <item>
       <title>Pause media playback on not-visible iframes — Chrome 155 Ecosystem Update</title>
       <link>https://chromestatus.com/feature/5082950457884672</link>
       <guid isPermaLink="false">chromestatus-feature-5082950457884672</guid>
-      <pubDate>Wed, 09 Sep 2026 14:20:39 GMT</pubDate>
+      <pubDate>Wed, 09 Sep 2026 15:20:39 GMT</pubDate>
       <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Pause media playback on not-visible iframes</strong> (Chrome 155, Enabled by default)</p><p>Adds a &quot;media-playback-while-not-visible&quot; permission policy to allow embedders to pause audible media playback of embedded iframes which are currently hidden - i.e. &quot;display&quot; property set to &quot;none&quot;; &quot;visibility&quot; property set to &quot;hidden&quot;; or zero-area (width or height equal to 0). While hidden, attempts made by the embedded iframe to render audible media will be blocked. When the frame is shown again the prohibitions should be lifted. This should allow developers to build more user-friendly experiences and to also improve the performance by letting the browser handle the playback of content that is not visible to users.</p><p><strong>Ecosystem Analysis:</strong> The &apos;media-playback-while-not-visible&apos; Permissions Policy directive addresses a long-standing pain point by allowing host pages to automatically pause audible media inside hidden or zero-dimension iframes without tearing down the entire frame. Spearheaded by Microsoft and incubated within the WICG, the specification is scheduled for default enablement in Chromium while gaining traction across the web standards ecosystem. Engine consensus is progressing favorably, with active standards discussions validating the need for declarative visibility-based media gating.</p>]]></description>
+      <description><![CDATA[<p><strong>Pause media playback on not-visible iframes</strong> (Chrome 155, Enabled by default)</p><p>Adds a &quot;media-playback-while-not-visible&quot; permission policy to allow embedders to pause audible media playback of embedded iframes which are currently hidden - i.e. &quot;display&quot; property set to &quot;none&quot;; &quot;visibility&quot; property set to &quot;hidden&quot;; or zero-area (width or height equal to 0). While hidden, attempts made by the embedded iframe to render audible media will be blocked. When the frame is shown again the prohibitions should be lifted. This should allow developers to build more user-friendly experiences and to also improve the performance by letting the browser handle the playback of content that is not visible to users.</p><p><strong>Ecosystem Analysis:</strong> The &quot;Pause media playback on not-visible iframes&quot; feature introduces the `media-playback-while-not-visible` Permission Policy, allowing embedders to halt audible media in hidden iframes without completely destroying the frame context. It addresses long-standing UX and performance issues associated with background audio in collapsed widgets or tabs. Browser vendor consensus is shaping up positively, with Mozilla Gecko expressing support due to parallel power-efficiency goals.</p>]]></description>
     </item>
     <item>
-      <title>Compression dictionary transport Updates — Chrome 156 Ecosystem Update</title>
-      <link>https://chromestatus.com/feature/4895435813683200</link>
-      <guid isPermaLink="false">chromestatus-feature-4895435813683200</guid>
-      <pubDate>Fri, 09 Oct 2026 15:48:09 GMT</pubDate>
+      <title>scroll-axis-lock — Chrome 153 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5908461532610560</link>
+      <guid isPermaLink="false">chromestatus-feature-5908461532610560</guid>
+      <pubDate>Mon, 24 Aug 2026 14:02:03 GMT</pubDate>
       <category>Enabled by default</category>
-      <description><![CDATA[<p><strong>Compression dictionary transport Updates</strong> (Chrome 156, Enabled by default)</p><p>When fetching rel=compression-dictionary links:
+      <description><![CDATA[<p><strong>scroll-axis-lock</strong> (Chrome 153, Enabled by default)</p><p>scroll-axis-lock is a CSS property that authors can use to instruct browsers not to constrain a user&apos;s scrolling gesture to one axis.
 
-- Use &quot;compression-dictionary&quot; as request destination.
-- Properly set request&apos;s mode, credentials, referrer and referrerpolicy.
-- Take into account crossorigin and referrer attributes form &lt;link rel=&quot;compression-dictionary&quot;&gt;.</p><p><strong>Ecosystem Analysis:</strong> Compression Dictionary Transport (CDT) is transitioning from initial Chromium deployment toward robust cross-engine standardization as WHATWG HTML and Fetch specifications codify dedicated dictionary fetching semantics. This update aligns Chromium with recent implementation efforts in Firefox and WebKit driven by Mozilla and Igalia, standardizing the dedicated &apos;compression-dictionary&apos; request destination, Content Security Policy enforcement under connect-src, and CORS/referrer handling on link elements. Cross-engine consensus is unusually collaborative, clearing the path toward full multi-vendor interoperability for massive asset-transfer savings.</p>]]></description>
+Web browsers often &quot;lock&quot; a user&apos;s scrolling gesture to a single axis when that gesture starts with significantly more movement in one axis than in the perpendicular axis. In many cases, this behavior improves the user&apos;s experience by avoiding accidental scrolls along the perpendicular axis when the user&apos;s intent was to scroll only one axis. However, in cases where an author wishes their element to always be diagonally scrollable, this locking behavior forces the user to start their gesture at an angle that doesn&apos;t trigger the locking, often not in alignment with the author&apos;s intended user experience.</p><p><strong>Ecosystem Analysis:</strong> The CSS scroll-axis-lock property introduced in CSS Overflow 5 has shipped enabled by default in Chrome 153, offering developers a native declarative mechanism to disable directional axis-locking for two-dimensional scroll containers. Consensus across standard bodies is strong, highlighted by a satisfied W3C TAG review and positive reception in both Mozilla and WebKit standards discussions. The ecosystem views it as a significant ergonomic win that eliminates the need for heavy JavaScript touch-interception workarounds in maps, design canvases, and multi-directional carousels.</p>]]></description>
+    </item>
+    <item>
+      <title>Ship anchor-visible and anchor-valid, and deprecate the plural versions — Chrome 157 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5136123851571200</link>
+      <guid isPermaLink="false">chromestatus-feature-5136123851571200</guid>
+      <pubDate>Mon, 05 Oct 2026 13:15:45 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>Ship anchor-visible and anchor-valid, and deprecate the plural versions</strong> (Chrome 157, Enabled by default)</p><p>The CSSWG resolved to rename `anchors-valid` --&gt; `anchor-valid` [1] and `anchors-visible` --&gt; `anchor-visible` [2]. To accomplish this, we&apos;ll rename the properties to the singular variants, and add aliases from the plural versions to the singular versions. At a later date, we will remove the plural variants. This chromestatus is only about shipping the new versions, and deprecating the old ones (but not removing them).
+
+[1] https://github.com/w3c/csswg-drafts/issues/10201#issuecomment-4180411971
+[2] https://github.com/w3c/csswg-drafts/issues/10201#issuecomment-4390233490</p><p><strong>Ecosystem Analysis:</strong> Chrome 157 ships the rename of CSS anchor positioning properties from `anchors-valid` and `anchors-visible` to their singular forms, `anchor-valid` and `anchor-visible`, aligning with CSSWG resolutions. While backward-compatible aliases are temporarily maintained, developers need to transition to the singular syntax to stay aligned with the evolving spec and maintain future-proof codebases.</p>]]></description>
+    </item>
+    <item>
+      <title>Expose CSSStyleValue hierarchy to Worker contexts — Chrome 154 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/5114591051907072</link>
+      <guid isPermaLink="false">chromestatus-feature-5114591051907072</guid>
+      <pubDate>Wed, 23 Sep 2026 15:40:21 GMT</pubDate>
+      <category>Enabled by default</category>
+      <description><![CDATA[<p><strong>Expose CSSStyleValue hierarchy to Worker contexts</strong> (Chrome 154, Enabled by default)</p><p>The CSS Typed OM spec exposes the CSSStyleValue hierarchy to worker global scopes ([Exposed=(Window, Worker, PaintWorklet, LayoutWorklet)]), but Blink only exposed CSSStyleValue, CSSKeywordValue, CSSNumericValue, CSSUnitValue and CSSUnparsedValue to Window and the worklets. As a result these constructors were undefined in Workers, unlike in Firefox and Safari.</p><p><strong>Ecosystem Analysis:</strong> With Chromium exposing the CSSStyleValue hierarchy to Worker global scopes in Chrome 154 release notes, Blink resolves a longstanding omission where Typed OM constructors were exposed to Window and Worklets but missing in standard Web Workers. This change aligns Chromium with the W3C CSS Typed OM specification and enables off-main-thread CSS object creation and numeric arithmetic. Cross-engine consensus is unified, resolving a cross-thread inconsistency that previously hindered background style computation.</p>]]></description>
+    </item>
+    <item>
+      <title>Remove FencedFrame element and window.fence APIs — Chrome 156 Ecosystem Update</title>
+      <link>https://chromestatus.com/feature/6366274495053824</link>
+      <guid isPermaLink="false">chromestatus-feature-6366274495053824</guid>
+      <pubDate>Thu, 24 Sep 2026 15:41:15 GMT</pubDate>
+      <category>Deprecated</category>
+      <description><![CDATA[<p><strong>Remove FencedFrame element and window.fence APIs</strong> (Chrome 156, Deprecated)</p><p>Fenced frames are nested frames that embed content onto a page without the ability to share data between the fenced frame and its embedder. 
+
+window.fence APIs include Fenced frames Ads reporting (FFAR) JS APIs that were created for privacy-safe ads reporting from FFs created using Protected Audience and SelectURL and getNestedConfigs() to support PA component ads. 
+
+This intent is for removing both of these. Fenced frames element removal will be two step as detailed below.
+
+With the removal (or stub API replacement) of PA and selectURL, FFs can no longer be navigated and thus it is safe to remove them. Fenced frames are only able to be navigated using the urn:uuid in a FencedFrameConfig[1], which can only be created using the return values from runAdAuction and selectURL. These APIs are being deprecated and removed in M152 as per the following Intent threads: Protected Audience[2], Shared Storage[3]. 
+
+Plan:
+Given that the fenced frames element can no longer be navigated, we propose removing the element from the code in the following phases:
+
+1. M156: Keep the fenced frame element and its associated IDL dependencies as stubs. This is to ensure no JS call throws, e.g.calling fenced-frame-element.config.setSharedStorageContext(). 
+
+2. M156: In the same milestone we will also stub the window.fence APIs completely. Since there is no FF document navigation, these APIs cannot be invoked anymore, so it will be a no-op.
+
+3. M157 Canary/Beta: Begin a controlled rollout of the stub FF HTML element removal via a field trial. Note that removing the element will resolve it to HTMLUnknownElement. 
+
+At this point we are requesting approvals for all of the above steps.
+
+4. M157 Stable: Assuming there are no regressions or breakage after reaching 1% stable, we will request additional approval for full removal of the FF element. 
+
+[1]https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/html/fenced_frame/fenced_frame_config.idl
+[2]https://groups.google.com/a/chromium.org/g/blink-dev/c/k_nubsMb97g/m/awPD4IGLBAAJ
+[3]https://groups.google.com/a/chromium.org/g/blink-dev/c/uh5Ke6qyegc/m/WFTFnhyJBAAJ</p><p><strong>Ecosystem Analysis:</strong> Following Chrome&apos;s strategic pivot regarding third-party cookies and Privacy Sandbox ad auction mechanics, the `&lt;fencedframe&gt;` element and `window.fence` APIs are being stubbed in Chrome 156 and systematically removed in Chrome 157. Because Fenced Frames relied on `FencedFrameConfig` handles from deprecated ad auction and selection APIs, the element can no longer be navigated and serves no functional purpose. Ecosystem consensus favors this cleanup, as removing single-engine experimental surface reduces platform complexity and technical debt.</p>]]></description>
     </item>
   </channel>
 </rss>

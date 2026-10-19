@@ -1,6 +1,6 @@
 # Host and screenshot restrictions for chrome.debugger API
 
-> **Report Week:** 2026-W42 | **Milestone:** Chrome 155 | **Category:** Enabled by default
+> **Report Week:** 2026-W43 | **Milestone:** Chrome 155 | **Category:** Enabled by default
 
 ## Overview
 
@@ -10,11 +10,11 @@ The \[\`chrome.debugger\` extension API\](https://developer.chrome.com/docs/exte
 
 - **Momentum:** Emerging (footprint 100 points, ranked against this week's features because too few have an earlier number to work out a change)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Neutral
-- **Executive Take:** Introduced in Chrome 155, this security hardening enforces enterprise policy checks upfront during chrome.debugger.attach() rather than letting individual Chrome DevTools Protocol commands fail unpredictably at runtime. It adopts an all-or-nothing model where managed devices with blocked host lists or screenshot/Data Loss Prevention restrictions immediately reject debugger attachment with clear policy errors. Because this mechanism targets proprietary Chromium enterprise management policies and the Chrome DevTools Protocol, it does not involve cross-browser standards tracks.
+- **Sentiment:** Mixed / Skeptical
+- **Executive Take:** Introduced in Chrome 155, this feature enforces an upfront, all-or-nothing security validation on chrome.debugger.attach() whenever enterprise policies configure runtime blocked hosts or screenshot and data loss prevention restrictions. Because the Chrome DevTools Protocol operates below the browser's origin sandbox, Google chose total attach rejection over unpredictable runtime CDP failures, closing a long-standing enterprise data-exfiltration loophole. As a Chromium-specific extension enterprise policy mechanism, it operates outside W3C web standards and has no direct multi-engine standardization track.
 
 ### Recommendations
-- Actionable Advice: Extension developers must add robust error handling around chrome.debugger.attach() to intercept policy-specific rejection strings gracefully. Where deep DevTools Protocol access is not strictly required, teams should migrate to standard APIs like chrome.scripting and chrome.declarativeNetRequest, which operate within standard web origin security boundaries.
+- Actionable Advice: Extension developers must update their chrome.debugger.attach() logic to handle promise rejections and display actionable messaging for host and screenshot policy errors. Where feasible, teams building automation or content-modification tools should migrate to origin-scoped WebExtension APIs like chrome.scripting and chrome.declarativeNetRequest, which respect granular enterprise permissions rather than failing completely.
 - Shipping enabled by default in Chrome 155. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
@@ -23,44 +23,46 @@ The \[\`chrome.debugger\` extension API\](https://developer.chrome.com/docs/exte
 
 - [Stricter enterprise policy enforcement for chrome.debugger in Chrome 155 \| Chrome for Developers](https://developer.chrome.com/blog/debugger-enterprise-policy-restrictions) *(developer.chrome.com)*
   > Stricter enterprise policy enforcement for chrome.debugger in Chrome 155 \| Chrome for Developers Skip to main content / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русс...
-- [extensionlaunch.com](https://extensionlaunch.com/blog/chrome-155-extension-developers) *(extensionlaunch.com)*
-  > debugger\` API\*\* \* \*\*ExtensionLaunch:\*\* \*"Chrome 155 for Extension Developers: Debugger Policy Errors, 'Rate it' Prompts and What to Test"\*
-- [Chrome 155 で chrome.debugger のエンタープライズ ポリシーの適用を強化 \| Chrome for Developers](https://developer.chrome.com/blog/debugger-enterprise-policy-restrictions?hl=ja) *(developer.chrome.com)*
-  > Chrome 155 で chrome.debugger のエンタープライズ ポリシーの適用を強化 \| Chrome for Developers メイン コンテンツにスキップ / English Deutsch Español – América Latina Français Indonesia Italiano Nederlands Polski Português – Brasil Tiếng Việt Türkçe Русский עברית العربيّة فارسی हिंद...
-- [Chrome Extension Development Company \| EXTPOWER](https://extpower.dev/blog/chrome-155-debugger-enterprise-extension-policy) *(extpower.dev)*
-  > Chrome Extension Development Company \| EXTPOWER
-- [Chrome 155 的 chrome.debugger 被政策擋住？先查兩種錯誤 - ZeroOne](https://laplusda.com/posts/chrome-155-debugger-enterprise-policy) *(laplusda.com)*
-  > Chrome 155 的 chrome.debugger 被政策擋住？先查兩種錯誤 - ZeroOne and some other elements idk why --&gt; ZeroOne 首頁 主題指南 彙整 關於 GitHub --&gt; 首頁 主題指南 彙整 關於 GitHub Zero 🍪 要來片餅乾嗎 🍪 分類 AI 151 DevOps 33 伺服器 80 前端 95 工具推薦 23 後端 15 心得分享 1 網站追蹤 3 行銷 5 更多 標籤 AI AI Agent AI 平台 ...
-- [Explore New Chrome Enterprise Browser, Core, Premium Features](https://chromeenterprise.google/intl/en_IN/resources/release-notes) *(chromeenterprise.google)*
-  > For screenshots, &lt;strong&gt;the enterprise policy DisableScreenshots enterprise policy disables screenshot capture or Data Loss Prevention (DLP) rules apply, returning the error Screenshot capture is restricted by policy&lt;/strong&gt;.
+- [extpower.dev](https://extpower.dev/blog/chrome-155-extension-automation-stopped-working) *(extpower.dev)*
+  > \*\*Publisher:\*\* Developer blogs (EXTPOWER, C# Corner) \*\*Overview:\*\* Community articles focused on troubleshooting enterprise browser automation tools, QA test suites, AI web agents, and robotic process automation (RPA) extensions that began failing in...
+- [c-sharpcorner.com](https://www.c-sharpcorner.com/article/chrome-155-chrome-debugger-changes-what-extension-developers-need-to-know) *(c-sharpcorner.com)*
+  > \*\*Publisher:\*\* Developer blogs (EXTPOWER, C# Corner)
 - [chrome.debugger \| API \| Chrome for Developers](https://developer.chrome.google.cn/docs/extensions/reference/api/debugger) *(developer.chrome.google.cn)*
-  > Host restrictions: &lt;strong&gt;If enterprise policy ExtensionSettings configures blocked hosts (runtime\_blocked\_hosts) for an extension&lt;/strong&gt;, chrome.debugger.attach() is blocked on all targets with the error &quot;Host access is restricted by policy....
-- [Microsoft Edge Browser Policy Documentation DisableScreenshots \| Microsoft Learn](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/disablescreenshots) *(learn.microsoft.com)*
-  > As of Microsoft Edge version 154, enabling this policy also prevents extensions from attaching the debugger via &#x27;chrome.debugger.attach()&#x27;. Note: Even if you disable screenshots using this policy, users might still be able to take screensho...
-- [Explore New Chrome Enterprise Browser, Core, Premium Features](https://chromeenterprise.google/intl/en_us/resources/release-notes) *(chromeenterprise.google · 2026-09-09T00:00:00)*
-  > For screenshots, &lt;strong&gt;the enterprise policy DisableScreenshots enterprise policy disables screenshot capture or Data Loss Prevention (DLP) rules apply, returning the error Screenshot capture is restricted by policy&lt;/strong&gt;.
+  > On enterprise devices, some policies can restrict extensions from attaching the debugger using an all-or-nothing model at attach time (chrome.debugger.attach()): Host restrictions: &lt;strong&gt;If enterprise policy ExtensionSettings configures blocked hos...
+- [Chrome 155 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/155) *(chromestatus.com · 2026-10-06T00:00:00)*
+  > For hosts, &lt;strong&gt;the ExtensionSettings enterprise policy can be configured to block hosts for an extension&lt;/strong&gt;, returning the error Host access is restricted by policy.
+- [Explore New Chrome Enterprise Browser, Core, Premium Features](https://chromeenterprise.google/intl/en_us/resources/release-notes/?brand=GCEW) *(chromeenterprise.google · 2026-08-12T00:00:00)*
+  > For hosts, &lt;strong&gt;the ExtensionSettings enterprise policy can be configured to block hosts for an extension&lt;/strong&gt;, returning the error Host access is restricted by policy.
+- [Chrome 155 的 chrome.debugger 被政策擋住？先查兩種錯誤 - ZeroOne](https://laplusda.com/posts/chrome-155-debugger-enterprise-policy) *(laplusda.com · 2026-09-17T00:00:00)*
+  > 直接答案是：先讀 attach() rejection 的完整訊息。若是 Host access is restricted by policy.，查 runtime\_blocked\_hosts；若是 Screenshot capture is restricted by policy.，查 DisableScreenshots 或 DLP。這兩類限制是在 attach 時一次性判定，不是替某個 origin 加進 allowlist 就能繞過。
+- [Microsoft Edge Browser Policy Documentation DisableScreenshots \| Microsoft Learn](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/disablescreenshots) *(learn.microsoft.com · 2026-09-11T00:00:00)*
+  > As of Microsoft Edge version 154, enabling this policy also prevents extensions from attaching the debugger via &#x27;chrome.debugger.attach()&#x27;.
 - [Stricter enterprise policy enforcement for chrome.debugger in Chrome 155 \| Chrome for Developers](https://developer.chrome.com/blog/debugger-enterprise-policy-restrictions?hl=en) *(developer.chrome.com · 2026-09-07T21:16:38)*
-  > Enterprise administrators managing extension policies should note that extensions requiring the debugger permission cannot operate with partial host restrictions (runtime\_blocked\_hosts). If an extension needs chrome.debugger, it must not have blocked...
+  > &lt;strong&gt;Always handle attach rejections in your extension code to give clear feedback to enterprise users&lt;/strong&gt;:
+
+## 📚 Platform Documentation & Specifications
+
+- [GitHub - DaveTseng2019/kimi-webbridge-lockdown: Lock Kimi WebBridge (or any debugger-based AI browser-control extension) out of your bank, broker and mailbox — guided, reversible ExtensionSettings policy (Edge+Chrome, Windows/macOS)](https://github.com/DaveTseng2019/kimi-webbridge-lockdown) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 50 result(s) found across 10 planned queries — **7 verified relevant**
+- **Brave Search:** 52 result(s) found across 10 planned queries — **8 verified relevant**
   - `"chromestatus.com/feature/5072259281715200" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
   - `"Host and screenshot restrictions for chrome.debugger API" API` — *Core feature API query* (0 returned)
   - `"Host and screenshot restrictions for chrome.debugger API" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"chrome.debugger" OR "chrome.scripting" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Host and screenshot restrictions for chrome.debugger API" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"Host and screenshot restrictions for chrome.debugger API" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"chrome.debugger.attach" ("Host access is restricted by policy" OR "Screenshot capture is restricted by policy")` — *Finds code implementations and error-handling routines dealing with enterprise policy rejections during debugger target attachment.* (4 returned)
-  - `"chrome.debugger" ("ExtensionSettings" OR "DisableScreenshots") enterprise policy guide OR tutorial` — *Discovers articles and developer guides detailing how managed browser policies impact Chrome extension debugger workflows.* (2 returned)
-  - `site:developer.chrome.com OR site:chromeenterprise.google "chrome.debugger" ("ExtensionSettings" OR "DisableScreenshots")` — *Surfaces official release notes, enterprise policy documentation, and platform migration guidance.* (8 returned)
-  - `"chrome.debugger" ("restricted by policy" OR "DisableScreenshots") site:stackoverflow.com OR site:groups.google.com/a/chromium.org` — *Captures developer questions, Chromium issue discussions, and troubleshooting threads around debugger restrictions in enterprise environments.* (6 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 8 result(s) found — **5 verified relevant**
-- **Twitter / X API v2:** *HTTP 401 Unauthorized (Check your TWITTER\_BEARER\_TOKEN or X\_BEARER\_TOKEN)*
-- **Tweets found by web search:** 7 result(s) found — **0 verified relevant**
-- **Dev.to Community Blogs:** 4 result(s) found — **0 verified relevant**
+  - `"chrome.debugger" attach enterprise policy "Host access is restricted by policy"` — *Finds specific WebIDL/API error codes, syntax, and handling for enterprise debugger restrictions.* (5 returned)
+  - `"chrome.debugger" "DisableScreenshots" ExtensionSettings enterprise tutorial` — *Searches for developer guides and tutorials explaining how to handle screenshot and host policy rejections.* (7 returned)
+  - `chrome extensions enterprise policy debugger attach error handling developer sentiment` — *Discovers developer discussions and ecosystem sentiment regarding the new enterprise restriction model.* (8 returned)
+  - `chrome.debugger vs chrome.scripting enterprise policy restrictions migration` — *Looks for announcements and adoption guides recommending alternative APIs like chrome.scripting in enterprise environments.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 5 result(s) found — **3 verified relevant**
+- **Twitter / X API v2:** *found 6 tweet(s)*
+- **Tweets found by web search:** 6 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 9 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 result(s) found — **0 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
@@ -68,14 +70,13 @@ The \[\`chrome.debugger\` extension API\](https://developer.chrome.com/docs/exte
 - **NPM Registry:** 5 result(s) found — **0 verified relevant**
 - **web-features mapping:** *not in a web-features group*
 - **Web Platform Tests (wpt.fyi):** *not in a web-features group*
-- **Sources cited by the AI synthesis:** 4 result(s) found — **2 verified relevant**
 
 ### Content Inspected
 
 - **Specification:** ○ Not available
 - **Explainers:** 0 document(s) analyzed
 - **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 10 page(s)
+- **Web Page Excerpts Ingested:** 7 page(s)
 
 ## Useful Links
 
