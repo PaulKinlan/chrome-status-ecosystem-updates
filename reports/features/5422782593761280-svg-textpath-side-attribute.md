@@ -1,6 +1,6 @@
 # SVG textPath side attribute
 
-> **Report Week:** 2026-W40 | **Milestone:** Chrome 156 | **Category:** Enabled by default
+> **Report Week:** 2026-W44 | **Milestone:** Chrome 158 | **Category:** Enabled by default
 
 ## Overview
 
@@ -12,124 +12,114 @@ Authors placing text along a path have no way to flip which side of the path the
 
 ## Ecosystem Status
 
-- **Momentum:** High (305 points)
-- **Standards Alignment:** Chromium-Led
+- **Momentum:** Moderate (footprint 295 points, ranked against this week's features because too few have an earlier number to work out a change)
+- **Standards Alignment:** Multi-Engine Consensus
 - **Sentiment:** Positive
-- **Executive Take:** The SVG &lt;textPath&gt; \`side\` attribute from the SVG 2 specification is finally securing broad cross-engine implementation, with Chromium enabling it by default in Chrome 156. It solves an enduring vector typography limitation by allowing authors to position text along either side of a path (e.g., inside vs. outside circular badges) without manually cloning and reversing path geometry. With Mozilla already shipping support in Gecko and WebKit actively implementing the attribute, cross-engine interoperability is close to completion.
+- **Executive Take:** The SVG 2 \`side\` attribute on \`&lt;textPath&gt;\` enables developers to flip text placement to the opposite side of a path using \`side="right"\`, eliminating the need to duplicate or manually reverse geometry for inside-versus-outside path typography. After languishing with partial implementation for years, the feature has achieved complete tripartite engine consensus, transitioning from Firefox's pioneering implementation to Chromium's default enablement in Chrome 158 and WebKit's rollout in Safari Technology Preview. The W3C Technical Architecture Group (TAG) review concluded as satisfied, confirming that the ergonomic and internationalization aspects are sound.
 
 ### Recommendations
-- Actionable Advice: Adopt the \`side\` attribute progressively, using feature detection like \`'side' in SVGTextPathElement.prototype\` to safely toggle between single paths and legacy reversed paths. If full backward compatibility across older Safari or legacy browsers is required, retain duplicate opposite-direction path definitions until WebKit's stable release reaches general availability.
-- Shipping enabled by default in Chrome 156. Developers can begin adopting in production with progressive feature detection.
-- Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
+- Actionable Advice: Teams can begin adopting \`side="right"\` today, but should feature-detect support via \`'side' in SVGTextPathElement.prototype\` or maintain a secondary reversed path fallback if supporting legacy mobile and older desktop browsers is required. For greenfield projects and modern target baselines, relying on the attribute drastically simplifies SVG authoring and file sizes.
+- Shipping enabled by default in Chrome 158. Developers can begin adopting in production with progressive feature detection.
+- Standards Activity (W3C TAG): Latest discussion from @jyasskin: "Thanks for sending this. I'm always twitchy on internationalization grounds when I see "right" or "left", but I think it's correct in this case. We ha..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
-- Verified community discussion on Twitter / X: "Amelia Bellamy-Royds on Twitter: "Just discovering #SVG Text? "SVG Text Layout" is now available from @OReillyMedia. Read the outline & explore demos: https://t.co/Ppgf3kmUGf"" (0 points, 0 comments).
 
 ## Standards Positions
 
-- **W3C TAG:** [FYI: SVG textPath side attribute](https://github.com/w3ctag/design-reviews/issues/1279) [open]
-
-## Community Discussions & Social Pulse
-
-- 🐦 **Twitter / X:** [Amelia Bellamy-Royds on Twitter: "Just discovering #SVG Text? "SVG Text Layout" is now available from @OReillyMedia. Read the outline & explore demos: https://t.co/Ppgf3kmUGf"](https://twitter.com/ameliasbrain/status/659591903839543297) — *by @ameliasbrain, 0 likes/RTs, 0 replies*
-
-## Packages & Polyfills
-
-- [leaflet-textpath](https://www.npmjs.com/package/leaflet-textpath) `v1.3.0` — Shows a text (or a pattern) along a Polyline
-- [react-leaflet-textpath](https://www.npmjs.com/package/react-leaflet-textpath) `v2.1.1` — React wrapper of leaflet-textpath
+- **W3C TAG:** [FYI: SVG textPath side attribute](https://github.com/w3ctag/design-reviews/issues/1279) [closed]
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEzBBrO6FXa0L3_aG08No_ETZebKHVPNiQ80mjiiHV8C_EKJ8GfL3kViXRlt1dyn_DljJvS2VqPsXnutY22_wrJuxw9XVWDmbrFrprqeihCMr_J_DPHJ4x0LpA2Tm6K9bk8aFe44_Omg3OD4xlfBO3qLo0kex1jHx-XlvliZX99) *(vertexaisearch.cloud.google.com)*
-  > side - SVG | MDN Skip to main content Skip to search Toggle sidebar Web SVG Reference Attributes side Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) 日本語 side Limited availability This feature is not Baselin...
-- [appspot.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH2cEdHU4ScmlDoBPnuLtnD6jxyLGFWTvvXfp_vLU7ym82jbkrPliMfQSIgDqG7k_xOsANxrmOymQsIIibG1pyyz5UPardX49cbS93iSHEILcmMoEzDBRWuwITpUOPSIzPI9fBnf47Kfll0inirWriN18bVk28P73Ds2KdNp7dxNUj3jyo=) *(vertexaisearch.cloud.google.com)*
-  > Chrome Platform Status
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEqc1DfE4UWl4C8CKeU7ebG1dLME2qRbrcjJUDI9PnK5XizJUgUGp9vRJE_3WSdpZwCPCCJrL5N3_94DEGBnQxkVVHuAbD7LZc4jZi_OuGwsQLhWBW0QTIKkJHsO2MIODGNsZj30aMzpLC9JC6yUC1CK1ABZFVMnH0V0tbonUk=) *(vertexaisearch.cloud.google.com)*
-  > SVGTextPathElement: side property - Web APIs | MDN Skip to main content Skip to search Toggle sidebar Web Web APIs SVGTextPathElement side Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) SVGTextPathElement: ...
-- [github.com](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE5l8dbDmJVLmdNe5_I6G5YCKcncTJRgT0Vb37ijmiizMy2eivHHjk34nOtyLcQPllsf1RERNlHtRay3REM0SJ5iLKJqcLbZILPDpnZkUZZ71QZaHQFPBis_TSZDEu5jRRCI4z3-fHte2M2KI38xwhv-6m38yfF8ZZXK3rP1tmksxx48lUBQN3iej46016dQOjQEpYxCZJwsdYkniQ=) *(vertexaisearch.cloud.google.com)*
-  > content/files/en-us/web/svg/reference/attribute/side/index.md at main · mdn/content · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to ...
-- [mozilla.org](https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFEzadWSmr8Kt7U-psLBUwhJ8qex747vMaLRaWiEPYpHjnkBf7NXV2B2mjSGPCiL8o-E-Qlt8Coji-4ykDv07PlXm4oUt2OB4iMqqWA6vlh0Yzx3WrmLiW8UvTsKxRiPV4GJUOuGee3ZFpxpl8gsjqakrqICyjI-62V) *(vertexaisearch.cloud.google.com)*
-  > SVGTextPathElement - Web APIs | MDN Skip to main content Skip to search Toggle sidebar Web Web APIs SVGTextPathElement Theme OS default Light Dark English (US) Remember language Learn more Deutsch English (US) 日本語 SVGTextPathElement Baseline Widely a...
+- [bsky.app](https://bsky.app/profile/intenttoship.dev/post/3mvojrp24e22j) *(bsky.app)*
+  > \*\*Intent to Ship & TAG Review:\*\* The Chromium team posted an \*Intent to Ship\* and submitted an awareness review to the W3C TAG (Issue #1279: \*FYI: SVG textPath side attribute\*)
+- [igalia.com](https://planet.igalia.com) *(planet.igalia.com)*
+  > \*\*WebKit (Safari):\*\* Implementation tracked in WebKit Bug #66616 (\*\[SVG2\] Implement the side attribute for SVG \`&lt;textPath&gt;\` element\*) alongside the modern Layer-Based SVG Engine (LBSE) rollout
+- [\[blink-dev\] Re: Intent to Ship: SVG textPath side attribute](http://www.mail-archive.com/blink-dev@chromium.org/msg17520.html) *(mail-archive.com)*
+  > &gt;&gt;&gt; &gt;&gt;&gt; Blink component Blink&gt;SVG ... the path the text appears on. The side attribute &gt;&gt;&gt; &lt;strong&gt;lets authors write side=&quot;right&quot; to place text on the opposite side &gt;&gt;&gt; of the path, without duplicatin...
 - [\[blink-dev\] Intent to Ship: SVG textPath side attribute](http://www.mail-archive.com/blink-dev@chromium.org/msg17486.html) *(mail-archive.com)*
-  > [blink-dev] Intent to Ship: SVG textPath side attribute Skip to site navigation (Press enter) [blink-dev] Intent to Ship: SVG textPath side attribute Chromestatus Wed, 16 Sep 2026 18:44:48 -0700 Contact emails [email&#160;protected] Specification htt...
-- [\[blink-dev\] Re: Intent to Ship: SVG textPath side attribute](http://www.mail-archive.com/blink-dev@chromium.org/msg17506.html) *(mail-archive.com)*
-  > [blink-dev] Re: Intent to Ship: SVG textPath side attribute Skip to site navigation (Press enter) [blink-dev] Re: Intent to Ship: SVG textPath side attribute Alex Russell Mon, 21 Sep 2026 11:42:26 -0700 LGTM1 with a nit that this is a case where we p...
-- [SVG TextPath](https://www.w3schools.com/graphics/svg_textpath.asp) *(w3schools.com)*
-  > <strong>The &lt;textPath&gt; element is used to render a text along the shape of a path</strong>. ... &lt;svg height=&quot;200&quot; width=&quot;350&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;path id=&quot;lineAC&quot; d=&quot;M 30 18...
-- [SVG Basics Tutorials - textPath, Text Fill and Stroking](https://www.svgbasics.com/text2.html) *(svgbasics.com)*
-  > &lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt; &lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.1//EN&quot; &quot;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;&gt; &lt;svg viewBox = &quot;0 0 500 300&quot; version = &quot;1.1...
-- [SVG textpath element](https://jenkov.com/tutorials/svg/textpath-element.html) *(jenkov.com)*
-  > This id attribute value is referenced from the xlink:href attribute of the &lt;textpath&gt; element. If the length of the path is shorter than the length of the text, then only the part of the text that is within the extend of the path is drawn. You ...
-- [How to Add Text to SVG Images - SVG Tutorial](https://svg-tutorial.com/svg/text) *(svg-tutorial.com · 2023-12-01T08:00:00)*
-  > We can use paths to render text along an invisible path. We <strong>define a path in the definitions section and use it in a textPath element to make the text go around the circle</strong>.
-- [SVG Elements and Attributes Reference — Using SVG with CSS3 and HTML5](https://oreillymedia.github.io/Using_SVG/guide/markup.html) *(oreillymedia.github.io)*
-  > In SVG 1, only valid on &lt;g&gt;, &lt;a&gt;, shape elements, and &lt;text&gt;. Ignored on inline text-formatting elements (&lt;tspan&gt;, &lt;textPath&gt;, and &lt;a&gt; within text).
-- [SVG Text and tspan](https://www.w3schools.com/graphics/svg_text.asp) *(w3schools.com)*
-  > The &lt;text&gt; element has seven basic attributes to position and rotate the text: ... &lt;svg height=&quot;30&quot; width=&quot;200&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;text x=&quot;5&quot; y=&quot;15&quot; fill=&quot;red&quo...
-- [A Deep Dive Into SVG Path Commands - Nan.fyi](https://www.nan.fyi/svg-paths) *(nan.fyi)*
-  > This guide is an interactive deep dive into the d attribute, otherwise known as the path data. It&#x27;s the post I wish I had when I first learned about SVG paths!
-- [Best Web Development posts — April 2026 \| daily.dev](https://daily.dev/tags/webdev/best-of/2026/04) *(daily.dev)*
-  > Highlights include the contrast-color() CSS function reaching Baseline (returns black or white for maximum contrast against a given color), scroll-driven animation range properties becoming Baseline, the ariaNotify() method for screen reader announce...
-- [progressive web apps - PWA, SVG, and the &lt;object&gt; element - Stack Overflow](https://stackoverflow.com/questions/75737910/pwa-svg-and-the-object-element) *(stackoverflow.com · 2023-03-14T00:00:00)*
-  > Stack Data Licensing Get access to top-class technical expertise with trusted &amp; attributed content. Stack Ads Connect your brand to the world’s most trusted technologist communities. Releases Keep up-to-date on features we add to Stack Overflow a...
-- [SVG Assets in PWAs - DockYard](https://dockyard.com/blog/2017/08/01/svg-assets-in-pwas) *(dockyard.com · 2017-08-01T08:00:00)*
-  > <strong>One optimized SVG file was pulled down from the server and individual SVGs would be linkable with IDs inside that one SVG file</strong>. This was before PWA’s cached your assets per page.
+  > Blink component Blink&gt;SVG Web Feature ID svg-textPath-side Motivation Authors placing text along a path have no way to flip which side of the path the text appears on. The side attribute &lt;strong&gt;lets authors write side=&quot;right&quot; to place t...
+- [SVG textPath side attribute - Chrome Platform Status](https://polymer10-dot-cr-status.appspot.com/feature/5422782593761280) *(polymer10-dot-cr-status.appspot.com)*
+  > Sign in with GoogleSign in with Google. Opens in new tab
+- [SVG TextPath: How to Bend Text Along the Shape of a Path](https://hyring.com/learn/svg/textpath) *(hyring.com · 2026-06-22T18:30:00)*
+  > &lt;strong&gt;side is &#x27;left&#x27; (default) or &#x27;right&#x27; of the path direction&lt;/strong&gt; ... &lt;!DOCTYPE html&gt; &lt;html&gt; &lt;body&gt; &lt;svg viewBox=&#x27;0 0 260 140&#x27;&gt; &lt;path id=&#x27;wave&#x27; d=&#x27;M 10 100 C 70 20, 190 ...
+- [SVG circled text on textPath (center align) - javascript](https://stackoverflow.com/questions/15495978/svg-circled-text-on-textpath-center-align) *(stackoverflow.com)*
+  > Side note: With SVG 2 (implementation in progress) you can define whether the text is rendered inward or outward with the new side attribute on the textPath element. ... and set the startOffset of your textPath to 50%. note that your svg file is not ...
 - [d3.js - How to set \`side: right\` of \`textPath\` in Chrome? - Stack Overflow](https://stackoverflow.com/questions/57949804/how-to-set-side-right-of-textpath-in-chrome) *(stackoverflow.com · 2019-09-16T00:00:00)*
-  > &lt;svg viewBox=&quot;0 0 400 400&quot; &gt; &lt;!--MDN--&gt; &lt;text&gt; &lt;textPath href=&quot;#circle1&quot; side=&quot;left&quot;&gt;Side left&lt;/textPath&gt; &lt;/text&gt; &lt;text&gt; &lt;textPath href=&quot;#circle2&quot; side=&quot;right&q...
-- [\[blink-dev\] Re: Intent to Ship: SVG textPath side attribute](http://www.mail-archive.com/blink-dev@chromium.org/msg17507.html) *(mail-archive.com)*
-  > &gt;&gt; &gt;&gt; *TAG review status* &gt;&gt; Not applicable &gt;&gt; &gt;&gt; *Goals for experimentation* &gt;&gt; None &gt;&gt; &gt;&gt; *Risks* &gt;&gt; &gt;&gt; &gt;&gt; *Interoperability and Compatibility* &gt;&gt; Firefox already shipped this ...
+  > The second part is the alternative solution where you are reversing the path as Kaiido suggested. svg{border:1px solid; width:90vh;} text { font: 25px Arial, Helvelica, sans-serif; } &lt;svg viewBox=&quot;0 0 400 400&quot; &gt; &lt;!--MDN--&gt; &lt;t...
+- [SVG Text On Path—Part 2 - Vanseo Design](https://vanseodesign.com/web-design/svg-text-on-pathpart-2) *(vanseodesign.com · 2015-12-22T13:30:04)*
+  > The second additional attribute is the side attribute. &lt;strong&gt;It will take a value of either left or right and it effectively reverses the path&lt;/strong&gt;, which you can see in the following screenshot I grabbed from the spec.
 - [Re: \[blink-dev\] Re: Intent to Ship: SVG textPath side attribute](http://www.mail-archive.com/blink-dev@chromium.org/msg17524.html) *(mail-archive.com)*
-  > &gt; &gt;&gt;&gt; &gt; &gt;&gt;&gt; TAG review status Not applicable &gt; &gt;&gt;&gt; &gt; &gt;&gt;&gt; Goals for experimentation None &gt; &gt;&gt;&gt; &gt; &gt;&gt;&gt; Risks &gt; &gt;&gt;&gt; &gt; &gt;&gt;&gt; Interoperability and Compatibility F...
+  > This implements an existing SVG2 &gt; &gt;&gt;&gt; attribute with a WG resolution and shipping Firefox precedent; TAG &gt; &gt;&gt;&gt; review will be evaluated during Intent to Ship. &gt; &gt;&gt;&gt; &gt; &gt;&gt;&gt; TAG review status Not applicab...
+- [\[blink-dev\] Re: Intent to Ship: SVG textPath side attribute](http://www.mail-archive.com/blink-dev@chromium.org/msg17506.html) *(mail-archive.com)*
+  > This implements an existing SVG2 attribute with a WG &gt; resolution and shipping Firefox precedent; TAG review will be evaluated &gt; during Intent to Ship. &gt; &gt; \*TAG review status\* &gt; Not applicable &gt; &gt; \*Goals for experimentation\* &gt;...
+- [Chrome Platform Status](https://img968-dot-cr-status.appspot.com/feature/5422782593761280) *(img968-dot-cr-status.appspot.com)*
+  > Chrome Platform Status
+- [SVG textPath on inner circle - Prince forum](https://www.princexml.com/forum/topic/5171/svg-textpath-on-inner-circle) *(princexml.com)*
+  > SVG textPath on inner circle - Prince forum Buy Prince Samples Documentation Forum Download Log in / Register Forum › How do I...? SVG textPath on inner circle twantzen 25 Aug 2025 Hi, I tried to make a SVG path with textPath , where the text sits in...
+- [Chrome Platform Status](https://polymer10-dot-cr-status.appspot.com/feature/5422782593761280/activity) *(polymer10-dot-cr-status.appspot.com)*
+  > Chrome Platform Status
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
-- [FYI: SVG textPath side attribute · Issue #1279 · w3ctag/design-reviews](https://github.com/w3ctag/design-reviews/issues/1279) *(github.com · 2026-09-22T08:54:28)* *(Cites: `https://chromestatus.com/feature/5422782593761280`)*
-  > FYI: SVG textPath side attribute · Issue #1279 · w3ctag/design-reviews · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to ref...
-- [\[blink-dev\] Intent to Ship: SVG textPath side attribute](http://www.mail-archive.com/blink-dev@chromium.org/msg17486.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5422782593761280`)*
-  > [blink-dev] Intent to Ship: SVG textPath side attribute Skip to site navigation (Press enter) [blink-dev] Intent to Ship: SVG textPath side attribute Chromestatus Wed, 16 Sep 2026 18:44:48 -0700 Contact emails [email&#160;protected] Specifi...
+- [\[svgwg\] Remove "side" attribute from "textPath" (#1068) from Karl Dubost via GitHub on 2026-03-03 (public-svg-issues@w3.org from March 2026)](https://lists.w3.org/Archives/Public/public-svg-issues/2026Mar/0007.html) *(lists.w3.org)* *(Cites: `https://w3c.github.io/svgwg/svg2-draft/text.html#TextPathElementSideAttribute`)*
+  > karlcow has just created a new issue for https://github.com/w3c/svgwg: == Remove &quot;side&quot; attribute from &quot;textPath&quot; == It was decided to add it on February 2015 to SVG2 https://www.w3.org/2015/02/12-svg-minutes.html#item05...
+- [\`side\` and \`path\` attributes on textPath are missing on the IDL · Issue #1086 · w3c/svgwg](https://github.com/w3c/svgwg/issues/1086) *(github.com · 2026-04-07T03:16:55)* *(Cites: `https://w3c.github.io/svgwg/svg2-draft/text.html#TextPathElementSideAttribute`)*
+  > \`side\` and \`path\` attributes on textPath are missing on the IDL · Issue #1086 · w3c/svgwg · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or wi...
+- [\[svgwg\] Issue: Remove "side" attribute from "textPath" (#1068) marked as Agenda+ from Karl Dubost via GitHub on 2026-03-03 (public-svg-issues@w3.org from March 2026)](https://lists.w3.org/Archives/Public/public-svg-issues/2026Mar/0008.html) *(lists.w3.org)* *(Cites: `https://w3c.github.io/svgwg/svg2-draft/text.html#TextPathElementSideAttribute`)*
+  > karlcow has just labeled an issue for https://github.com/w3c/svgwg as &quot;Agenda+&quot;: == Remove &quot;side&quot; attribute from &quot;textPath&quot; == It was decided to add it on February 2015 to SVG2 https://www.w3.org/2015/02/12-svg...
 
 ## 📚 Platform Documentation & Specifications
 
 - [FYI: SVG textPath side attribute · Issue #1279 · w3ctag/design-reviews](https://github.com/w3ctag/design-reviews/issues/1279) *(github.com)*
+- [side - SVG - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/side) *(developer.mozilla.org)*
+- [SVGTextPathElement: side property - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/SVGTextPathElement/side) *(developer.mozilla.org)*
+- [mozilla.org](https://developer.mozilla.org/de/play?uuid=c6ebfb7730bcb92ab869c90b67985c8fbb14ef2c&state=tVRtb9s2EP4rNyYf7MKx5C1BEdsysGVeUzTL0sXrNoBAQ4tniQtNaiRl2Qj83wuSVpykaVBg6wdb5PHuuZfnIe9I6ZaSDMnYrgpYCWx%2B0uuMkhRSGKThRwmsl1LZjJLSuWqYJE3T9Jsf%2BtoUyfdpmiZ2VVAyoQpg%2FN3RETgNpeAIrkSomCt7IBwIC7WtmZQbaAyrKuQgFDAYc1zYCaDEJSoHR0d7nN1Ra%2FJQfgEgeEbJr5srbyDRtBBSZpQorbA1WWf0LWaUGOStLQQO0t5pCu9Pw%2Bc07R2fhM0ghZPw%2F34QPoO0dxw3r1M4PvH%2FlEAyoSqU43DtJhE1rH01UBpcZJQctMWBFTyUIIrSUTKZlcKC94aFllI3FlgYUX%2BctBix2WQHP%2FbD9d957ZxWsXWni0Likcf2mGEH14LjOIluPqAyGL2l9uyMk8rghCrSI7m1ZBh471E113zTo8qzf%2Bczl%2BhLHcJxmlbrkbc0grtyCKx2egTJK3iHWNlALrMV5g4Mc0LDq4SqLVUHUj9BOmmB9ArNQupmCDY3WspgrBjnQhVDSPsnBpfBNteGoxnCoFqD1VJwmEuW345CAtIj%2F%2Fj6c62sA6mL6U46GXCd137Z%2F7dGs7lGibnTpkPJQZhBd0TVola5E1r5wI6fcTcWu8fpC6XQzDxHGdwc3j13sj2887FbStXN6El47G2mK8g%2BN5%2BHmcRGYgP30nmh%2FNYnthDjdnp4qelHMvGRVCUJnKOs0MD9IJwGg4wDU9zXG4jNa2P8SEPoo5mdxRMvts5udM5s4gJAYowZxTsCIBbQaavv%2B5P%2BnFn8wCRkWQbXH97MdoftmGbTv2ZXP87OP16%2F%2FXk6%2B%2Ftq%2BvH3t2%2FOZ902AwR8yOD%2BTo3iwRZQWgwJW8%2F%2FmPhi%2BsssQj2XXeLiWyb%2F4%2FLd5W9%2FXn45f61ulW7U0xKec8S1v6bIYcVkjfuIHWe66NycPSB8CId3%2Fru96QbPLeTM5eU9x94%2FoFdGV2jcxr%2FtSjuwdVVp4%2BLL7vxLNze6sWhaoCD7IMKLndCEEk4wCdYxhxAkxjhVT4U2CkG7h87HhfxNiSrs2rfRQi5FfoucqmjqM86nK1TuQliHCv21CC6U9KDThWzymYS%2FgWKTBM5Kpgr0dy3o5mWNfL08v8D9o4TxmvwfGUNfe%2FHExQMy64ozz34g814sT4ncC6qD3YeiouQanROq2DP81QrrxwcuasyvSI%2B4EpdIhkT6AZDtJw%3D%3D&srcPrefix=%2Fen-US%2Fdocs%2FWeb%2FAPI%2FSVGTextPathElement%2Fside%2F) *(developer.mozilla.org)*
+- [github.com](https://github.com/mdn/content/blob/main/files/en-us/web/svg/reference/attribute/side/index.md?plain=1) *(github.com)*
+- [\`&lt;textPath side="…"&gt;\` SVG attribute · Issue #4478 · web-platform-dx/web-features](https://github.com/web-platform-dx/web-features/issues/4478) *(github.com)*
+- [\[svgwg\] Remove "side" attribute from "textPath" (#1068) from Karl Dubost via GitHub on 2026-03-03 (public-svg-issues@w3.org from March 2026)](https://lists.w3.org/Archives/Public/public-svg-issues/2026Mar/0007.html) *(lists.w3.org)*
+- [\`side\` and \`path\` attributes on textPath are missing on the IDL · Issue #1086 · w3c/svgwg](https://github.com/w3c/svgwg/issues/1086) *(github.com)*
+- [\[svgwg\] Issue: Remove "side" attribute from "textPath" (#1068) marked as Agenda+ from Karl Dubost via GitHub on 2026-03-03 (public-svg-issues@w3.org from March 2026)](https://lists.w3.org/Archives/Public/public-svg-issues/2026Mar/0008.html) *(lists.w3.org)*
+- [1446650 - Support SVG 2 side attribute for textPath](https://bugzilla.mozilla.org/show_bug.cgi?id=1446650) *(bugzilla.mozilla.org)*
 - [\[SVG2\] Implement the side attribute for SVG &lt;textPath&gt; element by Ahmad-S792 · Pull Request #66616 · WebKit/WebKit](https://github.com/WebKit/WebKit/pull/66616) *(github.com)*
-- [&lt;textPath&gt; - SVG - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/textPath) *(developer.mozilla.org)*
-- [&lt;textPath&gt; - SVG \| MDN](https://developer.mozilla.org/en/docs/Web/SVG/Element/textPath) *(developer.mozilla.org)*
 - [side - SVG \| MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/side) *(developer.mozilla.org)*
-- [side - SVG \| MDN - Mozilla](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/side) *(developer.mozilla.org)*
-- [SVGTextPathElement: side property](https://developer.mozilla.org/en-US/docs/Web/API/SVGTextPathElement/side) *(developer.mozilla.org)*
+- [SVGTextPathElement - Web APIs - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGTextPathElement) *(developer.mozilla.org)*
+- [WebKit export of https://bugs.webkit.org/show\_bug.cgi?id=311609 by Ahmad-S792 · Pull Request #63430 · web-platform-tests/wpt](https://github.com/web-platform-tests/wpt/pull/63430) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 51 result(s) found across 10 planned queries — **21 verified relevant**
-  - `"chromestatus.com/feature/5422782593761280" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (2 returned)
-  - `"w3c.github.io/svgwg/svg2-draft/text.html" -site:w3c.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (1 returned)
-  - `"SVG textPath side attribute" API` — *Core feature API query* (3 returned)
+- **Brave Search:** 54 result(s) found across 10 planned queries — **21 verified relevant**
+  - `"chromestatus.com/feature/5422782593761280" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
+  - `"w3c.github.io/svgwg/svg2-draft/text.html" -site:w3c.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (8 returned)
+  - `"SVG textPath side attribute" API` — *Core feature API query* (6 returned)
   - `"SVG textPath side attribute" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"SVG textPath side attribute" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"SVG textPath side attribute" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `svg "textPath" ("side=right" OR "side=\"right\"") (tutorial OR guide OR "flip text")` — *Find practical developer guides and tutorials demonstrating how to position or flip text along an SVG path without manual path reversal.* (8 returned)
-  - `"<textPath" "side=" ("left" OR "right") (site:codepen.io OR site:github.com)` — *Search for live code examples and SVG markup patterns utilizing the side attribute on textPath elements in repositories and sandbox demos.* (8 returned)
-  - `"textPath" "side" ("Intent to Ship" OR "Chrome Platform Status" OR "WebKit" OR "Bugzilla")` — *Identify engine tracking bugs, standards discussions, and browser shipping notices across Chromium, Gecko, and WebKit.* (4 returned)
-  - `svg ("text on a path" OR "textPath") ("flip" OR "upside down" OR "inside out") "side" attribute` — *Uncover developer discussions, Stack Overflow questions, and community sentiment regarding solving upside-down or reversed path text using the side attribute.* (8 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 5 result(s) found — **5 verified relevant**
+  - `"svg" "textpath" "side" attribute (tutorial OR guide) (circle OR path)` — *Finds developer tutorials and blog posts demonstrating how to use the side attribute on textPath for circular or curved typography.* (8 returned)
+  - `"<textPath" ("side=\"right\"" OR "side=\"left\"") path` — *Locates real-world SVG snippets and implementation code using side='right' or side='left'.* (8 returned)
+  - `"textPath" "side" attribute ("Chrome" OR "WebKit" OR "Firefox") ("intent to ship" OR "support")` — *Tracks browser engine implementation statuses, release notes, and official shipping announcements across major vendors.* (6 returned)
+  - `svg textpath reverse flip side ("side=\"right\"" OR "side attribute")` — *Discovers community discussions, Stack Overflow answers, and developer feedback addressing text flipping along SVG paths.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 12 result(s) found — **8 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
+- **Tweets found by web search:** 7 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 2 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 1 result(s) found — **1 verified relevant**
 - **Engine Bug Trackers:** 5 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
-- **NPM Registry:** 8 result(s) found — **2 verified relevant**
-- **Web Platform Tests (wpt.fyi):** 5994 item(s) inspected
+- **NPM Registry:** 7 result(s) found — **0 verified relevant**
+- **web-features mapping:** *not in a web-features group*
+- **Web Platform Tests (wpt.fyi):** *not in a web-features group*
+- **Sources cited by the AI synthesis:** 7 result(s) found — **6 verified relevant**
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 0 document(s) analyzed
-- **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 8 page(s)
+- **Standards Discussion Comments:** 1 engineer comment(s) read
+- **Web Page Excerpts Ingested:** 7 page(s)
 
 ## Useful Links
 
