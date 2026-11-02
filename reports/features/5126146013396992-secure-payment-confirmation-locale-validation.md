@@ -1,6 +1,6 @@
 # Secure Payment Confirmation: Locale Validation
 
-> **Report Week:** 2026-W43 | **Milestone:** Chrome 154 | **Category:** Enabled by default
+> **Report Week:** 2026-W45 | **Milestone:** Chrome 154 | **Category:** Enabled by default
 
 ## Overview
 
@@ -12,16 +12,16 @@ This feature amends Secure Payment Confirmation so that web developers can align
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (footprint 155 points, ranked against this week's features because too few have an earlier number to work out a change)
+- **Momentum:** High (+160 points since 2026-10-12; footprint 265 points)
 - **Standards Alignment:** Chromium-Led
-- **Sentiment:** Mixed / Skeptical
-- **Executive Take:** Secure Payment Confirmation (SPC) Locale Validation refines transaction confirmation by throwing a NotSupportedError DOMException if a relying party's requested language tags do not match the browser dialog's UI language. While this addresses significant internationalization and user-experience issues for payment flows in Chromium, SPC as a whole remains trapped in limited availability with zero implementation progress in other engines. As a result, the feature enhances developer control within Chromium but does not alter the broader single-vendor dynamic.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** Secure Payment Confirmation (SPC) Locale Validation refines the W3C Web Payments specification by raising a NotSupportedError DOMException when none of the relying party's specified language tags match the browser dialog's active locale. Shipped enabled by default in Chrome 154, it prevents jarring language mismatches between merchant-supplied data and system confirmation prompts without exposing fingerprintable OS locale details. Despite its utility, broader ecosystem impact is constrained because full SPC implementation remains an almost exclusively Chromium-driven feature with no production support in Safari or Firefox.
 
 ### Recommendations
-- Actionable Advice: Use SPC locale validation strictly as a progressive enhancement on supported Chromium browsers while catching NotSupportedError exceptions to negotiate alternate language tags or fall back to standard WebAuthn and 3-D Secure flows. Do not rely on SPC as a universal payment authentication mechanism across all user agents.
+- Actionable Advice: Use progressive enhancement by wrapping PaymentRequest.canMakePayment() or show() in try-catch blocks to intercept NotSupportedError and either adjust data element languages or fall back cleanly to standard 3-D Secure web challenges. If exact language coordination between merchant strings and the dialog is non-essential, omit or pass an empty locale array to maintain backwards compatibility.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Standards Activity (WebKit): Latest discussion from @gsnedders: "Am I right in understanding that the primary goal here is to replace 3-D Secure with something that's browser mediated?..."
-- Standards Activity (Mozilla): Latest discussion from @stephenmcgruer: "Hi folks. I know that Mozilla's position on SPC is outstanding, however we wanted to let you know of a notable additional feature to SPC that we are c..."
+- Standards Activity (Mozilla): Latest discussion from @danielenriqueriverarivera6-max: "Excelente trabajo de los colaboradores Me atrevería a decir que el compromizo  con sus carreras lo an llevado a un límite demasiado amplio ... bendici..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 ## Standards Positions
@@ -37,70 +37,94 @@ This feature amends Secure Payment Confirmation so that web developers can align
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [appspot.com](https://img544-dot-cr-status.appspot.com/feature/5126146013396992) *(img544-dot-cr-status.appspot.com)*
-  > \*\*Secure Payment Confirmation (SPC): Locale Validation\*\* updates how browsers handle the optional \`locale\` parameter in the \`SecurePaymentConfirmationRequest\` dictionary However, browsers typically present the native payment confirmation dialog in th...
+- [Chrome 154  \|  Release notes  \|  Chrome for Developers](https://developer.chrome.com/release-notes/154) *(developer.chrome.com)*
+  > \*\*"Secure Payment Confirmation: Locale Validation"\*\* is an update to the W3C Secure Payment Confirmation (SPC) specification and its implementation in Chromium (shipped in \*\*Chrome 154\*\* Chrome officially announced the feature's progression through C...
+- [googlesource.com](https://chromium.googlesource.com/chromium/src/+/master/chrome/browser/flag_descriptions.h) *(chromium.googlesource.com)*
+  > \*\*Rejection Behavior\*\*: If \*\*none\*\* of the provided language tags match the dialog's active language, the browser rejects the call (such as \`canMakePayment()\` or \`show()\`) with a \`NotSupportedError\` \`DOMException\`
 - [chromestatus.com](https://chromestatus.com/feature/5126146013396992?gate=4803300429004800) *(chromestatus.com)*
-  > \*\*The Solution:\*\* If an RP supplies a list of BCP 47 language tags in the \`locale\` field, the browser validates whether any of the tags match the language used by the SPC confirmation dialog \*\*Title:\*\* \*Secure Payment Confirmation: Locale Validation\*
-- [chrome.com](https://developer.chrome.com/docs/payments/authenticate-secure-payment-confirmation) *(developer.chrome.com)*
-  > If a \`NotSupportedError\` is caught, they can fall back to alternative languages or switch to standard WebAuthn/3D-Secure fallback flows \*\*Guides:\*\* \*Authenticate with Secure Payment Confirmation\* & \*Register a Secure Payment Confirmation\*
-- [googleusercontent.com](https://doc-3p60-3vv0-issuetracker.googleusercontent.com/issues/552458479) *(doc-3p60-3vv0-issuetracker.googleusercontent.com)*
-  > \*\*Source:\*\* \[Chrome Platform Status\](https://chromestatus.com/feature/5126146013396992)
-- [chrome.com](https://developer.chrome.com/docs/payments/register-secure-payment-confirmation) *(developer.chrome.com)*
-  > \*\*Guides:\*\* \*Authenticate with Secure Payment Confirmation\* & \*Register a Secure Payment Confirmation\* The guides outline the typical pattern for feature detection and pre-flight validation via \`canMakePayment()\`—the primary hook where developers int...
-- [fidoalliance.org](https://fidoalliance.org/white-paper-secure-payment-confirmation) *(fidoalliance.org)*
-  > \*\*Specialized Payment & WebAuthn Communities:\*\* Discussions in the FIDO Alliance and W3C Web Payments groups have welcomed the change, viewing it as a practical compromise between browser security/privacy constraints (where user agents refuse to let ...
-- [\[blink-dev\] Intent to Ship: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17746.html) *(mail-archive.com)*
-  > \[blink-dev\] Intent to Ship: Secure Payment Confirmation: Locale Validation Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: Secure Payment Confirmation: Locale Validation Chromestatus Thu, 15 Oct 2026 07:18:09 -0700 Contact emails \[e...
+  > Because browsers intentionally restrict sites from inspecting arbitrary OS/dialog UI details to prevent user fingerprinting, this validation approach allows developers to ensure language compatibility before displaying the prompt and fall back cleanl...
+- [chrome.com](https://developer.chrome.com/blog/chrome-154-beta) *(developer.chrome.com)*
+  > Chrome officially announced the feature's progression through Chrome 154 Beta and its general release
+- [gigazine.net](https://gigazine.net/gsc_news/en/20260925-google-chrome-154) *(gigazine.net)*
+  > Coverage across developer publications featured SPC locale validation alongside other platform updates, such as iframe auto-resizing, Background Fetch CORS enforcement, and popover light-dismiss tweaks
+- [biggo.com](https://finance.biggo.com/news/c5f02f74-e6b8-4a67-bd4e-b2c4a7c36f09) *(finance.biggo.com)*
+  > Coverage across developer publications featured SPC locale validation alongside other platform updates, such as iframe auto-resizing, Background Fetch CORS enforcement, and popover light-dismiss tweaks
+- [gpayments.com](https://www.gpayments.com/blog/article/third-party-cookies-3ds-method) *(gpayments.com)*
+  > \*\*Key takeaway\*\*: Payment integration analysts noted that while SPC adoption is primarily driven by card networks and PSD2/EMV 3-D Secure compliance, finer-grained UI controls like locale validation reduce cart abandonment risks in multi-language and...
+- [yubico.com](https://developers.yubico.com/CTAP) *(developers.yubico.com)*
+  > \*\*Key takeaway\*\*: Payment integration analysts noted that while SPC adoption is primarily driven by card networks and PSD2/EMV 3-D Secure compliance, finer-grained UI controls like locale validation reduce cart abandonment risks in multi-language and...
 - [\[blink-dev\] Intent to Prototype: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17162.html) *(mail-archive.com)*
-  > Explainer https://github.com/w... Payment Confirmation&#x27;s \`locale\` data field &lt;strong&gt;to return a Javascript TypeError if none of the language tags provided in the field match the language used by the Secure Payment Confirmation&#x27;s dialog&lt;/st...
+  > Availability expectation The locale validation for Secure Payment Confirmation will only be available in Chromium browsers for the foreseeable future. Estimated milestones Shipping on desktop 154 Shipping on Android 154 Link to entry on the Chrome Pl...
+- [Re: \[blink-dev\] Re: Intent to Ship: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17872.html) *(mail-archive.com)*
+  > &gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; https://&lt;strong&gt;github.com/w3c/secure-payment-confirmation/issues/343&lt;/strong&gt;#issuecomment-5457268443 &gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; Best, &gt;&gt;&gt;&gt;...
+- [\[blink-dev\] Re: Intent to Ship: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17870.html) *(mail-archive.com)*
+  > &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; https://&lt;strong&gt;github.com/w3c/secure-payment-confirmation/issues/343&lt;/strong&gt;#issuecomment-5457268443 &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; Best, &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt...
+- [\[blink-dev\] Re: Intent to Ship: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17821.html) *(mail-archive.com)*
+  > &gt;&gt;&gt; \*No information provided\* &gt;&gt;&gt; &gt;&gt;&gt; &gt;&gt;&gt; \*Debuggability\* &gt;&gt;&gt; Web developers should be able to create Secure Payment Confirmation &gt;&gt;&gt; requests with or without matching locales, thus no changes are...
+- [\[blink-dev\] Intent to Ship: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17746.html) *(mail-archive.com)*
+  > Web developers: Positive ... existing APIs, such that it has potentially high risk for Android WebView-based applications? No information provided Debuggability Web developers should be able to create Secure Payment Confirmation requests with or with...
+- [\[blink-dev\] Re: Intent to Ship: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17794.html) *(mail-archive.com)*
+  > &gt; \*No information provided\* &gt; &gt; &gt; \*Debuggability\* &gt; Web developers should be able to create Secure Payment Confirmation &gt; requests with or without matching locales, thus no changes are needed in &gt; devtools. &gt; &gt; \*Will this f...
+- [Re: \[blink-dev\] Re: Intent to Ship: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17868.html) *(mail-archive.com)*
+  > \*Availability expectation\* &lt;strong&gt;The locale validation for Secure Payment Confirmation will only be available in Chromium browsers for the foreseeable future&lt;/strong&gt;. \*Estimated milestones\* Shipping on desktop 154 Shipping on Android 154 \*Anticipa...
+- [\[blink-dev\] Re: Intent to Ship: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17800.html) *(mail-archive.com)*
+  > &gt; &gt; &gt; https://github.com/w3c/secure-payment-confirmation/issues/343#issuecomment-5457268443 &gt; &gt; Best, &gt; &gt; Alex &gt; &gt; On Thursday, October 15, 2026 at 7:08:36 AM UTC-7 Chromestatus wrote: &gt; &gt;&gt; \*Contact emails\* &gt;&gt...
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
-- [\[blink-dev\] Intent to Ship: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17746.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5126146013396992`)*
-  > \[blink-dev\] Intent to Ship: Secure Payment Confirmation: Locale Validation Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: Secure Payment Confirmation: Locale Validation Chromestatus Thu, 15 Oct 2026 07:18:09 -0700 Contact...
+- [\[blink-dev\] Intent to Prototype: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17162.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5126146013396992`)*
+  > Availability expectation The locale validation for Secure Payment Confirmation will only be available in Chromium browsers for the foreseeable future. Estimated milestones Shipping on desktop 154 Shipping on Android 154 Link to entry on the...
+- [Re: \[blink-dev\] Re: Intent to Ship: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17872.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/secure-payment-confirmation/issues/343`)*
+  > &gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; https://&lt;strong&gt;github.com/w3c/secure-payment-confirmation/issues/343&lt;/strong&gt;#issuecomment-5457268443 &gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; Best, &gt;&g...
+- [\[blink-dev\] Re: Intent to Ship: Secure Payment Confirmation: Locale Validation](http://www.mail-archive.com/blink-dev@chromium.org/msg17870.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/secure-payment-confirmation/issues/343`)*
+  > &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; https://&lt;strong&gt;github.com/w3c/secure-payment-confirmation/issues/343&lt;/strong&gt;#issuecomment-5457268443 &gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt; Best, &gt;&gt;&gt;&gt;&gt; &gt;&...
 
 ## 📚 Platform Documentation & Specifications
 
-- [mozilla.org](https://developer.mozilla.org/en-US/docs/Web/API/SecurePaymentConfirmationRequest) *(developer.mozilla.org)*
+- [w3.org](https://www.w3.org/groups/wg/payments/activity) *(w3.org)*
 - [Secure Payment Confirmation](https://www.w3.org/TR/secure-payment-confirmation) *(w3.org)*
-- [Localization topics to address · Issue #93 · w3c/secure-payment-confirmation](https://github.com/w3c/secure-payment-confirmation/issues/93) *(github.com)*
+- [Secure Payment Confirmation](https://www.w3.org/TR/2023/WD-secure-payment-confirmation-20230308) *(w3.org)*
+- [SecurePaymentConfirmationRequest - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/SecurePaymentConfirmationRequest) *(developer.mozilla.org)*
+- [Localization topics to address · Issue #93 · w3c/secure-payment-confirmation · GitHub](https://github.com/w3c/secure-payment-confirmation/issues/93) *(github.com)*
+- [Update the Specification for Locale Validation · Issue #2181 · w3c/i18n-activity · GitHub](https://github.com/w3c/i18n-activity/issues/2181) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 46 result(s) found across 11 planned queries — **4 verified relevant**
+- **Brave Search:** 43 result(s) found across 11 planned queries — **13 verified relevant**
   - `"chromestatus.com/feature/5126146013396992" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
-  - `"github.com/w3c/secure-payment-confirmation/issues/343" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (1 returned)
+  - `"github.com/w3c/secure-payment-confirmation/issues/343" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (2 returned)
   - `"w3c.github.io/secure-payment-confirmation" -site:w3c.github.io` *(Reverse Citation)* — *Inbound citations linking to Specification* (8 returned)
-  - `"Secure Payment Confirmation: Locale Validation" API` — *Core feature API query* (2 returned)
+  - `"Secure Payment Confirmation: Locale Validation" API` — *Core feature API query* (5 returned)
   - `"Secure Payment Confirmation: Locale Validation" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"Secure Payment Confirmation: Locale Validation" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
-  - `"Secure Payment Confirmation: Locale Validation" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (5 returned)
-  - `"SecurePaymentConfirmationRequest" locale "NotSupportedError"` — *Find JavaScript code samples, web platform tests, and WebIDL definitions handling locale validation errors in Secure Payment Confirmation.* (1 returned)
-  - `"secure-payment-confirmation" locale ("NotSupportedError" OR "DOMException") guide OR tutorial` — *Identify practical developer tutorials detailing how to handle locale mismatch exceptions and retry data translation in SPC dialogs.* (0 returned)
-  - `site:github.com/w3c/secure-payment-confirmation "locale" (dialog OR error OR validation)` — *Locate specification debates, commit histories, and WG discussion threads on standardizing SPC locale verification.* (8 returned)
-  - `"Secure Payment Confirmation" locale ("Intent to Ship" OR "Chrome Platform Status" OR "Chromium")` — *Track browser vendor implementation announcements, platform status entries, and cross-browser rollout plans for SPC locale validation.* (8 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 12 result(s) found — **8 verified relevant**
+  - `"Secure Payment Confirmation: Locale Validation" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (7 returned)
+  - `"SecurePaymentConfirmationRequest" "locale" ("NotSupportedError" OR "DOMException")` — *Locates WebIDL definitions, spec tests, and JavaScript implementation examples showing how to pass locale arrays and handle NotSupportedError exceptions.* (8 returned)
+  - `"Secure Payment Confirmation" ("locale" OR "localization") ("PaymentRequest" OR "WebAuthn") guide` — *Discovers developer guides, tutorials, and practical articles on configuring and localizing Secure Payment Confirmation dialogs.* (5 returned)
+  - `"Secure Payment Confirmation" "locale" ("Intent to Ship" OR "Chrome Platform Status" OR "Chromium")` — *Finds browser vendor announcements, Blink Intent to Ship threads, and Chromium platform status updates tracking support for SPC locale validation.* (6 returned)
+  - `site:github.com/w3c/secure-payment-confirmation ("locale" OR "issue 343")` — *Retrieves working group discussions, issue threads, and consensus feedback within the W3C Web Payments Working Group regarding locale negotiation in SPC.* (4 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 13 result(s) found — **10 verified relevant**
 - **Twitter / X API v2:** *found 10 tweet(s)*
-- **Tweets found by web search:** 3 result(s) found — **0 verified relevant**
+- **Tweets found by web search:** 5 result(s) found — **0 verified relevant**
 - **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 2 result(s) found — **2 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *limited*
-- **NPM Registry:** 6 result(s) found — **0 verified relevant**
+- **NPM Registry:** 7 result(s) found — **0 verified relevant**
 - **web-features mapping:** *group "secure-payment-confirmation", shared with 1 other ChromeStatus feature(s)*
 - **Web Platform Tests (wpt.fyi):** *group "secure-payment-confirmation": Chrome 80% passing (stable)*
+- **Sources cited by the AI synthesis:** 4 result(s) found — **3 verified relevant**
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
-- **Standards Discussion Comments:** 9 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 8 page(s)
+- **Standards Discussion Comments:** 10 engineer comment(s) read
+- **Web Page Excerpts Ingested:** 6 page(s)
 
 ## Useful Links
 

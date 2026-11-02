@@ -1,6 +1,6 @@
 # Ask-before-HTTP warning on by default
 
-> **Report Week:** 2026-W43 | **Milestone:** Chrome 154 | **Category:** Enabled by default
+> **Report Week:** 2026-W45 | **Milestone:** Chrome 154 | **Category:** Enabled by default
 
 ## Overview
 
@@ -8,59 +8,81 @@ Chrome now prompts users by default when they access an insecure (HTTP) connecti
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (footprint 100 points, ranked against this week's features because too few have an earlier number to work out a change)
+- **Momentum:** Emerging (+30 points since 2026-10-12; footprint 210 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Cautiously Optimistic
-- **Executive Take:** Chrome 154 establishes the 'Ask-before-HTTP' warning by default for all public web navigations, transitioning Google's 'Always Use Secure Connections' initiative from an opt-in feature into the browser's baseline behavior. Rather than silently falling back to unencrypted HTTP when automatic HTTPS upgrades fail, Chrome presents an explicit, bypassable interstitial warning before permitting access to insecure endpoints. While cross-engine consensus firmly supports an encrypted-by-default web, Chrome has taken the most aggressive user-facing stance by introducing direct user friction to unencrypted public navigations.
+- **Executive Take:** With Chrome 154 enabling the 'Ask-before-HTTP' interstitial by default on public hostnames, browsers are formally transitioning plain HTTP from a supported fallback to a deprecated security exception. The broader ecosystem strongly favors an encrypted-by-default web, building on years of passive warnings, automated HTTPS upgrades, and opt-in strict modes. Developer reception is largely supportive of eliminating unencrypted traffic, though friction has emerged around legacy infrastructure and intermediate URL forwarding.
 
 ### Recommendations
-- Actionable Advice: Audit all public domains, subdomain redirections, campaign shortlinks, and registrar forwarders to ensure every step in the redirect chain negotiates a valid TLS connection. Enterprise teams managing internal appliances or non-HTTPS infrastructure should verify private network exclusions or deploy Chrome's enterprise HttpsOnlyMode policy to prevent workflow interruptions.
+- Actionable Advice: Audit entire domain topologies and redirect chains—especially apex-to-subdomain forwards, CDN routing, and external QR codes—to guarantee valid TLS certificates exist at every intermediate hop before landing on HTTPS. For local staging and test automation, migrate environments to secure origins or utilize flags such as \`--unsafely-treat-insecure-origin-as-secure\` to prevent broken CI runs.
 - Shipping enabled by default in Chrome 154. Developers can begin adopting in production with progressive feature detection.
 - Non-Chromium browser engines (WebKit/Gecko) have not formally signaled support. Wrap calls in conditional feature checks.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [HTTPS by default](https://blog.google/security/https-by-defau) *(blog.google)*
-  > HTTPS by default Chrome Security HTTPS by default Oct 28, 2025 \| x.com Facebook LinkedIn Mail Copy link Chris Thompson Chrome Security Team Mustafa Emre Acer Chrome Security Team Serena Chen Chrome Security Team Joe DeBlasio Chrome Security Team Emil...
-- [searchenginejournal.com](https://www.searchenginejournal.com/chrome-to-warn-users-before-loading-http-sites-starting-next-year/559583) *(searchenginejournal.com)*
-  > Rather than silently falling back to unencrypted HTTP or relying solely on subtle URL-bar indicators after a connection is already made, Chrome now proactively prompts users with a warning before navigating to public websites that do not support HTTP...
+- [Chrome HTTP Warning 2026: Checklist for Egyptian Websites — SOG](https://sog.eg/en/blog/chrome-http-warning-egypt-website-campaign-checklist) *(sog.eg)*
+  > Chrome HTTP Warning 2026: Checklist for Egyptian Websites — SOG Skip to content The site is currently in beta. ع Client login Order now Marketing Chrome HTTP Warning Since 21 October 2026: Why Your Campaign Visitors May Bounce and a Checklist for Egy...
+- [Chrome Now Warns Before Insecure HTTP Connections](https://blog.google/security/chrome-now-warns-before-insecure-http-connections) *(blog.google)*
+  > Chrome Now Warns Before Insecure HTTP Connections Chrome Security Chrome Now Warns Before Insecure HTTP Connections Oct 21, 2026 \| x.com Facebook LinkedIn Mail Copy link Joe DeBlasio, Eric Trouton, Chris Thompson, Serena Chen, Mustafa Emre Acer, and ...
 - [Chromium Docs - Adapting your website for Chrome’s “Ask-before-HTTP” warning](https://chromium.googlesource.com/chromium/src/+/main/docs/security/ask-before-http/ask-before-http-adoption-guide.md) *(chromium.googlesource.com)*
-  > developer.chrome.com / Chromium Documentation It provides testing steps, FAQs on local development, automated testing workarounds (e.g., Selenium/ChromeDriver), and details on enterprise allowlisting
-- [chromium.org](https://blog.chromium.org/2023/08/towards-https-by-default.html) *(blog.chromium.org)*
-  > Google highlighted that while over 90–95% of web traffic is encrypted, a stubborn fraction of HTTP connections remains vulnerable to active network attackers who hijack navigations to distribute malware or execute social engineering Because passive a...
-- [Chrome 154 or 155: When HTTPS-First Warnings Become Default and How to Manage Them](https://windowsforum.com/news/chrome-154-or-155-when-https-first-warnings-become-default-and-how-to-manage-them.447078) *(windowsforum.com)*
-  > Industry Developer Blogs & News Community discussions stress that while the warning functions as a "speed bump" rather than a hard block (users can click "Continue to site" or disable the setting), it heavily penalizes legacy unencrypted sites by thr...
-- [setsailmedia.com](https://setsailmedia.com/website-security/chrome-https-by-default-2025) *(setsailmedia.com)*
-  > Industry Developer Blogs & News Community discussions stress that while the warning functions as a "speed bump" rather than a hard block (users can click "Continue to site" or disable the setting), it heavily penalizes legacy unencrypted sites by thr...
-- [HttpsOnlyMode: Allow HTTPS-Only Mode to be enabled \| Chrome Enterprise](https://chromeenterprise.google/intl/en_ca/policies/https-only-mode) *(chromeenterprise.google)*
-  > HttpsOnlyMode: Allow HTTPS-Only Mode to be enabled \| Chrome Enterprise chrome enterprise Jump to Content chrome enterprise Contact sales Get Chrome Browser Enterprise news Stay informed with the Chrome Enterprise newsletter \* Required First name Plea...
+  > Chromium Docs - Adapting your website for Chrome’s “Ask-before-HTTP” warning Chromium Docs &#9681; Theme Adapting your website for Chrome’s “Ask-before-HTTP” warning Chrome will start asking for users’ permission before navigating to HTTP pages by de...
+- [note.com](https://note.com/vast_flax7410/n/n02993cbc8c93?hl=en) *(note.com)*
+  > x.x\`) and single-label hostnames (e.g., \`http://intranet/\`) are exempt by default
+- [Chrome puts insecure sites behind a permission prompt - Help Net Security](https://www.helpnetsecurity.com/2026/10/22/google-chrome-https-protection) *(helpnetsecurity.com)*
+  > Chrome puts insecure sites behind a permission prompt - Help Net Security Help Net Security newsletters : Daily and weekly news, cybersecurity jobs, open source projects, breaking news – subscribe here! Please turn on your JavaScript for this page to...
+- [docs/security/ask-before-http/ask-before-http-adoption-guide.md - chromium/src - Git at Google](https://chromium.googlesource.com/chromium/src/+show/main/docs/security/ask-before-http/ask-before-http-adoption-guide.md) *(chromium.googlesource.com)*
+  > docs/security/ask-before-http/ask-before-http-adoption-guide.md - chromium/src - Git at Google Sign in &#9681; Theme chromium / chromium / src / main / . / docs / security / ask-before-http / ask-before-http-adoption-guide.md blob: 53248c7b3fc6720528...
+- [chromestatus.com](https://chromestatus.com/release-notes/154) *(chromestatus.com)*
+  > \*\*Chromium Platform Status & Release Notes (Chrome 154 / 155)\*\*
+- [Chrome now asks for permission before making insecure HTTP connections by default](https://chromeunboxed.com/chrome-now-asks-for-permission-before-making-insecure-http-connections-by-default) *(chromeunboxed.com)*
+  > Chrome now asks for permission before making insecure HTTP connections by default Skip to main content Skip to primary sidebar Chrome Unboxed - The Latest Chrome OS News A Space for All Things Chrome, Google, and More! Latest Giveaway: Samsung Galaxy...
+- [mallory.ai](https://mallory.ai/stories/01a15fb1-7f5f-71e9-9082-4d770ae31d58) *(mallory.ai)*
+  > The team noted that over 95% of traffic across platforms has migrated to HTTPS, and fewer than 3% of regular navigations now encounter unencrypted fallbacks, making a default prompt viable without triggering severe warning fatigue Organizations with ...
+- [mallory.ai](https://mallory.ai/stories/019a367e-d678-72df-aa70-482e20f0155b) *(mallory.ai)*
+  > The team noted that over 95% of traffic across platforms has migrated to HTTPS, and fewer than 3% of regular navigations now encounter unencrypted fallbacks, making a default prompt viable without triggering severe warning fatigue
+- [finalwebdesign.com](https://finalwebdesign.com/web-blog/chrome-http-warning-https-small-business) *(finalwebdesign.com)*
+  > Technical outlets, web consultancies, and developer blogs (including \*Android Authority\*, \*Help Net Security\*, and dev/hosting publications) have highlighted several critical impacts Because Chrome remembers approvals for returning users, recurring w...
+- [androidauthority.com](https://www.androidauthority.com/google-chrome-https-security-warnings-default-3725570) *(androidauthority.com)*
+  > Technical outlets, web consultancies, and developer blogs (including \*Android Authority\*, \*Help Net Security\*, and dev/hosting publications) have highlighted several critical impacts
+- [hostlelo.com](https://blog.hostlelo.com/check-http-redirect-chain-before-chrome-warns) *(blog.hostlelo.com)*
+  > The most widely discussed pitfall in developer audits is the \*redirect hop\* Many site owners assume their site is safe because the final landing page serves HTTPS
+- [Chrome HTTP Warning: What It Means for Routers and NAS - Chrome Geek](https://www.chromegeek.com/chrome-http-warning-always-use-secure-connections) *(chromegeek.com · 2026-10-22T06:50:24)*
+  > Most people will never see the ... and how to handle it. ... What changed: &lt;strong&gt;Chrome tries HTTPS first and, if a public site only works over HTTP, asks you before connecting&lt;/strong&gt;. It is now on by default for everyone...
+- [Chrome 154 or 155: When HTTPS-First Warnings Become Default and How to Manage Them](https://windowsforum.com/news/chrome-154-or-155-when-https-first-warnings-become-default-and-how-to-manage-them.447078) *(windowsforum.com · 2026-10-03T10:57:37)*
+  > Chromium&#x27;s adoption guide for site owners says the same thing: anyone who finds the warnings too cumbersome, you can &lt;strong&gt;disable the &quot;Always Use Secure Connections&quot; setting in chrome://settings/security&lt;/strong&gt;.
+- [Chrome 154 will ask before HTTP: audit your forgotten URLs now \| Semonto](https://semonto.com/blog/chrome-154-will-ask-before-http) *(semonto.com · 2026-08-24T00:00:00)*
+  > In October 2026, Chrome will enable Always Use Secure Connections by default for public sites. &lt;strong&gt;Users will be asked before they first visit a public URL that does not support HTTPS&lt;/strong&gt;.
+- [Chrome Will Warn Before HTTP in October 2026: What Website Owners Need to Fix](https://comparecheapssl.com/chrome-https-first-october) *(comparecheapssl.com · 2026-07-25T12:09:30)*
+  > Verified directly from Google’s Chrome Security Team blog post: with the release of Chrome 154 in October 2026, Chrome will change its default settings to enable ‘&lt;strong&gt;Always Use Secure Connections&lt;/strong&gt;.’ This means Chrome will ask for the use...
 - [Google Chrome to warn users before opening insecure HTTP sites](https://www.bleepingcomputer.com/news/google/google-chrome-to-warn-users-before-opening-insecure-http-sites) *(bleepingcomputer.com · 2025-10-30T08:37:00)*
-  > Before enabling it by default for all users, Chrome will enable &quot;Always Use Secure Connections&quot; for public sites for over 1 billion users using Enhanced Safe Browsing protections in April 2026, when Chrome 147 will be released. &quot;While ...
-- [Chrome now warns before opening sites without HTTPS: is your domain ready? · redirect-301](https://www.redirect-301.com/en/blog/chrome-https-by-default) *(redirect-301.com)*
-  > Chrome now warns before opening sites without HTTPS: is your domain ready? · redirect-301 Blog · October 12, 2026 Chrome now warns before opening sites without HTTPS: is your domain ready? From Chrome 154, scheduled for October 2026, Chrome asks for ...
-- [Chrome Now Warns Before HTTP Sites: Is Your Website Ready?](https://satelliteblack.com/insights/chrome-https-warnings-small-business-website) *(satelliteblack.com)*
-  > Chrome Now Warns Before HTTP Sites: Is Your Website Ready? Skip to content Satellite Black Contact Chrome Now Warns Before HTTP Sites: Is Your Website Ready? By Evan Walker · October 16, 2026 · 4 min read Google is turning on Chrome&#39;s "Always Use...
+  > &quot;One year from now, with the release of Chrome 154 in October 2026, we will &lt;strong&gt;change the default settings of Chrome to enable &#x27;Always Use Secure Connections.&#x27;&lt;/strong&gt; This means Chrome will ask for the user&#x27;s permission bef...
+- [Chrome now warns before insecure HTTP connections](https://www.relevantaudience.com/general-topics/chrome-warns-before-insecure-http-connections) *(relevantaudience.com · 2026-10-24T11:11:45)*
+  > A redirect that bounces a visitor from an http:// address to an https:// page takes a fraction of a second. Under the old model nobody saw a badge during that hop, so nobody noticed it. Google names redirects as traffic the badge could not cover, and...
+- [Chrome 154  \|  Release notes  \|  Chrome for Developers](https://developer.chrome.com/release-notes/154) *(developer.chrome.com · 2026-09-22T00:00:00)*
+  > &lt;strong&gt;Chrome prompts users by default when they connect to a site over an insecure (http) connection&lt;/strong&gt;. Administrators can control this default behavior using the HttpsOnlyMode enterprise policy.
+- [I think people are missing this: &gt; We know that enterprises and education networ... \| Hacker News](https://news.ycombinator.com/item?id=37153752) *(news.ycombinator.com · 2023-08-16T20:59:35)*
+  > Also a lot of people are talking about internally hosted sites and acting like now you&#x27;ll have to go pay a CA or something. That is not the case · The worst case scenario is that your internal site will require a click through. If you want to av...
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 57 result(s) found across 10 planned queries — **4 verified relevant**
+- **Brave Search:** 55 result(s) found across 10 planned queries — **11 verified relevant**
   - `"chromestatus.com/feature/5143933628841984" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
   - `"Ask-before-HTTP warning on by default" API` — *Core feature API query* (0 returned)
   - `"Ask-before-HTTP warning on by default" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"chromeenterprise.google" OR "ask-before-http" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Ask-before-HTTP warning on by default" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
-  - `"Ask-before-HTTP warning on by default" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (4 returned)
-  - `Chrome HttpsOnlyMode policy enterprise admin guide` — *Finds official documentation and enterprise admin guides regarding the HttpsOnlyMode policy control in Chrome.* (8 returned)
-  - `Chrome HTTP warning by default upgrade insecure requests tutorial` — *Searches for developer and system administrator tutorials explaining the new Ask-before-HTTP default behavior.* (8 returned)
-  - `site:reddit.com/r/sysadmin Chrome HTTP warning HttpsOnlyMode` — *Locates community sentiment and discussions among system administrators on Reddit about Chrome prompting on HTTP connections.* (8 returned)
-  - `disable Chrome insecure connection warning policy HttpsOnlyMode` — *Searches for configuration syntax and policy settings used to manage or bypass the Ask-before-HTTP prompt.* (8 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 7 result(s) found — **6 verified relevant**
+  - `"Ask-before-HTTP warning on by default" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
+  - `"HttpsOnlyMode" chrome policy (windows registry OR plist OR "chrome enterprise")` — *Configuration syntax, policy definitions, and enterprise management templates for Chrome's HttpsOnlyMode setting.* (3 returned)
+  - `Chrome "HTTPS-First Mode" OR "Ask-before-HTTP" warning fix developer guide` — *Developer articles and tutorials on fixing HTTP deprecation warnings and migrating sites to prevent Chrome warning prompts.* (8 returned)
+  - `Chrome default HTTP warning "HTTPS-First" site:blog.chromium.org OR site:developer.chrome.com` — *Official Chromium team announcements, rationale, and rollout schedule for enabling the HTTP security warning by default.* (8 returned)
+  - `site:news.ycombinator.com OR site:reddit.com/r/sysadmin "Chrome" ("HTTPS-First Mode" OR "HttpsOnlyMode" OR "ask-before-http")` — *Discussions and feedback from sysadmins and developers regarding broken legacy intranet sites and the UX impact of the default HTTP prompt.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 17 result(s) found — **13 verified relevant**
 - **Twitter / X API v2:** *found 9 tweet(s)*
-- **Tweets found by web search:** 2 result(s) found — **0 verified relevant**
-- **Dev.to Community Blogs:** 5 result(s) found — **0 verified relevant**
+- **Tweets found by web search:** 7 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 3 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 result(s) found — **0 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
@@ -68,14 +90,13 @@ Chrome now prompts users by default when they access an insecure (HTTP) connecti
 - **NPM Registry:** 5 result(s) found — **0 verified relevant**
 - **web-features mapping:** *not in a web-features group*
 - **Web Platform Tests (wpt.fyi):** *not in a web-features group*
-- **Sources cited by the AI synthesis:** 8 result(s) found — **5 verified relevant**
 
 ### Content Inspected
 
 - **Specification:** ○ Not available
 - **Explainers:** 0 document(s) analyzed
 - **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 12 page(s)
+- **Web Page Excerpts Ingested:** 7 page(s)
 
 ## Useful Links
 

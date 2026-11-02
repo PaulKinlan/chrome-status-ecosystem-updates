@@ -1,6 +1,6 @@
 # Disconnect WebSockets on BFCache entry
 
-> **Report Week:** 2026-W44 | **Milestone:** Chrome 157 | **Category:** Stepped rollout
+> **Report Week:** 2026-W45 | **Milestone:** Chrome 157 | **Category:** Stepped rollout
 
 ## Overview
 
@@ -12,13 +12,13 @@ Currently, any active WebSocket connection forces the browser to discard the pag
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (footprint 210 points, ranked against this week's features because too few have an earlier number to work out a change)
+- **Momentum:** Emerging (+10 points since 2026-10-12; footprint 200 points)
 - **Standards Alignment:** Multi-Engine Consensus
-- **Sentiment:** Cautiously Optimistic
-- **Executive Take:** Chromium is updating its Back/Forward Cache (BFCache) implementation to allow pages with active WebSocket connections into the cache by cleanly severing active sockets upon entry. This change unifies Chromium with Safari's existing handling and mirrors the semantics established for WebTransport, while deprecating the temporary enterprise fallback policy (\`BackForwardCacheForWebSocketsAllowed\`). Browser vendors across WHATWG, Gecko, and WebKit broadly converge on treating BFCache suspension like standard network loss.
+- **Sentiment:** Positive
+- **Executive Take:** Browsers are standardizing the behavior of disconnecting active WebSocket connections upon Back/Forward Cache (BFCache) entry rather than disqualifying pages from being cached. Safari has historically closed active connections on entry, Chrome aligned with this model starting in milestone 149 while deprecating enterprise opt-out policies, and WHATWG discussions are formalizing cleanup steps to align WebSockets with WebTransport semantics.
 
 ### Recommendations
-- Actionable Advice: Ensure your WebSocket clients handle abnormal closures (code 1006) with exponential backoff and reconnection logic, and use the \`pageshow\` event with \`event.persisted\` to re-sync server state upon BFCache restoration. Verify your application's caching status using the BFCache test utility in browser DevTools Application panels.
+- Actionable Advice: Ensure your WebSocket client implements resilient exponential backoff and reconnection routines responding to standard close events, or listen for the pageshow event (checking event.persisted) to cleanly re-establish socket state upon cache restoration. Remove any legacy pagehide workarounds that manually tore down sockets solely to force BFCache eligibility.
 - Standards Activity (Mozilla): Latest discussion from @jesup: "I'm in favor; this is in line with what we've defined for WebTransport (@jan-ivar fyi)..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
@@ -30,55 +30,54 @@ Currently, any active WebSocket connection forces the browser to discard the pag
 ## 📰 Ecosystem Blogs & Articles
 
 - [WebSockets and bfcache: Chrome 150 Still Said 'websocket'](https://jangwook.net/en/blog/en/websocket-bfcache-eligibility-remeasure) *(jangwook.net)*
-  > Historically, pages holding active WebSocket connections (such as chat widgets, live sports scores, or financial tickers) were disqualified from entering the browser's \*\*Back/Forward Cache (BFCache)\*\* Navigating away forced the browser to discard the...
+  > Historically, holding an open WebSocket connection rendered a webpage ineligible for the browser's Back/Forward Cache (bfcache), causing the browser to discard the document upon navigation and force a slow, full network reload when users pressed "Bac...
 - [Microsoft Edge Browser Policy Documentation BackForwardCacheForWebSocketsAllowed \| Microsoft Learn](https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies/backforwardcacheforwebsocketsallowed) *(learn.microsoft.com)*
   > Microsoft Edge Browser Policy Documentation BackForwardCacheForWebSocketsAllowed \| Microsoft Learn Skip to main content Skip to Ask Learn chat experience This browser is no longer supported. Upgrade to Microsoft Edge to take advantage of the latest f...
-- [appspot.com](https://polymer10-samples-dot-cr-status.appspot.com/feature/5068439115923456) *(polymer10-samples-dot-cr-status.appspot.com)*
-  > \*\*Enterprise Rollback Policy:\*\* For legacy internal apps lacking reconnection routines, Google and Microsoft provided the enterprise policy \[\`BackForwardCacheForWebSocketsAllowed\`\](https://chromeenterprise.google/policies/#BackForwardCacheForWebSocke...
-- [whoooop.co.uk](https://whoooop.co.uk/blog/bfcache-not-working) *(whoooop.co.uk)*
-  > \*\*Real-World Impact:\*\* Developer analysis posts examine the transition away from WebSockets being an "Actionable" blocker in Chrome DevTools (\`Application &gt; Back/forward cache &gt; Test back/forward cache\`) \*\*Audit in DevTools:\*\* Use Chrome DevTools und...
-- [google.com](https://issuetracker.google.com/issues/472063700/resources) *(issuetracker.google.com)*
-  > close()\` to make pages eligible for BFCache
-- [chromeenterprise.google](https://chromeenterprise.google/policies/allow-back-forward-cache-for-cache-control-no-store-page-enabled) *(chromeenterprise.google)*
-  > \*\*Core Takeaways:\*\* Both Chrome Enterprise and Microsoft Edge policy guides document \`BackForwardCacheForWebSocketsAllowed\`
-- [Re: \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry](http://www.mail-archive.com/blink-dev@chromium.org/msg16331.html) *(mail-archive.com)*
-  > Re: \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry Skip to site navigation (Press enter) Re: \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry 'Gilberto Cocchi' via blink-dev Fri, 17 Apr 2026 08:01:0...
+- [Back/forward cache  \|  Articles  \|  web.dev](https://web.dev/articles/bfcache) *(web.dev)*
+  > Updated to reflect that starting in Chrome 149, open WebSocket connections no longer block bfcache eligibility (joining Safari) persisted\`) and \`pageshow\` to cleanly manage socket lifecycles, or ensure their WebSocket manager gracefully reacts to \`on...
+- [neuraldemy.com](https://neuraldemy.com/handling-bfcache-with-active-websocket-connections-in-react) *(neuraldemy.com)*
+  > Recent technical guides focus on practical code adaptations \*\*Unified Reconnection Patterns:\*\* Recommends implementing stateful reconnect loops (e.g., exponential backoff upon \`onclose\` or checking \`pageshow\`'s \`persisted\` flag) rather than assuming ...
 - [Web-Facing Change PSA: Disconnect WebSockets on BFCache entry](https://groups.google.com/a/chromium.org/g/blink-dev/c/52nlr8z3Png) *(groups.google.com · 2026-04-17T00:00:00)*
   > Web-Facing Change PSA: Disconnect WebSockets on BFCache entry Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Web-Facing Change PSA: Disconnect WebSoc...
 - [\[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry](http://www.mail-archive.com/blink-dev@chromium.org/msg16328.html) *(mail-archive.com)*
   > \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry Skip to site navigation (Press enter) \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry Chromestatus Fri, 17 Apr 2026 03:17:18 -0700 Contact emails \[ema...
-- [Chrome 149 \| Release notes \| Chrome for Developers](https://developer.chrome.com/release-notes/149) *(developer.chrome.com · 2026-06-02T00:00:00)*
+- [Re: \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry](http://www.mail-archive.com/blink-dev@chromium.org/msg16330.html) *(mail-archive.com)*
+  > Re: \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry Skip to site navigation (Press enter) Re: \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry Adam Rice Fri, 17 Apr 2026 05:56:53 -0700 Robust users o...
+- [Chrome 149  \|  Release notes  \|  Chrome for Developers](https://developer.chrome.com/release-notes/149) *(developer.chrome.com · 2026-06-02T00:00:00)*
   > &lt;strong&gt;By closing connections on bfcache entry instead of marking the document as ineligible, the browser allows pages with active WebSockets to be stored and restored&lt;/strong&gt;. Tracking bug #467838624 \| ChromeStatus.com entry \| Spec · Extends the G...
-- [Explore New Chrome Enterprise Browser, Core, Premium Features](https://chromeenterprise.google/intl/en_us/resources/release-notes/?ver=152&featId=5148353408139264) *(chromeenterprise.google)*
+- [Chrome 149 beta  \|  Blog  \|  Chrome for Developers](https://developer.chrome.com/blog/chrome-149-beta) *(developer.chrome.com · 2026-05-06T00:00:00)*
+  > &lt;strong&gt;By closing connections on bfcache entry instead of marking the document as ineligible, the browser allows pages with active websockets to be stored and restored&lt;/strong&gt;. Adds the read-only boolean attribute isReloadNavigation to the Fetch AP...
+- [Explore New Chrome Enterprise Browser, Core, Premium Features](https://chromeenterprise.google/intl/en_us/resources/release-notes/?ver=152&featId=5148353408139264) *(chromeenterprise.google · 2026-10-21T00:00:00)*
   > Chrome is changing its behavior to allow pages with active WebSocket connections to enter the Back/Forward Cache. To achieve this, &lt;strong&gt;active WebSockets are now disconnected when a page is cached&lt;/strong&gt;. Previously, active WebSocket connections...
-- [Back/Forward Cache (bfcache) - Patrick Stox](https://patrickstox.com/technical-seo/web-performance/bfcache) *(patrickstox.com · 2026-07-17T00:00:00)*
-  > This is an actively improving area — recent Microsoft Edge release notes show an open WebSocket now being closed when a page enters bfcache (rather than blocking caching outright), with reconnection recommended via the pageshow event’s event.persiste...
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
-- [Re: \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry](http://www.mail-archive.com/blink-dev@chromium.org/msg16331.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5068439115923456`)*
-  > Re: \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry Skip to site navigation (Press enter) Re: \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry 'Gilberto Cocchi' via blink-dev Fri, 17 Apr 20...
 - [Web-Facing Change PSA: Disconnect WebSockets on BFCache entry](https://groups.google.com/a/chromium.org/g/blink-dev/c/52nlr8z3Png) *(groups.google.com · 2026-04-17T00:00:00)* *(Cites: `https://chromestatus.com/feature/5068439115923456`)*
   > Web-Facing Change PSA: Disconnect WebSockets on BFCache entry Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Web-Facing Change PSA: Disconn...
+- [Disconnect WebSockets on BFCache entry · Issue #40 · getsentry/browser-updates-radar · GitHub](https://github.com/getsentry/browser-updates-radar/issues/40) *(github.com · 2026-10-05T08:17:16)* *(Cites: `https://chromestatus.com/feature/5068439115923456`)*
+  > Disconnect WebSockets on BFCache entry · Issue #40 · getsentry/browser-updates-radar · GitHub Skip to content Navigation Menu Sign in Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh y...
 - [\[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry](http://www.mail-archive.com/blink-dev@chromium.org/msg16328.html) *(mail-archive.com)* *(Cites: `https://github.com/whatwg/html/pull/12349`)*
   > \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry Skip to site navigation (Press enter) \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry Chromestatus Fri, 17 Apr 2026 03:17:18 -0700 Contact e...
+- [Re: \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry](http://www.mail-archive.com/blink-dev@chromium.org/msg16330.html) *(mail-archive.com)* *(Cites: `https://github.com/whatwg/html/pull/12349`)*
+  > Re: \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry Skip to site navigation (Press enter) Re: \[blink-dev\] Web-Facing Change PSA: Disconnect WebSockets on BFCache entry Adam Rice Fri, 17 Apr 2026 05:56:53 -0700 Robu...
 
 ## 📚 Platform Documentation & Specifications
 
+- [Proposal: Unblock bfcache for active WebSockets by disconnecting on entry · Issue #12085 · whatwg/html · GitHub](https://github.com/whatwg/html/issues/12085) *(github.com)*
+- [github.com](https://github.com/WebKit/standards-positions/issues/648) *(github.com)*
+- [github.com](https://github.com/mozilla/standards-positions/issues/1390) *(github.com)*
 - [mozilla.org](https://developer.mozilla.org/en-US/docs/Web/API/Performance_API/Monitoring_bfcache_blocking_reasons) *(developer.mozilla.org)*
-- [github.com](https://github.com/whatwg/html/issues/12085) *(github.com)*
-- [Disconnect WebSockets on BFCache entry · Issue #1262 · GoogleChrome/modern-web-guidance-src](https://github.com/GoogleChrome/modern-web-guidance-src/issues/1262) *(github.com)*
-- [Disconnect WebSockets on BFCache entry · Issue #40 · getsentry/browser-updates-radar](https://github.com/getsentry/browser-updates-radar/issues/40) *(github.com)*
-- [Updating the WebSockets guide · mdn · Discussion #817](https://github.com/orgs/mdn/discussions/817) *(github.com)*
-- [Back-forward cache meta-bug · Issue #5880 · whatwg/html](https://github.com/whatwg/html/issues/5880) *(github.com)*
+- [Disconnect WebSockets on BFCache entry · Issue #40 · getsentry/browser-updates-radar · GitHub](https://github.com/getsentry/browser-updates-radar/issues/40) *(github.com)*
+- [Disconnect WebSockets on BFCache entry · Issue #1262 · GoogleChrome/modern-web-guidance-src · GitHub](https://github.com/GoogleChrome/modern-web-guidance-src/issues/1262) *(github.com)*
+- [Updating the WebSockets guide · mdn · Discussion #817 · GitHub](https://github.com/orgs/mdn/discussions/817) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 54 result(s) found across 11 planned queries — **12 verified relevant**
+- **Brave Search:** 53 result(s) found across 11 planned queries — **12 verified relevant**
   - `"chromestatus.com/feature/5068439115923456" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (2 returned)
   - `"github.com/whatwg/html/pull/12349" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Specification* (4 returned)
   - `"Disconnect WebSockets on BFCache entry" API` — *Core feature API query* (8 returned)
@@ -86,29 +85,28 @@ The following external publications and discussions explicitly link to or cite t
   - `"chromeenterprise.google" OR "developer.chrome" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Disconnect WebSockets on BFCache entry" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"Disconnect WebSockets on BFCache entry" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"WebSocket" ("BFCache" OR "back/forward cache") reconnect "pageshow"` — *Developer guides and blog posts explaining how to handle WebSocket reconnections upon page restoration from BFCache.* (8 returned)
-  - `"event.persisted" "WebSocket" (reconnect OR close) pageshow` — *JavaScript implementation examples showing how to use event.persisted and lifecycle events to recover disconnected WebSocket sessions.* (8 returned)
-  - `"BackForwardCacheForWebSocketsAllowed" OR "Disconnect WebSockets on BFCache entry"` — *Browser release notes, policy documentation, and vendor announcements regarding Chrome enabling BFCache for pages using WebSockets.* (8 returned)
-  - `site:github.com/whatwg/html ("WebSocket" OR "WebSockets") "back/forward cache"` — *Discussions and standardization debates within the WHATWG HTML repository concerning WebSocket behavior during page cache transitions.* (1 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 10 result(s) found — **8 verified relevant**
+  - `"bfcache" websocket ("reconnect" OR "pageshow") "back/forward cache"` — *Developer guides and best practices for reconnecting WebSockets when a page is restored from the back/forward cache.* (8 returned)
+  - `"pageshow" "event.persisted" ("new WebSocket" OR "reconnect")` — *JavaScript code samples showing how to handle BFCache page restoration and re-establish closed WebSocket connections.* (4 returned)
+  - `"BackForwardCacheForWebSocketsAllowed" OR ("disconnect WebSockets" "BFCache" Chrome)` — *Browser release notes, deprecation announcements, and enterprise policy documentation regarding WebSocket BFCache behavior.* (8 returned)
+  - `site:github.com/whatwg/html "WebSocket" ("bfcache" OR "back-forward cache" OR 12349)` — *Standards discussions and developer feedback on the WHATWG HTML specification PR for closing WebSockets on BFCache entry.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 11 result(s) found — **8 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
 - **Tweets found by web search:** 7 result(s) found — **0 verified relevant**
-- **Dev.to Community Blogs:** 5 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 3 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 2 result(s) found — **2 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
-- **NPM Registry:** 7 result(s) found — **0 verified relevant**
+- **NPM Registry:** 6 result(s) found — **0 verified relevant**
 - **web-features mapping:** *not in a web-features group*
 - **Web Platform Tests (wpt.fyi):** *not in a web-features group*
-- **Sources cited by the AI synthesis:** 3 result(s) found — **0 verified relevant**
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 0 document(s) analyzed
 - **Standards Discussion Comments:** 4 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 10 page(s)
+- **Web Page Excerpts Ingested:** 7 page(s)
 
 ## Useful Links
 
