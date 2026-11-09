@@ -1,6 +1,6 @@
 # Add javascriptURLs option to SanitizerConfig and Sanitizer
 
-> **Report Week:** 2026-W45 | **Milestone:** Chrome 157 | **Category:** Enabled by default
+> **Report Week:** 2026-W46 | **Milestone:** Chrome 159 | **Category:** Enabled by default
 
 ## Overview
 
@@ -12,101 +12,112 @@ Previously, Sanitizer API already supported sanitizing javascript:-URLs, but onl
 
 ## Ecosystem Status
 
-- **Momentum:** High (+125 points since 2026-10-12; footprint 185 points)
-- **Standards Alignment:** Multi-Engine Consensus
+- **Momentum:** High (+195 points since 2026-10-12; footprint 255 points)
+- **Standards Alignment:** Partial Multi-Engine Interest
 - **Sentiment:** Positive
-- **Executive Take:** The \`javascriptURLs\` option in \`SanitizerConfig\` and the accompanying \`setJavascriptURLs()\` method decouple \`javascript:\` URL sanitization from specific DOM insertion methods, making URL stripping an explicit, configurable setting rather than an implicit side-effect of 'safe' APIs. Formally merged into the WHATWG HTML standard and shipping enabled by default in Chrome 157, this change resolves a notable ergonomics problem for applications needing permissive parsing without forfeiting protection against script-based navigation. Engine consensus across Chromium, WebKit, and Gecko is firmly established, marking another solid step toward a mature, native Sanitizer API.
+- **Executive Take:** The addition of the \`javascriptURLs\` option to \`SanitizerConfig\` and the \`Sanitizer\` interface regularizes the handling of navigation-related \`javascript:\` URLs, transforming what was previously an implicit side effect of 'safe' insertion methods into an explicit, configurable setting that defaults to disallowing them. The update reached swift tri-engine consensus in the WHATWG HTML repository to remove the awkward behavioral divergence between safe and unsafe HTML methods. With implementations rolling out across modern Chromium and Firefox releases and WebKit treating it as a natural extension of the broader Sanitizer API, the feature firmly solidifies native DOM sanitization semantics.
 
 ### Recommendations
-- Actionable Advice: Teams utilizing native parse-time sanitization should declare \`javascriptURLs: false\` explicitly inside \`SanitizerConfig\` objects to protect against navigation-based XSS when custom or permissive configurations are used. Because broad multi-engine stable distribution is still maturing across all browsers, ensure usage is guarded by feature detection (\`'setJavascriptURLs' in Sanitizer.prototype\`) with battle-tested libraries like DOMPurify retained as a fallback.
-- Shipping enabled by default in Chrome 157. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (WebKit): Latest discussion from @annevk: "Having discussed this more with colleagues and given the lack of opposing feedback in this issue I suggest we label this as "position: support" one we..."
+- Actionable Advice: Teams utilizing native Sanitizer APIs should explicitly declare \`{ javascriptURLs: false }\` when configuring custom sanitizers or unsafe insertion paths to guarantee defense-in-depth against script-based navigation injection. For production environments requiring broad legacy browser support, developers should continue pairing native Sanitizer calls with feature detection or mature userland libraries like DOMPurify.
+- Shipping enabled by default in Chrome 159. Developers can begin adopting in production with progressive feature detection.
+- Standards Activity (WebKit): Latest discussion from @annevk: "Yeah this is fine. I'm going to duplicate this into our existing Sanitizer API issue as I don't think this needs its own dashboard entry, but I apprec..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
 ## Standards Positions
 
-- **WebKit:** [Sanitizer API](https://github.com/WebKit/standards-positions/issues/86) [closed]
+- **WebKit:** [Add javascriptURLs option to SanitizerConfig](https://github.com/WebKit/standards-positions/issues/738) [closed]
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [appspot.com](https://lighthouse-ci-staging-dot-cr-status.appspot.com/feature/5169798320357376) *(lighthouse-ci-staging-dot-cr-status.appspot.com)*
-  > \*\*Rollout:\*\* Chromium tracked the landing of this feature slated for Chrome 157 across Desktop, Android, and WebView platforms This was awkward if users wanted to use the 'unsafe' methods for some reason, but still wanted \`javascript:\`-URLs removed”\*
+- [chromestatus.com](https://chromestatus.com/release-notes/159) *(chromestatus.com)*
+  > In the HTML Sanitizer API specification (WHATWG HTML PR #12898 \*\*Coverage\*\*: Tracked under Chrome Platform Status (\*"Add javascriptURLs option to SanitizerConfig and Sanitizer"\*) and rolled out in Chromium 157 / 159 cycles
 - [microsoft.com](https://learn.microsoft.com/en-us/microsoft-edge/web-platform/release-notes/157) *(learn.microsoft.com)*
-  > Microsoft Edge highlighted the feature under its \*\*Web APIs\*\* section alongside other modern HTML insertion and streaming updates The release clarifies support for Chromium-based browser implementations deploying the revised WHATWG Sanitizer specific...
-- [zenn.dev](https://zenn.dev/cybozu_frontend/articles/web_standards_trends_202609) *(zenn.dev)*
-  > \*\*Zenn (Web Standards Monthly Digest):\*\* In developer community summaries covering WHATWG and W3C progress, front-end engineers flagged PR #12898 as part of the broader stabilization of the modern Sanitizer API and its interactions with parse-time sa...
-- [debian.org](https://sources.debian.org/src/firefox/158.0.1-1/testing/web-platform/tests/sanitizer-api/sanitizer-javascript-url.html) *(sources.debian.org)*
-  > unsafe methods with explicit \`{ javascriptURLs: false }\` and \`{ javascriptURLs: true }\` configurations
-- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17764.html) *(mail-archive.com)*
-  > Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer Skip to site navigation (Press enter) Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer 'Daniel Vogelheim' via blink-d...
+  > In the HTML Sanitizer API specification (WHATWG HTML PR #12898), the handling of \`javascript:\` URLs—such as \`&lt;a href="javascript:..."&gt;\`—was previously tied to the choice of insertion method "Safe" methods (like \`Element.prototype.setHTML()\`) automati...
+- [web.dev](https://web.dev/blog/web-platform-10-2026?hl=en) *(web.dev)*
+  > \*\*\`Sanitizer.prototype.setJavascriptURLs(boolean)\`\*\*: An imperative method on instances to toggle this behavior dynamically \*\*Coverage\*\*: Rachel Andrew and the Chrome/web.dev team featured the update under the monthly web platform highlights
+- [appspot.com](https://img968-dot-cr-status.appspot.com/feature/5169798320357376?gate=6096251476115456) *(img968-dot-cr-status.appspot.com)*
+  > \*\*Coverage\*\*: Tracked under Chrome Platform Status (\*"Add javascriptURLs option to SanitizerConfig and Sanitizer"\*) and rolled out in Chromium 157 / 159 cycles \*\*Key Takeaway\*\*: The Chromium team emphasized that making URL sanitization an explicit, f...
 - [\[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17726.html) *(mail-archive.com)*
   > \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer Chromestatus Wed, 14 Oct 2026 09:12:00...
 - [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17747.html) *(mail-archive.com)*
   > Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer Skip to site navigation (Press enter) Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer Mike Taylor Thu, 15 Oct 2026 0...
-- [Chrome 157 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/157) *(chromestatus.com · 2026-10-30T05:29:22)*
-  > Chrome 157 Release Notes - Chrome Platform Status Chrome 157 Release Notes Preview Scheduled Stable Release November 3, 2026 Miscellaneous Add javascriptURLs option to SanitizerConfig and Sanitizer # Link copied! https://github.com/whatwg/html/pull/1...
-- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17768.html) *(mail-archive.com)*
-  > WebKit has not implemented the underlying feature (Sanitizer API, position here &lt;https://github.com/WebKit/standards-positions/issues/86&gt;), so they&#x27;re unlikely to have strong opinions about this particular sub-feature. The spec change has ...
+- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17764.html) *(mail-archive.com)*
+  > Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer Skip to site navigation (Press enter) Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer 'Daniel Vogelheim' via blink-d...
+- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17814.html) *(mail-archive.com)*
+  > It&#x27;s the highest priority request about this API that we hear from teams at MSFT, and lack of this in the Worker and Service Worker context is a constant bundle bloater. Currently workers don&#x27;t support anything related to the HTML parser. e...
+- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17939.html) *(mail-archive.com)*
+  > Thanks all! The WebKit standards position request can be found here, https://github.com/WebKit/standards-positions/issues/738, and was swiftly answered &lt;https://github.com/WebKit/standards-positions/issues/738#issuecomment-6638188575&gt; . I&#x27;...
+- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17778.html) *(mail-archive.com)*
+  > Agree with Mike that we should not extrapolate and should, instead, file requests to get them on the record. Even strong opposition won&#x27;t block us shipping, so there&#x27;s no risk here of filing · As for the specific API, it&#x27;s good to see,...
+- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17817.html) *(mail-archive.com)*
+  > Skip to site navigation (Press enter) · Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer · Chris Harrelson Wed, 21 Oct 2026 08:20:23 -0700 · LGTM2 with the same condition. On Wed, Oct 21, 2026 at 8:15 AM Mike...
+- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17813.html) *(mail-archive.com)*
+  > Ok, so let&#x27;s update the bits in the Intent. As for Worker parsing, yes, we&#x27;re all aware. Still needs progress = ) · On Monday, October 19, 2026 at 11:28:39 AM UTC-7 Noam Rosenthal wrote: On Mon, Oct 19, 2026 at 7:21 PM Alex Russell &lt;\[ema...
+- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17766.html) *(mail-archive.com)*
+  > I see this shipped in Firefox: https://bugzilla.mozilla.org/show\_bug.cgi?id=2068934#c9 - can you update the chromestatus entry? Done. ... Can we request a signal please? Are you sure? WebKit has not implemented the underlying feature (Sanitizer API, ...
+- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17866.html) *(mail-archive.com)*
+  > &gt;&gt; &gt;&gt; Currently workers don&#x27;t support anything related to the HTML parser. &gt;&gt; e.g. It&#x27;s impossible to create HTML DOM nodes in a worker. e.g. &gt;&gt; \`DOMParser\` is only available in a \`Window\` context. &gt;&gt; This mean...
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
-- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17764.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5169798320357376`)*
-  > Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer Skip to site navigation (Press enter) Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer 'Daniel Vogelheim' v...
 - [\[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17726.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5169798320357376`)*
   > \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer Chromestatus Wed, 14 Oct 202...
-- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17747.html) *(mail-archive.com)* *(Cites: `https://github.com/whatwg/html/pull/12898`)*
+- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17747.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5169798320357376`)*
   > Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer Skip to site navigation (Press enter) Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer Mike Taylor Thu, 15 ...
-- [Chrome 157 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/157) *(chromestatus.com · 2026-10-30T05:29:22)* *(Cites: `https://github.com/whatwg/html/pull/12898`)*
-  > Chrome 157 Release Notes - Chrome Platform Status Chrome 157 Release Notes Preview Scheduled Stable Release November 3, 2026 Miscellaneous Add javascriptURLs option to SanitizerConfig and Sanitizer # Link copied! https://github.com/whatwg/h...
+- [Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer](http://www.mail-archive.com/blink-dev@chromium.org/msg17764.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5169798320357376`)*
+  > Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer Skip to site navigation (Press enter) Re: \[blink-dev\] Intent to Ship: Add javascriptURLs option to SanitizerConfig and Sanitizer 'Daniel Vogelheim' v...
+- [2068934 - Sanitizer API: javascript URL handling should be part of the config](https://bugzilla.mozilla.org/show_bug.cgi?id=2068934) *(bugzilla.mozilla.org)* *(Cites: `https://github.com/whatwg/html/pull/12898`)*
+  > 2068934 - Sanitizer API: javascript URL handling should be part of the config Mozilla Home Privacy Cookies Legal Bugzilla Log In Log In with GitHub or Remember me Create an Account &middot; Forgot Password Browse Advanced Search New Bug Rep...
 
 ## 📚 Platform Documentation & Specifications
 
-- [github.com](https://github.com/whatwg/html/issues/12686) *(github.com)*
+- [github.com](https://github.com/mdn/mdn/issues/862) *(github.com)*
 - [mozilla.org](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/158) *(developer.mozilla.org)*
-- [github.com](https://github.com/mdn/content/issues/45898) *(github.com)*
+- [github.com](https://github.com/whatwg/html/issues/12686) *(github.com)*
 - [github.com](https://github.com/web-platform-tests/wpt/blob/master/sanitizer-api/sanitizer-javascript-url.html) *(github.com)*
+- [github.com](https://github.com/mdn/content/issues/45898) *(github.com)*
+- [2068934 - Sanitizer API: javascript URL handling should be part of the config](https://bugzilla.mozilla.org/show_bug.cgi?id=2068934) *(bugzilla.mozilla.org)*
+- [Add javascriptURLs option to SanitizerConfig · Issue #738 · WebKit/standards-positions · GitHub](https://github.com/WebKit/standards-positions/issues/738) *(github.com)*
 - [Document Sanitizer javascriptURLs and setJavascriptURLs() by pepelsbey · Pull Request #46111 · mdn/content · GitHub](https://github.com/mdn/content/pull/46111) *(github.com)*
-- [\[pull\] main from whatwg:main by pull\[bot\] · Pull Request #231 · MarcelRaschke/html · GitHub](https://github.com/MarcelRaschke/html/pull/231) *(github.com)*
 - [Fx158: Sanitizer javascriptURLs option and setJavascriptURLs() by pepelsbey · Pull Request #46110 · mdn/content · GitHub](https://github.com/mdn/content/pull/46110) *(github.com)*
-- [2071032 - \[wpt-sync\] Sync PR 62564 - Sanitizer: fix the javascript: URL tests and cover the default configuration](https://bugzilla.mozilla.org/show_bug.cgi?id=2071032) *(bugzilla.mozilla.org)*
+- [HTML Standard](https://html.spec.whatwg.org/multipage/dynamic-markup-insertion.html) *(html.spec.whatwg.org)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 51 result(s) found across 11 planned queries — **8 verified relevant**
-  - `"chromestatus.com/feature/5169798320357376" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (3 returned)
-  - `"github.com/whatwg/html/pull/12898" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Specification* (6 returned)
-  - `"Add javascriptURLs option to SanitizerConfig and Sanitizer" API` — *Core feature API query* (7 returned)
+- **Brave Search:** 49 result(s) found across 11 planned queries — **15 verified relevant**
+  - `"chromestatus.com/feature/5169798320357376" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (4 returned)
+  - `"github.com/whatwg/html/pull/12898" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Specification* (8 returned)
+  - `"Add javascriptURLs option to SanitizerConfig and Sanitizer" API` — *Core feature API query* (8 returned)
   - `"Add javascriptURLs option to SanitizerConfig and Sanitizer" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"github.com" OR ":-urls" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Add javascriptURLs option to SanitizerConfig and Sanitizer" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"Add javascriptURLs option to SanitizerConfig and Sanitizer" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"Sanitizer API" "javascriptURLs" ("XSS" OR "sanitize")` — *Discovers articles and developer guides detailing how to configure javascript: URL sanitization using the Sanitizer API.* (8 returned)
-  - `"javascriptURLs" ("SanitizerConfig" OR "new Sanitizer") code example` — *Locates code snippets, WebIDL specifications, and practical JavaScript implementations using the javascriptURLs option.* (8 returned)
-  - `site:github.com/whatwg/html ("12898" OR "12686") OR ("SanitizerConfig" "javascriptURLs")` — *Finds original specification PRs, standards discussions, and issue tracker feedback regarding making javascript: URL handling an explicit configuration option.* (1 returned)
-  - `"javascriptURLs" ("Sanitizer" OR "SanitizerConfig") ("intent to" OR "Chromium" OR "WebKit" OR "Mozilla")` — *Tracks browser vendor implementation status, Intent to Ship threads, and cross-browser adoption signals for the feature.* (8 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 9 result(s) found — **8 verified relevant**
+  - `"SanitizerConfig" "javascriptURLs"` — *Finds code samples, WebIDL signatures, and Web Platform Tests showing how to configure the javascriptURLs option.* (8 returned)
+  - `"Sanitizer API" "javascriptURLs" blog OR guide OR tutorial` — *Discovers developer blog posts and guides detailing Sanitizer API URL handling and the javascriptURLs configuration.* (8 returned)
+  - `"javascriptURLs" "Sanitizer" ("Intent to Ship" OR "Chrome" OR "WebKit" OR "Firefox")` — *Surfaces browser vendor implementation status, intent-to-ship threads, and platform support signals.* (8 returned)
+  - `"whatwg/html" ("12898" OR "12686") OR ("SanitizerConfig" "javascriptURLs")` — *Tracks specification discussions, standards rationale, and community feedback in WHATWG HTML issues and pull requests.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 9 result(s) found — **9 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Tweets found by web search:** 5 result(s) found — **0 verified relevant**
+- **Tweets found by web search:** 3 result(s) found — **0 verified relevant**
 - **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 1 result(s) found — **1 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *untracked*
-- **NPM Registry:** 7 result(s) found — **0 verified relevant**
+- **NPM Registry:** 6 result(s) found — **0 verified relevant**
 - **web-features mapping:** *not in a web-features group*
 - **Web Platform Tests (wpt.fyi):** *not in a web-features group*
-- **Sources cited by the AI synthesis:** 5 result(s) found — **3 verified relevant**
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 0 document(s) analyzed
-- **Standards Discussion Comments:** 5 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 10 page(s)
+- **Standards Discussion Comments:** 1 engineer comment(s) read
+- **Web Page Excerpts Ingested:** 5 page(s)
 
 ## Useful Links
 

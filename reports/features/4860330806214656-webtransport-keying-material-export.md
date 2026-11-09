@@ -1,6 +1,6 @@
 # WebTransport keying material export
 
-> **Report Week:** 2026-W45 | **Milestone:** Chrome 158 | **Category:** Enabled by default
+> **Report Week:** 2026-W46 | **Milestone:** Chrome 159 | **Category:** Enabled by default
 
 ## Overview
 
@@ -12,14 +12,14 @@ Applications sometimes need cryptographic keying material bound to an authentica
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (no earlier number to compare with yet; footprint 200 points)
+- **Momentum:** Emerging (no earlier number to compare with yet; footprint 290 points)
 - **Standards Alignment:** Multi-Engine Consensus
-- **Sentiment:** Cautiously Optimistic
-- **Executive Take:** WebTransport.exportKeyingMaterial() standardizes session-bound cryptographic key derivation directly from the underlying TLS connection without extra cryptographic handshakes. First originating from W3C WebTransport issue discussions and codified in IETF HTTP/3 transport specifications, the feature is enabled by default in Chromium. Cross-engine consensus on the standard is favorable, though Chromium is currently the first engine to deliver a shipping implementation.
+- **Sentiment:** Positive
+- **Executive Take:** WebTransport.exportKeyingMaterial() standardizes session-bound cryptographic key derivation directly from the underlying TLS/QUIC connection, eliminating redundant secondary key exchanges for games and real-time streaming protocols. The API is specified in the W3C WebTransport Candidate Recommendation and shipping in Chromium, with HTTP/3 stream ID isolation baked into the exporter context to ensure multiplexed session safety. Cross-engine consensus is strong at the specification level, though implementation velocity currently varies across browser engines.
 
 ### Recommendations
-- Actionable Advice: Teams building custom real-time protocols or media pipelines should adopt the API through feature detection on WebTransport.prototype while maintaining an application-layer key exchange fallback for Firefox and Safari. Avoid transmitting exported keys over application logs and verify that server-side HTTP/3 implementations correctly incorporate the CONNECT stream ID into the exporter context.
-- Shipping enabled by default in Chrome 158. Developers can begin adopting in production with progressive feature detection.
+- Actionable Advice: Adopt the API using progressive enhancement by verifying if \`typeof transport.exportKeyingMaterial === 'function'\` on connected WebTransport instances before invoking it. Applications needing cross-browser reach across Safari today must maintain a fallback application-level handshake until WebKit implementation catches up.
+- Shipping enabled by default in Chrome 159. Developers can begin adopting in production with progressive feature detection.
 - Strong multi-vendor alignment across Chromium, Gecko, and WebKit indicating high likelihood of eventual web baseline.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
 
@@ -27,35 +27,49 @@ Applications sometimes need cryptographic keying material bound to an authentica
 
 *group-level data: web-features [`webtransport`](https://webstatus.dev/features/webtransport), shared with 18 other ChromeStatus features*
 
-- Share of tests passing in the web-features group `webtransport` on [wpt.fyi](https://wpt.fyi/results?q=feature:webtransport) (via webstatus.dev) — stable: Chrome 43.1% · Edge 41.6% · Firefox 48.9% · Safari 43.1%; experimental: Chrome 87.6% · Edge 84.7% · Firefox 78.8% · Safari 73%
-- **Chrome usage:** 0.00016% of page loads ([use counter](https://chromestatus.com/metrics/webfeature/timeline/popularity/80))
+- Share of tests passing in the web-features group `webtransport` on [wpt.fyi](https://wpt.fyi/results?q=feature:webtransport) (via webstatus.dev) — stable: Chrome 51.1% · Edge 48.9% · Firefox 47.5% · Safari 41.8%; experimental: Chrome 87.9% · Edge 87.9% · Firefox 79.4% · Safari 73.8%
+- **Chrome usage:** 0.00022% of page loads ([use counter](https://chromestatus.com/metrics/webfeature/timeline/popularity/80))
 - **Mozilla:** positive ([standards position](https://github.com/mozilla/standards-positions/issues/167))
 - **WebKit:** support ([standards position](https://github.com/WebKit/standards-positions/issues/18))
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [chromestatus.com](https://chromestatus.com/feature/4860330806214656/activity) *(chromestatus.com)*
-  > \*\*Observability & DevTools:\*\* Implementation notes emphasize that calls made while connecting remain pending until the session establishes, and that browser DevTools explicitly will \*\*not\*\* inspect or display exported byte arrays to prevent leakage o...
-- [googlesource.com](https://chromium.googlesource.com/external/w3c/web-platform-tests/+/refs/heads/epochs/daily/webtransport) *(chromium.googlesource.com)*
-  > js\` to ensure uniform byte derivation and bounds checking across browser engines
+- [appspot.com](https://img968-dot-cr-status.appspot.com/feature/4860330806214656) *(img968-dot-cr-status.appspot.com)*
+  > \*\*\`WebTransport.exportKeyingMaterial()\`\*\* allows web applications to derive session-bound cryptographic keying material directly from an established WebTransport connection without conducting a separate, redundant cryptographic handshake \*\*Eliminatio...
+- [januschka.com](https://static.januschka.com/changelog/chromium/i2s/M158.html) *(static.januschka.com)*
+  > \`outputLength\` \*(unsigned long)\*: Number of output bytes requested (1 through 4096 bytes) \*\*Return Value:\*\* Returns a \`Promise&lt;Uint8Array&gt;\` resolved with the derived pseudorandom bytes
+- [chromium.org](https://issues.chromium.org/556304550) *(issues.chromium.org)*
+  > \*\*HTTP/3 Stream Isolation:\*\* When WebTransport operates over HTTP/3, Chromium and standard implementations inject the WebTransport \`CONNECT\` stream ID into the underlying TLS exporter context The implementation details discuss boundary validations ac...
+- [chromestatus.com](https://chromestatus.com) *(chromestatus.com)*
+  > \*\*Feature Tracking:\*\* Listed under \*\*Chrome Platform Status: WebTransport keying material export\*\* and targeted across Chrome releases (landing in Chrome M158)
+- [web.dev](https://web.dev/blog/web-platform-09-2026) *(web.dev)*
+  > \*\*Spec Alignment:\*\* Firefox originally introduced early support for \`exportKeyingMaterial()\` in Firefox 155
+- [ietf.org](https://datatracker.ietf.org/meeting/123/materials/slides-123-webtrans-webtransport-slides-ietf-123-03) *(datatracker.ietf.org)*
+  > \*\*Candidate Recommendation Updates:\*\* Updates from the W3C WebTransport specification repository and IETF 123 WEBTRANS working group notes document the alignment between W3C WebIDL definitions and RFC 5705 / RFC 8446 TLS exporter semantics
+- [chromium.org](https://issues.chromium.org/579026175) *(issues.chromium.org)*
+  > \*\*Cross-Browser Test Suites:\*\* Extensive Web Platform Tests (\`web-platform-tests/wpt\`) have been committed across Chromium and Gecko trees to ensure cross-engine compatibility regarding argument validation, stream context scoping, and asynchronous cl...
 - [Re: \[blink-dev\] Re: Intent to Ship: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17869.html) *(mail-archive.com)*
   > Re: \[blink-dev\] Re: Intent to Ship: WebTransport keying material export Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: WebTransport keying material export Mike Taylor Tue, 27 Oct 2026 16:37:53 -0700 LGTM2 On 10/27/26 7:00 p...
-- [\[blink-dev\] Re: Intent to Ship: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17860.html) *(mail-archive.com)*
-  > \[blink-dev\] Re: Intent to Ship: WebTransport keying material export Skip to site navigation (Press enter) \[blink-dev\] Re: Intent to Ship: WebTransport keying material export Alex Russell Tue, 27 Oct 2026 12:00:25 -0700 LGTM1 On Wednesday, October 21,...
 - [\[blink-dev\] Intent to Ship: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17838.html) *(mail-archive.com)*
-  > \[blink-dev\] Intent to Ship: WebTransport keying material export Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: WebTransport keying material export Chromestatus Wed, 21 Oct 2026 12:09:31 -0700 Contact emails \[email&#160;protected\] ,...
-- [Re: \[blink-dev\] Re: Intent to Ship: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17873.html) *(mail-archive.com)*
-  > &gt;&gt; &gt;&gt; \*Security\* &gt;&gt; This API exposes secret-derived material to script and therefore requires &gt;&gt; careful domain separation and lifecycle handling. It does not expose TLS &gt;&gt; traffic keys or allow callers to decrypt WebTra...
+  > Security This API exposes secret-derived material to script and therefore requires careful domain separation and lifecycle handling. It does not expose TLS traffic keys or allow callers to decrypt WebTransport traffic. Chromium uses the fixed TLS exp...
 - [\[blink-dev\] Intent to Prototype: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17462.html) *(mail-archive.com)*
   > The method accepts application provided binary label and context values and a requested output length and returns a Promise&lt;Uint8Array&gt;. Chromium supports label and context values up to 255 bytes and output lengths from 1 through 4096 bytes. Fo...
+- [\[blink-dev\] Re: Intent to Ship: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17860.html) *(mail-archive.com)*
+  > &gt; &gt; \*Security\* &gt; This API exposes secret-derived material to script and therefore requires &gt; careful domain separation and lifecycle handling. It does not expose TLS &gt; traffic keys or allow callers to decrypt WebTransport traffic. Chro...
+- [Re: \[blink-dev\] Re: Intent to Ship: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17873.html) *(mail-archive.com)*
+  > &gt;&gt; &gt;&gt; \*Security\* &gt;&gt; This API exposes secret-derived material to script and therefore requires &gt;&gt; careful domain separation and lifecycle handling. It does not expose TLS &gt;&gt; traffic keys or allow callers to decrypt WebTra...
+- [Re: \[blink-dev\] Intent to Prototype: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17464.html) *(mail-archive.com)*
+  > The method accepts application provided binary label and context &gt; values and a requested output length and returns a Promise&lt;Uint8Array&gt;. &gt; Chromium supports label and context values up to 255 bytes and output &gt; lengths from 1 through...
 - [Re: \[blink-dev\] Intent to Prototype: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17467.html) *(mail-archive.com)*
   > For WebTransport over &gt; HTTP/3, Chromium includes the WebTransport CONNECT stream ID in the TLS &gt; exporter context. This ensures that separate WebTransport sessions derive &gt; different keying material even when they share the same underlying ...
 - [Re: \[blink-dev\] Intent to Prototype: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17466.html) *(mail-archive.com)*
   > &gt;&gt; &gt;&gt; Adoption plan &gt;&gt; &lt;strong&gt;Adoption is expected to occur through WebTransport documentation, &gt;&gt; interoperable WPT coverage, and use by protocol implementations that require &gt;&gt; transport-bound keying material&lt;/strong&gt;...
 - [WebTransport](https://w3c.github.io/webtransport/index.html) *(w3c.github.io)*
-  > Exports keying material from a ... be label.byte length. If labelLength is more than 255, return a promise rejected with a RangeError. &lt;strong&gt;Let contextLength be 0&lt;/strong&gt;....
-- [WebTransport API: exportKeyingMaterial \| Can I use... Support tables for HTML5, CSS3, etc](https://caniuse.com/mdn-api_webtransport_exportkeyingmaterial) *(caniuse.com)*
-  > WebTransport API: exportKeyingMaterial \| Can I use... Support tables for HTML5, CSS3, etc Can I use Search ? Settings WebTransport API: exportKeyingMaterial Global usage 1.3% + 0% = 1.3% IE ❌ 6 - 10 : Not supported ❌ 11 : Not supported Edge ❌ 12 - 15...
+  > Exports keying material from a TLS Keying Material Exporter for the TLS session uniquely associated with this WebTransport’s underlying connection. When exportKeyingMaterial is called, the user agent MUST run the following steps:
+- [Chrome Platform Status](https://img968-dot-cr-status.appspot.com/feature/4860330806214656/activity) *(img968-dot-cr-status.appspot.com)*
+  > Chrome Platform Status
+- [WebTransport.exportKeyingMaterial — Web APIs \| Spec-Zone.ru](https://en.spec-zone.ru/dom/webtransport/exportkeyingmaterial) *(en.spec-zone.ru)*
+  > WebTransport.exportKeyingMaterial — Web APIs \| Spec-Zone.ru Для работы Spec-Zone.ru требуется JavaScript, включите в настройках вашего браузера. WebTransport: exportKeyingMaterial() method Experimental: This is an experimental technology Check the Br...
 
 ## 🔗 Inbound Citations & Reverse Links
 
@@ -63,29 +77,27 @@ The following external publications and discussions explicitly link to or cite t
 
 - [Re: \[blink-dev\] Re: Intent to Ship: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17869.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/webtransport/blob/main/explainer.md`)*
   > Re: \[blink-dev\] Re: Intent to Ship: WebTransport keying material export Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: WebTransport keying material export Mike Taylor Tue, 27 Oct 2026 16:37:53 -0700 LGTM2 On 10/27...
-- [\[blink-dev\] Re: Intent to Ship: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17860.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/webtransport/blob/main/explainer.md`)*
-  > \[blink-dev\] Re: Intent to Ship: WebTransport keying material export Skip to site navigation (Press enter) \[blink-dev\] Re: Intent to Ship: WebTransport keying material export Alex Russell Tue, 27 Oct 2026 12:00:25 -0700 LGTM1 On Wednesday, O...
-- [\[blink-dev\] Intent to Ship: WebTransport keying material export](http://www.mail-archive.com/blink-dev@chromium.org/msg17838.html) *(mail-archive.com)* *(Cites: `https://github.com/w3c/webtransport/blob/main/explainer.md`)*
-  > \[blink-dev\] Intent to Ship: WebTransport keying material export Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: WebTransport keying material export Chromestatus Wed, 21 Oct 2026 12:09:31 -0700 Contact emails \[email&#160;pr...
 
 ## 📚 Platform Documentation & Specifications
 
-- [WebTransport: exportKeyingMaterial() method - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebTransport/exportKeyingMaterial) *(developer.mozilla.org)*
-- [expose a TLS Keying Material Exporter / unique value for the TLS session · Issue #411 · w3c/webtransport · GitHub](https://github.com/w3c/webtransport/issues/411) *(github.com)*
-- [github.com](https://github.com/ietf-wg-webtrans/draft-ietf-webtrans-http3/issues/116) *(github.com)*
-- [Release merge\_pr\_63465 · web-platform-tests/wpt · GitHub](https://github.com/web-platform-tests/wpt/releases/tag/merge_pr_63465) *(github.com)*
-- [WebTransport.exportKeyingMaterial(): editorial review fixes by hamishwillee · Pull Request #46336 · mdn/content · GitHub](https://github.com/mdn/content/pull/46336) *(github.com)*
-- [WebTransport/Meetings - W3C Wiki](https://www.w3.org/wiki/WebTransport/Meetings) *(w3.org)*
-- [FF155 WebTransport.exportKeyingMaterial() by hamishwillee · Pull Request #45411 · mdn/content · GitHub](https://github.com/mdn/content/pull/45411) *(github.com)*
 - [exportKeyingMaterial: IDL marks context required, but the prose treats it as optional (and WebIDL then forces outputLength optional too) · Issue #774 · w3c/webtransport · GitHub](https://github.com/w3c/webtransport/issues/774) *(github.com)*
+- [WebTransport: exportKeyingMaterial() method - Web APIs \| MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebTransport/exportKeyingMaterial) *(developer.mozilla.org)*
+- [mozilla.org](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/155) *(developer.mozilla.org)*
+- [mozilla.org](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/160) *(developer.mozilla.org)*
+- [WebTransport.exportKeyingMaterial(): editorial review fixes by hamishwillee · Pull Request #46336 · mdn/content · GitHub](https://github.com/mdn/content/pull/46336) *(github.com)*
+- [WebTransport](https://www.w3.org/TR/2026/CR-webtransport-20260730) *(w3.org)*
+- [expose a TLS Keying Material Exporter / unique value for the TLS session · Issue #411 · w3c/webtransport · GitHub](https://github.com/w3c/webtransport/issues/411) *(github.com)*
 - [Link "TLS Keying Material Exporter" · Issue #794 · w3c/webtransport · GitHub](https://github.com/w3c/webtransport/issues/794) *(github.com)*
+- [Fix link for TLS Keying Material Exporter by jan-ivar · Pull Request #796 · w3c/webtransport · GitHub](https://github.com/w3c/webtransport/pull/796) *(github.com)*
+- [\[HTTP\] Support ExportKeyingMaterial for WebTransport · Issue #46281 · mdn/content · GitHub](https://github.com/mdn/content/issues/46281) *(github.com)*
+- [Should exportKeyingMaterial return Uint8Array? · Issue #727 · w3c/webtransport · GitHub](https://github.com/w3c/webtransport/issues/727) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 49 result(s) found across 12 planned queries — **16 verified relevant**
-  - `"chromestatus.com/feature/4860330806214656" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (0 returned)
+- **Brave Search:** 55 result(s) found across 13 planned queries — **16 verified relevant**
+  - `"chromestatus.com/feature/4860330806214656" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (3 returned)
   - `"github.com/w3c/webtransport/blob/main/explainer.md" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (8 returned)
   - `"www.w3.org/TR/webtransport" -site:www.w3.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (8 returned)
   - `"WebTransport keying material export" API` — *Core feature API query* (8 returned)
@@ -93,29 +105,30 @@ The following external publications and discussions explicitly link to or cite t
   - `"webtransport.exportkeyingmaterial" OR "application-level" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"WebTransport keying material export" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"WebTransport keying material export" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"WebTransport" "exportKeyingMaterial" (tutorial OR guide OR example)` — *Finds developer tutorials, blog posts, and implementation guides demonstrating WebTransport keying material export.* (8 returned)
-  - `"exportKeyingMaterial" "WebTransport" (Uint8Array OR label OR context)` — *Discovers real-world JavaScript and WebIDL code snippets showing parameter usage and syntax for exportKeyingMaterial.* (8 returned)
-  - `"WebTransport" "exportKeyingMaterial" ("Intent to Ship" OR Chrome OR Chromium)` — *Tracks platform announcements, Chromium intent to ship threads, and release milestone documentation.* (8 returned)
-  - `"WebTransport" "exportKeyingMaterial" (GitHub OR W3C OR IETF OR "TLS exporter")` — *Surfaces specification discussions, issue tracker debates, and RFC design feedback regarding session binding and TLS exporters.* (8 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 9 result(s) found — **5 verified relevant**
+  - `"exportKeyingMaterial" WebTransport tutorial OR guide` — *Finds developer guides and tutorials explaining how to use WebTransport's keying material exporter.* (4 returned)
+  - `"WebTransport" "exportKeyingMaterial" (Uint8Array OR label OR context)` — *Locates real-world JavaScript code snippets and implementation examples calling exportKeyingMaterial.* (8 returned)
+  - `"WebTransport.exportKeyingMaterial" OR "exportKeyingMaterial" Chromium "intent to ship" OR "Chrome Platform Status"` — *Tracks browser vendor release notes, intent to ship announcements, and platform implementation status.* (6 returned)
+  - `site:github.com/w3c/webtransport "exportKeyingMaterial" OR "keying material"` — *Discovers working group discussions, issue threads, and consensus regarding the API design in the official repository.* (5 returned)
+  - `"WebTransport" "exportKeyingMaterial" (TLS exporter OR authentication OR encryption)` — *Surfaces architectural deep dives and security write-ups on binding application-layer encryption or authentication to WebTransport sessions.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 12 result(s) found — **11 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Tweets found by web search:** 5 result(s) found — **0 verified relevant**
-- **Dev.to Community Blogs:** 1 result(s) found — **0 verified relevant**
+- **Tweets found by web search:** 3 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 0 result(s) found — **0 verified relevant**
 - **Engine Bug Trackers:** 3 result(s) found — **2 verified relevant**
 - **Baseline (baseline.dev):** *newly*
 - **NPM Registry:** 6 result(s) found — **0 verified relevant**
 - **web-features mapping:** *group "webtransport", shared with 18 other ChromeStatus feature(s)*
-- **Web Platform Tests (wpt.fyi):** *group "webtransport": Chrome 43.1% passing (stable)*
-- **Sources cited by the AI synthesis:** 3 result(s) found — **2 verified relevant**
+- **Web Platform Tests (wpt.fyi):** *group "webtransport": Chrome 51.1% passing (stable)*
+- **Sources cited by the AI synthesis:** 10 result(s) found — **7 verified relevant**
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
 - **Standards Discussion Comments:** 0 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 10 page(s)
+- **Web Page Excerpts Ingested:** 15 page(s)
 
 ## Useful Links
 

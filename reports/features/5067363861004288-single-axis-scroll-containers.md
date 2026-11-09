@@ -1,6 +1,6 @@
 # Single-axis scroll containers
 
-> **Report Week:** 2026-W44 | **Milestone:** Chrome 156 (first listed in Chrome 154) | **Category:** Enabled by default
+> **Report Week:** 2026-W46 | **Milestone:** Chrome 156 | **Category:** Enabled by default
 
 ## Overview
 
@@ -12,17 +12,18 @@ The CSS \`overflow\` property currently allows behavior to be specified per axis
 
 ## Ecosystem Status
 
-- **Momentum:** Moderate (footprint 285 points, ranked against this week's features because too few have an earlier number to work out a change)
+- **Momentum:** Emerging (+50 points since 2026-10-12; footprint 275 points)
 - **Standards Alignment:** Chromium-Led
 - **Sentiment:** Cautiously Optimistic
-- **Executive Take:** Single-axis scroll containers allow authors to pair scrollable values with clip (such as \`overflow: auto clip\`), preventing CSS engines from coercing the non-scrolling axis into a scroller and resolving a long-standing constraint for \`position: sticky\` and DOM scroll APIs. The feature shipped enabled by default in Chromium and Microsoft Edge 156 following CSS Working Group consensus and a satisfied W3C TAG review. However, cross-browser availability remains uneven as Gecko and WebKit implementations have not yet shipped.
+- **Executive Take:** Single-axis scroll containers update CSS Overflow by permitting scrollable keywords (such as auto or scroll) to pair explicitly with clip, preventing the browser from coercing the clipped axis into a full two-dimensional scroller. This resolves the decade-old CSS issue where position: sticky elements inside horizontally scrolling containers were trapped by local overflow rather than sticking to the viewport or document scroll ancestors. While Chromium has shipped support enabled by default starting in Chrome 156 following TAG satisfaction, Mozilla Gecko and Apple WebKit standards positions remain active and open.
 
 ### Recommendations
-- Actionable Advice: Teams should avoid using \`@supports (overflow: scroll clip)\` to gate styles, as older browsers parse the syntax validly before coercing the axis into an implicit scrollport. Until the new \`@supports named-feature(single-axis-scroll-container)\` or Safari and Firefox catch up, gate enhancements using a lightweight JavaScript runtime probe (verifying that \`scrollTop\` cannot be set on the clipped axis) while preserving standard fallback scrolling wrappers.
+- Actionable Advice: Teams building responsive wide tables or horizontal carousels can adopt single-axis scroller syntax (e.g., overflow-x: auto; overflow-y: clip;) as a progressive enhancement, but must test fallback behaviors in non-supporting browsers where clip is still coerced into hidden, trapping vertical sticky positioning.
 - Shipping enabled by default in Chrome 156. Developers can begin adopting in production with progressive feature detection.
-- Standards Activity (Mozilla): Latest discussion from @freedebreuil: "&gt; How does this play with touch-action?  Thanks, good point. I think the right model is that scroll containers are now per-axis. For \`touch-action\`, t..."
+- Standards Activity (Mozilla): Latest discussion from @emilio: "In terms of layout, is it well defined what happens for a single-axis scroll container for things like baseline alignment? I guess we only adjust base..."
 - Standards Activity (W3C TAG): Latest discussion from @lukewarlow: "Hi @freedebreuil the TAG has discussed this and we're satisfied with this change.  Thanks for flying TAG..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
+- Verified community discussion on Twitter / X: "Chrome for Developers on X: "New in Chrome 153" / X" (0 points, 0 comments).
 
 ## Standards Positions
 
@@ -35,40 +36,44 @@ The CSS \`overflow\` property currently allows behavior to be specified per axis
 *group-level data: web-features [`overflow`](https://webstatus.dev/features/overflow), shared with 1 other ChromeStatus feature*
 
 - Share of tests passing in the web-features group `overflow` on [wpt.fyi](https://wpt.fyi/results?q=feature:overflow) (via webstatus.dev) — stable: Chrome 100% · Edge 100% · Firefox 100% · Safari 100%; experimental: Chrome 100% · Edge 100% · Firefox 100% · Safari 100%
-- **Chrome usage:** 0.1% of page loads ([use counter](https://chromestatus.com/metrics/webfeature/timeline/popularity/190))
+- **Chrome usage:** 0.078% of page loads ([use counter](https://chromestatus.com/metrics/webfeature/timeline/popularity/190))
+
+## Community Discussions & Social Pulse
+
+- 🐦 **Twitter / X:** [Chrome for Developers on X: "New in Chrome 153" / X](https://x.com/ChromiumDev/status/2098134897923658034) — *by @ChromiumDev, 0 likes/RTs, 0 replies*
 
 ## 📰 Ecosystem Blogs & Articles
 
 - [chrome.com](https://developer.chrome.com/blog/single-axis-scroll-containers-ready-for-testing) *(developer.chrome.com)*
-  > Historically in CSS, true single-axis scroll containers did not exist If you specified a scrollable value (\`auto\`, \`scroll\`, or \`hidden\`) on one axis and left the other as \`visible\` or \`clip\`, CSS layout engines automatically coerced the non-scrollin...
+  > \*\*Single-axis scroll containers\*\* update the CSS \`overflow\` specification by allowing scrollable keywords (\`auto\`, \`scroll\`, \`hidden\`) to be explicitly combined with \`clip\` (for example, \`overflow: auto clip\` or \`overflow-x: auto; overflow-y: clip\`) ...
 - [river.me](https://blog.river.me/single-axis-scroll) *(blog.river.me)*
-  > \*\*Breaking \`position: sticky\` across axes:\*\* A descendant element could not stick to an outer scroll container (like the page/viewport) vertically while sticking horizontally inside a local table wrapper \*\*Article:\*\* \*"Single-axis scroll containers –...
+  > \*\*The \`position: sticky\` conflict:\*\* Because the element became a 2D scroller, any sticky child with \`position: sticky; top: 0\` would anchor to the local container rather than the viewport/document scroller This made the classic responsive data table...
 - [CSS position: sticky now sticks to the nearest scroller on a per axis basis! – Bram.us](https://www.bram.us/2026/03/30/css-sticky-per-axis) *(bram.us)*
-  > This unlocks per-axis \`position: sticky\` evaluation, where an element's vertical stickiness can skip the local container and resolve against an ancestor scroller \*\*Article:\*\* \*"CSS position: sticky now sticks to the nearest scroller on a per axis bas...
-- [modern-css.com](https://modern-css.com/sticky-rows-and-columns-without-javascript) *(modern-css.com)*
-  > This unlocks per-axis \`position: sticky\` evaluation, where an element's vertical stickiness can skip the local container and resolve against an ancestor scroller \*\*Articles:\*\* \*"TWO AXES: the sticky element that could not pick a scroller"\* and \*"Two-...
-- [localenhance.com](https://labs.localenhance.com/labs/two-axes) *(labs.localenhance.com)*
-  > \*\*Articles:\*\* \*"TWO AXES: the sticky element that could not pick a scroller"\* and \*"Two-Axis Sticky: Sticky Row and Column in the Same Table"\* Benchmarks the performance improvement over JavaScript workarounds
-- [reddit.com](https://www.reddit.com/r/Frontend/comments/1tukmmq/css_position_sticky_now_sticks_to_the_nearest) *(reddit.com)*
-  > The reaction across frontend communities (Reddit, GitHub, Mastodon/Twitter) has been overwhelmingly positive toward eliminating these workarounds
+  > This made the classic responsive data table—horizontal scrolling for wide columns while keeping headers sticky to the viewport—almost impossible with pure CSS \*\*"CSS position: sticky now sticks to the nearest scroller on a per axis basis!"\*\*
+- [chromestatus.com](https://chromestatus.com/feature/5086608215900160) *(chromestatus.com)*
+  > \*\*Follow-up ("Scroll snap for single-axis scroll containers"):\*\* Chrome also introduced updates to the CSS Scroll Snap module so that snap areas on a single-axis container only snap along the active scroll axis; snap requests for the clipped axis pro...
+- [css-tricks.com](https://css-tricks.com/dealing-with-overflow-and-position-sticky) *(css-tricks.com)*
+  > \*\*Developer Sentiment:\*\* For data-dense websites, wikis, and dashboard builders, this solves a decade of complex JavaScript scroll-syncing workarounds
 - [tildes.net](https://tildes.net/~comp/1waf/single_axis_scroll_has_been_adopted_into_the_css_spec_and_will_be_supported_in_chromium_soon) *(tildes.net)*
-  > \*\*Progressive Enhancement:\*\* Because \`overflow: auto clip\` gracefully degrades to standard 2-value overflow support or falls back to standard clipping in older browsers, early adopters are already creating progressive fallbacks using \`@supports (over...
+  > Discussions across W3C TAG review threads and developer forums noted that while full cross-browser interoperability will take time to mature in stable releases across all engines, this is one of the cleanest ergonomic wins for CSS layout It aligns th...
 - [\[blink-dev\] Intent to Prototype: CSS sticky positioning in single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg16097.html) *(mail-archive.com)*
   > \[blink-dev\] Intent to Prototype: CSS sticky positioning in single-axis scroll containers Skip to site navigation (Press enter) \[blink-dev\] Intent to Prototype: CSS sticky positioning in single-axis scroll containers Chromestatus Mon, 16 Mar 2026 07:3...
-- [Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17221.html) *(mail-archive.com)*
-  > Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Chris Harrelson Wed, 19 Aug 2026 07:31:33 -0700 LGTM3 On Wed, Aug 19, 2026, 7:28...
-- [\[blink-dev\] Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17143.html) *(mail-archive.com)*
-  > \[blink-dev\] Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: Single-axis scroll containers Chromestatus Tue, 11 Aug 2026 11:26:13 -0700 Contact emails \[email&#160;protected\] Explainer htt...
 - [\[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17194.html) *(mail-archive.com)*
   > \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Alex Russell Mon, 17 Aug 2026 11:59:23 -0700 Hey Free, Dan and I were reviewing this Int...
-- [\[blink-dev\] Intent to Prototype: Scroll snap for single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17201.html) *(mail-archive.com)*
-  > \[blink-dev\] Intent to Prototype: Scroll snap for single-axis scroll containers Skip to site navigation (Press enter) \[blink-dev\] Intent to Prototype: Scroll snap for single-axis scroll containers Chromestatus Mon, 17 Aug 2026 14:06:10 -0700 Contact e...
 - [Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17200.html) *(mail-archive.com)*
-  > &gt;&gt; &gt;&gt; \*Blink component\* &gt;&gt; Blink&gt;Layout ... a way to make a scroll container responsible &gt;&gt; for only a single axis. The affects features that depend on scroll &gt;&gt; containers, namely \`position: sticky\` and DOM scroll AP...
+  > Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers 'Free Debreuil' via blink-dev Mon, 17 Aug 2026 13:58:22 -0700 Hey Alex, Thank yo...
+- [\[blink-dev\] Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17143.html) *(mail-archive.com)*
+  > \[blink-dev\] Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: Single-axis scroll containers Chromestatus Tue, 11 Aug 2026 11:26:13 -0700 Contact emails \[email&#160;protected\] Explainer htt...
 - [Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17374.html) *(mail-archive.com)*
-  > This allows \`position: sticky\` to be constrained by different ancestor scroll containers per axis, and gives authors a way to ensure an axis using \`overflow: clip\` stays in place.
-- [Chrome 153 \| Release notes \| Chrome for Developers](https://developer.chrome.com/release-notes/153) *(developer.chrome.com · 2026-09-08T00:00:00)*
-  > Single-axis scroll containers, the scroll-axis-lock property, capability elements, and more.
+  > Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers 'Bramus Van Damme' via blink-dev Fri, 04 Sep 2026 08:48:34 -0700 On Wednesday, A...
+- [Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17220.html) *(mail-archive.com)*
+  > Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Yoav Weiss (@Shopify) Wed, 19 Aug 2026 07:28:39 -0700 LGTM2 On Monday, August 17...
+- [Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17221.html) *(mail-archive.com)*
+  > &gt;&gt;&gt; &gt;&gt;&gt; Best, &gt;&gt;&gt; &gt;&gt;&gt; Alex &gt;&gt;&gt; &gt;&gt;&gt; On Tuesday, August 11, 2026 at 11:26:16 AM UTC-7 Chromestatus wrote: &gt;&gt;&gt; &gt;&gt;&gt;&gt; \*Contact emails\* &gt;&gt;&gt;&gt; \[email protected\] &gt;&gt;&g...
+- [\[blink-dev\] Intent to Prototype: Scroll snap for single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17201.html) *(mail-archive.com)*
+  > Blink component Blink&gt;Scroll Web Feature ID scroll-snap Motivation This is part of the single-axis scroll container feature (https://github.com/explainers-by-googlers/single-axis-scroll-containers) to &lt;strong&gt;align the scroll snap behavior with th...
+- [Microsoft Edge 156 web platform release notes (Oct. 22, 2026) - Microsoft Edge Developer documentation \| Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-edge/web-platform/release-notes/156) *(learn.microsoft.com · 2026-10-22T00:00:00)*
+  > Setting overflow: scroll clip allows an element with position: sticky to be constrained by different scroll containers per axis. For example, use this to create a table that keeps both the column and row headers in view, while the user scrolls throug...
 
 ## 🔗 Inbound Citations & Reverse Links
 
@@ -76,49 +81,53 @@ The following external publications and discussions explicitly link to or cite t
 
 - [\[blink-dev\] Intent to Prototype: CSS sticky positioning in single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg16097.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5067363861004288`)*
   > \[blink-dev\] Intent to Prototype: CSS sticky positioning in single-axis scroll containers Skip to site navigation (Press enter) \[blink-dev\] Intent to Prototype: CSS sticky positioning in single-axis scroll containers Chromestatus Mon, 16 Mar...
-- [Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17221.html) *(mail-archive.com)* *(Cites: `https://github.com/explainers-by-googlers/single-axis-scroll-containers`)*
-  > Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Chris Harrelson Wed, 19 Aug 2026 07:31:33 -0700 LGTM3 On Wed, Aug 19, ...
+- [\[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17194.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5067363861004288`)*
+  > \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Alex Russell Mon, 17 Aug 2026 11:59:23 -0700 Hey Free, Dan and I were reviewin...
+- [Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17200.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5067363861004288`)*
+  > Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers 'Free Debreuil' via blink-dev Mon, 17 Aug 2026 13:58:22 -0700 Hey Alex...
 - [\[blink-dev\] Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17143.html) *(mail-archive.com)* *(Cites: `https://github.com/explainers-by-googlers/single-axis-scroll-containers`)*
   > \[blink-dev\] Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: Single-axis scroll containers Chromestatus Tue, 11 Aug 2026 11:26:13 -0700 Contact emails \[email&#160;protected\] Exp...
-- [design-reviews#1222: Other Spec Review: Single-Axis Scroll Containers](https://tag-github-bot.w3.org/gh/w3ctag/design-reviews/1222) *(tag-github-bot.w3.org)* *(Cites: `https://github.com/explainers-by-googlers/single-axis-scroll-containers`)*
-  > https://&lt;strong&gt;github.com/explainers-by-googlers/single-axis-scroll-containers&lt;/strong&gt; ·
-- [\[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17194.html) *(mail-archive.com)* *(Cites: `https://github.com/explainers-by-googlers/single-axis-scroll-containers`)*
-  > \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Alex Russell Mon, 17 Aug 2026 11:59:23 -0700 Hey Free, Dan and I were reviewin...
+- [Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17374.html) *(mail-archive.com)* *(Cites: `https://github.com/explainers-by-googlers/single-axis-scroll-containers`)*
+  > Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers 'Bramus Van Damme' via blink-dev Fri, 04 Sep 2026 08:48:34 -0700 On We...
+- [Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17220.html) *(mail-archive.com)* *(Cites: `https://github.com/explainers-by-googlers/single-axis-scroll-containers`)*
+  > Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers Yoav Weiss (@Shopify) Wed, 19 Aug 2026 07:28:39 -0700 LGTM2 On Monday,...
+- [Re: \[blink-dev\] Re: Intent to Ship: Single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17221.html) *(mail-archive.com)* *(Cites: `https://github.com/explainers-by-googlers/single-axis-scroll-containers`)*
+  > &gt;&gt;&gt; &gt;&gt;&gt; Best, &gt;&gt;&gt; &gt;&gt;&gt; Alex &gt;&gt;&gt; &gt;&gt;&gt; On Tuesday, August 11, 2026 at 11:26:16 AM UTC-7 Chromestatus wrote: &gt;&gt;&gt; &gt;&gt;&gt;&gt; \*Contact emails\* &gt;&gt;&gt;&gt; \[email protected\] ...
 - [\[blink-dev\] Intent to Prototype: Scroll snap for single-axis scroll containers](http://www.mail-archive.com/blink-dev@chromium.org/msg17201.html) *(mail-archive.com)* *(Cites: `https://github.com/explainers-by-googlers/single-axis-scroll-containers`)*
-  > \[blink-dev\] Intent to Prototype: Scroll snap for single-axis scroll containers Skip to site navigation (Press enter) \[blink-dev\] Intent to Prototype: Scroll snap for single-axis scroll containers Chromestatus Mon, 17 Aug 2026 14:06:10 -0700...
+  > Blink component Blink&gt;Scroll Web Feature ID scroll-snap Motivation This is part of the single-axis scroll container feature (https://github.com/explainers-by-googlers/single-axis-scroll-containers) to &lt;strong&gt;align the scroll snap behavi...
 
 ## 📚 Platform Documentation & Specifications
 
-- [Other Spec Review: Single-Axis Scroll Containers · Issue #1222 · w3ctag/design-reviews](https://github.com/w3ctag/design-reviews/issues/1222) *(github.com)*
-- [mozilla.org](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow) *(developer.mozilla.org)*
+- [Other Spec Review: Single-Axis Scroll Containers · Issue #1222 · w3ctag/design-reviews · GitHub](https://github.com/w3ctag/design-reviews/issues/1222) *(github.com)*
+- [github.com](https://github.com/explainers-by-googlers/single-axis-scroll-snap) *(github.com)*
+- [mozilla.org](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow-x) *(developer.mozilla.org)*
 - [design-reviews#1222: Other Spec Review: Single-Axis Scroll Containers](https://tag-github-bot.w3.org/gh/w3ctag/design-reviews/1222) *(tag-github-bot.w3.org)*
-- [Single-axis scroll containers · Issue #1436 · web-platform-tests/interop](https://github.com/web-platform-tests/interop/issues/1436) *(github.com)*
-- [GitHub - ics-creative/261112\_single\_axis\_scroll\_containers · GitHub](https://github.com/ics-creative/261112_single_axis_scroll_containers) *(github.com)*
-- [Other Spec Review: Scroll snap for single-axis scroll container · Issue #1266 · w3ctag/design-reviews](https://github.com/w3ctag/design-reviews/issues/1266) *(github.com)*
-- [\[css-scroll-snap-1\] Support scroll snap for single-axis scroll containers · Issue #1445 · mozilla/standards-positions](https://github.com/mozilla/standards-positions/issues/1445) *(github.com)*
-- [\[css-scroll-snap-1\] Support scroll snap for single-axis scroll containers #14018 by lcdavid94 · Pull Request #14354 · w3c/csswg-drafts](https://github.com/w3c/csswg-drafts/pull/14354) *(github.com)*
-- [Explainers by Googlers · GitHub](https://github.com/explainers-by-googlers) *(github.com)*
+- [edge-developer/microsoft-edge/web-platform/release-notes/156.md at main · MicrosoftDocs/edge-developer · GitHub](https://github.com/MicrosoftDocs/edge-developer/blob/main/microsoft-edge/web-platform/release-notes/156.md) *(github.com)*
+- [Single-axis scroll containers · Issue #1418 · mozilla/standards-positions · GitHub](https://github.com/mozilla/standards-positions/issues/1418) *(github.com)*
+- [Single-axis scroll containers · Issue #1436 · web-platform-tests/interop · GitHub](https://github.com/web-platform-tests/interop/issues/1436) *(github.com)*
+- [\[css-scroll-snap-1\] Support scroll snap for single-axis scroll containers #14018 by lcdavid94 · Pull Request #14354 · w3c/csswg-drafts · GitHub](https://github.com/w3c/csswg-drafts/pull/14354) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 61 result(s) found across 12 planned queries — **17 verified relevant**
-  - `"chromestatus.com/feature/5067363861004288" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (3 returned)
-  - `"github.com/explainers-by-googlers/single-axis-scroll-containers" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (5 returned)
-  - `"github.com/w3c/csswg-drafts/pull/13903" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Specification* (1 returned)
+- **Brave Search:** 46 result(s) found across 13 planned queries — **16 verified relevant**
+  - `"chromestatus.com/feature/5067363861004288" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (6 returned)
+  - `"github.com/explainers-by-googlers/single-axis-scroll-containers" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (8 returned)
+  - `"github.com/w3c/csswg-drafts/pull/13903" -site:github.com` *(Reverse Citation)* — *Inbound citations linking to Specification* (7 returned)
   - `"Single-axis scroll containers" API` — *Core feature API query* (8 returned)
   - `"Single-axis scroll containers" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"scrollintoview()" OR "single-axis" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"Single-axis scroll containers" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"Single-axis scroll containers" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"single-axis scroll containers" CSS (tutorial OR guide OR explainer)` — *Discovers developer tutorials, practical guides, and conceptual explanations of single-axis scroll containers.* (7 returned)
-  - `CSS ("overflow: scroll clip" OR "overflow: clip scroll" OR "overflow: auto clip") "position: sticky"` — *Finds code snippets, stylesheets, and real-world implementation examples using the new two-value overflow syntax with clip and scrollable values.* (8 returned)
-  - `"Single-axis scroll containers" ("intent to" OR chromestatus OR WebKit OR "standards-positions")` — *Tracks browser vendor consensus, Intent to Prototype/Ship threads, and standard adoption status across Chrome, Firefox, and WebKit.* (8 returned)
-  - `"single-axis scroll containers" site:github.com/w3c/csswg-drafts OR site:github.com/explainers-by-googlers` — *Surfaces specification discussions, issue feedback, and design deliberations in the CSS Working Group and Google explainers repository.* (7 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 11 result(s) found — **9 verified relevant**
+  - `"single-axis scroll containers" CSS guide OR tutorial OR explainer` — *Finds developer guides, blog explanations, and tutorials covering single-axis scroll container mechanics and use cases.* (8 returned)
+  - `"overflow: scroll clip" OR "overflow: clip scroll" "position: sticky"` — *Discovers CSS implementation patterns and code snippets using mixed scroll and clip overflow values for sticky positioning.* (2 returned)
+  - `"single-axis scroll containers" Chrome "intent to" OR "standards-positions"` — *Tracks browser vendor positions, intent to prototype/ship announcements, and web platform adoption status.* (8 returned)
+  - `"single-axis scroll containers" OR "overflow: scroll clip" site:github.com/w3c/csswg-drafts OR site:github.com/whatwg` — *Surfaces standards body debates, specification feedback, and issue discussions across W3C and WHATWG repositories.* (3 returned)
+  - `"overflow: clip" "single-axis scroll" carousel OR table scrollIntoView` — *Looks for practical DOM scrolling examples such as carousels and multi-axis sticky tables leveraging single-axis clipping.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 12 result(s) found — **10 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Tweets found by web search:** 5 result(s) found — **0 verified relevant**
+- **Tweets found by web search:** 6 result(s) found — **1 verified relevant**
 - **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 3 result(s) found — **3 verified relevant**
@@ -127,14 +136,13 @@ The following external publications and discussions explicitly link to or cite t
 - **NPM Registry:** 5 result(s) found — **0 verified relevant**
 - **web-features mapping:** *group "overflow", shared with 1 other ChromeStatus feature(s)*
 - **Web Platform Tests (wpt.fyi):** *group "overflow": Chrome 100% passing (stable)*
-- **Sources cited by the AI synthesis:** 8 result(s) found — **5 verified relevant**
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
-- **Standards Discussion Comments:** 6 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 10 page(s)
+- **Standards Discussion Comments:** 7 engineer comment(s) read
+- **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links
 

@@ -1,6 +1,6 @@
 # IndexedDB: SQLite backend
 
-> **Report Week:** 2026-W44 | **Milestone:** Chrome 156 | **Category:** Enabled by default
+> **Report Week:** 2026-W46 | **Milestone:** Chrome 156 | **Category:** Enabled by default
 
 ## Overview
 
@@ -12,13 +12,13 @@ Chromium's IndexedDB implementation suffers from poor reliability and maintainab
 
 ## Ecosystem Status
 
-- **Momentum:** Emerging (footprint 201 points, ranked against this week's features because too few have an earlier number to work out a change)
+- **Momentum:** Quiet (0 points since 2026-10-12; footprint 181 points)
 - **Standards Alignment:** Multi-Engine Consensus
 - **Sentiment:** Positive
-- **Executive Take:** Chromium is overhauling its internal IndexedDB storage architecture, transitioning from a legacy, unmaintained LevelDB and flat-file hybrid engine to SQLite to address persistent corruption and write-reliability bugs. Shipped by default for new persistent data stores in Chrome 156 as part of a phased rollout, the change involves no public Web API modifications and brings Chromium into architectural alignment with Safari and Firefox.
+- **Executive Take:** Chromium is transitioning its IndexedDB storage layer from an unmaintained LevelDB and flat-file hybrid to an ACID-compliant SQLite backend with write-ahead logging, rolling out by default to newly created stores in Chrome 156. The standardized IndexedDB JavaScript API remains unchanged, focusing architectural benefits on data resilience, crash recovery, and reduced database corruption rather than raw query speed. This shift brings Chromium into direct architectural alignment with Gecko and WebKit, which have long relied on SQLite for IndexedDB backing storage.
 
 ### Recommendations
-- Actionable Advice: No code changes or polyfills are required since the JavaScript API is intact, but offline-first teams should enforce strict transaction boundaries and audit asynchronous write completions rather than relying on legacy Chromium scheduling quirks. Teams should also tag client-side storage error telemetry by browser version to catch any unexpected regressions before existing databases are migrated in Phase 3.
+- Actionable Advice: Web teams do not need to rewrite their IndexedDB queries, but teams building data-intensive or offline-first apps should audit their QA suites across both clean profiles (SQLite) and populated legacy profiles (LevelDB) to verify transaction scheduling and data durability under abnormal termination. Testing in Firefox and Safari serves as a reliable baseline for confirming compatibility with SQLite-backed transaction behavior.
 - Shipping enabled by default in Chrome 156. Developers can begin adopting in production with progressive feature detection.
 - Strong multi-vendor alignment across Chromium, Gecko, and WebKit indicating high likelihood of eventual web baseline.
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
@@ -36,80 +36,74 @@ Chromium's IndexedDB implementation suffers from poor reliability and maintainab
 
 ## 📰 Ecosystem Blogs & Articles
 
+- [IndexedDB: SQLite backend (in-memory contexts)](https://chromestatus.com/feature/5126896685809664) *(chromestatus.com)*
+  > Chromium has undertaken an architectural rewrite of its \*\*IndexedDB backing store, moving away from its legacy hybrid LevelDB and flat-file storage engine to SQLite\*\* \*\*Core Motivation:\*\* LevelDB has been difficult to maintain and lacked the resilien...
+- [Chrome 156 IndexedDB SQLite Migration: What You Need to Know \| Alexander Burgos](https://alexanderburgos.netlify.app/blog/chrome-156-indexeddb-sqlite-migration) *(alexanderburgos.netlify.app)*
+  > \*\*The Web API Remains Unchanged:\*\* Developers will still interact with standard IndexedDB transactions, object stores, and cursors; it does \*\*not\*\* introduce a public SQL query API SQLite brings mature ACID compliance, an active upstream maintenance ...
+- [Web-Facing Change PSA: IndexedDB: SQLite backend](https://groups.google.com/a/chromium.org/g/blink-dev/c/jS0khnC5IWA) *(groups.google.com)*
+  > \*\*Chrome Platform Status & Blink-dev PSA:\*\* Authored by Chromium and Microsoft engineers (Evan Stade, Abhishek Shanthkumar)
 - [Chrome 156 Moves IndexedDB to SQLite: What Changes for Your Offline-First App \| Trade Assistance LLC](https://trade-assistance.com/blog/indexeddb-sqlite-backend-chrome-156) *(trade-assistance.com)*
-  > \*\*Phase 1:\*\* In-memory / Incognito contexts (shipped in Chrome 144–145) \*\*Sources:\*\* Developer analysis pieces (e.g., \*Trade Assistance\*, \*DigitBin: "Chrome 156 Moves IndexedDB to SQLite: What Changes for Your Offline-First App"\*)
-- [appspot.com](https://img680-dot-cr-status.appspot.com/feature/5126896685809664) *(img680-dot-cr-status.appspot.com)*
-  > \*\*Phase 1:\*\* In-memory / Incognito contexts (shipped in Chrome 144–145) \*\*Sources:\*\* \*Chrome Platform Status\* & \*Blink-dev Announcement\* (Evan Stade & Abhishek Shanthkumar, Microsoft/Chromium)
-- [windowsforum.com](https://windowsforum.com/news/chrome-156-uses-sqlite-for-new-indexeddb-stores-windows-update-and-testing-guide.449458) *(windowsforum.com)*
-  > \*\*Phase 2 (Current – Chrome 156):\*\* New persistent data stores created on first-time visits or after clearing site storage While SQLite may offer slight throughput improvements in certain patterns, the primary goal is crash consistency and eliminatin...
-- [Chrome 156 Moves IndexedDB to SQLite: What Changes](https://www.digitbin.com/chrome-156-indexeddb-sqlite) *(digitbin.com)*
-  > \*\*Phase 3:\*\* Automated migration of existing LevelDB disk stores to SQLite (deferred to mitigate data-loss risks during the transition) \*\*Sources:\*\* Developer analysis pieces (e.g., \*Trade Assistance\*, \*DigitBin: "Chrome 156 Moves IndexedDB to SQLite...
-- [ycombinator.com](https://news.ycombinator.com/item?id=45067339) *(news.ycombinator.com)*
-  > With Chromium’s engine rewrite, Chromium joins \*\*Firefox (Gecko)\*\* and \*\*Safari (WebKit)\*\*, both of which already run IndexedDB on top of SQLite under the hood
-- [Web-Facing Change PSA: IndexedDB: SQLite backend](https://groups.google.com/a/chromium.org/g/blink-dev/c/jS0khnC5IWA) *(groups.google.com · 2026-04-24T00:00:00)*
-  > Web-Facing Change PSA: IndexedDB: SQLite backend Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Web-Facing Change PSA: IndexedDB: SQLite backend 287 ...
+  > It highlights that web apps will benefit from SQLite's transaction model while cautioning teams about subtle edge cases in transaction scheduling \*\*Perspective:\*\* Local-first architecture and PWA development
+- [Chrome 156 Uses SQLite for New IndexedDB Stores: Windows Update and Testing Guide](https://windowsforum.com/news/chrome-156-uses-sqlite-for-new-indexeddb-stores-windows-update-and-testing-guide.449458) *(windowsforum.com)*
+  > \*\*The "Split-Brain" Period:\*\* Explains that developers profiling storage performance must realize a newly created test environment exercises the SQLite path, whereas existing user profiles will remain on LevelDB until Step 3 Recommends QA pipelines e...
+- [Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend](http://www.mail-archive.com/blink-dev@chromium.org/msg16362.html) *(mail-archive.com)*
+  > Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend Skip to site navigation (Press enter) Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend Daniel Herr Sat, 25 Apr 2026 00:10:41 -0700 So we killed Web SQL because everyone ...
 - [\[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend](http://www.mail-archive.com/blink-dev@chromium.org/msg16359.html) *(mail-archive.com)*
   > \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend Skip to site navigation (Press enter) \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend 'Evan Stade' via blink-dev Fri, 24 Apr 2026 12:03:06 -0700 Contact emails \[email&#160;prot...
 - [Re: \[EXTERNAL\] Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend](http://www.mail-archive.com/blink-dev@chromium.org/msg16371.html) *(mail-archive.com)*
   > Re: \[EXTERNAL\] Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend Skip to site navigation (Press enter) Re: \[EXTERNAL\] Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend 'Evan Stade' via blink-dev Mon, 27 Apr 2026 13:02:53...
-- [Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend](http://www.mail-archive.com/blink-dev@chromium.org/msg16362.html) *(mail-archive.com)*
-  > Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend Skip to site navigation (Press enter) Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend Daniel Herr Sat, 25 Apr 2026 00:10:41 -0700 So we killed Web SQL because everyone ...
-- [Chrome 150 beta \| Blog \| Chrome for Developers](https://developer.chrome.com/blog/chrome-150-beta) *(developer.chrome.com · 2026-06-03T00:00:00)*
+- [Web-Facing Change PSA: IndexedDB: SQLite backend (in-memory contexts)](https://groups.google.com/a/chromium.org/g/blink-dev/c/jEDGJfRibfM) *(groups.google.com)*
+  > There is no change to the Web API. This is expected to improve reliability and, to a lesser extent, performance. For now this is applied only to in-memory contexts such as Incognito mode in Chromium and Google Chrome. This limits the impact of any ne...
+- [Chrome 156 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/156) *(chromestatus.com · 2026-10-20T00:00:00)*
+  > Chromium&#x27;s IndexedDB implementation is rewritten on top of SQLite, to replace the previous implementation that uses a hybrid of LevelDB and flat files. There is no change to the Web API.
+- [Chrome 150 beta  \|  Blog  \|  Chrome for Developers](https://developer.chrome.com/blog/chrome-150-beta) *(developer.chrome.com · 2026-06-03T00:00:00)*
   > For now, this change applies to new data stores. This change is step 2 of a multi-phase progressive release. See the ChromeStatus feature page for SQLite in-memory contexts which tracks step 1.
-- [Chrome 156 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/156) *(chromestatus.com · 2026-10-20T08:23:54)*
-  > Tracking bug #542706103 ↗ (opens in new window) \| ChromeStatus.com entry \| Spec ↗ (opens in new window) \| Explainer ↗ (opens in new window) Chromium&#x27;s IndexedDB implementation is rewritten on top of SQLite, to replace the previous implementation...
-- [Write code to migrate from LevelDB to SQLite \[419264073\] - Chromium](https://issues.chromium.org/issues/419264073) *(issues.chromium.org · 2025-05-21T00:00:00)*
-  > IDB: SQLite store - &lt;strong&gt;add support for blobs that are stored as files&lt;/strong&gt;. ... This will be used for DBs migrated from LevelDB, where blobs are stored as standalone files, to sidestep the need to re-write those blobs into the SQLite DB. No ...
-- [Migrate IndexedDB from LevelDB to SQLite \[40253999\] - Chromium](https://issues.chromium.org/issues/40253999/dependencies) *(issues.chromium.org)*
-  > Date of next expected progress update or deadline for providing requested information. \[ID: 1225154\] · This field contains Gerrit urls of code changes that ‘fix’ a security bug (i.e., excluding logging/cleanup commits) and is used when a singular fix...
+- [Chrome 156 Moves IndexedDB to SQLite: What Changes](https://www.digitbin.com/chrome-156-indexeddb-sqlite) *(digitbin.com · 2026-10-21T06:44:25)*
+  > Every Chromium browser keeps offline data for web apps in IndexedDB, the same place a web email client parks an unsent draft so it survives a dropped connection. Until now that store sat on a mix of LevelDB and flat files. According to the Chrome Sta...
+- [\[October 2026 Latest\] Chrome 156 is here! A thorough explanation of the 353 vulnerability fixes and major internal specification overhauls｜P.E.Jp](https://note.com/vast_flax7410/n/nb4578577a8f0?hl=en) *(note.com · 2026-10-22T20:35:40)*
+  > ... Data integrity, fault tolerance, and reliability are significantly improved. Reduced risk of data corruption due to unexpected crashes or power outages. ... There are no changes to existing Web API specifications. &lt;strong&gt;There is no need to rewr...
 - [Potential Sandbox Escape via missing SQLite corruption guard in IndexedDB \[513858286\] - Chromium](https://issues.chromium.org/issues/513858286) *(issues.chromium.org)*
   > Overview: &lt;strong&gt;A missing corruption check in SQLite&#x27;s accessPayload function allows a compromised renderer to overwrite arbitrary cached b-tree pages in the browser process&lt;/strong&gt;. This is reachable via the IndexedDB SQLite backend during b...
-- [More efficient IndexedDB storage in Chrome \| Chromium \| Chrome for Developers](https://developer.chrome.com/docs/chromium/indexeddb-storage-improvements) *(developer.chrome.com · 2024-08-27T00:00:00)*
-  > A new optimization in Chrome improves how IndexedDB data is stored on disk. This document summarizes the key points of this update.
 
 ## 🔗 Inbound Citations & Reverse Links
 
 The following external publications and discussions explicitly link to or cite this feature's specification, explainer, or ChromeStatus entry:
 
-- [Web-Facing Change PSA: IndexedDB: SQLite backend](https://groups.google.com/a/chromium.org/g/blink-dev/c/jS0khnC5IWA) *(groups.google.com · 2026-04-24T00:00:00)* *(Cites: `https://chromestatus.com/feature/5161589557821440`)*
-  > Web-Facing Change PSA: IndexedDB: SQLite backend Groups Groups Conversations All groups and messages Send feedback to Google Help Training Sign in Groups Groups &#xE5C4; &#xE899; &#xE408; &#xE409; Web-Facing Change PSA: IndexedDB: SQLite ba...
-- [\[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend](http://www.mail-archive.com/blink-dev@chromium.org/msg16359.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5161589557821440`)*
-  > \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend Skip to site navigation (Press enter) \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend 'Evan Stade' via blink-dev Fri, 24 Apr 2026 12:03:06 -0700 Contact emails \[email...
-- [IndexedDB: SQLite backend · Issue #38 · getsentry/browser-updates-radar](https://github.com/getsentry/browser-updates-radar/issues/38) *(github.com · 2026-09-28T08:15:45)* *(Cites: `https://chromestatus.com/feature/5161589557821440`)*
-  > IndexedDB: SQLite backend · Issue #38 · getsentry/browser-updates-radar · GitHub Skip to content Navigation Menu Sign in Appearance settings Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to re...
-- [Re: \[EXTERNAL\] Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend](http://www.mail-archive.com/blink-dev@chromium.org/msg16371.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5161589557821440`)*
-  > Re: \[EXTERNAL\] Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend Skip to site navigation (Press enter) Re: \[EXTERNAL\] Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend 'Evan Stade' via blink-dev Mon, 27 Apr 202...
+- [IndexedDB: SQLite backend · Issue #38 · getsentry/browser-updates-radar · GitHub](https://github.com/getsentry/browser-updates-radar/issues/38) *(github.com · 2026-09-28T08:15:45)* *(Cites: `https://chromestatus.com/feature/5161589557821440`)*
+  > IndexedDB: SQLite backend · Issue #38 · getsentry/browser-updates-radar · GitHub Skip to content Navigation Menu Sign in Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your session. ...
 - [Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend](http://www.mail-archive.com/blink-dev@chromium.org/msg16362.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5161589557821440`)*
   > Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend Skip to site navigation (Press enter) Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend Daniel Herr Sat, 25 Apr 2026 00:10:41 -0700 So we killed Web SQL because...
+- [\[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend](http://www.mail-archive.com/blink-dev@chromium.org/msg16359.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5161589557821440`)*
+  > \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend Skip to site navigation (Press enter) \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend 'Evan Stade' via blink-dev Fri, 24 Apr 2026 12:03:06 -0700 Contact emails \[email...
+- [Re: \[EXTERNAL\] Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend](http://www.mail-archive.com/blink-dev@chromium.org/msg16371.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5161589557821440`)*
+  > Re: \[EXTERNAL\] Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend Skip to site navigation (Press enter) Re: \[EXTERNAL\] Re: \[blink-dev\] Web-Facing Change PSA: IndexedDB: SQLite backend 'Evan Stade' via blink-dev Mon, 27 Apr 202...
 
 ## 📚 Platform Documentation & Specifications
 
 - [github.com](https://github.com/MicrosoftEdge/WebView2Feedback/discussions/5754) *(github.com)*
-- [IndexedDB: SQLite backend · Issue #38 · getsentry/browser-updates-radar](https://github.com/getsentry/browser-updates-radar/issues/38) *(github.com)*
-- [Termius import: read Chromium's SQLite IndexedDB backend · Issue #449 · VoltiusApp/voltius](https://github.com/VoltiusApp/voltius/issues/449) *(github.com)*
+- [IndexedDB: SQLite backend · Issue #38 · getsentry/browser-updates-radar · GitHub](https://github.com/getsentry/browser-updates-radar/issues/38) *(github.com)*
 
 ## 🔍 Investigation Audit Trail
 
 ### Searches Executed
 
-- **Brave Search:** 71 result(s) found across 12 planned queries — **14 verified relevant**
+- **Brave Search:** 67 result(s) found across 11 planned queries — **15 verified relevant**
   - `"chromestatus.com/feature/5161589557821440" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (5 returned)
   - `"www.w3.org/TR/IndexedDB" -site:www.w3.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (8 returned)
-  - `"IndexedDB: SQLite backend" API` — *Core feature API query* (5 returned)
+  - `"IndexedDB: SQLite backend" API` — *Core feature API query* (8 returned)
   - `"IndexedDB: SQLite backend" (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"chromestatus.com" OR "multi-phase" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (8 returned)
   - `"IndexedDB: SQLite backend" (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"IndexedDB: SQLite backend" (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `Chromium "IndexedDB" "SQLite" (LevelDB OR backend OR migration)` — *Find official announcements, design docs, and release updates regarding Chromium rewriting the IndexedDB backend to use SQLite instead of LevelDB.* (8 returned)
-  - `"IndexedDB" (corruption OR "data loss") "SQLite" Chromium` — *Discover developer discussions, Hacker News threads, and bug tracking debates addressing IndexedDB reliability issues and expectations around SQLite.* (8 returned)
-  - `"IndexedDB" "SQLite backend" (performance OR differences OR reliability) blog` — *Look for technical writeups and blog posts detailing behavioral differences, storage quirks, and performance characteristics of the new SQLite-backed IndexedDB.* (5 returned)
-  - `"IndexedDB" chrome://flags SQLite OR "IndexedDbSQLite" OR enable-features` — *Locate developer guides, CLI flags, and test setups for enabling, debugging, and benchmarking the SQLite IndexedDB implementation in Chromium.* (8 returned)
-  - `"IndexedDB" SQLite ("Dexie" OR "localForage" OR "offline") reliability` — *Track how major client-side storage libraries, offline-first frameworks, and PWAs are reacting to the SQLite engine migration.* (8 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 10 result(s) found — **6 verified relevant**
+  - `Chrome "IndexedDB" ("SQLite" AND "LevelDB") rewrite OR backend` — *Finds Chromium release notes, Blink-dev intent threads, and official announcements about migrating IndexedDB to SQLite.* (8 returned)
+  - `"IndexedDB" "SQLite" (corruption OR reliability OR "LevelDB") site:news.ycombinator.com OR site:reddit.com` — *Captures community reactions, developer sentiment, and discussions around IndexedDB data loss issues and the SQLite replacement.* (8 returned)
+  - `"IndexedDB" "SQLite backend" (benchmarks OR differences OR performance) blog` — *Surfaces developer guides, engineering blog analyses, and technical summaries detailing changes and performance characteristics of SQLite-backed IndexedDB.* (8 returned)
+  - `"enable-features=IndexedDBSQLite" OR "IndexedDB SQLite" flags chrome test` — *Discovers developer testing flags, Chromium CLI switches, and practical instructions for verifying local behavior under the new backend.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 8 result(s) found — **6 verified relevant**
 - **Twitter / X API v2:** *found 0 tweet(s)*
-- **Tweets found by web search:** 6 result(s) found — **0 verified relevant**
+- **Tweets found by web search:** 7 result(s) found — **0 verified relevant**
 - **Dev.to Community Blogs:** 0 result(s) found — **0 verified relevant**
-- **Hacker News Algolia:** 8 result(s) found — **1 verified relevant**
+- **Hacker News Algolia:** 6 result(s) found — **1 verified relevant**
 - **Standards Positions:** 0 result(s) found — **0 verified relevant**
 - **Engine Bug Trackers:** 0 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *widely*

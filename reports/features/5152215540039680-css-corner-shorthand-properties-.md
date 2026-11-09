@@ -1,6 +1,6 @@
 # CSS corner shorthand properties 
 
-> **Report Week:** 2026-W45 | **Milestone:** Chrome 157 | **Category:** Enabled by default
+> **Report Week:** 2026-W46 | **Milestone:** Chrome 159 | **Category:** Enabled by default
 
 ## Overview
 
@@ -12,14 +12,14 @@ Currently, setting both the radius and shape of a corner requires two separate d
 
 ## Ecosystem Status
 
-- **Momentum:** Quiet (-40 points since 2026-10-12; footprint 230 points)
+- **Momentum:** Emerging (+30 points since 2026-10-12; footprint 300 points)
 - **Standards Alignment:** Multi-Engine Consensus
-- **Sentiment:** Positive
-- **Executive Take:** The CSS corner shorthand properties, standardized in CSS Borders and Box Decorations Module Level 4, streamline element styling by combining border radius and corner shape declarations into unified physical and logical shorthands like corner-top-left: 20px squircle. Chromium is enabling the feature by default starting in Chrome 157, backed by formal W3C CSS Working Group resolutions. Cross-browser consensus is broadly aligned, though the broader corner-shape feature family is currently in limited baseline availability while non-Chromium engines progress through implementation.
+- **Sentiment:** Cautiously Optimistic
+- **Executive Take:** CSS corner shorthand properties consolidate border sizing and corner shaping into ergonomic single declarations, allowing authors to define complex geometries like squircles and bevels without clunky multi-property pairing or SVG hacks. The feature is actively shipping across Chromium browsers including Chrome and Microsoft Edge, but it remains at Limited Availability across the wider multi-engine landscape. While the CSS Working Group resolved the shorthand syntax and peer engines maintain supportive positions, cross-browser interoperability is still maturing.
 
 ### Recommendations
-- Actionable Advice: Adopt the corner shorthand progressively today by providing a traditional border-radius fallback followed by feature-flagged declarations guarded with @supports (corner: 10px squircle) or @supports (corner-shape: squircle). Avoid relying on corner shorthands as the sole geometric styling mechanism in mission-critical production UI until cross-engine availability stabilizes.
-- Shipping enabled by default in Chrome 157. Developers can begin adopting in production with progressive feature detection.
+- Actionable Advice: Adopt corner shorthands strictly as a progressive enhancement by layering them on top of standard border-radius fallbacks or guarding rules with CSS @supports queries. Teams building critical brand-specific shapes must continue relying on SVG clipping or CSS masks until cross-engine Baseline parity is achieved.
+- Shipping enabled by default in Chrome 159. Developers can begin adopting in production with progressive feature detection.
 - Standards Activity (WebKit): Latest discussion from @smfr: "We think that \`corner-shape\` will be useful to allow for bevel, and superellipse (aka squircle), but we believe that more complex corner shapes are be..."
 - Standards Activity (Mozilla): Latest discussion from @dholbert: "&gt; @dholbert fwiw, I'm not so sure about it. \`corner-shape: angle\` messing with \`border-radius\` feels wrong somehow (even if it's the simplest way to s..."
 - No verified standalone runtime polyfill available; design progressive enhancement fallbacks for non-supporting browsers.
@@ -33,36 +33,54 @@ Currently, setting both the radius and shape of a corner requires two separate d
 
 *group-level data: web-features [`corner-shape`](https://webstatus.dev/features/corner-shape)*
 
-- Share of tests passing in the web-features group `corner-shape` on [wpt.fyi](https://wpt.fyi/results?q=feature:corner-shape) (via webstatus.dev) — stable: Chrome 78.1% · Edge 80.3% · Firefox 9.4% · Safari 7.8%; experimental: Chrome 84.5% · Edge 86.5% · Firefox 55.4% · Safari 71%
+- Share of tests passing in the web-features group `corner-shape` on [wpt.fyi](https://wpt.fyi/results?q=feature:corner-shape) (via webstatus.dev) — stable: Chrome 76.7% · Edge 77.7% · Firefox 9.4% · Safari 8.4%; experimental: Chrome 87.6% · Edge 76.2% · Firefox 55% · Safari 72.3%
 - **WebKit:** support ([standards position](https://github.com/WebKit/standards-positions/issues/229))
 - **Mozilla:** positive ([standards position](https://github.com/mozilla/standards-positions/issues/823))
 
 ## 📰 Ecosystem Blogs & Articles
 
-- [Squircles in CSS: corner-shape, superellipse() and Browser Support (2026) - Squircle.js](https://squircle.js.org/blog/squircles-in-css) *(squircle.js.org)*
-  > The \*\*CSS corner shorthand properties\*\* (specified in the W3C \*\*CSS Borders and Box Decorations Module Level 4\*\*) address a major ergonomics issue introduced when corner shaping (\`corner-shape: squircle \| bevel \| scoop \| notch \| round \| superellipse(...
-- [css.properties](https://css.properties/corner-top-left-shape) *(css.properties)*
-  > The \*\*CSS corner shorthand properties\*\* (specified in the W3C \*\*CSS Borders and Box Decorations Module Level 4\*\*) address a major ergonomics issue introduced when corner shaping (\`corner-shape: squircle \| bevel \| scoop \| notch \| round \| superellipse(...
-- [searchfox.org](https://searchfox.org/firefox-main/source/testing/web-platform/tests/css/css-borders/corner-shape/corner-shorthand-rendering-ref.html) *(searchfox.org)*
-  > \*\*Signals:\*\* Firefox signaled positive support in Web Platform Tests (WPT), and WebKit has been tracking implementation
 - [microsoft.com](https://learn.microsoft.com/en-us/microsoft-edge/web-platform/release-notes/157) *(learn.microsoft.com)*
-  > Edge documentation highlighted the \`corner\` property as a headline CSS addition card { corner: 20px squircle; }\` replaces paired declarations across cards, buttons, and modal dialogs
-- [How to create fancy corners using CSS corner-shape - LogRocket Blog](https://blog.logrocket.com/create-fancy-corners-css) *(blog.logrocket.com)*
-  > \*\*The "Squircle" and UI Detailing Craze:\*\* Both publications released tutorials exploring native squircle and bevel rendering \*\*Ergonomic Simplification:\*\* Authors emphasized that without the \`corner\` shorthands, component authors had to write verbos...
+  > \*\*Universal shorthand:\*\* \`corner: &lt;'border-radius'&gt; \|\| &lt;'corner-shape'&gt;;\` (e.g., \`corner: 20px squircle;\`) \*\*Per-corner shorthands:\*\* \`corner-top-left\`, \`corner-top-right\`, \`corner-bottom-left\`, \`corner-bottom-right\`
+- [chromestatus.com](https://chromestatus.com/release-notes/159) *(chromestatus.com)*
+  > \*\*Per-corner shorthands:\*\* \`corner-top-left\`, \`corner-top-right\`, \`corner-bottom-left\`, \`corner-bottom-right\` \*\*Physical and logical edge shorthands:\*\* \`corner-top\`, \`corner-bottom\`, \`corner-block-start\`, \`corner-block-end\`, \`corner-inline-start\`, et...
+- [artofstyleframe.com](https://artofstyleframe.com/blog/css-corner-shorthand-chrome-155-squircle-corners) *(artofstyleframe.com)*
+  > Following initial experimental testing in Chrome 155 beta, Chromium officially targeted enabling the corner shorthand suite by default in \*\*Chrome 157\*\* Articles tracking early parser behavior analyzed runtime support using \`@supports (corner: 20px s...
+- [appspot.com](https://img136-dot-cr-status.appspot.com) *(img136-dot-cr-status.appspot.com)*
+  > Following initial experimental testing in Chrome 155 beta, Chromium officially targeted enabling the corner shorthand suite by default in \*\*Chrome 157\*\*
+- [chrome.com](https://developer.chrome.com/blog/chrome-155-beta) *(developer.chrome.com)*
+  > Following initial experimental testing in Chrome 155 beta, Chromium officially targeted enabling the corner shorthand suite by default in \*\*Chrome 157\*\*
+- [trade-assistance.com](https://trade-assistance.com/blog/css-corner-shape-squircle-bevel-chrome-157-corner-shorthand) *(trade-assistance.com)*
+  > MDN highlights that, unlike \`clip-path\`, corner shaping alters the actual border-box path of the element; backgrounds, border styles, shadows (\`box-shadow\`), and outlines naturally follow the computed corner geometry It explains how developers can mi...
 - [master.dev](https://blog.master.dev/background-patterns-with-css-corner-radius) *(blog.master.dev)*
-  > They noted that mobile-inspired design languages (such as iOS-style squircle icons and cards) previously required heavy SVG clip paths or canvas workarounds dev):\*\* Explores generative background tiles and decorative UI (such as vintage ticket stubs ...
-- [youtube.com](https://m.youtube.com/watch?v=SEhV2fxsTbc&pp=0gcJCTAMAYcqIYzv) *(m.youtube.com)*
-  > \*\*Fallbacks with \`@supports\`:\*\* Multiple developer articles point out the necessity of progressive enhancement, recommending \`@supports (corner: 20px squircle)\` to provide basic \`border-radius\` fallbacks for older browser versions
-- [\[blink-dev\] Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17493.html) *(mail-archive.com)*
-  > \[blink-dev\] Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: CSS corner shorthand properties Helmut Januschka Fri, 18 Sep 2026 06:34:29 -0700 \*Contact emails\* \[email&#160;protected\] \*Ex...
-- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17637.html) *(mail-archive.com)*
-  > Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Helmut Januschka Thu, 01 Oct 2026 07:54:36 -0700 Quick correction to this I2...
+  > It explains how developers can mix and match styles across corners (e.g., notched coupons, ticket cutouts, and iOS-like app icons) Articles tracking early parser behavior analyzed runtime support using \`@supports (corner: 20px squircle)\` and \`CSS.sup...
+- [youtube.com](https://www.youtube.com/watch?v=FPB2KVe_jP0) *(youtube.com)*
+  > Developer commentary across frontend blogs emphasizes that the shorthand removes one of the most frustrating aspects of modern CSS layout: using SVG masks or brittle \`clip-path: polygon(...)\` hacks Developers welcome the \`corner\` shorthands as a clea...
+- [medium.com](https://devsmitra.medium.com/css-corner-shape-next-level-corners-for-your-ui-f053445508cd) *(devsmitra.medium.com)*
+  > Authors urged teams working in production to treat \`corner\` as a progressive enhancement, maintaining baseline \`border-radius\` fallbacks while browser engines complete cross-vendor adoption
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17569.html) *(mail-archive.com)*
+  > Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Alex Russell Mon, 28 Sep 2026 16:48:56 -0700 Thanks for the update. LGTM1. O...
 - [\[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17509.html) *(mail-archive.com)*
   > \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Alex Russell Mon, 21 Sep 2026 11:46:37 -0700 This looks like a good feature; can you...
-- [CSS Borders and Box Decorations Module Level 4](https://w3c.github.io/csswg-drafts/css-borders) *(w3c.github.io)*
-  > CSS Borders and Box Decorations Module Level 4 CSS Borders and Box Decorations Module Level 4 W3C Working Draft , 15 October 2026 More details about this document This version: https://www.w3.org/TR/2026/WD-css-borders-4-20261015/ Latest published ve...
+- [\[blink-dev\] Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17493.html) *(mail-archive.com)*
+  > \[blink-dev\] Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: CSS corner shorthand properties Helmut Januschka Fri, 18 Sep 2026 06:34:29 -0700 \*Contact emails\* \[email&#160;protected\] \*Ex...
 - [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17570.html) *(mail-archive.com)*
-  > &gt; &gt; On Thursday, September 24, 2026 at 3:12:33 AM UTC-7 \[email protected\] &gt; wrote: &gt; &gt;&gt; ok was faster than i thought, the webkit PR &gt;&gt; https://github.com/WebKit/WebKit/pull/65464 landed (behind flag) &gt;&gt; &gt;&gt; Am Mi., ...
+  > Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties 'Dan Clark' via blink-dev Mon, 28 Sep 2026 16:48:58 -0700 LGTM2 On Monday, S...
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17574.html) *(mail-archive.com)*
+  > Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Mike Taylor Mon, 28 Sep 2026 19:23:42 -0700 LGTM3 On 9/28/26 4:48 p.m., 'Dan...
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17545.html) *(mail-archive.com)*
+  > Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Helmut Januschka Thu, 24 Sep 2026 03:12:34 -0700 ok was faster than i though...
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17538.html) *(mail-archive.com)*
+  > Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Helmut Januschka Wed, 23 Sep 2026 09:11:05 -0700 Updated the entry and chang...
+- [Chrome 157 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/157) *(chromestatus.com · 2026-11-02T20:19:23)*
+  > sampler: https://&lt;strong&gt;static.januschka.com/i-425897047&lt;/strong&gt;/
+- [Chrome Release 157](https://chromestatuslite.com/?version=157) *(chromestatuslite.com)*
+  > These &lt;strong&gt;allow setting both border-radius and corner-shape for individual corners in a single declaration&lt;/strong&gt;. Additionally, corners is retained as a compat alias for the corner shorthand. sampler: https://static.januschka.com/i-425897047/ ...
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17637.html) *(mail-archive.com)*
+  > &gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; Best, &gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; Alex &gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; On Friday, September 18, 2026 at 6:33:46 AM UTC-7 \[email protected\] &gt;&gt;&gt;&gt;&gt;&...
+- [Chrome 155 beta  \|  Blog  \|  Chrome for Developers](https://developer.chrome.com/blog/chrome-155-beta?hl=en) *(developer.chrome.com)*
+  > It builds an anonymous counter style from a list of string symbols plus an optional counting system (cyclic, numeric, alphabetic, symbolic, or fixed), and is accepted as the counter style in list-style-type, the list-style shorthand, counter(), and c...
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17636.html) *(mail-archive.com)*
+  > &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; \*WebKit\*: Shipped/Shipping ( &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; https://github.com/WebKit/standards-positions/issues/229) WebKit &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; supports the underlying ...
 
 ## 🔗 Inbound Citations & Reverse Links
 
@@ -70,25 +88,35 @@ The following external publications and discussions explicitly link to or cite t
 
 - [CSS corner shorthand properties · Issue #1367 · GoogleChrome/modern-web-guidance-src · GitHub](https://github.com/GoogleChrome/modern-web-guidance-src/issues/1367) *(github.com · 2026-08-23T14:10:52)* *(Cites: `https://chromestatus.com/feature/5152215540039680`)*
   > CSS corner shorthand properties · Issue #1367 · GoogleChrome/modern-web-guidance-src · GitHub Skip to content Navigation Menu Sign in Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh y...
-- [\[blink-dev\] Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17493.html) *(mail-archive.com)* *(Cites: `https://static.januschka.com/i-425897047`)*
-  > \[blink-dev\] Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: CSS corner shorthand properties Helmut Januschka Fri, 18 Sep 2026 06:34:29 -0700 \*Contact emails\* \[email&#160;prot...
-- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17637.html) *(mail-archive.com)* *(Cites: `https://static.januschka.com/i-425897047`)*
-  > Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Helmut Januschka Thu, 01 Oct 2026 07:54:36 -0700 Quick correction ...
-- [\[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17509.html) *(mail-archive.com)* *(Cites: `https://static.januschka.com/i-425897047`)*
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17569.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5152215540039680`)*
+  > Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Alex Russell Mon, 28 Sep 2026 16:48:56 -0700 Thanks for the update...
+- [\[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17509.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5152215540039680`)*
   > \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Alex Russell Mon, 21 Sep 2026 11:46:37 -0700 This looks like a good featur...
-- [csswg-drafts/css-borders-4/Overview.bs at main · w3c/csswg-drafts · GitHub](https://github.com/w3c/csswg-drafts/blob/main/css-borders-4/Overview.bs) *(github.com)* *(Cites: `https://drafts.csswg.org/css-borders-4/#corner-shaping`)*
-  > csswg-drafts/css-borders-4/Overview.bs at main · w3c/csswg-drafts · GitHub Skip to content Navigation Menu Sign in Search / Sign in Sign up Appearance settings You signed in with another tab or window. Reload to refresh your session. You si...
-- [CSS Borders and Box Decorations Module Level 4](https://w3c.github.io/csswg-drafts/css-borders) *(w3c.github.io)* *(Cites: `https://drafts.csswg.org/css-borders-4/#corner-shaping`)*
-  > CSS Borders and Box Decorations Module Level 4 CSS Borders and Box Decorations Module Level 4 W3C Working Draft , 15 October 2026 More details about this document This version: https://www.w3.org/TR/2026/WD-css-borders-4-20261015/ Latest pu...
+- [\[blink-dev\] Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17493.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5152215540039680`)*
+  > \[blink-dev\] Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) \[blink-dev\] Intent to Ship: CSS corner shorthand properties Helmut Januschka Fri, 18 Sep 2026 06:34:29 -0700 \*Contact emails\* \[email&#160;prot...
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17570.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5152215540039680`)*
+  > Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties 'Dan Clark' via blink-dev Mon, 28 Sep 2026 16:48:58 -0700 LGTM2 On...
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17574.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5152215540039680`)*
+  > Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Mike Taylor Mon, 28 Sep 2026 19:23:42 -0700 LGTM3 On 9/28/26 4:48 ...
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17545.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5152215540039680`)*
+  > Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Helmut Januschka Thu, 24 Sep 2026 03:12:34 -0700 ok was faster tha...
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17538.html) *(mail-archive.com)* *(Cites: `https://chromestatus.com/feature/5152215540039680`)*
+  > Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Skip to site navigation (Press enter) Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties Helmut Januschka Wed, 23 Sep 2026 09:11:05 -0700 Updated the entry...
+- [Chrome 157 Release Notes - Chrome Platform Status](https://chromestatus.com/release-notes/157) *(chromestatus.com · 2026-11-02T20:19:23)* *(Cites: `https://static.januschka.com/i-425897047`)*
+  > sampler: https://&lt;strong&gt;static.januschka.com/i-425897047&lt;/strong&gt;/
+- [Chrome Release 157](https://chromestatuslite.com/?version=157) *(chromestatuslite.com)* *(Cites: `https://static.januschka.com/i-425897047`)*
+  > These &lt;strong&gt;allow setting both border-radius and corner-shape for individual corners in a single declaration&lt;/strong&gt;. Additionally, corners is retained as a compat alias for the corner shorthand. sampler: https://static.januschka.com/i-4...
+- [Re: \[blink-dev\] Re: Intent to Ship: CSS corner shorthand properties](http://www.mail-archive.com/blink-dev@chromium.org/msg17637.html) *(mail-archive.com)* *(Cites: `https://static.januschka.com/i-425897047`)*
+  > &gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; Best, &gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; Alex &gt;&gt;&gt;&gt;&gt;&gt; &gt;&gt;&gt;&gt;&gt;&gt; On Friday, September 18, 2026 at 6:33:46 AM UTC-7 \[email protected\] &gt;&gt;&gt...
+- [\[css-borders-4\] Fix corner-shape \|\| border-radius order to match resolution in #11623 by kbabbitt · Pull Request #14607 · w3c/csswg-drafts · GitHub](https://github.com/w3c/csswg-drafts/pull/14607) *(github.com)* *(Cites: `https://drafts.csswg.org/css-borders-4/#corner-shaping`)*
+  > \[css-borders-4\] Fix corner-shape \|\| border-radius order to match reso… … ... @noamr could you ptal? The order doesn&#x27;t matter for parsing but I believe it does for serialization, so this brings the spec in line with the resolution. ... ...
 
 ## 📚 Platform Documentation & Specifications
 
 - [CSS Borders and Box Decorations Module Level 4](https://www.w3.org/TR/css-borders-4) *(w3.org)*
-- [\[css-borders-4\] corner-shape initial value ("round") is strange in some cases (e.g. bevel) · Issue #11623 · w3c/csswg-drafts · GitHub](https://github.com/w3c/csswg-drafts/issues/11623) *(github.com)*
-- [github.com](https://github.com/mdn/content/blob/main/files/en-us/web/css/reference/properties/corner-top-shape/index.md?plain=1) *(github.com)*
 - [CSS corner shorthand properties · Issue #1367 · GoogleChrome/modern-web-guidance-src · GitHub](https://github.com/GoogleChrome/modern-web-guidance-src/issues/1367) *(github.com)*
-- [csswg-drafts/css-borders-4/Overview.bs at main · w3c/csswg-drafts · GitHub](https://github.com/w3c/csswg-drafts/blob/main/css-borders-4/Overview.bs) *(github.com)*
 - [\[css-borders-4\] Fix corner-shape \|\| border-radius order to match resolution in #11623 by kbabbitt · Pull Request #14607 · w3c/csswg-drafts · GitHub](https://github.com/w3c/csswg-drafts/pull/14607) *(github.com)*
+- [\[css-borders-4\] corner-shape initial value ("round") is strange in some cases (e.g. bevel) · Issue #11623 · w3c/csswg-drafts · GitHub](https://github.com/w3c/csswg-drafts/issues/11623) *(github.com)*
 - [\[css-borders\] Add shorthand for \`border-shape\` / \`corner-shape\` / \`border-radius\` · Issue #11679 · w3c/csswg-drafts · GitHub](https://github.com/w3c/csswg-drafts/issues/11679) *(github.com)*
 - [\[css-borders-4\] \`corner\` shorthand slashes conflict with optional forward slashs in border-\*-radius long hands · Issue #13889 · w3c/csswg-drafts · GitHub](https://github.com/w3c/csswg-drafts/issues/13889) *(github.com)*
 
@@ -96,38 +124,37 @@ The following external publications and discussions explicitly link to or cite t
 
 ### Searches Executed
 
-- **Brave Search:** 55 result(s) found across 12 planned queries — **14 verified relevant**
-  - `"chromestatus.com/feature/5152215540039680" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (1 returned)
-  - `"static.januschka.com/i-425897047" -site:static.januschka.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (5 returned)
+- **Brave Search:** 55 result(s) found across 12 planned queries — **18 verified relevant**
+  - `"chromestatus.com/feature/5152215540039680" -site:chromestatus.com` *(Reverse Citation)* — *Inbound citations linking to ChromeStatus entry* (8 returned)
+  - `"static.januschka.com/i-425897047" -site:static.januschka.com` *(Reverse Citation)* — *Inbound citations linking to Explainer* (8 returned)
   - `"drafts.csswg.org/css-borders-4" -site:drafts.csswg.org` *(Reverse Citation)* — *Inbound citations linking to Specification* (8 returned)
-  - `"CSS corner shorthand properties " API` — *Core feature API query* (5 returned)
+  - `"CSS corner shorthand properties " API` — *Core feature API query* (8 returned)
   - `"CSS corner shorthand properties " (blog OR tutorial OR guide OR "how to use")` — *Community tutorials and developer blogs* (8 returned)
   - `"css                                                                                                                                                                                                                                                            /* before: two declarations needed */                                                                                                                                                                                                                           border-top-left-radius: 20px;                                                                                                                                                                                                                                   corner-shape-top-left: squircle;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 /* after: single corner shorthand */                                                                                                                                                                                                                            corner-top-left: 20px squircle;" OR "static.januschka" (javascript OR web OR css)` — *Code syntax and WebIDL method usage* (0 returned)
   - `"CSS corner shorthand properties " (adoption OR shipping OR "developer preview" OR PWA)` — *Ecosystem adoption and developer sentiment* (8 returned)
   - `"CSS corner shorthand properties " (site:x.com OR site:twitter.com)` — *Twitter / X developer sentiment and commentary* (8 returned)
-  - `"corner-shape" AND ("corner-top-left" OR "corner" shorthand) css blog OR guide` — *Finds developer blogs, guides, and articles demonstrating how to use the new CSS corner shorthands.* (8 returned)
-  - `css ("corner-top-left:" OR "corner:") ("squircle" OR "round")` — *Surfaces real-world CSS code examples using the corner shorthand syntax alongside shape keywords like squircle.* (8 returned)
-  - `"corner shorthand" OR "corner-shape" ("Chrome Platform Status" OR "caniuse" OR site:chromestatus.com)` — *Tracks browser adoption, implementation timelines, and platform readiness across major engines.* (1 returned)
-  - `site:github.com/w3c/csswg-drafts "corner" shorthand OR "corner-shape" OR 11623` — *Discovers CSSWG working group deliberations, author feedback, and specification issues resolving the corner shorthand syntax.* (8 returned)
-- **Google Search Grounding (gemini-3.8-flash):** 14 result(s) found — **10 verified relevant**
-- **Twitter / X API v2:** *found 2 tweet(s)*
+  - `"corner shorthand" OR "corner-top-left" "corner-shape" css tutorial OR guide` — *Finds developer guides and overview articles explaining the new CSS corner shorthands and their usage.* (5 returned)
+  - `"corner-top-left:" OR "corner:" squircle css -github` — *Identifies CSS code snippets and usage examples combining corner-shape and border-radius using the shorthand syntax.* (8 returned)
+  - `"corner shorthand" "corner-shape" site:chromestatus.com OR "Intent to Prototype" OR "Intent to Ship"` — *Tracks browser vendor release notes, implementation status, and intent declarations in Chromium and other engines.* (1 returned)
+  - `site:github.com/w3c/csswg-drafts "corner-shape" "corner" shorthand OR "issue 11623"` — *Surfaces standards deliberations, design trade-offs, and community feedback inside CSS Working Group issues.* (8 returned)
+- **Google Search Grounding (gemini-3.8-flash):** 17 result(s) found — **10 verified relevant**
+- **Twitter / X API v2:** *found 0 tweet(s)*
 - **Tweets found by web search:** 6 result(s) found — **0 verified relevant**
-- **Dev.to Community Blogs:** 2 result(s) found — **0 verified relevant**
+- **Dev.to Community Blogs:** 1 result(s) found — **0 verified relevant**
 - **Hacker News Algolia:** 0 result(s) found — **0 verified relevant**
 - **Standards Positions:** 2 result(s) found — **2 verified relevant**
 - **Engine Bug Trackers:** 2 result(s) found — **0 verified relevant**
 - **Baseline (baseline.dev):** *limited*
 - **NPM Registry:** 5 result(s) found — **0 verified relevant**
 - **web-features mapping:** *group "corner-shape", shared with 0 other ChromeStatus feature(s)*
-- **Web Platform Tests (wpt.fyi):** *group "corner-shape": Chrome 78.1% passing (stable)*
-- **Sources cited by the AI synthesis:** 5 result(s) found — **0 verified relevant**
+- **Web Platform Tests (wpt.fyi):** *group "corner-shape": Chrome 76.7% passing (stable)*
 
 ### Content Inspected
 
 - **Specification:** ✔ Formally verified
 - **Explainers:** 1 document(s) analyzed
 - **Standards Discussion Comments:** 6 engineer comment(s) read
-- **Web Page Excerpts Ingested:** 13 page(s)
+- **Web Page Excerpts Ingested:** 8 page(s)
 
 ## Useful Links
 
